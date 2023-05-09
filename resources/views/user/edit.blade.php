@@ -3,7 +3,7 @@
         <x-splade-form :default="$user" :action="route('user.update', $user->id)" class="flex flex-col gap-4" method="put">
 
             <div class="flex gap-4">
-                <div class="w-1/2 flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-4">
                     <x-splade-input name="name" :label="__('Nama')" placeholder="namamu" />
                     <x-splade-input name="email" :label="__('Email')" placeholder="email" />
                 </div>

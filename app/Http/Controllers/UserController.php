@@ -35,30 +35,17 @@ class UserController extends Controller
             ->paginate()
             ->withQueryString();
         return view('user.index', [
-            // 'users' => SpladeTable::for($users)
-            //     ->defaultSort('name')
-            //     ->column('name', sortable: true, searchable: true, canBeHidden: false)
-            //     ->column('email', sortable: true, searchable: true)
-            //     ->withGlobalSearch()
-            //     // ->rowLink(fn (User $user) => route('user.show', $user))
-            //     ->column('action')
-            //     ->selectFilter('name', [
-            //         'name' => 'name',
-            //         'email' => 'email'
-            //     ])
-
-            'users' => SpladeTable::for(User::class)
-                ->column('name')
-                ->column('email')
-                ->column('action')
+            'users' => SpladeTable::for($users)
+                ->defaultSort('name')
+                ->column('name', sortable: true, searchable: true, canBeHidden: false)
+                ->column('email', sortable: true, searchable: true)
                 ->withGlobalSearch()
+                // ->rowLink(fn (User $user) => route('user.show', $user))
+                ->column('action')
                 ->selectFilter('name', [
                     'name' => 'name',
                     'email' => 'email'
                 ])
-                ->column('action')
-                // ->rowLink(fn (User $user) => route('user.show', $user))
-                ->paginate(15),
 
         ]);
     }
