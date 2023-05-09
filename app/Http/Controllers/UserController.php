@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use CSV;
 use App\Models\User;
 use Illuminate\Http\Request;
-use ProtoneMedia\Splade\Facades\Splade;
+use Illuminate\Support\Collection;
 use ProtoneMedia\Splade\SpladeTable;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use ProtoneMedia\Splade\Facades\Splade;
 
 class UserController extends Controller
 {
@@ -14,12 +18,47 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                Collection::wrap($value)->each(function ($value) use ($query) {
+                    $query
+                        ->orWhere('name', 'LIKE', "%{$value}%")
+                        ->orWhere('email', 'LIKE', "%{$value}%");
+                });
+            });
+        });
+        $globalSearch =
+            $users = QueryBuilder::for(User::class)
+            ->defaultSort('name')
+            ->allowedSorts(['name', 'email'])
+            ->allowedFilters(['name', 'email', $globalSearch])
+            ->paginate()
+            ->withQueryString();
         return view('user.index', [
-            'users' => SpladeTable::for($users)
+            // 'users' => SpladeTable::for($users)
+            //     ->defaultSort('name')
+            //     ->column('name', sortable: true, searchable: true, canBeHidden: false)
+            //     ->column('email', sortable: true, searchable: true)
+            //     ->withGlobalSearch()
+            //     // ->rowLink(fn (User $user) => route('user.show', $user))
+            //     ->column('action')
+            //     ->selectFilter('name', [
+            //         'name' => 'name',
+            //         'email' => 'email'
+            //     ])
+
+            'users' => SpladeTable::for(User::class)
                 ->column('name')
                 ->column('email')
-                ->column('language_code')
+                ->column('action')
+                ->withGlobalSearch()
+                ->selectFilter('name', [
+                    'name' => 'name',
+                    'email' => 'email'
+                ])
+                ->column('action')
+                // ->rowLink(fn (User $user) => route('user.show', $user))
+                ->paginate(15),
 
         ]);
     }
@@ -29,7 +68,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -37,7 +76,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'email'
+        ]);
     }
 
     /**
@@ -45,7 +87,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('user.show', compact('user'));
     }
 
     /**
@@ -53,7 +95,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('user.edit', compact('user'));
     }
 
     /**
