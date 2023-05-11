@@ -6,8 +6,10 @@ use CSV;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\View\View;
 use ProtoneMedia\Splade\SpladeTable;
 use Spatie\QueryBuilder\QueryBuilder;
+use ProtoneMedia\Splade\Facades\Toast;
 use Spatie\QueryBuilder\AllowedFilter;
 use ProtoneMedia\Splade\Facades\Splade;
 
@@ -67,6 +69,9 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'email'
         ]);
+        $user = User::create($request->all());
+        Splade::toast('User created successfully')->autoDismiss(5);
+        return redirect()->back();
     }
 
     /**
@@ -90,7 +95,17 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'email'
+        ]);
+        $user->update($request->all());
+        // Toast::title('User updated successfully')
+        //     ->message('No space left')
+        //     ->autoDismiss(5);
+        Splade::toast('User updated successfully')->autoDismiss(5);
+
+        return redirect()->back();
     }
 
     /**
@@ -99,5 +114,17 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+    public function try()
+    {
+        return View('user.try', ['users' => User::all()]);
+    }
+    public function tryStore(Request $request)
+    {
+        dd($request->all());
+        $request->validate([]);
+
+        Splade::toast('Users created successfully')->autoDismiss(5);
+        return redirect()->back();
     }
 }
