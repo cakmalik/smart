@@ -46,5 +46,8 @@ Route::middleware(['splade'])->group(function () {
     });
     Route::get('/try', [UserController::class, 'try'])->name('try');
     Route::post('/try', [UserController::class, 'tryStore'])->name('user.try');
+    Route::get('/try2', function () {
+        return view('user.try2');
+    })->name('user.try2');
     Route::resource('user', UserController::class);
 });
