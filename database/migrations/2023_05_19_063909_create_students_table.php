@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->string('nik');
-            $table->string('nis')->nullable();
-            $table->string('phone')->nullable();
             $table->date('place_of_birth');
             $table->date('date_of_birth');
             $table->string('gender');
@@ -28,13 +26,24 @@ return new class extends Migration
             $table->string('province');
             $table->string('postal_code');
             $table->string('religion');
-            $table->string('hobby')->nullable();
-            $table->string('ambition')->nullable();
+
             $table->string('nationality');
-            $table->string('housing_status')->nullable();
-            $table->string('recidency_status')->nullable();
+
+            $table->string('phone')->nullable();
             $table->string('student_image')->nullable();
             $table->string('parent_image')->nullable();
+
+            $table->string('nis')->nullable();
+            $table->string('hobby')->nullable();
+            $table->string('ambition')->nullable();
+            $table->string('housing_status')->nullable();
+            $table->string('recidency_status')->nullable();
+            $table->string('nism')->nullable();
+            $table->string('kis')->nullable();
+            $table->string('kip')->nullable();
+            $table->string('kks')->nullable();
+            $table->string('pkh')->nullable();
+
             $table->timestamps();
         });
     }
