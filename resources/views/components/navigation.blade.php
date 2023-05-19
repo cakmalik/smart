@@ -18,12 +18,12 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('user.index')" :active="request()->routeIs('user*')">
+                        {{-- <x-nav-link :href="route('user.index')" :active="request()->routeIs('user*')">
                             {{ __('Users') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('user.try2')" :active="request()->routeIs('user*')">
+                        </x-nav-link> --}}
+                        {{-- <x-nav-link :href="route('user.try2')" :active="request()->routeIs('user*')">
                             {{ __('Users') }}
-                        </x-nav-link>
+                        </x-nav-link> --}}
                     </div>
                 </div>
 
