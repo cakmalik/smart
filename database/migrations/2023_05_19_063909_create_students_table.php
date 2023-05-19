@@ -14,6 +14,27 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->string('nik');
+            $table->string('nis')->nullable();
+            $table->string('phone')->nullable();
+            $table->date('place_of_birth');
+            $table->date('date_of_birth');
+            $table->string('gender');
+            $table->string('address');
+            $table->string('rt_rw');
+            $table->string('village');
+            $table->string('district');
+            $table->string('city');
+            $table->string('province');
+            $table->string('postal_code');
+            $table->string('religion');
+            $table->string('hobby')->nullable();
+            $table->string('ambition')->nullable();
+            $table->string('nationality');
+            $table->string('housing_status')->nullable();
+            $table->string('recidency_status')->nullable();
+            $table->string('student_image')->nullable();
+            $table->string('parent_image')->nullable();
             $table->timestamps();
         });
     }
