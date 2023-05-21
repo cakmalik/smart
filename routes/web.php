@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,13 +43,4 @@ Route::middleware(['splade'])->group(function () {
     ])->group(function () {
         Route::view('/dashboard', 'dashboard')->name('dashboard');
     });
-    Route::get('/try', [UserController::class, 'try'])->name('try');
-    Route::post('/try', [UserController::class, 'tryStore'])->name('user.try');
-    Route::get('/try2', function () {
-        return view('user.try2');
-    })->name('user.try2');
-    Route::get('/try3', function () {
-        return view('user.try3');
-    })->name('user.try3');
-    Route::resource('user', UserController::class);
 });
