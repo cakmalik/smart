@@ -14,8 +14,8 @@
         "maatwebsite/excel": "^1.1",
         "protonemedia/laravel-dusk-fakes": "^1.4",
         "protonemedia/laravel-splade-jetstream": "^1.1",
-        "salmanzafar/laravel-repository-pattern": "^1.0",
-        "spatie/laravel-query-builder": "^5.2"
+        "spatie/laravel-query-builder": "^5.2",
+        "yaza/laravel-repository-service": "^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

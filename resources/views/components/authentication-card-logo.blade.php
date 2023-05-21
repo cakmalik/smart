@@ -1,3 +1,3 @@
-<Link :href="'/'" class="inline-block animate-bounce">
-<img src="{{ asset('bakid/sp.png') }}" width="120" height="120">
+<Link :href="'/'">
+<img src="{{ asset('bakid/logo-ppmu.png') }}" alt="Logo" class="w-20 h-20" />
 </Link>
