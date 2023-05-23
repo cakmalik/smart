@@ -184,7 +184,7 @@
                         class="relative flex items-center justify-center p-2 px-10 py-2 overflow-hidden font-medium text-green-500 transition duration-300 ease-out border-2 border-green-500 rounded-full group">
                     <span
                         class="absolute flex items-center justify-center w-full h-full duration-300 text-white translate-x-full bg-green-500 group-hover:translate-x-0 ease">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#FFFFFF"
                             viewBox="0 0 256 256">
                             <path
                                 d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z">
@@ -201,7 +201,7 @@
                             class="relative flex items-center justify-center p-2 px-10 py-2 overflow-hidden font-medium text-green-500 transition duration-300 ease-out border-2 border-green-500 rounded-full group">
                         <span
                             class="absolute flex items-center justify-center w-full h-full duration-300 text-white -translate-x-full bg-green-500 group-hover:translate-x-0 ease">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#FFFFFF"
                                 viewBox="0 0 256 256">
                                 <path
                                     d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z">

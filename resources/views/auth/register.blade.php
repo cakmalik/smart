@@ -21,26 +21,27 @@
                         'terms_of_service' =>
                             '<Link modal href="' .
                             route('terms.show') .
-                            '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">' .
+                            '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">' .
                             __('Syarat Layanan') .
                             '</Link>',
                         'privacy_policy' =>
                             '<Link modal href="' .
                             route('policy.show') .
-                            '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">' .
+                            '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">' .
                             __('Kebijakan Privasi') .
                             '</Link>',
                     ]) !!}
                 </x-splade-checkbox>
             @endif
 
-            <div class="flex items-center justify-end">
+            <div class="flex items-center justify-between pt-11">
                 <Link href="{{ route('login') }}"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                 {{ __('Sudah pernah mendaftar?') }}
                 </Link>
 
-                <x-splade-submit :label="__('Mendaftar')" class="ml-4" />
+                {{-- <x-splade-submit :label="__('Mendaftar')" class="" secondary /> --}}
+                <x-bakid-button />
             </div>
         </x-splade-form>
 </x-authentication-card>
