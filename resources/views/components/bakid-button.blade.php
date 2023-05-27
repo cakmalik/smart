@@ -1,5 +1,5 @@
     @php
-        $types = ['type1', 'type2', 'type3'];
+        $types = ['type1'];
         $type = $types[array_rand($types)];
         
     @endphp
@@ -7,7 +7,7 @@
     <x-splade-data default="{ type1: true, type2: false, type3: false }">
 
         <Button
-            class="relative flex items-center justify-center p-1 px-5 py-1 overflow-hidden font-medium text-green-500 transition duration-300 ease-out border-2 border-green-500 rounded-full group">
+            class="relative flex items-center justify-center p-1 px-5 py-1 overflow-hidden font-medium text-green-500 transition duration-300 ease-out border-2 border-white rounded-full group">
             <span
                 class="absolute flex items-center justify-center w-full h-full duration-300 text-white -translate-y-full bg-green-500 group-hover:translate-y-0  ease">
                 @switch($type)
@@ -48,7 +48,7 @@
                 @endswitch
             </span>
             <span
-                class="absolute flex items-center justify-center w-full h-full text-green-500 transition-all duration-300 transform group-hover:-translate-y-full ease">Mendaftar</span>
+                class="absolute flex items-center justify-center w-full h-full text-white transition-all duration-300 transform group-hover:-translate-y-full ease">Mendaftar</span>
             <span class="relative invisible">Mendaftar</span>
         </Button>
     </x-splade-data>

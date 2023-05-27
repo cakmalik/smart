@@ -15,7 +15,7 @@
                     Tambah
                 </button>
                 </Link>
-                <Link modal href="{{ route('try') }}">
+                {{-- <Link modal href="{{ route('try') }}"> --}}
                 <button
                     class="bg-slate-500 p-2 text-white rounded-md text-sm items-center ms-2 hover:bg-green-500 w-20 mb-4">
                     Coba
