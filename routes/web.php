@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,5 +43,6 @@ Route::middleware(['splade'])->group(function () {
         'verified',
     ])->group(function () {
         Route::view('/dashboard', 'dashboard')->name('dashboard');
+        Route::resource('/user', UserController::class);
     });
 });

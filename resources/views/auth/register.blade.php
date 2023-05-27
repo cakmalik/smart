@@ -36,12 +36,12 @@
 
             <div class="flex items-center justify-between pt-11">
                 <Link href="{{ route('login') }}"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white">
                 {{ __('Sudah pernah mendaftar?') }}
                 </Link>
 
-                {{-- <x-splade-submit :label="__('Mendaftar')" class="" secondary /> --}}
-                <x-bakid-button />
+                <x-splade-submit :label="__('Mendaftar')" class="" secondary />
+                {{-- <x-bakid-button /> --}}
             </div>
         </x-splade-form>
 </x-authentication-card>
