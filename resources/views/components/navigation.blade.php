@@ -26,7 +26,7 @@
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <div class="ml-3 relative">
-                        @if (\Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                        {{-- @if (\Laravel\Jetstream\Jetstream::hasTeamFeatures())
                             <x-splade-dropdown>
                                 <x-slot:trigger>
                                     <span class="inline-flex rounded-md">
@@ -90,7 +90,7 @@
                                         @endforeach
                                     </div>
                             </x-splade-dropdown>
-                        @endif
+                        @endif --}}
                     </div>
 
                     <!-- Settings Dropdown -->

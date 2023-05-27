@@ -30,11 +30,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
         ])->assignRole('admin');
 
-        User::create([
-            'name' => 'Santri bakid',
-            'email' => 'santri@bakid.com',
-            'password' => bcrypt('password'),
-        ])->assignRole('santri');
 
         Team::create([
             'user_id' => 1,
@@ -42,11 +37,20 @@ class UserSeeder extends Seeder
             'personal_team' => true,
         ]);
 
-        Team::create([
+        $santri_team = Team::create([
             'user_id' => 2,
             'name' => 'Santri bakid',
-            'personal_team' => true,
+            'personal_team' => false,
         ]);
+
+        $santri = User::create([
+            'name' => 'Santri bakid',
+            'email' => 'santri@bakid.com',
+            'password' => bcrypt('password'),
+            'current_team_id' => 2,
+        ])->assignRole('santri');
+
+        $santri->teams()->attach($santri_team->id, ['role' => 'santri']);
 
         $this->command->info('User seeded!');
     }
