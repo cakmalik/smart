@@ -43,6 +43,21 @@ Route::middleware(['splade'])->group(function () {
         'verified',
     ])->group(function () {
         Route::view('/dashboard', 'dashboard')->name('dashboard');
+    });
+
+    Route::middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified',
+        'role:admin',
+    ])->group(function () {
         Route::resource('/user', UserController::class);
+    });
+    Route::middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified',
+        'role:santri',
+    ])->group(function () {
     });
 });
