@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,5 +60,6 @@ Route::middleware(['splade'])->group(function () {
         'verified',
         'role:santri',
     ])->group(function () {
+        Route::resource('/student', StudentController::class);
     });
 });
