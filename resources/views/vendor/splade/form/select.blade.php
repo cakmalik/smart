@@ -10,9 +10,7 @@
             <div class="relative">
                 <div v-bind:class="{ 'opacity-50': select.loading }">
                     <select
-                        {{ $attributes->except(['v-if', 'v-show', 'class'])->class([
-                                'block w-full rounded-md border-red-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 disabled:opacity-50',
-                            ])->merge([
+                        {{ $attributes->except(['v-if', 'v-show', 'class'])->class(['block w-full rounded-md shadow-sm focus:ring focus:ring-green-600 disabled:opacity-50'])->merge([
                                 'multiple' => $multiple,
                                 'name' => $name,
                                 'v-model' => $choicesOptions() ? null : $vueModel(),
