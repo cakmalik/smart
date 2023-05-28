@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->string('nik');
-            $table->date('place_of_birth');
+            $table->string('place_of_birth');
             $table->date('date_of_birth');
             $table->string('gender');
             $table->string('address');
