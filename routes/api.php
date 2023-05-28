@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/locations', function () {
+    // https://cakmalik.github.io/api-wilayah-indonesia/api/provinces.json
+    $json = file_get_contents('https://cakmalik.github.io/api-wilayah-indonesia/api/provinces.json');
+    $data = json_decode($json, true);
+    return $data;
+});

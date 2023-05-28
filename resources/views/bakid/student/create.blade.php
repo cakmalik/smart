@@ -29,7 +29,7 @@
                                         }">
                                         1
                                     </span>
-                                    Informasi <span class="hidden sm:inline-flex sm:ml-2">Pribadi</span>
+                                    Data <span class="hidden sm:inline-flex sm:ml-2">Pribadi</span>
                                     <svg aria-hidden="true" class="w-4 h-4 ml-2 sm:ml-4" fill="none"
                                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -47,7 +47,7 @@
                                         }">
                                         2
                                     </span>
-                                    Orang <span class="hidden sm:inline-flex sm:ml-2">Tua</span>
+                                    Orang <span class="hidden sm:inline-flex sm:ml-2">Tua / Wali</span>
                                     <svg aria-hidden="true" class="w-4 h-4 ml-2 sm:ml-4" fill="none"
                                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -65,14 +65,14 @@
                                         }">
                                         3
                                     </span>
-                                    Personal <span class="hidden sm:inline-flex sm:ml-2">Info</span>
+                                    Informasi <span class="hidden sm:inline-flex sm:ml-2">Tambahan</span>
 
                                 </li>
 
                             </ol>
 
                             <aside v-show="data.currentIndex === 0">
-                                <div class="grid sm:grid-cols-2 gap-3">
+                                <div class="grid sm:grid-cols-2 gap-4">
                                     <div>
                                         <x-splade-input class="mb-3" name="email" type="email" :label="__('bakid.name')"
                                             :placeholder="__('bakid.pl.name')" />
@@ -85,28 +85,31 @@
                                         <x-splade-input class="mb-3" name="date_of_birth" type="date"
                                             :label="__('bakid.date_of_birth')" :placeholder="__('bakid.pl.date_of_birth')" />
 
-                                        <x-splade-select name="gender" :label="__('bakid.gender')">
+                                        <x-splade-select name="gender" :label="__('bakid.gender')" class="mb-3">
                                             <option value="male">Laki-laki</option>
                                             <option value="female">Perempuan</option>
                                         </x-splade-select>
+
+                                        <x-splade-select name="province_id" remote-url="/api/locations"
+                                            :label="__('bakid.province')" option-label="name" option-value="id"
+                                            class="mb-3 capitalize" />
 
                                         <x-splade-input class="mb-3" name="address" type="text" :label="__('bakid.address')"
                                             :placeholder="__('bakid.pl.address')" />
 
                                         <x-splade-input class="mb-3" name="rt_rw" type="text" :label="__('bakid.rt_rw')"
                                             :placeholder="__('bakid.pl.rt_rw')" />
-
+                                    </div>
+                                    <div>
                                         <x-splade-input class="mb-3" name="village" type="text" :label="__('bakid.village')"
                                             :placeholder="__('bakid.pl.village')" />
-
                                         <x-splade-input class="mb-3" name="district" type="text" :label="__('bakid.district')"
                                             :placeholder="__('bakid.pl.district')" />
 
                                         <x-splade-input class="mb-3" name="city" type="text" :label="__('bakid.city')"
                                             :placeholder="__('bakid.pl.city')" />
 
-                                        <x-splade-input class="mb-3" name="province" type="text" :label="__('bakid.province')"
-                                            :placeholder="__('bakid.pl.province')" />
+
 
                                         <x-splade-input class="mb-3" name="postal_code" type="text"
                                             :label="__('bakid.postal_code')" :placeholder="__('bakid.pl.postal_code')" />
@@ -119,32 +122,83 @@
 
                                         <x-splade-input class="mb-3" name="phone" type="text" :label="__('bakid.phone')"
                                             :placeholder="__('bakid.pl.phone')" />
+                                    </div>
+                                </div>
+                            </aside>
 
-
+                            <aside v-show="data.currentIndex === 1">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <x-splade-input class="mb-3" name="father_name" type="text"
+                                            :label="__('bakid.father_name')" :placeholder="__('bakid.pl.father_name')" />
+                                        <x-splade-input class="mb-3" name="father_nik" type="text"
+                                            :label="__('bakid.father_nik')" :placeholder="__('bakid.pl.father_nik')" />
+                                        <x-splade-input class="mb-3" name="father_phone" type="text"
+                                            :label="__('bakid.father_phone')" :placeholder="__('bakid.pl.father_phone')" />
+                                        <x-splade-input class="mb-3" name="father_education" type="text"
+                                            :label="__('bakid.father_education')" :placeholder="__('bakid.pl.father_education')" />
+                                        <x-splade-input class="mb-3" name="father_job" type="text"
+                                            :label="__('bakid.father_job')" :placeholder="__('bakid.pl.father_job')" />
+                                        <x-splade-input class="mb-3" name="father_income" type="text"
+                                            :label="__('bakid.father_income')" :placeholder="__('bakid.pl.father_income')" />
 
                                     </div>
                                     <div>
+                                        <x-splade-input class="mb-3" name="mother_name" type="text"
+                                            :label="__('bakid.mother_name')" :placeholder="__('bakid.pl.mother_name')" />
+                                        <x-splade-input class="mb-3" name="mother_nik" type="text"
+                                            :label="__('bakid.mother_nik')" :placeholder="__('bakid.pl.mother_nik')" />
+                                        <x-splade-input class="mb-3" name="mother_phone" type="text"
+                                            :label="__('bakid.mother_phone')" :placeholder="__('bakid.pl.mother_phone')" />
+                                        <x-splade-input class="mb-3" name="mother_education" type="text"
+                                            :label="__('bakid.mother_education')" :placeholder="__('bakid.pl.mother_education')" />
+                                        <x-splade-input class="mb-3" name="mother_job" type="text"
+                                            :label="__('bakid.mother_job')" :placeholder="__('bakid.pl.mother_job')" />
+                                        <x-splade-input class="mb-3" name="mother_income" type="text"
+                                            :label="__('bakid.mother_income')" :placeholder="__('bakid.pl.mother_income')" />
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2">
+                                    <div class="div">
+                                        <x-splade-input class="mb-3" name="guard_name" type="text"
+                                            :label="__('bakid.guard_name')" :placeholder="__('bakid.pl.guard_name')" />
+                                        <x-splade-input class="mb-3" name="guard_nik" type="text"
+                                            :label="__('bakid.guard_nik')" :placeholder="__('bakid.pl.guard_nik')" />
+                                        <x-splade-input class="mb-3" name="guard_phone" type="text"
+                                            :label="__('bakid.guard_phone')" :placeholder="__('bakid.pl.guard_phone')" />
+                                        <x-splade-input class="mb-3" name="guard_education" type="text"
+                                            :label="__('bakid.guard_education')" :placeholder="__('bakid.pl.guard_education')" />
+                                        <x-splade-input class="mb-3" name="guard_job" type="text"
+                                            :label="__('bakid.guard_job')" :placeholder="__('bakid.pl.guard_job')" />
+                                        <x-splade-input class="mb-3" name="guard_income" type="text"
+                                            :label="__('bakid.guard_income')" :placeholder="__('bakid.pl.guard_income')" />
+                                    </div>
+                                </div>
+                            </aside>
 
+                            <aside v-show="data.currentIndex === 2">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
                                         <x-splade-input class="mb-3" name="student_image" type="text"
                                             :label="__('bakid.student_image')" :placeholder="__('bakid.pl.student_image')" />
 
                                         <x-splade-input class="mb-3" name="parent_image" type="text"
                                             :label="__('bakid.parent_image')" :placeholder="__('bakid.pl.parent_image')" />
 
-                                        <x-splade-input class="mb-3" name="nis" type="text" :label="__('bakid.nis')"
-                                            :placeholder="__('bakid.pl.nis')" />
+                                        <x-splade-input class="mb-3" name="hobby" type="text"
+                                            :label="__('bakid.hobby')" :placeholder="__('bakid.pl.hobby')" />
 
-                                        <x-splade-input class="mb-3" name="hobby" type="text" :label="__('bakid.hobby')"
-                                            :placeholder="__('bakid.pl.hobby')" />
-
-                                        <x-splade-input class="mb-3" name="ambition" type="text" :label="__('bakid.ambition')"
-                                            :placeholder="__('bakid.pl.ambition')" />
+                                        <x-splade-input class="mb-3" name="ambition" type="text"
+                                            :label="__('bakid.ambition')" :placeholder="__('bakid.pl.ambition')" />
 
                                         <x-splade-input class="mb-3" name="housing_status" type="text"
                                             :label="__('bakid.housing_status')" :placeholder="__('bakid.pl.housing_status')" />
 
                                         <x-splade-input class="mb-3" name="recidency_status" type="text"
                                             :label="__('bakid.recidency_status')" :placeholder="__('bakid.pl.recidency_status')" />
+
+                                    </div>
+                                    <div>
 
                                         <x-splade-input class="mb-3" name="nism" type="text"
                                             :label="__('bakid.nism')" :placeholder="__('bakid.pl.nism')" />
@@ -164,15 +218,7 @@
                                 </div>
                             </aside>
 
-                            <aside v-show="data.currentIndex === 1">
-                                inu
-                            </aside>
-
-                            <aside v-show="data.currentIndex === 2">
-                                ine
-                            </aside>
-
-                            <div class="flex justify-end mt-6 gap-2">
+                            <div class="flex justify-between mt-6 gap-2">
                                 <span
                                     class="cursor-pointer px-4 py-2 bg-slate-800 text-green-400 rounded-lg hover:bg-slate-900 hover:text-green-500"
                                     v-show="data.currentIndex > 0"
