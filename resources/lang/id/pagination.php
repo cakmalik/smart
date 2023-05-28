@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'sebelumnya' => '&laquo; Previous',
-    'selanjutnya' => 'Next &raquo;',
+    'previous' => 'Sebelumnya',
+    'next' => 'Berikutnya',
+    // 'previous' => '&laquo; Sebelumnya',
+    // 'next' => 'Berikutnya &raquo;',
 
 ];
