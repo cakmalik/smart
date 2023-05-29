@@ -29,6 +29,29 @@ return [
     'kks' => 'KKS',
     'pkh' => 'PKH',
 
+    // ini lang
+    'father_name'        => 'Nama Ayah',
+    'father_nik'         => 'NIK Ayah',
+    'father_phone'       => 'Nomor Telepon Ayah',
+    'father_education'   => 'Pendidikan Ayah',
+    'father_job'         => 'Pekerjaan Ayah',
+    'father_income'      => 'Pendapatan Ayah',
+    'mother_name'        => 'Nama Ibu',
+    'mother_nik'         => 'NIK Ibu',
+    'mother_phone'       => 'Nomor Telepon Ibu',
+    'mother_education'   => 'Pendidikan Ibu',
+    'mother_job'         => 'Pekerjaan Ibu',
+    'mother_income'      => 'Pendapatan Ibu',
+    'guard_name'         => 'Nama Wali',
+    'guard_nik'          => 'NIK Wali',
+    'guard_phone'        => 'Nomor Telepon Wali',
+    'guard_education'    => 'Pendidikan Wali',
+    'guard_job'          => 'Pekerjaan Wali',
+    'guard_income'       => 'Pendapatan Wali',
+
+
+
+
 
     // ini placeholder
     'pl' => [
@@ -60,5 +83,23 @@ return [
         'kks' => 'Masukkan KKS',
         'pkh' => 'Masukkan PKH',
 
+        'father_name'        => 'Masukkan nama ayah',
+        'father_nik'         => 'Masukkan NIK ayah',
+        'father_phone'       => 'Masukkan nomor telepon ayah',
+        'father_education'   => 'Masukkan pendidikan ayah',
+        'father_job'         => 'Masukkan pekerjaan ayah',
+        'father_income'      => 'Masukkan pendapatan ayah',
+        'mother_name'        => 'Masukkan nama ibu',
+        'mother_nik'         => 'Masukkan NIK ibu',
+        'mother_phone'       => 'Masukkan nomor telepon ibu',
+        'mother_education'   => 'Masukkan pendidikan ibu',
+        'mother_job'         => 'Masukkan pekerjaan ibu',
+        'mother_income'      => 'Masukkan pendapatan ibu',
+        'guard_name'         => 'Masukkan nama wali',
+        'guard_nik'          => 'Masukkan NIK wali',
+        'guard_phone'        => 'Masukkan nomor telepon wali',
+        'guard_education'    => 'Masukkan pendidikan wali',
+        'guard_job'          => 'Masukkan pekerjaan wali',
+        'guard_income'       => 'Masukkan pendapatan wali',
     ]
 ];

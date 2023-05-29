@@ -90,38 +90,39 @@
                                             <option value="female">Perempuan</option>
                                         </x-splade-select>
 
-                                        <x-splade-select name="province_id" remote-url="/api/locations"
-                                            :label="__('bakid.province')" option-label="name" option-value="id"
-                                            class="mb-3 capitalize" />
+                                        <x-splade-select name="province" remote-url="/api/locations" :label="__('bakid.province')"
+                                            option-label="name" option-value="id" class="mb-3 capitalize" />
+
+                                        <x-splade-select name="city"
+                                            remote-url="`/api/locations/${form.province}/cities`" :label="__('bakid.city')"
+                                            option-label="name" option-value="id" class="mb-3 capitalize" />
+                                    </div>
+                                    <div>
+                                        <x-splade-select name="district"
+                                            remote-url="`/api/locations/${form.city}/districts`" :label="__('bakid.district')"
+                                            option-label="name" option-value="id" class="mb-3 capitalize" />
+
+                                        <x-splade-select name="village"
+                                            remote-url="`/api/locations/${form.district}/villages`" :label="__('bakid.village')"
+                                            option-label="name" option-value="id" class="mb-3 capitalize" />
 
                                         <x-splade-input class="mb-3" name="address" type="text" :label="__('bakid.address')"
                                             :placeholder="__('bakid.pl.address')" />
 
                                         <x-splade-input class="mb-3" name="rt_rw" type="text" :label="__('bakid.rt_rw')"
                                             :placeholder="__('bakid.pl.rt_rw')" />
-                                    </div>
-                                    <div>
-                                        <x-splade-input class="mb-3" name="village" type="text" :label="__('bakid.village')"
-                                            :placeholder="__('bakid.pl.village')" />
-                                        <x-splade-input class="mb-3" name="district" type="text" :label="__('bakid.district')"
-                                            :placeholder="__('bakid.pl.district')" />
-
-                                        <x-splade-input class="mb-3" name="city" type="text" :label="__('bakid.city')"
-                                            :placeholder="__('bakid.pl.city')" />
-
-
 
                                         <x-splade-input class="mb-3" name="postal_code" type="text"
                                             :label="__('bakid.postal_code')" :placeholder="__('bakid.pl.postal_code')" />
 
-                                        <x-splade-input class="mb-3" name="religion" type="text" :label="__('bakid.religion')"
-                                            :placeholder="__('bakid.pl.religion')" />
+                                        <x-splade-select class="mb-3" name="religion" :options="['Islam']"
+                                            :label="__('bakid.religion')" :placeholder="__('bakid.pl.religion')" choices="{searchEnabled:false}" />
 
-                                        <x-splade-input class="mb-3" name="nationality" type="text"
-                                            :label="__('bakid.nationality')" :placeholder="__('bakid.pl.nationality')" />
+                                        <x-splade-select class="mb-3" name="nationality" :options="['WNI', 'WNA']"
+                                            :label="__('bakid.nationality')" :placeholder="__('bakid.pl.nationality')" choices="{searchEnabled:false}" />
 
-                                        <x-splade-input class="mb-3" name="phone" type="text" :label="__('bakid.phone')"
-                                            :placeholder="__('bakid.pl.phone')" />
+                                        {{-- <x-splade-input class="mb-3" name="phone" type="text" :label="__('bakid.phone')"
+                                            :placeholder="__('bakid.pl.phone')" /> --}}
                                     </div>
                                 </div>
                             </aside>
@@ -160,7 +161,7 @@
                                 </div>
                                 <div class="grid grid-cols-2">
                                     <div class="div">
-                                        <x-splade-input class="mb-3" name="guard_name" type="text"
+                                        {{-- <x-splade-input class="mb-3" name="guard_name" type="text"
                                             :label="__('bakid.guard_name')" :placeholder="__('bakid.pl.guard_name')" />
                                         <x-splade-input class="mb-3" name="guard_nik" type="text"
                                             :label="__('bakid.guard_nik')" :placeholder="__('bakid.pl.guard_nik')" />
@@ -171,7 +172,7 @@
                                         <x-splade-input class="mb-3" name="guard_job" type="text"
                                             :label="__('bakid.guard_job')" :placeholder="__('bakid.pl.guard_job')" />
                                         <x-splade-input class="mb-3" name="guard_income" type="text"
-                                            :label="__('bakid.guard_income')" :placeholder="__('bakid.pl.guard_income')" />
+                                            :label="__('bakid.guard_income')" :placeholder="__('bakid.pl.guard_income')" /> --}}
                                     </div>
                                 </div>
                             </aside>
@@ -218,15 +219,23 @@
                                 </div>
                             </aside>
 
-                            <div class="flex justify-between mt-6 gap-2">
+                            <aside v-show="data.currentIndex===3">
+                                <x-splade-file name="avatar" :show-filename="false" filepond />
+                                <img class="w-1/2" v-if="form.avatar" :src="form.$fileAsUrl('avatar')" />
+                            </aside>
+
+                            <div class="flex justify-center mt-6 gap-2">
                                 <span
                                     class="cursor-pointer px-4 py-2 bg-slate-800 text-green-400 rounded-lg hover:bg-slate-900 hover:text-green-500"
                                     v-show="data.currentIndex > 0"
                                     @click="data.currentIndex = data.currentIndex - 1;">{{ __('pagination.previous') }}</span>
                                 <span
                                     class="cursor-pointer px-4 py-2 bg-slate-800 text-green-400 rounded-lg hover:bg-slate-900 hover:text-green-500"
-                                    v-show="data.currentIndex < 2"
+                                    v-show="data.currentIndex < 3"
                                     @click="data.currentIndex = data.currentIndex + 1;">{{ __('pagination.next') }}</span>
+                                <button
+                                    class="cursor-pointer px-4 py-2 bg-grren-400 text-slate-700 outline outline-2 rounded-lg hover:bg-green-500 hover:text-slate-800"
+                                    v-show="data.currentIndex >=3">{{ __('pagination.submit') }}</button>
                             </div>
                         </x-splade-data>
                     </x-splade-form>

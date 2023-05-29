@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'submit' => 'Simpan',
     'previous' => 'Sebelumnya',
     'next' => 'Berikutnya',
     // 'previous' => '&laquo; Sebelumnya',
