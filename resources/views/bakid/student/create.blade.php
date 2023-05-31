@@ -14,7 +14,7 @@
             <div class="bg-white/30 backdrop-blur-md overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- <div class="bg-white bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8"> --}}
                 <div class='p-5'>
-                    <x-splade-form>
+                    <x-splade-form :action="route('student.store')">
                         <x-splade-data remember="menu" default="{currentIndex: 0 }">
                             <ol
                                 class="flex justify-center items-center w-full p-3 mb-6 space-x-2 text-sm font-medium text-center text-gray-500 bg-slate-800 backdrop-blur-md border-none rounded-none shadow-none dark:text-gray-400 sm:text-base dark:bg-gray-800 dark:border-gray-700 sm:p-4 sm:space-x-4">
@@ -74,8 +74,9 @@
                             <aside v-show="data.currentIndex === 0">
                                 <div class="grid sm:grid-cols-2 gap-4">
                                     <div>
-                                        <x-splade-input class="mb-3" name="email" type="email" :label="__('bakid.name')"
-                                            :placeholder="__('bakid.pl.name')" />
+                                        <x-splade-input class="mb-3" v-model="form.name" type="text"
+                                            :label="__('bakid.name')" :placeholder="__('bakid.pl.name')" />
+                                        <p v-text="form.name"></p>
                                         <x-splade-input class="mb-3" name="nik" type="text" :label="__('bakid.nik')"
                                             :placeholder="__('bakid.pl.nik')" />
 
@@ -180,12 +181,6 @@
                             <aside v-show="data.currentIndex === 2">
                                 <div class="grid grid-cols-2 gap-3">
                                     <div>
-                                        <x-splade-input class="mb-3" name="student_image" type="text"
-                                            :label="__('bakid.student_image')" :placeholder="__('bakid.pl.student_image')" />
-
-                                        <x-splade-input class="mb-3" name="parent_image" type="text"
-                                            :label="__('bakid.parent_image')" :placeholder="__('bakid.pl.parent_image')" />
-
                                         <x-splade-input class="mb-3" name="hobby" type="text"
                                             :label="__('bakid.hobby')" :placeholder="__('bakid.pl.hobby')" />
 
@@ -220,8 +215,21 @@
                             </aside>
 
                             <aside v-show="data.currentIndex===3">
-                                <x-splade-file name="avatar" :show-filename="false" filepond />
-                                <img class="w-1/2" v-if="form.avatar" :src="form.$fileAsUrl('avatar')" />
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <x-splade-file name="student_image" :show-filename="false" filepond
+                                            label="Foto Santri" class="mb-3" />
+                                        <img class="w-full p-5" v-if="form.student_image"
+                                            :src="form.$fileAsUrl('student_image')" class="mb-3" />
+                                    </div>
+                                    <div>
+                                        <x-splade-file name="parent_image" :show-filename="false" filepond
+                                            label="Foto Ayah" />
+                                        <img class="w-full p-5" v-if="form.parent_image"
+                                            :src="form.$fileAsUrl('parent_image')" />
+                                    </div>
+                                </div>
+
                             </aside>
 
                             <div class="flex justify-center mt-6 gap-2">

@@ -15,6 +15,7 @@ class StudentSeeder extends Seeder
     public function run(): void
     {
         $student = Student::create([
+            'name' => 'angga',
             'user_id' => 2,
             'nik' => '1234567890',
             'place_of_birth' => 'Jakarta',
@@ -43,7 +44,7 @@ class StudentSeeder extends Seeder
             'kks' => '1234567890',
             'pkh' => '1234567890',
         ]);
-        
+
         StudentFamily::create([
             'student_id' => $student->id,
             'father_name' => 'John Doe',

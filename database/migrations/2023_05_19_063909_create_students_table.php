@@ -14,18 +14,19 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->string('name');
             $table->string('nik');
             $table->string('place_of_birth');
             $table->date('date_of_birth');
             $table->string('gender');
-            $table->string('address');
-            $table->string('rt_rw');
+            $table->string('address')->nullable();
+            $table->string('rt_rw')->nullable();
             $table->string('village');
             $table->string('district');
             $table->string('city');
             $table->string('province');
             $table->string('postal_code');
-            $table->string('religion');
+            $table->string('religion')->nullable();
 
             $table->string('nationality');
 
