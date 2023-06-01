@@ -2,10 +2,9 @@
 
 namespace App\Repositories\User;
 
-use App\Models\User;
 use LaravelEasyRepository\Repository;
 
 interface UserRepository extends Repository
 {
-    public function check($username);
+    public function getByEmail($email);
 }
