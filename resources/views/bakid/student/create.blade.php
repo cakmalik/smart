@@ -11,10 +11,30 @@
     <div class="py-4">
         <div class="max-w-4xl mx-auto sm:px-3 lg:px-8">
             <x-button.back />
+            {{-- <x-splade-toggle>
+                <button @click.prevent="toggle">Toggle message</button>
+
+                <x-splade-transition show="toggled">
+                    Welcome!
+                </x-splade-transition>
+                <x-splade-transition show="toggled" enter="transition-opacity duration-100" enter-from="opacity-0"
+                    enter-to="opacity-100" leave="transition-opacity duration-" leave-from="opacity-100"
+                    leave-to="opacity-0">
+                    ...
+                </x-splade-transition>
+                <x-splade-transition animation="slide-left" show="toggled">
+                    ...
+                </x-splade-transition>
+            </x-splade-toggle> --}}
+
+
+
             <div class="bg-white/30 backdrop-blur-md overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- <div class="bg-white bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8"> --}}
                 <div class='p-5'>
-                    <x-splade-form :action="route('student.store')">
+                    <x-splade-form :action="route('student.store')" default="{ province: 35 }" confirm="Simpan"
+                        confirm-text="Apakah anda yakin semua data sudah benar?" confirm-button="Ya, simpan!"
+                        cancel-button="Batal">
                         <x-splade-data remember="menu" default="{currentIndex: 0 }">
                             <ol
                                 class="flex justify-center items-center w-full p-3 mb-6 space-x-2 text-sm font-medium text-center text-gray-500 bg-slate-800 backdrop-blur-md border-none rounded-none shadow-none dark:text-gray-400 sm:text-base dark:bg-gray-800 dark:border-gray-700 sm:p-4 sm:space-x-4">
@@ -76,7 +96,7 @@
                                     <div>
                                         <x-splade-input class="mb-3" v-model="form.name" type="text"
                                             :label="__('bakid.name')" :placeholder="__('bakid.pl.name')" />
-                                        <p v-text="form.name"></p>
+
                                         <x-splade-input class="mb-3" name="nik" type="text" :label="__('bakid.nik')"
                                             :placeholder="__('bakid.pl.nik')" />
 
@@ -91,8 +111,9 @@
                                             <option value="female">Perempuan</option>
                                         </x-splade-select>
 
-                                        <x-splade-select name="province" remote-url="/api/locations" :label="__('bakid.province')"
-                                            option-label="name" option-value="id" class="mb-3 capitalize" />
+                                        <x-splade-select v-model="form.province" remote-url="/api/locations"
+                                            :label="__('bakid.province')" option-label="name" option-value="id"
+                                            class="mb-3 capitalize" />
 
                                         <x-splade-select name="city"
                                             remote-url="`/api/locations/${form.province}/cities`" :label="__('bakid.city')"
@@ -129,7 +150,7 @@
                             </aside>
 
                             <aside v-show="data.currentIndex === 1">
-                                <div class="grid grid-cols-2 gap-3">
+                                <div class="grid sm:grid-cols-2 gap-3">
                                     <div>
                                         <x-splade-input class="mb-3" name="father_name" type="text"
                                             :label="__('bakid.father_name')" :placeholder="__('bakid.pl.father_name')" />
@@ -160,7 +181,7 @@
                                             :label="__('bakid.mother_income')" :placeholder="__('bakid.pl.mother_income')" />
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2">
+                                <div class="grid sm:grid-cols-2">
                                     <div class="div">
                                         {{-- <x-splade-input class="mb-3" name="guard_name" type="text"
                                             :label="__('bakid.guard_name')" :placeholder="__('bakid.pl.guard_name')" />
@@ -179,7 +200,7 @@
                             </aside>
 
                             <aside v-show="data.currentIndex === 2">
-                                <div class="grid grid-cols-2 gap-3">
+                                <div class="grid sm:grid-cols-2 gap-3">
                                     <div>
                                         <x-splade-input class="mb-3" name="hobby" type="text"
                                             :label="__('bakid.hobby')" :placeholder="__('bakid.pl.hobby')" />
@@ -215,7 +236,7 @@
                             </aside>
 
                             <aside v-show="data.currentIndex===3">
-                                <div class="grid grid-cols-2 gap-3">
+                                <div class="grid sm:grid-cols-2 gap-3">
                                     <div>
                                         <x-splade-file name="student_image" :show-filename="false" filepond
                                             label="Foto Santri" class="mb-3" />
@@ -232,11 +253,12 @@
 
                             </aside>
 
-                            <div class="flex justify-center mt-6 gap-2">
+                            <div class="flex justify-between mt-6 gap-2">
                                 <span
                                     class="cursor-pointer px-4 py-2 bg-slate-800 text-green-400 rounded-lg hover:bg-slate-900 hover:text-green-500"
                                     v-show="data.currentIndex > 0"
                                     @click="data.currentIndex = data.currentIndex - 1;">{{ __('pagination.previous') }}</span>
+                                <span v-show="data.currentIndex == 0"></span>
                                 <span
                                     class="cursor-pointer px-4 py-2 bg-slate-800 text-green-400 rounded-lg hover:bg-slate-900 hover:text-green-500"
                                     v-show="data.currentIndex < 3"
