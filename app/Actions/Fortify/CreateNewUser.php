@@ -53,5 +53,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => explode(' ', $user->name, 2)[0] . "'s Team",
             'personal_team' => true,
         ]));
+
+        $user->assignRole('santri');
     }
 }
