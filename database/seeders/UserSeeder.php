@@ -28,6 +28,8 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@bakid.com',
             'password' => bcrypt('password'),
+            'phone' => '081234567890',
+            'kk' => '1234567890123456',
         ])->assignRole('admin');
 
 
@@ -48,6 +50,9 @@ class UserSeeder extends Seeder
             'email' => 'santri@bakid.com',
             'password' => bcrypt('password'),
             'current_team_id' => 2,
+            'phone' => '08123456783390',
+            'kk' => '123456789012333456',
+
         ])->assignRole('santri');
 
         $santri->teams()->attach($santri_team->id, ['role' => 'santri']);
