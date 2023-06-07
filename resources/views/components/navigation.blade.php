@@ -1,7 +1,7 @@
 <x-splade-data store="mobileNavigation" default="{ open: false }" />
 
 <x-splade-rehydrate on="refresh-navigation-menu, profile-information-updated">
-    <nav class="bg-white border-b border-gray-100">
+    <nav class="bg-white/70 border-b border-gray-100">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
