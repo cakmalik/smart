@@ -51,8 +51,6 @@ return [
 
 
 
-
-
     // ini placeholder
     'pl' => [
         'name'   => 'Masukkan nama santri',
@@ -101,5 +99,10 @@ return [
         'guard_education'    => 'Masukkan pendidikan wali',
         'guard_job'          => 'Masukkan pekerjaan wali',
         'guard_income'       => 'Masukkan pendapatan wali',
+    ],
+
+    // ini bahasa
+    't' => [
+        'family_members' => 'Daftar Anggota Keluarga',
     ]
 ];

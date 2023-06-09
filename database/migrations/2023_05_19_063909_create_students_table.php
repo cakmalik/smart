@@ -18,19 +18,19 @@ return new class extends Migration
             $table->string('nik');
             $table->string('place_of_birth');
             $table->date('date_of_birth');
-            $table->string('gender');
-            $table->string('address')->nullable();
-            $table->string('rt_rw')->nullable();
+            $table->enum('gender', ['male', 'female'])->default('male');
+            $table->string('address')->default('-');
+            $table->string('rt_rw')->default('-');
             $table->string('village');
             $table->string('district');
             $table->string('city');
             $table->string('province');
             $table->string('postal_code');
-            $table->string('religion')->nullable();
+            $table->string('religion')->default('islam');
 
-            $table->string('nationality');
+            $table->string('nationality')->default('indonesia');
 
-            $table->string('phone')->nullable();
+            $table->string('phone')->default('-');
             $table->string('student_image')->nullable();
             $table->string('parent_image')->nullable();
 
