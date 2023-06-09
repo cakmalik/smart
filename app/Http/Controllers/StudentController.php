@@ -2,18 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use Illuminate\Http\Request;
+use ProtoneMedia\Splade\SpladeTable;
+use Spatie\QueryBuilder\QueryBuilder;
+use ProtoneMedia\Splade\Facades\Toast;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
-use App\Models\Student;
+use App\Services\Location\LocationService;
 
 class StudentController extends Controller
 {
+    private $loc;
     /**
-     * Display a listing of the resource.
+     * __construct
+     *
+     * @param  mixed $locationService
+     * @return void
+     */
+    public function __construct(LocationService $locationService)
+    {
+        $this->loc = $locationService;
+    }
+
+    /**
+     * index
+     *
+     * @return void
      */
     public function index()
     {
-        //
+        $globalSearch =
+            $students = QueryBuilder::for(Student::class)
+            ->defaultSort('name')
+            ->allowedSorts(['name'])
+            // ->allowedFilters(['name', 'email', $globalSearch])
+            ->paginate()
+            ->withQueryString();
+        return view('bakid.student.index', [
+            'students' => SpladeTable::for($students)
+                ->defaultSort('name')
+                ->column('name', sortable: true, searchable: true, canBeHidden: false)
+                ->column('action')
+                ->selectFilter('name', [
+                    'name' => 'name',
+                ])
+
+        ]);
     }
 
     /**
@@ -25,10 +60,36 @@ class StudentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * store
+     *
+     * @param  mixed $request
+     * @return void
      */
-    public function store(StoreStudentRequest $request)
+    public function store(Request $request)
     {
+        $student_data = $request->except([
+            'father_name',
+            'father_nik',
+            'father_phone',
+            'father_education',
+            'father_job',
+            'father_income',
+            'mother_name',
+            'mother_nik',
+            'mother_phone',
+            'mother_education',
+            'mother_job',
+            'mother_income',
+        ]);
+        $student_data['user_id'] = auth()->user()->id;
+        $student = Student::create($student_data);
+        Toast::title('Alhamdulillah!')
+            ->message('Data berhasil disimpan')
+            ->success()
+            ->rightTop()
+            ->backdrop()
+            ->autoDismiss(5);
+        return redirect()->route('dashboard');
     }
 
     /**
