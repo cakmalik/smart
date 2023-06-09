@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use ProtoneMedia\Splade\Components\Form\Input;
 use ProtoneMedia\Splade\Components\Form\Select;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,5 +24,9 @@ class AppServiceProvider extends ServiceProvider
         Select::defaultChoices();
         Select::defaultResetOnNewRemoteUrl();
         // Select::defaultSelectFirstRemoteOption();
+
+        Input::defaultDateFormat('d-m-Y');
+        Input::defaultTimeFormat('H:i');
+        Input::defaultDatetimeFormat('d-m-Y H:i');
     }
 }

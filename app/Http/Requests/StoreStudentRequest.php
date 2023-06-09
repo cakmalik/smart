@@ -22,7 +22,16 @@ class StoreStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required',
+            'nik' => 'required',
+            'place_of_birth' => 'required',
+            'date_of_birth' => 'required',
+            'province' => 'required',
+            'city' => 'required',
+            'district' => 'required',
+            'village' => 'required',
+
+
         ];
     }
 }
