@@ -28,7 +28,7 @@
 
                 <div class="absolute inset-0 w-full h-full" v-if="select.loading">
                     <div class="flex flex-row items-center justify-center w-full h-full">
-                        <svg class="animate-spin mr-3 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg"
+                        <svg class="animate-spin mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10"
                                 stroke="currentColor" stroke-width="4" />
