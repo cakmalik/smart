@@ -11,9 +11,10 @@ class Back extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public string $route;
+    public function __construct(string $route = '')
     {
-        //
+        $this->route = $route;
     }
 
     /**
