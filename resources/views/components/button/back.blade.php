@@ -1,5 +1,5 @@
 <div class="px-4 sm:pl-0 pb-3">
-    <Link href="{{ url()->previous() }}" class="relative w-max mx-auto">
+    <Link href="{{ $route ? route($route) : url()->previous() }}" class="relative w-max mx-auto">
     <button
         class=" group relative peer z-10 w-10 h-10 rounded-full bg-slate-300/30  hover:bg-green-400 outline-none cursor-pointer
     hover:w-[150px]
