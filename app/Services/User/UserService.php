@@ -13,4 +13,6 @@ interface UserService extends BaseService
      * @return void
      */
     public function getByEmail($email);
+
+    public function getFamilies();
 }
