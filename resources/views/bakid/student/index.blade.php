@@ -49,7 +49,6 @@
                         </div>
                     @endcell
                 </x-splade-table>
-
             </div>
         </div>
 </x-app-layout>

@@ -2,8 +2,10 @@
 
 namespace App\Repositories\User;
 
-use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\User;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class UserRepositoryImplement extends Eloquent implements UserRepository
 {
@@ -29,5 +31,12 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     public function getByEmail($email)
     {
         $this->model->where('email', $email)->get();
+    }
+
+    public function getFamilies()
+    {
+        $user = Auth::user();
+        $students = $user->students;
+        return $students;
     }
 }

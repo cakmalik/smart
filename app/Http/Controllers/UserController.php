@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use CSV;
 use App\Models\User;
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\View;
@@ -15,6 +16,12 @@ use ProtoneMedia\Splade\Facades\Splade;
 
 class UserController extends Controller
 {
+    private $model;
+
+    public function __construct(UserService $userService)
+    {
+        $this->model = $userService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -126,5 +133,17 @@ class UserController extends Controller
 
         Splade::toast('Users created successfully')->autoDismiss(5);
         return redirect()->back();
+    }
+
+
+    /**
+     * familyMembers
+     *
+     * @return void
+     */
+    public function familyMembers()
+    {
+        $families = $this->model->getFamilies();
+        return view('bakid.student.family_members', compact('families'));
     }
 }

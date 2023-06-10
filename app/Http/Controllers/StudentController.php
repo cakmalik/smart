@@ -10,6 +10,8 @@ use ProtoneMedia\Splade\Facades\Toast;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Services\Location\LocationService;
+use App\Services\Student\StudentService;
+use App\Services\User\UserService;
 
 class StudentController extends Controller
 {
@@ -18,6 +20,7 @@ class StudentController extends Controller
      * __construct
      *
      * @param  mixed $locationService
+     * @param  mixed $studentService
      * @return void
      */
     public function __construct(LocationService $locationService)
