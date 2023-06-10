@@ -83,4 +83,16 @@ class Student extends Model
             set: fn (string $value) => $loc->getVillageName($value)
         );
     }
+
+    public function setNicknameAttribute($value)
+    {
+        $namaLengkap = $this->attributes['name'];
+
+        if (empty($value) && !empty($namaLengkap)) {
+            $namaPanggilan = explode(' ', $namaLengkap)[0];
+            $this->attributes['nickname'] = $namaPanggilan;
+        } else {
+            $this->attributes['nickname'] = strtolower($value);
+        }
+    }
 }

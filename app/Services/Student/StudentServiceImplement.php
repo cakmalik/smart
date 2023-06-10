@@ -18,6 +18,14 @@ class StudentServiceImplement extends Service implements StudentService
     {
         $this->mainRepository = $mainRepository;
     }
-
-    // Define your custom methods :)
+    public function createAll($request)
+    {
+        try {
+            // insert to students table
+            //insert to student_families table
+            //insert to student_educations table
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }
