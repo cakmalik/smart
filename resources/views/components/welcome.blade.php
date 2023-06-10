@@ -18,7 +18,7 @@
     <div>
         @if (Auth::user()->students->count() == 0)
             <h2 class="ml-3 text-xl font-semibold text-gray-900 text-center">
-                <a href="">Daftarkan Sekarang</a>
+                <a href="{{ route('student.create') }}">Daftarkan Sekarang</a>
             </h2>
         @else
         @endif
