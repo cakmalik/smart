@@ -6,7 +6,7 @@
         </x-slot>
 
         <x-splade-form class="space-y-2">
-            <x-splade-input id="name" name="name" :label="__('Nama')" required autofocus />
+            <x-splade-input id="name" name="name" :label="__('Nama Orang Tua')" required autofocus />
             <x-splade-input id="email" name="email" type="email" :label="__('Email')" required />
             <x-splade-input id="kk" name="kk" type="text" :label="__('No KK')" required />
             <x-splade-input id="phone" name="phone" type="text" :label="__('No Hp/Wa')" required />

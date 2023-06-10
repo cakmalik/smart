@@ -12,9 +12,9 @@
                 {{-- card with image --}}
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-3">
                     @foreach ($families as $i)
-                        <x-card.image />
+                        <x-card.image :name="$i->nickname" line-one="Mts-2" />
                     @endforeach
-                    <x-card.image />
+                    {{-- <x-card.image /> --}}
 
                 </div>
             </div>
