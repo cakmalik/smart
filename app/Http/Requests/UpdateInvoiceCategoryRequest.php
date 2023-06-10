@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreStudentRequest extends FormRequest
+class UpdateInvoiceCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,16 +22,7 @@ class StoreStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'nik' => 'required',
-            'place_of_birth' => 'required',
-            'date_of_birth' => 'required',
-            'province' => 'required',
-            'city' => 'required',
-            'district' => 'required',
-            'village' => 'required',
-            'child_number' => 'numeric',
-            'siblings' => 'numeric',
+            //
         ];
     }
 }

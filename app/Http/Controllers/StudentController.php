@@ -16,6 +16,7 @@ use App\Services\User\UserService;
 class StudentController extends Controller
 {
     private $loc;
+    private $student;
     /**
      * __construct
      *
@@ -23,9 +24,11 @@ class StudentController extends Controller
      * @param  mixed $studentService
      * @return void
      */
-    public function __construct(LocationService $locationService)
+
+    public function __construct(LocationService $locationService, StudentService $studentService)
     {
         $this->loc = $locationService;
+        $this->student = $studentService;
     }
 
     /**
@@ -68,24 +71,25 @@ class StudentController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function store(Request $request)
+    public function store(StoreStudentRequest $request)
     {
-        $student_data = $request->except([
-            'father_name',
-            'father_nik',
-            'father_phone',
-            'father_education',
-            'father_job',
-            'father_income',
-            'mother_name',
-            'mother_nik',
-            'mother_phone',
-            'mother_education',
-            'mother_job',
-            'mother_income',
-        ]);
-        $student_data['user_id'] = auth()->user()->id;
-        $student = Student::create($student_data);
+        // $student_data = $request->except([
+        //     'father_name',
+        //     'father_nik',
+        //     'father_phone',
+        //     'father_education',
+        //     'father_job',
+        //     'father_income',
+        //     'mother_name',
+        //     'mother_nik',
+        //     'mother_phone',
+        //     'mother_education',
+        //     'mother_job',
+        //     'mother_income',
+        // ]);
+        // $student_data['user_id'] = auth()->user()->id;
+        // $student = Student::create($student_data);
+        $this->student->create($request);
         Toast::title('Alhamdulillah!')
             ->message('Data berhasil disimpan')
             ->success()
