@@ -4,7 +4,8 @@ namespace App\Repositories\Student;
 
 use LaravelEasyRepository\Repository;
 
-interface StudentRepository extends Repository{
+interface StudentRepository extends Repository
+{
 
-    // Write something awesome :)
+    public function createParent($data);
 }

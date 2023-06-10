@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Image;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Services\User\UserService;
+use Illuminate\Support\Facades\File;
 use ProtoneMedia\Splade\SpladeTable;
 use Spatie\QueryBuilder\QueryBuilder;
 use ProtoneMedia\Splade\Facades\Toast;
-use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
-use App\Services\Location\LocationService;
+use Illuminate\Support\Facades\Storage;
 use App\Services\Student\StudentService;
-use App\Services\User\UserService;
+use App\Http\Requests\StoreStudentRequest;
+use App\Services\Location\LocationService;
+use App\Http\Requests\UpdateStudentRequest;
 
 class StudentController extends Controller
 {
@@ -73,30 +76,24 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        // $student_data = $request->except([
-        //     'father_name',
-        //     'father_nik',
-        //     'father_phone',
-        //     'father_education',
-        //     'father_job',
-        //     'father_income',
-        //     'mother_name',
-        //     'mother_nik',
-        //     'mother_phone',
-        //     'mother_education',
-        //     'mother_job',
-        //     'mother_income',
-        // ]);
-        // $student_data['user_id'] = auth()->user()->id;
-        // $student = Student::create($student_data);
-        $this->student->create($request);
-        Toast::title('Alhamdulillah!')
-            ->message('Data berhasil disimpan')
-            ->success()
-            ->rightTop()
-            ->backdrop()
-            ->autoDismiss(5);
-        return redirect()->route('dashboard');
+        $student = $this->student->storeNewStudent($request);
+        if ($student['status'] === false) {
+            Toast::title('Maaf!')
+                ->message($student['message'])
+                ->danger()
+                ->rightTop()
+                ->backdrop()
+                ->autoDismiss(5);
+            return back();
+        } else {
+            Toast::title('Alhamdulillah!')
+                ->message($student['message'])
+                ->success()
+                ->rightTop()
+                ->backdrop()
+                ->autoDismiss(5);
+            return redirect()->route('dashboard');
+        }
     }
 
     /**

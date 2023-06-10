@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Services\Location\LocationServiceImplement;
+use App\Models\StudentFamily;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Services\Location\LocationServiceImplement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Student extends Model
@@ -94,5 +95,10 @@ class Student extends Model
         } else {
             $this->attributes['nickname'] = strtolower($value);
         }
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(StudentFamily::class);
     }
 }
