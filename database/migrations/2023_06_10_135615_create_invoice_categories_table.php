@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admissions', function (Blueprint $table) {
+        Schema::create('invoice_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('period')->unique();
-            $table->string('batch');
-            $table->integer('amount');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->boolean('is_active')->default(1);
+            $table->string('name');
+            $table->string('amount');
+            // admission_id
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admissions');
+        Schema::dropIfExists('invoice_categories');
     }
 };
