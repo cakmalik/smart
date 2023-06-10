@@ -60,6 +60,9 @@ Route::middleware(['splade'])->group(function () {
         'verified',
         'role:santri',
     ])->group(function () {
-        Route::resource('/student', StudentController::class);
+        Route::prefix('wali')->group(function () {
+            Route::get('/student/family', [UserController::class, 'familyMembers'])->name('student.families');
+            Route::resource('/student', StudentController::class);
+        });
     });
 });

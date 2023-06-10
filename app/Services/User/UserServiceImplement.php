@@ -29,4 +29,8 @@ class UserServiceImplement extends Service implements UserService
             return [];
         }
     }
+    public function getFamilies()
+    {
+        return $this->mainRepository->getFamilies();
+    }
 }
