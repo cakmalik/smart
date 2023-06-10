@@ -11,9 +11,17 @@ class Image extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $name;
+    public $lineOne;
+    public $lineTwo;
+    public $buttonText;
+
+    public function __construct($name = 'Tambah', $lineOne = '-', $lineTwo = '-', $buttonText = 'Selengkapnya')
     {
-        //
+        $this->name = $name;
+        $this->lineOne = $lineOne;
+        $this->lineTwo = $lineTwo;
+        $this->buttonText = $buttonText;
     }
 
     /**
