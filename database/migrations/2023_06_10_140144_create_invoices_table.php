@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('amount');
             $table->string('status')->default('unpaid');
             $table->string('payment_method')->nullable();
+            $table->string('title')->nullable();
+            $table->string('reference')->nullable();
+            $table->string('desc')->nullable();
             $table->timestamps();
         });
     }

@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('student_families', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students');
             $table->string('father_name');
             $table->string('father_nik')->nullable();
             $table->string('father_phone')->nullable();
@@ -28,13 +26,15 @@ return new class extends Migration
             $table->string('mother_education')->nullable();
             $table->string('mother_job')->nullable();
             $table->string('mother_income')->nullable();
-            
+
             $table->string('guard_name')->nullable();
             $table->string('guard_nik')->nullable();
             $table->string('guard_phone')->nullable();
             $table->string('guard_education')->nullable();
             $table->string('guard_job')->nullable();
             $table->string('guard_income')->nullable();
+
+            $table->string('parent_image')->nullable();
             $table->timestamps();
         });
     }
