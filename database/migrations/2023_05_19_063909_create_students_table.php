@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->string('name');
+            $table->string('nickname')->nullable();
             $table->string('nik');
             $table->string('place_of_birth');
             $table->date('date_of_birth');
@@ -34,6 +35,8 @@ return new class extends Migration
             $table->string('student_image')->nullable();
             $table->string('parent_image')->nullable();
 
+            $table->integer('child_number')->nullable();
+            $table->integer('siblings')->nullable();
             $table->string('nis')->nullable();
             $table->string('hobby')->nullable();
             $table->string('ambition')->nullable();
