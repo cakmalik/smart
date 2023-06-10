@@ -90,10 +90,11 @@
                             <aside v-show="data.currentIndex === 0">
                                 <div class="grid sm:grid-cols-2 gap-4">
                                     <div>
-                                        <div>
-                                            <x-splade-input class="mt-2" name="name" type="text"
-                                                :label="__('bakid.name')" :placeholder="__('bakid.pl.name')" />
-                                        </div>
+                                        <x-splade-input class="mt-2" name="name" type="text" :label="__('bakid.name')"
+                                            :placeholder="__('bakid.pl.name')" />
+
+                                        <x-splade-input class="mt-2" name="nickname" type="text" :label="__('bakid.nickname')"
+                                            :placeholder="__('bakid.pl.nickname')" />
 
                                         <x-splade-input class="mt-2" name="nik" type="text" :label="__('bakid.nik')"
                                             :placeholder="__('bakid.pl.nik')" />
@@ -144,9 +145,18 @@
                                             :options="['Islam']" :label="__('bakid.religion')" :placeholder="__('bakid.pl.religion')"
                                             choices="{searchEnabled:false}" />
 
-
                                         <x-splade-select class="mt-2" name="nationality" :options="['WNI', 'WNA']"
                                             :label="__('bakid.nationality')" :placeholder="__('bakid.pl.nationality')" choices="{searchEnabled:false}" />
+
+                                        <div class="flex justify-center gap-2">
+
+                                            <x-splade-input class="mt-2" name="child_number" type="number"
+                                                :label="__('bakid.child_number')" />
+
+                                            <x-splade-input class="mt-2" name="siblings" type="number"
+                                                :label="__('bakid.siblings')" />
+
+                                        </div>
 
                                     </div>
                                 </div>
@@ -244,7 +254,6 @@
 
                                     </div>
                                     <div>
-
                                         <x-splade-input class="mt-2" name="nism" type="text"
                                             :label="__('bakid.nism')" :placeholder="__('bakid.pl.nism')" />
 
@@ -299,7 +308,8 @@
                                 {{-- <button
                                     class="cursor-pointer px-4 py-2 bg-grren-400 text-slate-700 outline outline-2 rounded-lg hover:bg-green-500 hover:text-slate-800"
                                     v-show="data.currentIndex >=3">{{ __('pagination.submit') }}</button> --}}
-                                <x-splade-submit label="Simpan" :spinner="true" @click="data.currentIndex=0" />
+                                <x-splade-submit label="Simpan" :spinner="true" v-show="data.currentIndex >=3"
+                                    @click="data.currentIndex=0" />
                             </div>
                         </x-splade-data>
                     </x-splade-form>

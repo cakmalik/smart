@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'name'   => 'Nama',
+    'name'   => 'Nama Lengkap',
+    'nickname'   => 'Nama Panggilan',
     'nik' => 'NIK',
     'place_of_birth' => 'Tempat Lahir',
     'date_of_birth' => 'Tanggal Lahir',
@@ -28,6 +29,8 @@ return [
     'kip' => 'KIP',
     'kks' => 'KKS',
     'pkh' => 'PKH',
+    'child_number' => 'Anak ke-',
+    'siblings' => 'Jumlah saudara',
 
     // ini lang
     'father_name'        => 'Nama Ayah',
@@ -53,7 +56,8 @@ return [
 
     // ini placeholder
     'pl' => [
-        'name'   => 'Masukkan nama santri',
+        'name'   => 'Nama lengkap sesuai KK',
+        'nickname'   => 'Nama panggilan',
         'nik' => 'Masukkan NIK',
         'place_of_birth' => 'Masukkan tempat lahir',
         'date_of_birth' => 'Masukkan tanggal lahir',
@@ -80,6 +84,8 @@ return [
         'kip' => 'Masukkan KIP',
         'kks' => 'Masukkan KKS',
         'pkh' => 'Masukkan PKH',
+        'child_number' => 'Anak ke-',
+        'siblings' => 'Jumlah saudara',
 
         'father_name'        => 'Masukkan nama ayah',
         'father_nik'         => 'Masukkan NIK ayah',
