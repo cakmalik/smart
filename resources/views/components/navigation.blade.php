@@ -16,7 +16,7 @@
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
+                            {{ __('message.dashboard') }}
                         </x-nav-link>
                         @hasrole('admin')
                             <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
@@ -26,7 +26,7 @@
                         @hasrole('santri')
                             @if (Auth::user()->students->count() > 0)
                                 <x-nav-link :href="route('student.families')" :active="request()->routeIs('student.families')">
-                                    {{ __('Keluarga') }}
+                                    {{ __('message.family_member') }}
                                 </x-nav-link>
                             @endif
                         @endhasrole
@@ -134,25 +134,25 @@
                                     class="w-48 mt-2 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 py-1 bg-white">
                                     <!-- Account Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Account') }}
+                                        {{ __('message.manage_account') }}
                                     </div>
 
                                     <x-dropdown-link :href="route('profile.show')">
                                         {{ __('Profile') }}
                                     </x-dropdown-link>
-
-                                    @if (\Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                        <x-dropdown-link :href="route('api-tokens.index')">
-                                            {{ __('API Tokens') }}
-                                        </x-dropdown-link>
-                                    @endif
-
+                                    @hasrole('admin')
+                                        @if (\Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                            <x-dropdown-link :href="route('api-tokens.index')">
+                                                {{ __('API Tokens') }}
+                                            </x-dropdown-link>
+                                        @endif
+                                    @endhasrole
                                     <div class="border-t border-gray-200" />
 
                                     <!-- Authentication -->
                                     <x-splade-form :action="route('logout')">
                                         <x-dropdown-link as="button">
-                                            {{ __('Log Out') }}
+                                            {{ __('message.sign_out') }}
                                         </x-dropdown-link>
                                     </x-splade-form>
                                 </div>
@@ -182,7 +182,7 @@
         <div :class="{ 'block': mobileNavigation.open, 'hidden': !mobileNavigation.open }" class="sm:hidden">
             <div class="pt-2 pb-3 space-y-1">
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
+                    {{ __('message.dashboard') }}
                 </x-responsive-nav-link>
             </div>
 
