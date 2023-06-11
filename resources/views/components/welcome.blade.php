@@ -27,28 +27,17 @@
             </x-slot:placeholder>
 
             <h1 class="mt-8 text-2xl text-gray-900 text-center">
-                {{ $rand['arab'] }}
+                {{ $rand['ayat'] }}
             </h1>
 
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-
-            <style>
-                font-family: 'Noto Sans JP',
-                sans-serif;
-
-                .coba {
-                    font-family: 'Noto Sans JP',
-                }
-            </style>
-
             <p class="mt-6 text-gray-500 leading-relaxed coba text-center italic">
-                {{ $rand['translation'] }}
+                {{ $rand['arti'] }}
             </p>
 
-            <p>
-
+            <p class=" text-gray-500 text-center text-sm">
+                @isset($rand['surat'])
+                    ({{ $rand['surat'] }}:{{ $rand['ayat_ke'] }})
+                @endisset
             </p>
         </x-splade-lazy>
     @endif
