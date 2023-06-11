@@ -73,8 +73,9 @@
                             </svg>
                         </span>
                         <span
-                            class="absolute flex items-center justify-center w-full h-full text-white transition-all duration-300 transform group-hover:-translate-x-full ease">Mendaftar</span>
-                        <span class="relative invisible">Mendaftar</span>
+                            class="absolute flex items-center justify-center w-full h-full text-white transition-all duration-300 transform group-hover:-translate-x-full ease">Buat
+                            Akun</span>
+                        <span class="relative invisible">Buat Akun</span>
                         </Link>
                     @endif
                 @endauth
