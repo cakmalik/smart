@@ -3,14 +3,55 @@
         <x-application-logo class="block h-12 w-auto mx-auto" />
     </div>
 
-    <h1 class="mt-8 text-2xl font-medium text-gray-900 text-center">
-        Assalamualaikum, {{ Auth::user()->name }}'s Family
-    </h1>
+    @if (auth()->user()->students->count() == 0)
+        <h1 class="mt-8 text-2xl font-medium text-gray-900 text-center">
+            Assalamualaikum, {{ Auth::user()->name }}'s Family
+        </h1>
 
-    <p class="mt-6 text-gray-500 leading-relaxed text-center">
-        kami informasikan bahwa satu akun orang tua bisa memiliki/memantau
-        semua anggota keluarga yang terdaftar sebagai santri di pesantren kami.
-    </p>
+        <p class="mt-6 text-gray-500 leading-relaxed text-center">
+            kami informasikan bahwa satu akun orang tua bisa memiliki/memantau
+            semua anggota keluarga yang terdaftar sebagai santri di pesantren kami.
+        </p>
+    @else
+        <x-splade-lazy>
+            @php
+                $rand = getRandomAyat();
+            @endphp
+            <x-slot:placeholder>
+                <p class="text-center my-16">
+                    <span class="animate-pulse font-bold text-xl">.</span>
+                    <span class="animate-pulse font-bold text-xl" style="animation-delay: 0.5s">.</span>
+                    <span class="animate-pulse font-bold text-xl" style="animation-delay: 1s">.</span>
+                </p>
+
+            </x-slot:placeholder>
+
+            <h1 class="mt-8 text-2xl text-gray-900 text-center">
+                {{ $rand['arab'] }}
+            </h1>
+
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+            <style>
+                font-family: 'Noto Sans JP',
+                sans-serif;
+
+                .coba {
+                    font-family: 'Noto Sans JP',
+                }
+            </style>
+
+            <p class="mt-6 text-gray-500 leading-relaxed coba text-center italic">
+                {{ $rand['translation'] }}
+            </p>
+
+            <p>
+
+            </p>
+        </x-splade-lazy>
+    @endif
 </div>
 
 
