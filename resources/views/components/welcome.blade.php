@@ -26,19 +26,21 @@
 
             </x-slot:placeholder>
 
-            <h1 class="mt-8 text-2xl text-gray-900 text-center">
-                {{ $rand['ayat'] }}
-            </h1>
+            @if ($rand != null)
+                <h1 class="mt-8 text-2xl text-gray-900 text-center">
+                    {{ $rand['ayat'] }}
+                </h1>
 
-            <p class="mt-6 text-gray-500 leading-relaxed coba text-center italic">
-                {{ $rand['arti'] }}
-            </p>
+                <p class="mt-6 text-gray-500 leading-relaxed coba text-center italic">
+                    {{ $rand['arti'] }}
+                </p>
 
-            <p class=" text-gray-500 text-center text-sm">
-                @isset($rand['surat'])
-                    ({{ $rand['surat'] }}:{{ $rand['ayat_ke'] }})
-                @endisset
-            </p>
+                <p class=" text-gray-500 text-center text-sm">
+                    @isset($rand['surat'])
+                        ({{ $rand['surat'] }}:{{ $rand['ayat_ke'] }})
+                    @endisset
+                </p>
+            @endif
         </x-splade-lazy>
     @endif
 </div>
