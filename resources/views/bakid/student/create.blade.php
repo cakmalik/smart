@@ -280,14 +280,14 @@
                             <aside v-show="data.currentIndex===3">
                                 <div class="grid sm:grid-cols-2 gap-3">
                                     <div>
-                                        <x-splade-file name="student_image" :show-filename="false" filepond
-                                            label="Foto Santri" class="mt-2" />
-                                        <img class="w-full p-5" v-if="form.student_image"
+                                        <x-splade-file v-model="form.student_image" :show-filename="false"  label="Foto Santri" filepond  accept="image/jpg" max-size="2MB"
+                                            class="mt-2" />
+                                        <img class="w-full p-5" v-if="form.student_image" name="student_image"
                                             :src="form.$fileAsUrl('student_image')" class="mt-2" />
                                     </div>
                                     <div>
-                                        <x-splade-file name="parent_image" :show-filename="false" filepond
-                                            label="Foto Ayah" class="mt-2" />
+                                        <x-splade-file v-model="form.parent_image" name="parent_image" :show-filename="false"  label="Foto Ayah" filepond  accept="image/jpg" max-size="2MB"
+                                            class="mt-2" />
                                         <img class="w-full p-5" v-if="form.parent_image"
                                             :src="form.$fileAsUrl('parent_image')" class="mt-2" />
                                     </div>
