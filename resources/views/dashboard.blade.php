@@ -8,8 +8,14 @@
         </x-slot>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-4">
+                    <x-card.summary />
+                    <x-card.summary />
+                    <x-card.summary />
+                    <x-card.summary />
+                </div>
+                <div class="bg-white/30 overflow-hidden shadow-xl sm:rounded-lg p-5 backdrop-blur-md">
                     <x-welcome />
                 </div>
             </div>
