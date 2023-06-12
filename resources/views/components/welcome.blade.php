@@ -2,8 +2,8 @@
     <div class="flex justify-center">
         <x-application-logo class="block h-12 w-auto mx-auto" />
     </div>
-
-    @if (auth()->user()->students->count() == 0)
+    @if (auth()->user()->students->count() == 0 &&
+            !auth()->user()->isAdmin())
         <h1 class="mt-8 text-2xl font-medium text-gray-900 text-center">
             Assalamualaikum, {{ Auth::user()->name }}'s Family
         </h1>
@@ -47,22 +47,22 @@
 </div>
 
 
-<div class="backdrop-blur-md gap-6 lg:gap-8 p-6 lg:p-8 mx-auto max-w-lg">
-    <div>
-        @if (Auth::user()->students->count() == 0)
+@if (Auth::user()->students->count() == 0 &&
+        !auth()->user()->isAdmin())
+    <div class="backdrop-blur-md gap-6 lg:gap-8 p-6 lg:p-8 mx-auto max-w-lg">
+        <div>
             <h2 class="ml-3 text-xl font-semibold text-gray-900 text-center">
                 <a href="{{ route('student.create') }}">Daftarkan Sekarang</a>
             </h2>
-        @else
-        @endif
 
-        <p class="mt-4 text-gray-900 text-base leading-relaxed text-center">
-            @if (Auth::user()->students->count() == 0)
-                Anda terdeteksi belum mendaftarkan putra/putri anda sebagai santri di pesantren kami, silahkan daftarkan
-            @endif
-        </p>
+            <p class="mt-4 text-gray-900 text-base leading-relaxed text-center">
+                @if (Auth::user()->students->count() == 0)
+                    Anda terdeteksi belum mendaftarkan putra/putri anda sebagai santri di pesantren kami, silahkan
+                    daftarkan
+                @endif
+            </p>
 
-        @if (Auth::user()->students->count() == 0)
+
             <p class="mt-4 text-base text-center">
                 <Link href="{{ route('student.create') }}"
                     class="inline-flex items-center font-semibold text-white px-10 py-3 rounded-full bg-green-500 animate-pulse">
@@ -75,6 +75,6 @@
                 </svg>
                 </Link>
             </p>
-        @endif
+        </div>
     </div>
-</div>
+@endif
