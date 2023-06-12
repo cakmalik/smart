@@ -1,7 +1,7 @@
 <x-banner />
 
-<div class="min-h-screen bg-gray-100 "
-    style="background-image: url('{{ asset('bakid/bg-blur.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
+<div class="min-h-screen bg-pink-300"
+    style="background-image: url('{{ asset('bakid/blobanimation.svg') }}'); background-size: cover; background-position: bottom;background-attachment: fixed;">
     <x-navigation />
 
     <!-- Page Heading -->
