@@ -8,7 +8,7 @@
             Assalamualaikum, {{ Auth::user()->name }}'s Family
         </h1>
 
-        <p class="mt-6 text-gray-500 leading-relaxed text-center">
+        <p class="mt-6 text-gray-700 leading-relaxed text-center">
             kami informasikan bahwa satu akun orang tua bisa memiliki/memantau
             semua anggota keluarga yang terdaftar sebagai santri di pesantren kami.
         </p>
@@ -31,7 +31,7 @@
                     {{ $rand['ayat'] }}
                 </h1>
 
-                <p class="mt-6 text-gray-500 leading-relaxed coba text-center italic">
+                <p class="mt-6 text-gray-700 leading-relaxed coba text-center italic">
                     {{ $rand['arti'] }}
                 </p>
 
@@ -56,7 +56,7 @@
         @else
         @endif
 
-        <p class="mt-4 text-gray-500 text-base leading-relaxed text-center">
+        <p class="mt-4 text-gray-900 text-base leading-relaxed text-center">
             @if (Auth::user()->students->count() == 0)
                 Anda terdeteksi belum mendaftarkan putra/putri anda sebagai santri di pesantren kami, silahkan daftarkan
             @endif
