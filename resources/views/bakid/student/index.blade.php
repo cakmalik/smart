@@ -3,33 +3,21 @@
 <x-app-layout>
     <x-slot:header>
         <h2 class="font-medium text-xl text-gray-800">
-            {{ __('bakid.t.family_members') }}
+            {{ __('bakid.t.students') }}
         </h2>
         </x-slot>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                {{-- <Link slideover href="{{ route('user.create') }}">
-                <button
-                    class="bg-slate-500 p-2 text-white rounded-md text-sm items-center  hover:bg-green-500 w-20 mb-4">
-                    Tambah
-                </button>
-                </Link>
-                <button
-                    class="bg-slate-500 p-2 text-white rounded-md text-sm items-center ms-2 hover:bg-green-500 w-20 mb-4">
-                    Coba
-                </button>
-                </Link> --}}
+
                 <x-splade-table :for="$students" striped>
                     <x-slot name="empty-state">
                         <p class="text-center">No students found.</p>
                     </x-slot>
-                    {{-- @cell('image', $students)
-                        <img src="{{ $user->image }}" alt="{{ $user->name }}" class="rounded-full h-10 w-10">
-                    @endcell --}}
+
                     @cell('action', $students)
                         <div class="flex gap-1 ">
-                            <Link href="{{ route('user.show', $students->id) }}"
+                            <Link modal href="{{ route('student.show', $students->id) }}"
                                 class="rounded-full p-1 bg-slate-500 text-white hover:bg-green-500">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5 p-1">
@@ -38,7 +26,7 @@
                             </svg>
 
                             </Link>
-                            <Link modal href="{{ route('user.edit', $students->id) }}"
+                            <Link href="{{ route('student.edit', $students->id) }}"
                                 class="rounded-full p-1 bg-slate-500 text-white hover:bg-green-500">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5 p-1">
