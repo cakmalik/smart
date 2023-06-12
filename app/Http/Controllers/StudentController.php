@@ -61,14 +61,14 @@ class StudentController extends Controller
             ->withQueryString();
         return view('bakid.student.index', [
             'students' => SpladeTable::for($students)
-                ->defaultSort('name')
+                // ->defaultSort('name')
                 ->column('name', sortable: true, searchable: true, canBeHidden: false)
                 ->withGlobalSearch()
                 // ->rowLink(fn (student $student) => route('student.show', $student))
                 ->column('action')
-                ->selectFilter('name', [
-                    'name' => 'name',
-                ])
+            // ->selectFilter('name', [
+            //     'name' => 'name',
+            // ])
 
         ]);
     }
