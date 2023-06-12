@@ -121,7 +121,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('bakid.student.edit', compact('student'));
     }
 
     /**

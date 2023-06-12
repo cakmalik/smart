@@ -74,4 +74,9 @@ class User extends Authenticatable
             set: fn (String $value) => strtolower($value)
         );
     }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
 }
