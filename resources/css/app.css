@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Usmani';
-  src: url("fonts/usmani.otf") format("opentype");
+      font-family: "Usmani";
+      src: url("fonts/usmani.otf") format("opentype");
 }
+/*
+@layer utilities {
+      .animation-delay-2000{
+        animation-delay:2s;
+    }
+      .animation-delay-4000{
+        animation-delay:4s;
+    }
+} */
