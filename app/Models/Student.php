@@ -50,40 +50,41 @@ class Student extends Model
     }
 
     protected function province(): Attribute
-    {
-        $loc = new LocationServiceImplement();
-        return Attribute::make(
-            get: fn (string $value) => ucwords($value),
-            set: fn (string $value) => $loc->getProvinceName($value)
-        );
-    }
+{
+    $loc = new LocationServiceImplement();
+    return Attribute::make(
+        get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
+        set: fn (string $value) => is_numeric($value) ? $loc->getProvinceName($value) : $value
+    );
+}
 
-    protected function city(): Attribute
-    {
-        $loc = new LocationServiceImplement();
-        return Attribute::make(
-            get: fn (string $value) => ucwords($value),
-            set: fn (string $value) => $loc->getCityName($value)
-        );
-    }
+protected function city(): Attribute
+{
+    $loc = new LocationServiceImplement();
+    return Attribute::make(
+        get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
+        set: fn (string $value) => is_numeric($value) ? $loc->getCityName($value) : $value
+    );
+}
 
-    protected function district(): Attribute
-    {
-        $loc = new LocationServiceImplement();
-        return Attribute::make(
-            get: fn (string $value) => ucwords($value),
-            set: fn (string $value) => $loc->getDistrictName($value)
-        );
-    }
+protected function district(): Attribute
+{
+    $loc = new LocationServiceImplement();
+    return Attribute::make(
+        get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
+        set: fn (string $value) => is_numeric($value) ? $loc->getDistrictName($value) : $value
+    );
+}
 
-    protected function village(): Attribute
-    {
-        $loc = new LocationServiceImplement();
-        return Attribute::make(
-            get: fn (string $value) => ucwords($value),
-            set: fn (string $value) => $loc->getVillageName($value)
-        );
-    }
+protected function village(): Attribute
+{
+    $loc = new LocationServiceImplement();
+    return Attribute::make(
+        get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
+        set: fn (string $value) => is_numeric($value) ? $loc->getVillageName($value) : $value
+    );
+}
+
 
     public function setNicknameAttribute($value)
     {
@@ -99,6 +100,6 @@ class Student extends Model
 
     public function parent()
     {
-        return $this->belongsTo(StudentFamily::class);
+        return $this->belongsTo(StudentFamily::class, 'student_family_id');
     }
 }

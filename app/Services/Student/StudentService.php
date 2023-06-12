@@ -7,4 +7,6 @@ use LaravelEasyRepository\BaseService;
 interface StudentService extends BaseService
 {
     public function storeNewStudent($request);
+
+    public function updateStudent($request, $student);
 }

@@ -25,4 +25,9 @@ class StudentRepositoryImplement extends Eloquent implements StudentRepository
     {
         return StudentFamily::create($data);
     }
+
+    public function updateParent($data, $student)
+    {
+        return $student->parent->update($data);
+    }
 }
