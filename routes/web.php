@@ -58,11 +58,11 @@ Route::middleware(['splade'])->group(function () {
         'auth:sanctum',
         config('jetstream.auth_session'),
         'verified',
-        'role:santri',
+        'role:santri|admin',
     ])->group(function () {
         Route::prefix('wali')->group(function () {
             Route::get('/student/family', [UserController::class, 'familyMembers'])->name('student.families');
-            Route::resource('/student', StudentController::class);
         });
+        Route::resource('/student', StudentController::class);
     });
 });
