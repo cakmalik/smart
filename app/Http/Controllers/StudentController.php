@@ -121,6 +121,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
+        $student->load('parent');
         return view('bakid.student.edit', compact('student'));
     }
 
@@ -129,7 +130,24 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+        $student = $this->student->updateStudent($request, $student);
+        if ($student['status'] === false) {
+            Toast::title('Maaf!')
+                ->message($student['message'])
+                ->danger()
+                ->rightTop()
+                // ->backdrop()
+                ->autoDismiss(3);
+            return back();
+        } else {
+            Toast::title('Alhamdulillah!')
+                ->message($student['message'])
+                ->success()
+                ->rightTop()
+                // ->backdrop()
+                ->autoDismiss(3);
+            return back();
+        }
     }
 
     /**
