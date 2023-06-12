@@ -23,6 +23,9 @@
                             <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
                                 {{ __('Users') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('student.index')" :active="request()->routeIs('student.index')">
+                                {{ __('bakid.t.students') }}
+                            </x-nav-link>
                         @endhasrole
                         @hasrole('santri')
                             @if (Auth::user()->students->count() > 0)
