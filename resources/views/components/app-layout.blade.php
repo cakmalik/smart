@@ -1,6 +1,6 @@
 <x-banner />
 
-<div class="min-h-screen bg-pink-300"
+<div class="min-h-screen bg-green-300"
     style="background-image: url('{{ asset('bakid/blobanimation.svg') }}'); background-size: cover; background-position: bottom;background-attachment: fixed;">
     <x-navigation />
 
