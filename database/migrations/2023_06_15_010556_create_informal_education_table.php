@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formal_education', function (Blueprint $table) {
+        Schema::create('informal_education', function (Blueprint $table) {
             $table->id();
             $table->string('school_name'); //e.g., MTs2
             $table->enum('level', ['primary', 'secondary', 'high', 'bachelor', 'master', 'doctoral']);
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formal_education');
+        Schema::dropIfExists('informal_education');
     }
 };
