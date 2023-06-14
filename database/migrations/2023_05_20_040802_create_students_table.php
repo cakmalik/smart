@@ -48,6 +48,8 @@ return new class extends Migration
             $table->string('kip')->nullable();
             $table->string('kks')->nullable();
             $table->string('pkh')->nullable();
+            $table->enum('status', ['waiting', 'accepted', 'rejected'])->default('waiting');
+            $table->dateTime('verified_at')->nullable();
 
             // $table->foreignId('student_family_id')->constrained('student_families')->onDelete('cascade');
             $table->timestamps();
