@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('student_educational_backgrounds', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id')->constrained('students');
+            $table->string('school_name');
+            $table->enum('level', ['primary', 'secondary', 'high', 'bachelor', 'master', 'doctoral']);
+            $table->string('school_address');
+            $table->string('school_phone_number')->nullable();
+            $table->string('npsn')->nullable();
             $table->timestamps();
         });
     }
