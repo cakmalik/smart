@@ -7,7 +7,7 @@ export default defineConfig({
         laravel({
             input: "resources/js/app.js",
             ssr: "resources/js/ssr.js",
-            refresh: true,
+            refresh: false,
         }),
         vue({
             template: {
@@ -19,6 +19,6 @@ export default defineConfig({
         }),
     ],
     ssr: {
-        noExternal: ["vue", "@protonemedia/laravel-splade"]
+        noExternal: ["vue", "@protonemedia/laravel-splade"],
     },
 });
