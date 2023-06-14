@@ -23,7 +23,6 @@
                     <span class="animate-pulse font-bold text-2xl" style="animation-delay: 0.3s"> . </span>
                     <span class="animate-pulse font-bold text-2xl" style="animation-delay: 0.6s"> . </span>
                 </p>
-
             </x-slot:placeholder>
 
             @if ($rand != null)
@@ -42,7 +41,6 @@
                 </p>
             @endif
         </x-splade-lazy>
-
     @endif
 </div>
 

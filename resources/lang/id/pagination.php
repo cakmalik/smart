@@ -14,8 +14,8 @@ return [
     */
 
     'submit' => 'Simpan',
-    'previous' => 'Sebelumnya',
-    'next' => 'Berikutnya',
+    'previous' => '&laquo;',
+    'next' => '&raquo;',
     // 'previous' => '&laquo; Sebelumnya',
     // 'next' => 'Berikutnya &raquo;',
 
