@@ -33,6 +33,7 @@
                     <x-splade-form :action="route('student.store')" default="{nationality:'WNI'}" {{-- confirm="Simpan"
                         confirm-text="Apakah anda yakin semua data sudah benar?" confirm-button="Ya, simpan!" --}}
                         cancel-button="Batal">
+                        <x-loading/>
                         <x-splade-data remember="menu" default="{currentIndex: 0, religion:'Islam' }">
                             <ol
                                 class="flex justify-center items-center w-full p-3 mb-6 space-x-2 text-sm font-medium text-center text-gray-500 bg-slate-800 backdrop-blur-md border-none rounded-none shadow-none dark:text-gray-400 sm:text-base dark:bg-gray-800 dark:border-gray-700 sm:p-4 sm:space-x-4">
