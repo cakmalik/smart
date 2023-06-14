@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('violations', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->integer('point')->default(0);
+            $table->enum('type', ['ringan', 'sedang', 'berat']);
             $table->timestamps();
         });
     }
