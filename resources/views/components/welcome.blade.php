@@ -7,11 +7,22 @@
         <h1 class="mt-8 text-2xl font-medium text-gray-900 text-center">
             Assalamualaikum, {{ Auth::user()->name }}'s Family
         </h1>
-
-        <p class="mt-6 text-gray-700 leading-relaxed text-center">
-            kami informasikan bahwa satu akun orang tua bisa memiliki/memantau
-            semua anggota keluarga yang terdaftar sebagai santri di pesantren kami.
-        </p>
+        @if (isCanAdmission())
+            <p class="mt-6 text-gray-700 leading-relaxed text-center">
+                kami informasikan bahwa satu akun orang tua bisa memiliki/memantau
+                semua anggota keluarga yang terdaftar sebagai santri di pesantren kami.
+            </p>
+        @else
+            <p class="mt-3 text-center text-lg bg-yellow-300">Mohon, Maaf Pendaftaran Santri Baru Belum dibuka.
+            </p>
+            <p class="text-center"> Klik link dibawah ini agar
+                diingatkan secara otomatis
+                melalui WA jika pendaftaran telah dibuka. </p>
+            <Link href="/"
+                class="flex justify-center mt-6 p-4 px-6 bg-green-600 rounded-xl text-white hover:bg-green-700 ">
+            <span class="font-semibold">INGATKAN</span>
+            </Link>
+        @endif
     @else
         <x-splade-lazy>
             @php
@@ -46,7 +57,8 @@
 
 
 @if (Auth::user()->students->count() == 0 &&
-        !auth()->user()->isAdmin())
+        !auth()->user()->isAdmin() &&
+        isCanAdmission())
     <div class="backdrop-blur-md gap-6 lg:gap-8 p-6 lg:p-8 mx-auto max-w-lg">
         <div>
             <h2 class="ml-3 text-xl font-semibold text-gray-900 text-center">
