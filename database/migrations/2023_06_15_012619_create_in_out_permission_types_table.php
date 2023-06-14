@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('in_out_permission_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('duration')->default(0); //in minutes
             $table->integer('point')->default(0);
             $table->timestamps();
         });
