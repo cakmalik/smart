@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Formal\FormalEducationClass;
+use App\Models\Informal\InformalEducationClass;
 use App\Models\Teacher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formal_education_subjects', function (Blueprint $table) {
+        Schema::create('informal_education_subjects', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(FormalEducationClass::class)->constrained('formal_education_classes');
+            $table->foreignIdFor(InformalEducationClass::class)->constrained('informal_education_classes');
             $table->string('name'); //e.g., Matematika
             $table->foreignIdFor(Teacher::class)->nullable();
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formal_education_subjects');
+        Schema::dropIfExists('informal_education_subjects');
     }
 };

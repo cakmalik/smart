@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Formal\FormalEducation;
+use App\Models\Informal\InformalEducation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,10 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formal_education_classes', function (Blueprint $table) {
+        Schema::create('informal_education_classes', function (Blueprint $table) {
             $table->id();
-            // formal_education_id
-            $table->foreignIdFor(FormalEducation::class)->constrained('formal_education');
+            // informal_education_id
+            $table->foreignIdFor(InformalEducation::class)->constrained('informal_education');
             $table->string('class_name'); //e.g., 7
             $table->integer('qty')->default(0);
             $table->integer('current_qty')->default(0);
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formal_education_classes');
+        Schema::dropIfExists('informal_education_classes');
     }
 };

@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\Formal\FormalEducation;
+use App\Models\Informal\InformalEducation;
 use App\Models\Student;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use App\Models\Formal\FormalEducationClass;
-use App\Models\Formal\FormalEducationGrade;
+use App\Models\Informal\InformalEducationClass;
+use App\Models\Informal\InformalEducationGrade;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -15,12 +15,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formal_education_students', function (Blueprint $table) {
+        Schema::create('informal_education_students', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Student::class)->constrained('students');
-            $table->foreignIdFor(FormalEducation::class)->constrained('formal_education');
-            $table->foreignIdFor(FormalEducationClass::class)->constrained('formal_education_classes');
-            $table->foreignIdFor(FormalEducationGrade::class)->constrained('formal_education_grades');
+            $table->foreignIdFor(InformalEducation::class)->constrained('informal_education');
+            $table->foreignIdFor(InformalEducationClass::class)->constrained('informal_education_classes');
+            $table->foreignIdFor(InformalEducationGrade::class)->constrained('informal_education_grades');
             $table->enum('status', ['waiting', 'accepted', 'rejected', 'graduated', 'active'])->default('waiting');
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formal_education_students');
+        Schema::dropIfExists('informal_education_students');
     }
 };
