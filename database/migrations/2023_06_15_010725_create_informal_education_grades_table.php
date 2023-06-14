@@ -17,7 +17,7 @@ return new class extends Migration
             // informal_education_class_id
             $table->foreignIdFor(InformalEducationClass::class)->constrained('informal_education_classes');
             $table->string('grade_name'); //e.g., 7a
-            $table->integer('qty');
+            $table->integer('qty')->default(0);
             $table->timestamps();
         });
     }
