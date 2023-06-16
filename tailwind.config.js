@@ -34,6 +34,11 @@ module.exports = {
             },
         },
     },
+    variants: {
+        extend: {
+            display: ["group-focus"],
+        },
+    },
 
     plugins: [
         require("@tailwindcss/forms"),
