@@ -66,3 +66,11 @@ Route::middleware(['splade'])->group(function () {
         Route::resource('/student', StudentController::class);
     });
 });
+
+Route::get('/test', function () {
+    //    whatsapp service
+    $whatsapp = new \App\Services\WhatsappService();
+    $whatsapp->send('085333920007');
+});
+
+Route::get('/nota/{reference}', [TransactionController::class, 'invoice'])->name('pay.invoice');
