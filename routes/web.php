@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\BakidSettingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TransactionController;
+use App\Models\BakidSetting;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +57,7 @@ Route::middleware(['splade'])->group(function () {
     ])->group(function () {
         Route::resource('/user', UserController::class);
     });
+
     Route::middleware([
         'auth:sanctum',
         config('jetstream.auth_session'),
@@ -64,13 +68,14 @@ Route::middleware(['splade'])->group(function () {
             Route::get('/student/family', [UserController::class, 'familyMembers'])->name('student.families');
         });
         Route::resource('/student', StudentController::class);
+        Route::resource('/setting', BakidSettingController::class);
     });
 });
 
+Route::get('/nota/{reference}', [TransactionController::class, 'invoice'])->name('pay.invoice');
+
+// without middleware
 Route::get('/test', function () {
-    //    whatsapp service
     $whatsapp = new \App\Services\WhatsappService();
     $whatsapp->send('085333920007');
 });
-
-Route::get('/nota/{reference}', [TransactionController::class, 'invoice'])->name('pay.invoice');
