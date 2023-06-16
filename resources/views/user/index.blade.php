@@ -9,18 +9,6 @@
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Link slideover href="{{ route('user.create') }}">
-                <button
-                    class="bg-slate-500 p-2 text-white rounded-md text-sm items-center  hover:bg-green-500 w-20 mb-4">
-                    Tambah
-                </button>
-                </Link>
-                {{-- <Link modal href="{{ route('try') }}"> --}}
-                <button
-                    class="bg-slate-500 p-2 text-white rounded-md text-sm items-center ms-2 hover:bg-green-500 w-20 mb-4">
-                    Coba
-                </button>
-                </Link>
                 <x-splade-table :for="$users" striped>
                     <x-slot name="empty-state">
                         <p class="text-center">No users found.</p>

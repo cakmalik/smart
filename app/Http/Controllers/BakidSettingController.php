@@ -14,7 +14,8 @@ class BakidSettingController extends Controller
      */
     public function index()
     {
-        return view('bakid.setting.index');
+        $data['api_key_whatsapp'] = BakidSetting::where('name', 'api_key_whatsapp')->first()->value ?? [];
+        return view('bakid.setting.index', compact('data'));
     }
 
     /**
@@ -31,7 +32,6 @@ class BakidSettingController extends Controller
     public function store(StoreBakidSettingRequest $request)
     {
         if ($request->api_key_whatsapp) {
-            // dd($request->all());
             $bakidSetting = BakidSetting::firstOrCreate(['name' => 'api_key_whatsapp']);
             $bakidSetting->value = $request->api_key_whatsapp;
             $bakidSetting->save();
@@ -45,35 +45,25 @@ class BakidSettingController extends Controller
             ->autoDismiss(5);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(BakidSetting $bakidSetting)
+    public function checkConnection()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(BakidSetting $bakidSetting)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateBakidSettingRequest $request, BakidSetting $bakidSetting)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(BakidSetting $bakidSetting)
-    {
-        //
+        $whatsappService = new \App\Services\WhatsappService();
+        $response = $whatsappService->checkConnection('085333920007', 'Test koneksi');
+        if ($response['success']) {
+            Toast::title('Sukses!')
+                ->message($response['message'])
+                ->success()
+                ->rightTop()
+                ->backdrop()
+                ->autoDismiss(5);
+        } else {
+            Toast::title('Gagal!')
+                ->message($response['message'])
+                ->danger()
+                ->rightTop()
+                ->backdrop()
+                ->autoDismiss(5);
+        }
+        return back();
     }
 }

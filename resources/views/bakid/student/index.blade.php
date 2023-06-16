@@ -1,4 +1,4 @@
-@seoTitle(__('Users'))
+@seoTitle(__('Students'))
 
 <x-app-layout>
     <x-slot:header>
