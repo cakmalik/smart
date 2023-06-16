@@ -43,3 +43,21 @@ if (!function_exists('getRandomAyat')) {
         }
     }
 }
+
+function formatPhoneNumber($phoneNumber)
+{
+    // Menghapus karakter selain angka
+    $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
+
+    // Jika nomor dimulai dengan 0, gantikan dengan 62
+    if (substr($phoneNumber, 0, 1) === '0') {
+        $phoneNumber = '62' . substr($phoneNumber, 1);
+    }
+
+    // Jika nomor dimulai dengan +62, hapus tanda +
+    if (substr($phoneNumber, 0, 3) === '+62') {
+        $phoneNumber = '62' . substr($phoneNumber, 3);
+    }
+
+    return $phoneNumber;
+}

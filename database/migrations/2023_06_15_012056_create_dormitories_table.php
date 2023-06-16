@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('dormitories', function (Blueprint $table) {
             $table->id();
+            $table->boolean('is_male')->default(true);
             $table->string('name');
             $table->integer('capacity')->default(0);
             $table->foreignId('leader_id')->nullable()->constrained('students');
