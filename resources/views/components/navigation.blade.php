@@ -29,6 +29,21 @@
                             <x-nav-link :href="route('setting.index')" :active="request()->routeIs('setting.index')">
                                 {{ __('Settings') }}
                             </x-nav-link>
+                            <x-nav-link-group main="Data Master" :sub="[
+                                [
+                                    'name' => 'Asrama',
+                                    'route' => '',
+                                ],
+                                [
+                                    'name' => 'Formal',
+                                    'route' => '',
+                                ],
+                                [
+                                    'name' => 'Non-formal',
+                                    'route' => '',
+                                ],
+                            ]">
+                            </x-nav-link-group>
                         @endhasrole
                         @hasrole('santri')
                             @if (Auth::user()->students->count() > 0)

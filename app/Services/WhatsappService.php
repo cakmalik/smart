@@ -2,11 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\BakidSetting;
+
 class WhatsappService
 {
     public function send($phone, $message = null)
     {
-        $apiKey = 'HXe9tuKu6mB7';
+        // $apiKey = 'HXe9tuKu6mB7';
+        $apiKey = BakidSetting::where('name', 'api_key_whatsapp')->first();
+        $apiKey = $apiKey?->value;
         if (!$message) {
             $message = $this->admission();
         }
@@ -19,6 +23,35 @@ class WhatsappService
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+    }
+    public function checkConnection($phone, $message = null)
+    {
+        $apiKey = BakidSetting::where('name', 'api_key_whatsapp')->first();
+        $apiKey = $apiKey?->value;
+        if (!$message) {
+            $message = $this->admission();
+        }
+        $no = formatPhoneNumber($phone);
+        try {
+            $client = new \GuzzleHttp\Client();
+            $url = 'http://api.textmebot.com/send.php?recipient=' . $no . '&apikey=' . $apiKey . '&text=' . $message . '&json=yes';
+            $response = $client->request('GET', $url);
+            if ($response->getStatusCode() == 200) {
+                $success = true;
+                $pesan = 'Koneksi berhasil';
+            } else {
+                $success = false;
+                $pesan = 'Koneksi gagal';
+            }
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            $success = false;
+            $pesan = 'Terjadi kesalahan server';
+        }
+        return [
+            'success' => $success,
+            'message' => $pesan,
+        ];
     }
 
     public function admission()

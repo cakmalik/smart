@@ -69,6 +69,7 @@ Route::middleware(['splade'])->group(function () {
         });
         Route::resource('/student', StudentController::class);
         Route::resource('/setting', BakidSettingController::class);
+        Route::get('tes/wa', [BakidSettingController::class, 'checkConnection'])->name('test.wa');
     });
 });
 
