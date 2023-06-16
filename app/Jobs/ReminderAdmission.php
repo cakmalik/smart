@@ -26,6 +26,6 @@ class ReminderAdmission implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        //fungsi kirim wa untuk mengingatkan semua orang yang terdaftar
     }
 }
