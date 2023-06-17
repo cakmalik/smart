@@ -1,12 +1,17 @@
 <?php
 
-use App\Http\Controllers\BakidSettingController;
+use App\Models\BakidSetting;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
+use App\Models\Informal\InformalEducation;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\TransactionController;
-use App\Models\BakidSetting;
+use App\Http\Controllers\BakidSettingController;
+use App\Http\Controllers\FormalEducationController;
+use App\Http\Controllers\InformalEducationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +75,10 @@ Route::middleware(['splade'])->group(function () {
         Route::resource('/student', StudentController::class);
         Route::resource('/setting', BakidSettingController::class);
         Route::get('tes/wa', [BakidSettingController::class, 'checkConnection'])->name('test.wa');
+        Route::resource('/room', RoomController::class);
+        Route::resource('/dormitory', DormitoryController::class);
+        Route::resource('/informal', InformalEducationController::class);
+        Route::resource('/formal', FormalEducationController::class);
     });
 });
 

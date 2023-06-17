@@ -29,21 +29,13 @@
                             <x-nav-link :href="route('setting.index')" :active="request()->routeIs('setting.index')">
                                 {{ __('Settings') }}
                             </x-nav-link>
-                            <x-nav-link-group main="Data Master" :sub="[
-                                [
-                                    'name' => 'Asrama',
-                                    'route' => '',
-                                ],
-                                [
-                                    'name' => 'Formal',
-                                    'route' => '',
-                                ],
-                                [
-                                    'name' => 'Non-formal',
-                                    'route' => '',
-                                ],
-                            ]">
-                            </x-nav-link-group>
+                            <x-nav-link-group main="Manajemen" :items="[
+                                // 'sub' => [
+                                ['name' => 'Users', 'link' => route('room.index')],
+                                ['name' => 'Students', 'link' => route('room.index')],
+                                ['name' => 'Settings', 'link' => route('room.index')],
+                                // ],
+                            ]" />
                         @endhasrole
                         @hasrole('santri')
                             @if (Auth::user()->students->count() > 0)
@@ -123,7 +115,7 @@
                             </x-splade-dropdown>
                         @endif --}}
                     </div>
-
+                    {{-- TODO:#DROPDOWN --}}
                     <!-- Settings Dropdown -->
                     <div class="ml-3 relative">
                         <x-splade-dropdown>
