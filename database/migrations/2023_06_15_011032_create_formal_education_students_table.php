@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(Student::class)->constrained('students');
             $table->foreignIdFor(FormalEducation::class)->constrained('formal_education');
             $table->foreignIdFor(FormalEducationClass::class)->constrained('formal_education_classes');
-            $table->foreignIdFor(FormalEducationGrade::class)->constrained('formal_education_grades');
+            $table->foreignId('formal_education_grade_id')->nullable()->constrained('formal_education_grades');
             $table->enum('status', ['waiting', 'accepted', 'rejected', 'graduated', 'active'])->default('waiting');
             $table->timestamps();
         });

@@ -63,4 +63,9 @@ class InformalEducationController extends Controller
     {
         //
     }
+
+    public function getInformalClassesFromInFormalEducation(InformalEducation $informalEducation)
+    {
+        return response()->json($informalEducation->informalEducationClasses);
+    }
 }

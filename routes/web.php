@@ -10,6 +10,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BakidSettingController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormalEducationController;
 use App\Http\Controllers\InformalEducationController;
 
@@ -51,7 +52,7 @@ Route::middleware(['splade'])->group(function () {
         config('jetstream.auth_session'),
         'verified',
     ])->group(function () {
-        Route::view('/dashboard', 'dashboard')->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 
     Route::middleware([
@@ -72,10 +73,12 @@ Route::middleware(['splade'])->group(function () {
         Route::prefix('wali')->group(function () {
             Route::get('/student/family', [UserController::class, 'familyMembers'])->name('student.families');
         });
+        Route::post('/student/complete-admission', [StudentController::class, 'completeEducation'])->name('student.complete-education');
         Route::resource('/student', StudentController::class);
         Route::resource('/setting', BakidSettingController::class);
         Route::get('tes/wa', [BakidSettingController::class, 'checkConnection'])->name('test.wa');
         Route::resource('/room', RoomController::class);
+        Route::get('/dormitory/room/{dormitory}', [DormitoryController::class, 'room'])->name('dormitory.room');
         Route::resource('/dormitory', DormitoryController::class);
         Route::resource('/informal', InformalEducationController::class);
         Route::resource('/formal', FormalEducationController::class);

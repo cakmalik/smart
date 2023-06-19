@@ -22,5 +22,21 @@
     "to": "ke",
     "Save changes": "Simpan perubahan",
     "Settings": "Pengaturan",
-    "Students":"Data Santri"
+    "Students":"Data Santri",
+    "Rooms":"Asrama",
+    "Formal":"Pendidikan Formal",
+    "Informal":"Pendidikan Non-Formal",
+    "Name":"Nama",
+    "Capacity":"Kapasitas",
+    "Address":"Alamat",
+    "Phone":"Telepon",
+    "Email":"Email",
+    "Action":"Aksi",
+    "Add":"Tambah",
+    "Edit":"Edit",
+    "Delete":"Hapus",
+    "Save":"Simpan",
+    "Current Capacity":"Kapasitas Saat Ini",
+    "Room Leader ":"Ketua Asrama",
+    "Dormitory Leader ":"Ketua Daerah"
 }

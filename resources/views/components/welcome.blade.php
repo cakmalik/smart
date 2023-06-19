@@ -37,7 +37,7 @@
             </x-slot:placeholder>
 
             @if ($rand != null)
-                <h1 class="mt-8 text-xl text-gray-900 text-center leading-loose">
+                <h1 class="mt-8 text-2xl text-gray-900 text-center leading-loose font-amiri">
                     {{ $rand['ayat'] }}
                 </h1>
 

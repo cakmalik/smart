@@ -33,7 +33,7 @@
                     <x-splade-form :action="route('student.store')" default="{nationality:'WNI'}" {{-- confirm="Simpan"
                         confirm-text="Apakah anda yakin semua data sudah benar?" confirm-button="Ya, simpan!" --}}
                         cancel-button="Batal">
-                        <x-loading/>
+                        <x-loading />
                         <x-splade-data remember="menu" default="{currentIndex: 0, religion:'Islam' }">
                             <ol
                                 class="flex justify-center items-center w-full p-3 mb-6 space-x-2 text-sm font-medium text-center text-gray-500 bg-slate-800 backdrop-blur-md border-none rounded-none shadow-none dark:text-gray-400 sm:text-base dark:bg-gray-800 dark:border-gray-700 sm:p-4 sm:space-x-4">
@@ -281,31 +281,33 @@
                             <aside v-show="data.currentIndex===3">
                                 <div class="grid sm:grid-cols-2 gap-3">
                                     <div>
-                                        <x-splade-file v-model="form.student_image" :show-filename="false"  label="Foto Santri" filepond  accept="image/jpg" max-size="2MB"
-                                            class="mt-2" />
+                                        <x-splade-file v-model="form.student_image" :show-filename="false"
+                                            label="Foto Santri" filepond accept="image/jpg, image/png, image/jpeg"
+                                            max-size="2MB" class="mt-2" />
                                         <img class="w-full p-5" v-if="form.student_image" name="student_image"
                                             :src="form.$fileAsUrl('student_image')" class="mt-2" />
                                     </div>
                                     <div>
-                                        <x-splade-file v-model="form.parent_image" name="parent_image" :show-filename="false"  label="Foto Ayah" filepond  accept="image/jpg" max-size="2MB"
+                                        <x-splade-file v-model="form.parent_image" name="parent_image"
+                                            :show-filename="false" label="Foto Ayah" filepond
+                                            accept="image/jpg, image/png, image/jpeg" max-size="2MB"
                                             class="mt-2" />
                                         <img class="w-full p-5" v-if="form.parent_image"
                                             :src="form.$fileAsUrl('parent_image')" class="mt-2" />
                                     </div>
                                 </div>
-
                             </aside>
 
                             <div class="flex justify-between mt-6 gap-2">
                                 <span
                                     class="cursor-pointer px-4 py-2 bg-slate-800 text-green-400 rounded-full hover:bg-slate-900 hover:text-green-500"
                                     v-show="data.currentIndex > 0"
-                                    @click="data.currentIndex = data.currentIndex - 1;">{{ __('pagination.previous') }}</span>
+                                    @click="data.currentIndex = data.currentIndex - 1;">Sebelumnya</span>
                                 <span v-show="data.currentIndex == 0"></span>
                                 <span
                                     class="cursor-pointer px-4 py-2 bg-slate-800 text-green-400 rounded-full hover:bg-slate-900 hover:text-green-500"
                                     v-show="data.currentIndex < 3"
-                                    @click="data.currentIndex = data.currentIndex + 1;">{{ __('pagination.next') }}</span>
+                                    @click="data.currentIndex = data.currentIndex + 1;">Berikutya</span>
                                 {{-- <button
                                     class="cursor-pointer px-4 py-2 bg-grren-400 text-slate-700 outline outline-2 rounded-lg hover:bg-green-500 hover:text-slate-800"
                                     v-show="data.currentIndex >=3">{{ __('pagination.submit') }}</button> --}}

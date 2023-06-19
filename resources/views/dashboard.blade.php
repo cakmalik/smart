@@ -16,10 +16,14 @@
                         <x-card.summary />
                         <x-card.summary />
                     </div>
+                    <x-splade-rehydrate on="done-admission">
+                        <x-dashboard.santri-baru :data="$x" />
+                    </x-splade-rehydrate>
+                @else
+                    <div class="bg-white/30 overflow-hidden shadow-xl sm:rounded-lg p-5 backdrop-blur-md">
+                        <x-welcome />
+                    </div>
                 @endif
-                <div class="bg-white/30 overflow-hidden shadow-xl sm:rounded-lg p-5 backdrop-blur-md">
-                    <x-welcome />
-                </div>
             </div>
         </div>
 </x-app-layout>

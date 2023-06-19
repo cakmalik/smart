@@ -7,9 +7,11 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Services\User\UserService;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use ProtoneMedia\Splade\SpladeTable;
 use Spatie\QueryBuilder\QueryBuilder;
+use Database\Factories\InvoiceFactory;
 use ProtoneMedia\Splade\Facades\Toast;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Support\Facades\Storage;
@@ -17,6 +19,8 @@ use App\Services\Student\StudentService;
 use App\Http\Requests\StoreStudentRequest;
 use App\Services\Location\LocationService;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Student\FormalEducationStudent;
+use App\Models\Student\InformalEducationStudent;
 
 class StudentController extends Controller
 {
@@ -156,5 +160,54 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+
+    public function completeEducation(Request $request)
+    {
+        $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'formal_id' => 'sometimes|required_without:informal_id',
+            'informal_id' => 'sometimes|required_without:formal_id',
+            'formal_class_id' => 'sometimes|required_without:informal_class_id',
+            'informal_class_id' => 'sometimes|required_without:formal_class_id',
+        ], [
+            'student_id.required' => 'Mohon pilih putra/i terlebih dahulu',
+            'student_id.exists' => 'Siswa tidak ditemukan',
+        ]);
+
+        try {
+            DB::beginTransaction();
+            $student = Student::findOrFail((int)$request->student_id);
+            $student->education_updated = now();
+            $student->save();
+
+            if ($request->formal_id && $request->formal_class_id) {
+                FormalEducationStudent::create([
+                    'student_id' => $student->id,
+                    'formal_education_id' => $request->formal_id,
+                    'formal_education_class_id' => $request->formal_class_id,
+                ]);
+            }
+            if ($request->informal_id && $request->informal_class_id) {
+
+                InformalEducationStudent::create([
+                    'student_id' => $student->id,
+                    'informal_education_id' => $request->informal_id,
+                    'informal_education_class_id' => $request->informal_class_id,
+                ]);
+            }
+            DB::commit();
+            Toast::title('Berhasil!')
+                ->message('Pendidikan ananda sedang diajukan')
+                ->success()
+                ->rightTop()
+                ->backdrop()
+                ->autoDismiss(5);
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 }

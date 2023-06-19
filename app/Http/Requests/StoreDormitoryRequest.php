@@ -11,7 +11,7 @@ class StoreDormitoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreDormitoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|unique:dormitories,name,except,id',
+            'gender' => 'required',
+            'rooms' => 'required|numeric',
+            'capacity' => 'required|numeric',
         ];
     }
 }

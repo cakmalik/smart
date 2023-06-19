@@ -31,9 +31,23 @@
                             </x-nav-link>
                             <x-nav-link-group main="Manajemen" :items="[
                                 // 'sub' => [
-                                ['name' => 'Users', 'link' => route('room.index')],
-                                ['name' => 'Students', 'link' => route('room.index')],
-                                ['name' => 'Settings', 'link' => route('room.index')],
+                                ['name' => 'Asrama', 'link' => route('dormitory.index')],
+                                ['name' => 'Formal', 'link' => route('formal.index')],
+                                ['name' => 'Non-Formal', 'link' => route('informal.index')],
+                                // ],
+                            ]" />
+                            <x-nav-link-group main="Formal" :items="[
+                                // 'sub' => [
+                                ['name' => 'Asrama', 'link' => route('dormitory.index')],
+                                ['name' => 'Formal', 'link' => route('formal.index')],
+                                ['name' => 'Non-Formal', 'link' => route('informal.index')],
+                                // ],
+                            ]" />
+                            <x-nav-link-group main="Non-Formal" :items="[
+                                // 'sub' => [
+                                ['name' => 'Asrama', 'link' => route('dormitory.index')],
+                                ['name' => 'Formal', 'link' => route('formal.index')],
+                                ['name' => 'Non-Formal', 'link' => route('informal.index')],
                                 // ],
                             ]" />
                         @endhasrole
