@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class InformalEducation extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public function informalEducationClasses()
+    {
+        return $this->hasMany(InformalEducationClass::class);
+    }
 }

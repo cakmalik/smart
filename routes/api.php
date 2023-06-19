@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Informal\InformalEducation;
+use App\Http\Controllers\API\FormalEducationController;
+use App\Http\Controllers\API\InformalEducationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +46,6 @@ Route::get('/locations/{id}/villages', function ($id) {
     $data = json_decode($json, true);
     return $data;
 });
+
+Route::get('/informal_classes/{id}', [InformalEducationController::class, 'getInformalClassesFromInFormalEducation']);
+Route::get('/formal_classes/{id}', [FormalEducationController::class, 'getFormalClassesFromFormalEducation']);
