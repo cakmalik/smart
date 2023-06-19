@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Bakid\Room;
 use App\Models\StudentFamily;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -50,40 +51,40 @@ class Student extends Model
     }
 
     protected function province(): Attribute
-{
-    $loc = new LocationServiceImplement();
-    return Attribute::make(
-        get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
-        set: fn (string $value) => is_numeric($value) ? $loc->getProvinceName($value) : $value
-    );
-}
+    {
+        $loc = new LocationServiceImplement();
+        return Attribute::make(
+            get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
+            set: fn (string $value) => is_numeric($value) ? $loc->getProvinceName($value) : $value
+        );
+    }
 
-protected function city(): Attribute
-{
-    $loc = new LocationServiceImplement();
-    return Attribute::make(
-        get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
-        set: fn (string $value) => is_numeric($value) ? $loc->getCityName($value) : $value
-    );
-}
+    protected function city(): Attribute
+    {
+        $loc = new LocationServiceImplement();
+        return Attribute::make(
+            get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
+            set: fn (string $value) => is_numeric($value) ? $loc->getCityName($value) : $value
+        );
+    }
 
-protected function district(): Attribute
-{
-    $loc = new LocationServiceImplement();
-    return Attribute::make(
-        get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
-        set: fn (string $value) => is_numeric($value) ? $loc->getDistrictName($value) : $value
-    );
-}
+    protected function district(): Attribute
+    {
+        $loc = new LocationServiceImplement();
+        return Attribute::make(
+            get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
+            set: fn (string $value) => is_numeric($value) ? $loc->getDistrictName($value) : $value
+        );
+    }
 
-protected function village(): Attribute
-{
-    $loc = new LocationServiceImplement();
-    return Attribute::make(
-        get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
-        set: fn (string $value) => is_numeric($value) ? $loc->getVillageName($value) : $value
-    );
-}
+    protected function village(): Attribute
+    {
+        $loc = new LocationServiceImplement();
+        return Attribute::make(
+            get: fn (string $value) => is_numeric($value) ? ucwords($value) : $value,
+            set: fn (string $value) => is_numeric($value) ? $loc->getVillageName($value) : $value
+        );
+    }
 
 
     public function setNicknameAttribute($value)
@@ -101,5 +102,10 @@ protected function village(): Attribute
     public function parent()
     {
         return $this->belongsTo(StudentFamily::class, 'student_family_id');
+    }
+
+    public function rooms()
+    {
+        return $this->belongsTo(Room::class, 'room_students', 'student_id', 'room_id');
     }
 }

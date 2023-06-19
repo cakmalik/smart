@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('informal_education', function (Blueprint $table) {
             $table->id();
-            $table->string('school_name'); //e.g., MTs2
+            $table->string('name'); //e.g., MTs2
             $table->enum('level', ['primary', 'secondary', 'high', 'bachelor', 'master', 'doctoral']);
             $table->timestamps();
         });

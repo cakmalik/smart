@@ -51,6 +51,8 @@ return new class extends Migration
             $table->enum('status', ['waiting', 'accepted', 'rejected'])->default('waiting');
             $table->dateTime('verified_at')->nullable();
 
+            $table->timestamp('education_updated')->nullable();
+
             // $table->foreignId('student_family_id')->constrained('student_families')->onDelete('cascade');
             $table->timestamps();
         });

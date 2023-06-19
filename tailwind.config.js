@@ -12,8 +12,14 @@ module.exports = {
     darkMode: "class",
     theme: {
         extend: {
+            // fontFamily: {
+            //     primary: "Usmani",
+            // },
             fontFamily: {
-                primary: "Usmani",
+                pjs: ["Plus Jakarta Sans", "sans-serif"],
+                culpa: ['"Mea Culpa"', "cursive"],
+                amiri: ["Amiri Quran", "serif"],
+                noto: ["Noto Naskh Arabic", "sans-serif"],
             },
             animation: { blob: "blob 4s infinite" },
             keyframes: {
@@ -32,6 +38,9 @@ module.exports = {
                     },
                 },
             },
+        },
+        fontFamily: {
+            pjs: ['"Plus Jakarta Sans"', "sans-serif"],
         },
     },
     variants: {
