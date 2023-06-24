@@ -24,7 +24,7 @@
             <h3 class="text-xl">Pilih lembaga pendidikan</h3>
             </Link>
 
-            <Link @if ($data['studentsWithoutRooms']->isEmpty()) href="#"  @else href="#modalLembaga" @endif
+            <Link @if ($data['studentsWithoutRooms']->isEmpty()) href="#"  @else href="#modalAsrama" @endif
                 class="relative p-3 py-5 w-full @if ($data['studentsWithoutRooms']->isEmpty()) bg-white/50 cursor-default  @else bg-green-400 @endif rounded-xl">
 
             @if ($data['studentsWithoutRooms']->isEmpty())
