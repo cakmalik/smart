@@ -18,6 +18,6 @@ class Room extends Model
     //students
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'room_students', 'room_id', 'student_id');
+        return $this->belongsToMany(Student::class, 'room_students');
     }
 }

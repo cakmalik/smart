@@ -3,8 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Informal\InformalEducation;
+use App\Http\Controllers\API\DormitoryController;
 use App\Http\Controllers\API\FormalEducationController;
 use App\Http\Controllers\API\InformalEducationController;
+use App\Http\Controllers\API\DormitoryController as APIDormitoryController;
+use App\Http\Controllers\API\RoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +52,5 @@ Route::get('/locations/{id}/villages', function ($id) {
 
 Route::get('/informal_classes/{id}', [InformalEducationController::class, 'getInformalClassesFromInFormalEducation']);
 Route::get('/formal_classes/{id}', [FormalEducationController::class, 'getFormalClassesFromFormalEducation']);
+Route::get('/dormitories/by-student-gender/{student}', [DormitoryController::class, 'getDormitoriesByStudentGender']);
+Route::get('/rooms/by-dormitory/{dormitory}', [RoomController::class, 'getRoomsByDormitory']);
