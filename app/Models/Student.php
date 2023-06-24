@@ -104,8 +104,8 @@ class Student extends Model
         return $this->belongsTo(StudentFamily::class, 'student_family_id');
     }
 
-    public function rooms()
+    public function room()
     {
-        return $this->belongsTo(Room::class, 'room_students', 'student_id', 'room_id');
+        return $this->belongsToMany(Room::class, 'room_students');
     }
 }

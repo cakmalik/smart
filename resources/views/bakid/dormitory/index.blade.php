@@ -84,7 +84,7 @@
                                                 </div>
                                                 <div class="px-3 flex justify-between">
                                                     <p>Jumlah Asrama</p>
-                                                    <span class="">{{ $i->rooms }}</span>
+                                                    <span class="">{{ $i->rooms_count }}</span>
                                                 </div>
                                                 <div class="px-3 flex justify-between">
                                                     <p>Kapasitas</p>
