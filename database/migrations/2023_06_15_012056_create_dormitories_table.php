@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->enum('gender', ['L', 'P'])->default('L');
             $table->string('name');
-            $table->integer('rooms')->default(0);
+            $table->integer('rooms_count')->default(0);
             $table->integer('capacity')->default(0);
             $table->foreignId('leader_id')->nullable()->constrained('students');
             $table->timestamps();

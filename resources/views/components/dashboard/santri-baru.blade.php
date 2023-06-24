@@ -24,8 +24,10 @@
             <h3 class="text-xl">Pilih lembaga pendidikan</h3>
             </Link>
 
-            <Link href="#modalLembaga" class="relative p-3 py-5 w-full bg-green-400 rounded-xl">
-            {{-- @if ($data['students']->isEmpty())
+            <Link @if ($data['studentsWithoutRooms']->isEmpty()) href="#"  @else href="#modalLembaga" @endif
+                class="relative p-3 py-5 w-full @if ($data['studentsWithoutRooms']->isEmpty()) bg-white/50 cursor-default  @else bg-green-400 @endif rounded-xl">
+
+            @if ($data['studentsWithoutRooms']->isEmpty())
                 <div class="absolute right-2 top-2 p-1 rounded-full  bg-green-500"> <svg
                         xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff"
                         viewBox="0 0 256 256">
@@ -34,7 +36,7 @@
                         </path>
                     </svg>
                 </div>
-            @endif --}}
+            @endif
             <svg class="inline-flex justify-center" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                 fill="#000000" viewBox="0 0 256 256">
                 <path
@@ -70,6 +72,28 @@
                 <x-splade-select class="mb-3" remote-url="`/api/informal_classes/${form.informal_id}`"
                     option-label="class_name" option-value="id" name="informal_class_id"
                     placeholder="{{ __('Pilih Kelas') }}" />
+
+                <div class="flex justify-end">
+                    <x-splade-submit>
+                        Kirim Pengajuan
+                    </x-splade-submit>
+                </div>
+                {{-- <Counter :formal="@js($data['formal'])" /> --}}
+            </x-splade-form>
+        </x-splade-modal>
+
+
+        <x-splade-modal name="modalAsrama">
+            <x-splade-form :action="route('student.complete-room')" stay background reset-on-success @success="$splade.emit('done-admission')">
+                <x-splade-select class="mb-3 mt-5" :options="$data['studentsWithoutRooms']" option-label="name" option-value="id"
+                    name="student_id" placeholder="{{ __('Pilih Putra/i') }}" choices="{ searchEnabled: false }" />
+
+                <x-splade-select class="mb-3" remote-url="`/api/dormitories/by-student-gender/${form.student_id}`"
+                    option-label="name" option-value="id" name="dormitory_id" placeholder="{{ __('Pilih Daerah') }}" />
+
+                <x-splade-select class="mb-3" remote-url="`/api/rooms/by-dormitory/${form.dormitory_id}`"
+                    option-label="name" option-value="id" name="room_id" placeholder="{{ __('Pilih Asrama') }}" />
+
 
                 <div class="flex justify-end">
                     <x-splade-submit>

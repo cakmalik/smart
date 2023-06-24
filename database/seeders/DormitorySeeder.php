@@ -18,98 +18,98 @@ class DormitorySeeder extends Seeder
             [
                 'name' => 'A',
                 'gender' => 'L',
-                'rooms' => 16,
+                'rooms_count' => 16,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'B',
                 'gender' => 'L',
-                'rooms' => 13,
+                'rooms_count' => 13,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'C',
                 'gender' => 'L',
-                'rooms' => 18,
+                'rooms_count' => 18,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'D',
                 'gender' => 'L',
-                'rooms' => 26,
+                'rooms_count' => 26,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'E',
                 'gender' => 'L',
-                'rooms' => 13,
+                'rooms_count' => 13,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'F',
                 'gender' => 'L',
-                'rooms' => 18,
+                'rooms_count' => 18,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'G',
                 'gender' => 'L',
-                'rooms' => 21,
+                'rooms_count' => 21,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'LPBA',
                 'gender' => 'L',
-                'rooms' => 4,
+                'rooms_count' => 4,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'A',
                 'gender' => 'P',
-                'rooms' => 8,
+                'rooms_count' => 8,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'B',
                 'gender' => 'P',
-                'rooms' => 4,
+                'rooms_count' => 4,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'C',
                 'gender' => 'P',
-                'rooms' => 5,
+                'rooms_count' => 5,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'D',
                 'gender' => 'P',
-                'rooms' => 7,
+                'rooms_count' => 7,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'E',
                 'gender' => 'P',
-                'rooms' => 4,
+                'rooms_count' => 4,
                 'capacity' => 500,
                 'leader_id' => null
             ],
             [
                 'name' => 'F',
                 'gender' => 'P',
-                'rooms' => 6,
+                'rooms_count' => 6,
                 'capacity' => 500,
                 'leader_id' => null
             ]
@@ -117,7 +117,7 @@ class DormitorySeeder extends Seeder
 
         foreach ($dormitories as $dormitory) {
             $id = Dormitory::create($dormitory)->id;
-            for ($i = 1; $i <= $dormitory['rooms']; $i++) {
+            for ($i = 1; $i <= $dormitory['rooms_count']; $i++) {
                 // $alphabet = chr($i + 64); // Mengonversi angka menjadi huruf berdasarkan kode ASCII
                 Room::create([
                     'dormitory_id' => $id,

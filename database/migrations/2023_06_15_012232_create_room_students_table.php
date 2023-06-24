@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('room_id')->constrained();
             $table->foreignId('student_id')->constrained();
+            $table->enum('status', ['waiting', 'approved', 'rejected'])->default('waiting');
             $table->timestamps();
         });
     }

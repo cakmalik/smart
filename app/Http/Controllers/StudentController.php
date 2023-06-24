@@ -210,4 +210,35 @@ class StudentController extends Controller
             return redirect()->back()->withErrors($e->getMessage());
         }
     }
+
+    public function completeRoom(Request $request)
+    {
+        $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'room_id' => 'required|exists:rooms,id',
+        ], [
+            'student_id.required' => 'Mohon pilih putra/i terlebih dahulu',
+            'student_id.exists' => 'Data tidak ditemukan',
+            'room_id.required' => 'Mohon pilih Asrama terlebih dahulu',
+            'room_id.exists' => 'Asrama tidak ditemukan',
+        ]);
+
+        try {
+            DB::beginTransaction();
+            $student = Student::findOrFail((int)$request->student_id);
+            $student->room()->attach($request->room_id, ['status' => 'waiting']);
+            $student->save();
+            DB::commit();
+            Toast::title('Berhasil!')
+                ->message('Ruangan ananda sedang diajukan')
+                ->success()
+                ->rightTop()
+                ->backdrop()
+                ->autoDismiss(5);
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+    }
 }

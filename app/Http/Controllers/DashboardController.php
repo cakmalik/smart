@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Student;
 use App\Models\Bakid\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Formal\FormalEducation;
 use App\Models\Informal\InformalEducation;
 use App\Models\Informal\InformalEducationClass;
@@ -16,21 +18,25 @@ class DashboardController extends Controller
     {
         $x['formal'] = FormalEducation::all();
         $x['informal'] = InformalEducation::all();
-        $user = auth()->user();
+        $user = Auth::user();
         if ($user->students->count() > 0) {
             $x['students'] = Student::where('user_id', auth()->user()->id)->whereNull('education_updated')->orderByDesc('id')->get();
+            $x['studentsWithoutRooms'] = $this->getStudentsWithoutRooms($user);
         } else {
             $x['students'] = [];
         }
 
-        $studentsWithoutRoom = User::where('id', auth()->user()->id)
-            ->with(['students' => function ($query) {
-                $query->whereDoesntHave('rooms');
-            }])
-            ->first()
-            ->students;
-        dd($studentsWithoutRoom);
-
         return view('dashboard', compact('x'));
+    }
+
+    public function getStudentsWithoutRooms($user)
+    {
+        $studentsWithoutRooms = DB::table('students')
+            ->leftJoin('room_students', 'students.id', '=', 'room_students.student_id')
+            ->whereNull('room_students.student_id')
+            ->whereIn('students.id', $user->students->pluck('id'))
+            ->select('students.id', 'students.name')
+            ->get();
+        return $studentsWithoutRooms;
     }
 }
