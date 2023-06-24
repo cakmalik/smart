@@ -93,6 +93,8 @@ class StudentController extends Controller
     public function store(StoreStudentRequest $request)
     {
         $student = $this->student->storeNewStudent($request);
+        //create invoice
+        
         if ($student['status'] === false) {
             Toast::title('Maaf!')
                 ->message($student['message'])
