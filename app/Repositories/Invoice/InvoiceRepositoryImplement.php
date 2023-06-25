@@ -2,8 +2,12 @@
 
 namespace App\Repositories\Invoice;
 
+use App\Models\Admission;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Invoice;
+use App\Models\InvoiceCategory;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
 {
@@ -22,14 +26,50 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
 
     public function createInvoiceAdmission($student_id): bool
     {
-        $invoice = $this->model->create([
-            'student_id' => $student_id,
-            'invoice_number' => 'INV-' . $student_id . '-' . date('YmdHis'),
-            'invoice_date' => date('Y-m-d'),
-            'due_date' => date('Y-m-d', strtotime('+7 days')),
-            'total' => 0,
-            'status' => 'unpaid',
-        ]);
-        return $invoice;
+        try {
+
+            $findCategory = InvoiceCategory::where('code', 'psb')->first();
+            if (!$findCategory) {
+                return false;
+            }
+            $admission = Admission::where('is_active', true)->first();
+            $invoice = $this->model->create([
+                'user_id' => auth()->user()->id,
+                'student_id' => $student_id,
+                'invoice_category_id' => $findCategory->id,
+                'period' => $admission->period,
+                //    'invoice_number'=> $this->generateInvoiceNumber($findCategory->code),
+                //    'invoice_date'=>
+                //    'due_date'=>
+                'description' => 'Pendaftaran Santri Baru',
+                'amount' => $admission->amount,
+                //    'status'=>
+                //    'payment_method_id'=>
+                'title' => 'Administrasi'
+                //    'reference'=>
+                //    'desc'=>
+            ]);
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . ' ' . $e->getLine());
+            return false;
+        }
+        // return $invoice;
+    }
+
+    public function getInvoicesByUserAndCode($user_id, $code): Collection
+    {
+        $invoices = $this->model->where('user_id', $user_id)->whereHas('invoiceCategory', function ($query) use ($code) {
+            $query->where('code', $code);
+        })->get();
+        return $invoices;
+
+        //or join manual like here
+        // $invoices = DB::table('invoices')
+        // ->join('invoice_categories', 'invoices.invoice_category_id', '=', 'invoice_categories.id')
+        // ->where('invoice_categories.code', '=', 'psb')
+        // ->where('invoices.user_id', '=', auth()->user()->id)
+        // ->get();
+
     }
 }

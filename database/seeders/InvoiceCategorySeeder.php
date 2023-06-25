@@ -17,7 +17,8 @@ class InvoiceCategorySeeder extends Seeder
         InvoiceCategory::create(
             [
                 'name' => 'Tagihan Penerimaan Santri Baru',
-                'amount' => 250000
+                'amount' => 250000,
+                'code' => 'psb'
             ]
         );
     }
