@@ -8,7 +8,9 @@ use Database\Seeders\AdmissionSeeder;
 use Database\Seeders\DormitorySeeder;
 use Database\Seeders\PaymentMethodSeeder;
 use Database\Seeders\BakidEducationSeeder;
+use Database\Seeders\InvoiceUtilitySeeder;
 use Database\Seeders\InvoiceCategorySeeder;
+use Database\Seeders\PaymentInstructionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +26,8 @@ class DatabaseSeeder extends Seeder
             PaymentMethodSeeder::class,
             DormitorySeeder::class,
             BakidEducationSeeder::class,
+            PaymentInstructionSeeder::class,
+            InvoiceUtilitySeeder::class,
         ]);
     }
 }

@@ -28,6 +28,7 @@ class StudentController extends Controller
     private $loc;
     private $student;
     private $invoice;
+    private $user;
     /**
      * __construct
      *
@@ -36,11 +37,12 @@ class StudentController extends Controller
      * @return void
      */
 
-    public function __construct(LocationService $locationService, StudentService $studentService, InvoiceService $invoiceService)
+    public function __construct(LocationService $locationService, StudentService $studentService, InvoiceService $invoiceService, UserService $userService)
     {
         $this->loc = $locationService;
         $this->student = $studentService;
         $this->invoice = $invoiceService;
+        $this->user = $userService;
     }
 
     /**
@@ -84,6 +86,15 @@ class StudentController extends Controller
      */
     public function create()
     {
+        if ($this->user->isHasNotSetPaymentMethod()) {
+            Toast::title('Maaf!')
+                ->message('Mohon lengkapi metode pembayaran anda terlebih dahulu, sebelum menambah anggota keluarga baru.')
+                ->danger()
+                ->rightTop()
+                ->backdrop();
+            // ->autoDismiss(5);
+            return redirect()->route('dashboard');
+        }
         return view('bakid.student.create');
     }
 

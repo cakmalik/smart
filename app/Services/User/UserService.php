@@ -15,4 +15,6 @@ interface UserService extends BaseService
     public function getByEmail($email);
 
     public function getFamilies();
+
+    public function isHasNotSetPaymentMethod(): bool;
 }

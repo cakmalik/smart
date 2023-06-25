@@ -20,7 +20,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Infaq Gedung',
                 'period' => 'once',
                 'description' => '-',
-                'amount' => 250000,
+                'sub_total' => 250000,
                 'code' => 'infg'
             ],
             [
@@ -28,7 +28,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Administrasi Pesantren',
                 'period' => 'once',
                 'description' => '-',
-                'amount' => 150000,
+                'sub_total' => 150000,
                 'code' => 'adm-pes'
             ],
             [
@@ -36,7 +36,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Administrasi Madin',
                 'period' => 'once',
                 'description' => '-',
-                'amount' => 50000,
+                'sub_total' => 50000,
                 'code' => 'adm-madin'
             ],
             [
@@ -44,7 +44,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Buku Profil & Miftahus surur',
                 'period' => 'once',
                 'description' => '-',
-                'amount' => 50000,
+                'sub_total' => 50000,
                 'code' => 'buku'
             ],
 
@@ -54,7 +54,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Uang syahriah (Bersaudara)',
                 'period' => 'biannual',
                 'description' => 'setoran pertama harus lunas di kwartal1 dan setoran kedua harus lunas di kwartal2',
-                'amount' => 260000,
+                'sub_total' => 260000,
                 'code' => 'adm-syah'
             ],
             [
@@ -62,7 +62,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Uang syahriah (Tidak bersaudara)',
                 'period' => 'biannual',
                 'description' => 'setoran pertama harus lunas di kwartal1 dan setoran kedua harus lunas di kwartal2',
-                'amount' => 300000,
+                'sub_total' => 300000,
                 'code' => 'adm-syah1'
             ],
             [
@@ -70,7 +70,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Jamub & Gamus',
                 'period' => 'per-kwartal',
                 'description' => '-',
-                'amount' => 10000,
+                'sub_total' => 10000,
                 'code' => 'jamgam'
             ],
 
@@ -80,7 +80,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Dana sehat',
                 'period' => 'biannual',
                 'description' => '-',
-                'amount' => 30000,
+                'sub_total' => 30000,
                 'code' => 'sehat'
             ],
             [
@@ -88,7 +88,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Kwartal1',
                 'period' => 'per-kwartal',
                 'description' => 'Harus lunas sebelum pelaksaanaan Kwartal dimulai',
-                'amount' => 30000,
+                'sub_total' => 30000,
                 'code' => 'kw1'
             ],
             [
@@ -96,7 +96,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Kwartal2',
                 'period' => 'per-kwartal',
                 'description' => 'Harus lunas sebelum pelaksaanaan Kwartal dimulai',
-                'amount' => 30000,
+                'sub_total' => 30000,
                 'code' => 'kw2'
             ],
             [
@@ -104,7 +104,7 @@ class InvoiceUtilitySeeder extends Seeder
                 'name' => 'Kwartal3',
                 'period' => 'per-kwartal',
                 'description' => 'Harus lunas sebelum pelaksaanaan Kwartal dimulai',
-                'amount' => 30000,
+                'sub_total' => 30000,
                 'code' => 'kw3'
             ],
         ];
