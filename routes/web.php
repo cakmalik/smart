@@ -14,6 +14,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormalEducationController;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaymentMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,8 +86,8 @@ Route::middleware(['splade'])->group(function () {
         Route::resource('/informal', InformalEducationController::class);
         Route::resource('/formal', FormalEducationController::class);
 
-        Route::get('/payment/choose-method/{invoice_number}', [InvoiceController::class, 'chooseMethod'])->name('payment.choose-method');
-        Route::post('/payment/change-method/', [InvoiceController::class, 'changeMethod'])->name('payment.change-method');
+        Route::get('/payment/choose-method/{invoice_number}', [PaymentMethodController::class, 'chooseMethod'])->name('payment.choose-method');
+        Route::post('/payment/change-method/', [PaymentMethodController::class, 'changeMethod'])->name('payment.change-method');
 
 
         Route::get('/invoice/show/{invoice_number}', [InvoiceController::class, 'show'])->name('invoice.show');
