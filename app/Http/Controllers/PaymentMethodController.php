@@ -35,7 +35,7 @@ class PaymentMethodController extends Controller
             $invoice->payment_method_id = $payment_method;
             $invoice->save();
 
-            return redirect()->route('pay.invoice', $invoice->invoice_number);
+            return redirect()->route('invoice.show', $invoice->invoice_number);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan, silahkan coba lagi');
         }
