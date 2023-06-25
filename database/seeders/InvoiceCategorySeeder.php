@@ -16,10 +16,11 @@ class InvoiceCategorySeeder extends Seeder
     {
         InvoiceCategory::create(
             [
-                'name' => 'Tagihan Penerimaan Santri Baru',
-                'amount' => 250000,
+                'id' => 1,
+                'name' => 'Penerimaan Santri Baru',
+                'amount' => 500000,
                 'code' => 'psb'
-            ]
+            ],
         );
     }
 }

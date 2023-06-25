@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('invoice_utilities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('invoice_category_id')->constrained('invoice_categories');
+            $table->foreignId('invoice_category_id')->nullable()->constrained('invoice_categories');
             $table->string('name');
-            $table->string('type');
+            $table->string('period');
             $table->string('description')->nullable();
             $table->bigInteger('amount')->default(0);
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }
