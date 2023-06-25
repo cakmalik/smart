@@ -15,4 +15,14 @@ class PaymentMethod extends Model
     {
         return $this->hasMany(Invoice::class);
     }
+
+    public static function getIdByCode($code)
+    {
+        return self::where('code', $code)->value('id');
+    }
+
+    public static function getCodeById($id)
+    {
+        return self::where('id', $id)->value('code');
+    }
 }

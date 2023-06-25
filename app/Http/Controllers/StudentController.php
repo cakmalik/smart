@@ -21,11 +21,13 @@ use App\Services\Location\LocationService;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
+use App\Services\Invoice\InvoiceService;
 
 class StudentController extends Controller
 {
     private $loc;
     private $student;
+    private $invoice;
     /**
      * __construct
      *
@@ -34,10 +36,11 @@ class StudentController extends Controller
      * @return void
      */
 
-    public function __construct(LocationService $locationService, StudentService $studentService)
+    public function __construct(LocationService $locationService, StudentService $studentService, InvoiceService $invoiceService)
     {
         $this->loc = $locationService;
         $this->student = $studentService;
+        $this->invoice = $invoiceService;
     }
 
     /**
@@ -92,10 +95,14 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        $student = $this->student->storeNewStudent($request);
-        //create invoice
-        
-        if ($student['status'] === false) {
+        try {
+            $student = $this->student->storeNewStudent($request);
+            $invoiceService = $this->invoice->createInvoiceAdmission($student['student_id']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
+        }
+        if ($student['status'] === false || $invoiceService === false) {
             Toast::title('Maaf!')
                 ->message($student['message'])
                 ->danger()

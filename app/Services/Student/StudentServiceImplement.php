@@ -43,9 +43,10 @@ class StudentServiceImplement extends Service implements StudentService
             DB::beginTransaction();
             $parent = $this->mainRepository->createParent($request->only($parent_data));
             $student_data['student_family_id'] = $parent->id;
-            $this->mainRepository->create($student_data);
+            $student = $this->mainRepository->create($student_data);
             $status = true;
             $message = 'Data berhasil disimpan';
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
@@ -55,6 +56,7 @@ class StudentServiceImplement extends Service implements StudentService
             Log::error($err . ':' . $e->getLine());
         }
         return [
+            'student_id' => $student->id ?? null,
             'status' => $status,
             'message' => $message,
             'err' => $err ?? null
