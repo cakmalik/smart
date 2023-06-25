@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\InvoiceDetail;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,5 +32,10 @@ class Invoice extends Model
     public function invoiceCategory()
     {
         return $this->belongsTo(InvoiceCategory::class, 'invoice_category_id');
+    }
+
+    public function invoiceDetails()
+    {
+        return $this->hasMany(InvoiceDetail::class);
     }
 }

@@ -33,4 +33,9 @@ class UserServiceImplement extends Service implements UserService
     {
         return $this->mainRepository->getFamilies();
     }
+
+    public function isHasNotSetPaymentMethod(): bool
+    {
+        return $this->mainRepository->isHasNotSetPaymentMethod();
+    }
 }

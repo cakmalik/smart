@@ -14,15 +14,15 @@ class PaymentMethodSeeder extends Seeder
     public function run(): void
     {
         PaymentMethod::create(
-            ['name' => 'Cash', 'description' => 'Pembayaran langsung pada Petugas Administrasi atau Bendahara', 'is_active' => true]
+            ['code' => random_int(99, 999), 'name' => 'Cash', 'description' => 'Pembayaran langsung pada Petugas Administrasi atau Bendahara', 'is_active' => true]
         );
 
         PaymentMethod::create(
-            ['name' => 'Transfer', 'description' => 'Transfer langsung via Rekening Pondok Pesantren', 'is_active' => true]
+            ['code' => random_int(99, 999), 'name' => 'Transfer', 'description' => 'Transfer langsung via Rekening Pondok Pesantren', 'is_active' => true]
         );
 
         PaymentMethod::create(
-            ['name' => 'E-Mall', 'description' => 'Pembayaran elalui outlet Basmalah terdekat', 'is_active' => true]
+            ['code' => random_int(99, 999), 'name' => 'E-Mall', 'description' => 'Pembayaran elalui outlet Basmalah terdekat', 'is_active' => true]
         );
     }
 }

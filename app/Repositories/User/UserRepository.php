@@ -9,4 +9,6 @@ interface UserRepository extends Repository
 {
     public function getFamilies();
     public function getByEmail($email);
+
+    public function isHasNotSetPaymentMethod(): bool;
 }
