@@ -4,6 +4,7 @@ namespace App\Services\Invoice;
 
 use LaravelEasyRepository\Service;
 use App\Repositories\Invoice\InvoiceRepository;
+use Illuminate\Support\Collection;
 
 class InvoiceServiceImplement extends Service implements InvoiceService
 {
@@ -23,5 +24,11 @@ class InvoiceServiceImplement extends Service implements InvoiceService
     {
         $invoice = $this->mainRepository->createInvoiceAdmission($student_id);
         return $invoice;
+    }
+
+    public function getInvoicesByUserAndCode($user_id, $code): Collection
+    {
+        $invoices = $this->mainRepository->getInvoicesByUserAndCode($user_id, $code);
+        return $invoices;
     }
 }

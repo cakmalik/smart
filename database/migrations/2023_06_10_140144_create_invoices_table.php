@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('invoice_category_id')->constrained('invoice_categories');
             $table->string('period');
             $table->string('invoice_number');
-            $table->date('invoice_date')->default(now());
-            $table->date('due_date')->default(Carbon::now()->addDays(7));
+            $table->dateTime('invoice_date')->default(now());
+            $table->dateTime('due_date')->default(Carbon::now()->addDays(7));
             $table->string('description')->nullable();
             $table->bigInteger('amount')->default(0);
             $table->enum('status', ['draft', 'sent', 'unpaid', 'paid', 'canceled', 'expired'])->default('unpaid');

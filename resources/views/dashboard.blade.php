@@ -11,10 +11,10 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
                 @if (auth()->user()->students->count() != 0)
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-4">
+                        {{-- <x-card.summary />
                         <x-card.summary />
                         <x-card.summary />
-                        <x-card.summary />
-                        <x-card.summary />
+                        <x-card.summary /> --}}
                     </div>
                     <x-splade-rehydrate on="done-admission">
                         <x-dashboard.santri-baru :data="$x" />
