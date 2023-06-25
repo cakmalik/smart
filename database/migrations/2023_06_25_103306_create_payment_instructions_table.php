@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('payment_method_id')->constrained();
             $table->string('title');
-            $table->text('steps');
+            $table->json('steps');
             $table->timestamps();
         });
     }

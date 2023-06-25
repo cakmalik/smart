@@ -8,14 +8,12 @@
         </x-slot>
 
         <div class="max-w-7xl py-12 mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-col sm:grid-cols-3 gap-3 ">
+            <div class="grid grid-col sm:grid-cols-3 gap-3">
                 <div class="col-span-2 bg-white sm:rounded-lg p-4 sm:p-6">
-                    {{-- @include('document.blade.invoice') --}}
                     <div class="">
                         <div class="">
                             <img src="{{ asset('bakid/MUBAKID-with-label.png') }}" class="w-[300px]">
                         </div>
-                        {{-- divider --}}
                         <div class="relative mt-3 bg-yellow-300 w-full h-6">
                             <div class="absolute bg-white px-2 right-8 flex items-center">
                                 <h3 class="font-semibold text-xl">INVOICE</h3>
@@ -82,9 +80,15 @@
                         <span
                             class="text-lg font-semibold border-b border-gray-300">{{ __('Payment Instructions') }}:</span>
                     </div>
-                    <x-splade-data :default="\App\Models\PaymentInstruction::first()">
-                        <input v-model="data.title" />
-                    </x-splade-data>
+                    <div class="p-3 w-full">
+                        <p>
+                        <ul class="list-decimal">
+                            @foreach (json_decode($pi->steps) as $step)
+                                <li>{{ $step }}</li>
+                            @endforeach
+                        </ul>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
