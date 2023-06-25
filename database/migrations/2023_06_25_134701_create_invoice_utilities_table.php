@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('period');
             $table->string('description')->nullable();
-            $table->bigInteger('amount')->default(0);
+            $table->bigInteger('sub_total')->default(0);
             $table->string('code')->unique();
             $table->timestamps();
         });

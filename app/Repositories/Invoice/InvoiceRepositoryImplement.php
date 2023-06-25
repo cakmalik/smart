@@ -2,12 +2,16 @@
 
 namespace App\Repositories\Invoice;
 
-use App\Models\Admission;
-use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Invoice;
+use App\Models\Admission;
+use App\Models\InvoiceDetail;
 use App\Models\InvoiceCategory;
+use App\Models\InvoiceUtility;
+use App\Models\Student;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
 {
@@ -27,12 +31,14 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
     public function createInvoiceAdmission($student_id): bool
     {
         try {
-
             $findCategory = InvoiceCategory::where('code', 'psb')->first();
+            $findUtilities = InvoiceUtility::where('invoice_category_id', $findCategory->id)->get();
             if (!$findCategory) {
                 return false;
             }
             $admission = Admission::where('is_active', true)->first();
+
+            DB::beginTransaction();
             $invoice = $this->model->create([
                 'user_id' => auth()->user()->id,
                 'student_id' => $student_id,
@@ -49,8 +55,33 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
                 //    'reference'=>
                 //    'desc'=>
             ]);
+
+            // // get student count
+            // $student = Student::find($student_id);
+            // $studentCount = Student::whereHas('user', function ($query) use ($student) {
+            //     $query->where('user_id', $student->user_id);
+            // })->count();
+
+            $grandTotal = 0;
+            foreach ($findUtilities as $utility) {
+
+                $det = InvoiceDetail::create([
+                    'invoice_id' => $invoice->id,
+                    'name' => $utility->name,
+                    'period' => $utility->period,
+                    'description' => $utility->description,
+                    'sub_total' => $utility->sub_total,
+                ]);
+                $grandTotal += $utility->sub_total;
+            }
+
+            $invoice->amount = $grandTotal;
+            $invoice->save();
+            DB::commit();
             return true;
         } catch (\Exception $e) {
+            DB::rollBack();
+
             Log::error($e->getMessage() . ' ' . $e->getLine());
             return false;
         }
