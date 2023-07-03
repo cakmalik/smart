@@ -46,7 +46,7 @@
             <h3 class="text-xl">{{ __('Choose Rooms') }}</h3>
             </Link>
             {{-- TODO:kerjakan next --}}
-            @if ($data['invoices_psb'])
+            @if ($data['invoices_psb']->isNotEmpty())
                 @php
                     $invoice_number = $data['invoices_psb']->first()->invoice_number;
                     $is_selected = !!$data['invoices_psb']->first()->payment_method_id;
@@ -75,10 +75,8 @@
                     <p>Klik untuk melihat cara pembayaran</p>
                     </Link>
                 @endif
-
-
+            @endif
         </div>
-        @endif
         <x-splade-modal name="modalLembaga">
             <x-splade-form :action="route('student.complete-education')" stay background reset-on-success @success="$splade.emit('done-admission')">
                 <x-splade-select class="mb-3 mt-5" :options="$data['students']" option-label="name" option-value="id"

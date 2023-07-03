@@ -11,6 +11,10 @@ use App\Http\Requests\UpdateInvoiceRequest;
 
 class InvoiceController extends Controller
 {
+    public function index()
+    {
+        return view('invoice.list');
+    }
     public function show($invoice_number)
     {
         $invoice = Invoice::where('invoice_number', $invoice_number)->first();

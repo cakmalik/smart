@@ -26,7 +26,6 @@
     <div class="max-w-7xl mx-auto p-6 lg:p-8  rounded-lg">
         <div class="flex justify-center">
             <x-authentication-card-logo />
-
         </div>
 
         <div class="mt-16">
@@ -35,10 +34,8 @@
             </div>
         </div>
 
-
         <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between gap-3">
             @if ($canLogin)
-
                 @auth
                     <Link href="{{ url('/dashboard') }}"
                         class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">

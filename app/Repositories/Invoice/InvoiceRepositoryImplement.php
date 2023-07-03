@@ -92,7 +92,9 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
     {
         $invoices = $this->model->where('user_id', $user_id)->whereHas('invoiceCategory', function ($query) use ($code) {
             $query->where('code', $code);
-        })->get();
+        })
+            ->whereIn('status', ['unpaid'])
+            ->get();
         return $invoices;
 
         //or join manual like here

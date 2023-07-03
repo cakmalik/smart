@@ -1,102 +1,20 @@
 @hasrole('santri')
     @if (Auth::user()->students->count() > 0)
-        <div
-            class="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
-            <div class="grid h-full max-w-lg grid-cols-5 mx-auto">
-                <button data-tooltip-target="tooltip-home" type="button"
-                    class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                    <svg class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path
-                            d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
-                        </path>
-                    </svg>
-                    <span class="sr-only">Home</span>
-                </button>
-                <div id="tooltip-home" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Home
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-                <button data-tooltip-target="tooltip-wallet" type="button"
-                    class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                    <svg class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
-                        <path clip-rule="evenodd" fill-rule="evenodd"
-                            d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z">
-                        </path>
-                    </svg>
-                    <span class="sr-only">Wallet</span>
-                </button>
-                <div id="tooltip-wallet" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Wallet
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-                <div class="flex items-center justify-center">
-                    <button data-tooltip-target="tooltip-new" type="button"
-                        class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z">
-                            </path>
-                        </svg>
-                        <span class="sr-only">New item</span>
-                    </button>
-                </div>
-                <div id="tooltip-new" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Create new item
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-                <button data-tooltip-target="tooltip-settings" type="button"
-                    class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                    <svg class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path
-                            d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z">
-                        </path>
-                    </svg>
-                    <span class="sr-only">Settings</span>
-                </button>
-                <div id="tooltip-settings" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Settings
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-                <button data-tooltip-target="tooltip-profile" type="button"
-                    class="inline-flex flex-col items-center justify-center px-5 rounded-r-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                    <svg class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path clip-rule="evenodd" fill-rule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z">
-                        </path>
-                    </svg>
-                    <span class="sr-only">Profile</span>
-                </button>
-                <div id="tooltip-profile" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Profile
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-            </div>
-        </div>
+        <x-navigation.mobile />
     @endif
 @else
     <x-splade-data store="mobileNavigation" default="{ open: false }" />
 
     <x-splade-rehydrate on="refresh-navigation-menu, profile-information-updated">
-        <nav class="bg-white/70 border-b border-gray-100">
+        <nav class="border-b border-gray-100 bg-white/70">
             <!-- Primary Navigation Menu -->
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex">
                         <!-- Logo -->
-                        <div class="shrink-0 flex items-center">
+                        <div class="flex items-center shrink-0">
                             <Link href="{{ route('dashboard') }}">
-                            <x-application-mark class="block h-9 w-auto" />
+                            <x-application-mark class="block w-auto h-9" />
                             </Link>
                         </div>
 
@@ -148,13 +66,13 @@
                     </div>
 
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
-                        <div class="ml-3 relative">
+                        <div class="relative ml-3">
                             {{-- @if (\Laravel\Jetstream\Jetstream::hasTeamFeatures())
                                 <x-splade-dropdown>
                                     <x-slot:trigger>
                                         <span class="inline-flex rounded-md">
                                             <button type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                                                class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
                                                 {{ auth()->user()->currentTeam->name }}
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +86,7 @@
                                         </x-slot>
 
                                         <div
-                                            class="w-60 mt-2 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 py-1 bg-white">
+                                            class="py-1 mt-2 bg-white rounded-md shadow-lg w-60 ring-1 ring-black ring-opacity-5">
                                             <!-- Team Management -->
                                             <div class="block px-4 py-2 text-xs text-gray-400">
                                                 {{ __('Manage Team') }}
@@ -197,7 +115,7 @@
                                                     <x-dropdown-link as="button">
                                                         <div class="flex items-center">
                                                             @if ($team->is(auth()->user()->currentTeam))
-                                                                <svg class="mr-2 h-5 w-5 text-green-400"
+                                                                <svg class="w-5 h-5 mr-2 text-green-400"
                                                                     xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                     viewBox="0 0 24 24" stroke-width="1.5"
                                                                     stroke="currentColor">
@@ -217,32 +135,32 @@
                         </div>
                         {{-- TODO:#DROPDOWN --}}
 
-                        <div class="ml-3 relative">
+                        <div class="relative ml-3">
                             <button
-                                class="bg-transparent flex justify-center items-center rounded-full p-1 w-8 h-8 relative border border-indigo-100">
+                                class="relative flex items-center justify-center w-8 h-8 p-1 bg-transparent border border-indigo-100 rounded-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="#a5b4fc" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="none" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                                 </svg>
-                                <div class="absolute w-2 h-2 bg-red-500 top-0 right-0 rounded-full"></div>
+                                <div class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></div>
                             </button>
                         </div>
                         <!-- Settings Dropdown -->
-                        <div class="ml-3 relative">
+                        <div class="relative ml-3">
                             <x-splade-dropdown>
                                 <x-slot:trigger>
                                     @if (\Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                         <button
-                                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                            <img class="h-8 w-8 rounded-full object-cover bg-green-400"
+                                            class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                                            <img class="object-cover w-8 h-8 bg-green-400 rounded-full"
                                                 src="{{ auth()->user()->profile_photo_url }}"
                                                 alt="{{ auth()->user()->name }}">
                                         </button>
                                     @else
                                         <span class="inline-flex rounded-md">
                                             <button type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                                                class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
                                                 {{ auth()->user()->name }}
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -257,7 +175,7 @@
                                     </x-slot>
 
                                     <div
-                                        class="w-48 mt-2 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 py-1 bg-white">
+                                        class="w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ __('message.manage_account') }}
@@ -287,11 +205,11 @@
                     </div>
 
                     <!-- Hamburger -->
-                    <div class="-mr-2 flex items-center sm:hidden">
+                    <div class="flex items-center -mr-2 sm:hidden">
                         <button
-                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                            class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500"
                             @click="mobileNavigation.open = ! mobileNavigation.open">
-                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                 <path :class="{ 'hidden': mobileNavigation.open, 'inline-flex': !mobileNavigation.open }"
                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 6h16M4 12h16M4 18h16" />
@@ -316,17 +234,17 @@
                 <div class="pt-4 pb-1 border-t border-gray-200">
                     <div class="flex items-center px-4">
                         @if (\Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                            <div class="shrink-0 mr-3">
-                                <img class="h-10 w-10 rounded-full object-cover"
+                            <div class="mr-3 shrink-0">
+                                <img class="object-cover w-10 h-10 rounded-full"
                                     src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}">
                             </div>
                         @endif
 
                         <div>
-                            <div class="font-medium text-base text-gray-800">
+                            <div class="text-base font-medium text-gray-800">
                                 {{ auth()->user()->name }}
                             </div>
-                            <div class="font-medium text-sm text-gray-500">
+                            <div class="text-sm font-medium text-gray-500">
                                 {{ auth()->user()->email }}
                             </div>
                         </div>
@@ -381,9 +299,9 @@
                                     <x-responsive-nav-link as="button">
                                         <div class="flex items-center">
                                             @if ($team->is(auth()->user()->currentTeam))
-                                                <svg class="mr-2 h-5 w-5 text-green-400"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor">
+                                                <svg class="w-5 h-5 mr-2 text-green-400" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
