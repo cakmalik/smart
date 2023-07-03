@@ -89,7 +89,7 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/payment/choose-method/{invoice_number}', [PaymentMethodController::class, 'chooseMethod'])->name('payment.choose-method');
         Route::post('/payment/change-method/', [PaymentMethodController::class, 'changeMethod'])->name('payment.change-method');
 
-
+        Route::get('/invoice/list', [InvoiceController::class, 'index'])->name('invoice.index');
         Route::get('/invoice/show/{invoice_number}', [InvoiceController::class, 'show'])->name('invoice.show');
     });
 });
