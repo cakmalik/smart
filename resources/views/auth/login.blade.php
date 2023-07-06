@@ -36,7 +36,7 @@
                     </path>
                 </svg>
                 </Link>
-                <x-splade-submit :label="__('Masuk')" class="ml-4" />
+                <x-splade-submit :label="__('Masuk')" class="ml-4"/>
             </div>
         </x-splade-form>
 </x-authentication-card>
