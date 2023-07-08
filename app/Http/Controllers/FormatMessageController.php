@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFormatMessageRequest;
 use App\Http\Requests\UpdateFormatMessageRequest;
 use App\Models\FormatMessage;
+use App\Tables\FormatMessages;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class FormatMessageController extends Controller
 {
@@ -13,7 +15,9 @@ class FormatMessageController extends Controller
      */
     public function index()
     {
-        //
+        return view('bakid.setting.format_message.index', [
+            'format_message' => FormatMessages::class,
+        ]);
     }
 
     /**
@@ -45,7 +49,7 @@ class FormatMessageController extends Controller
      */
     public function edit(FormatMessage $formatMessage)
     {
-        //
+        return view('bakid.setting.format_message.edit', compact('formatMessage'));
     }
 
     /**
@@ -53,7 +57,9 @@ class FormatMessageController extends Controller
      */
     public function update(UpdateFormatMessageRequest $request, FormatMessage $formatMessage)
     {
-        //
+        $formatMessage->update($request->validated());
+        Toast::success('Pesan berhasil diubah');
+        return redirect()->route('format-message.index');
     }
 
     /**

@@ -11,7 +11,7 @@ class UpdateFormatMessageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class UpdateFormatMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'message' => 'required|string|max:255',
+        ];
+    }
+
+    //messages indonesia
+    public function messages(): array
+    {
+        return [
+            'message.required' => 'Pesan tidak boleh kosong',
+            'message.string' => 'Pesan harus berupa string',
+            'message.max' => 'Pesan maksimal 255 karakter',
         ];
     }
 }

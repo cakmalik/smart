@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\BakidSetting;
+use App\Jobs\JobSendWhatsapp;
 use App\Jobs\ReminderAdmission;
 use App\Jobs\JobReminderAdmission;
 use Illuminate\Support\Facades\Route;
@@ -14,11 +15,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BakidSettingController;
+use App\Http\Controllers\FormatMessageController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\FormalEducationController;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\ReminderNotificationController;
-use App\Jobs\JobSendWhatsapp;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +83,13 @@ Route::middleware(['splade'])->group(function () {
         Route::post('/student/complete-admission', [StudentController::class, 'completeEducation'])->name('student.complete-education');
         Route::post('/student/complete-room', [StudentController::class, 'completeRoom'])->name('student.complete-room');
         Route::resource('/student', StudentController::class);
+        Route::prefix('setting')->group(function () {
+            Route::resource('format-message', FormatMessageController::class);
+        });
+
         Route::resource('/setting', BakidSettingController::class);
+
+
         Route::get('tes/wa', [BakidSettingController::class, 'checkConnection'])->name('test.wa');
         Route::resource('/room', RoomController::class);
         Route::get('/dormitory/room/{dormitory}', [DormitoryController::class, 'room'])->name('dormitory.room');
