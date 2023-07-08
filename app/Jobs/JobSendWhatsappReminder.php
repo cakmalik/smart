@@ -3,9 +3,10 @@
 namespace App\Jobs;
 
 use App\Services\WhatsappService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class JobSendWhatsapp
+class JobSendWhatsappReminder
 {
     use Dispatchable;
 
@@ -29,8 +30,13 @@ class JobSendWhatsapp
      */
     public function handle(): void
     {
-        // gunakan whatsapp service untuk mengirim pesan
-        $whatsapp = new WhatsappService();
-        $whatsapp->send($this->phone, $this->message);
+        Log::info('run: JobSendWhatsapp');
+        try {
+            $whatsapp = new WhatsappService();
+            $whatsapp->sendReminder($this->phone, $this->message);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        }
+        Log::info('run: End JobSendWhatsapp');
     }
 }
