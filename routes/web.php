@@ -18,6 +18,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\FormalEducationController;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\ReminderNotificationController;
+use App\Jobs\JobSendWhatsapp;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,7 +112,7 @@ Route::get('/tes-job', function () {
     // return JobReminderAdmission::dispatch();
     //send job wa
     // dd(1);
-    $job = (new JobReminderAdmission())->delay(now()->addSeconds(5));
-    dispatch($job);
+    JobReminderAdmission::dispatch();
+    // JobSendWhatsapp::dispatch();
     return 'ok';
 });

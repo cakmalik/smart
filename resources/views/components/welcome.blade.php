@@ -19,7 +19,7 @@
                 diingatkan secara otomatis
                 melalui WA jika pendaftaran telah dibuka. </p>
             @php
-                $userId = 1;
+                $userId = auth()->user()->id;
             @endphp
             <x-splade-link :href="route('reminder.registration')" method="POST" :data="['user_id' => $userId, 'for' => 'registration']" background
                 class="flex justify-center mt-6 p-4 px-6 bg-green-600 rounded-xl text-white hover:bg-green-700 "
