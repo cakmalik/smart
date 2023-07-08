@@ -44,5 +44,8 @@
     "Choose Rooms":"Pilih Asrama",
     "Choose Payment Method":"Pilih metode pembayaran",
     "Invoice Details":"Detail Tagihan",
-    "Payment Instructions":"Panduan Pembayaran"
+    "Payment Instructions":"Panduan Pembayaran",
+    "Format Message":"Format Pesan",
+    "Setting Format Message":"Pengaturan Format Pesan",
+    "Message": "Pesan"
 }

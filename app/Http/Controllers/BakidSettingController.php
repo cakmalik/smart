@@ -6,6 +6,7 @@ use App\Models\BakidSetting;
 use ProtoneMedia\Splade\Facades\Toast;
 use App\Http\Requests\StoreBakidSettingRequest;
 use App\Http\Requests\UpdateBakidSettingRequest;
+use Psy\Formatter\Formatter;
 
 class BakidSettingController extends Controller
 {

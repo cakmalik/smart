@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             BakidEducationSeeder::class,
             PaymentInstructionSeeder::class,
             InvoiceUtilitySeeder::class,
-            FormatMessage::class
+            FormatMessageSeeder::class
         ]);
     }
 }
