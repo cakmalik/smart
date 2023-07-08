@@ -118,11 +118,16 @@
                         @forelse ($data as $key => $value)
                             <div class="p-4 py-6 bg-white/50 border-white border-2 w-full rounded-lg">
                                 {{ $key }}
-                                <x-splade-input name="{{ $key }}" />
+                                <x-splade-input name="{{ $key }}" class="mt-3" />
                             </div>
                         @empty
                         @endforelse
-
+                        <div class="p-4 py-6 bg-white/50 border-white border-2 w-full rounded-lg">
+                            {{ __('Setting Format Message') }}
+                            <Link href="{{ route('format-message.index') }}">
+                            <button class="px-4 py-2 w-full bg-indigo-600 text-white rounded shadow mt-3">Edit</button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </x-splade-form>
