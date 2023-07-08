@@ -30,9 +30,7 @@
             <div class="bg-white/40 backdrop-blur-md overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- <div class="bg-white bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8"> --}}
                 <div class='p-5'>
-                    <x-splade-form :action="route('student.store')" default="{nationality:'WNI'}" {{-- confirm="Simpan"
-                        confirm-text="Apakah anda yakin semua data sudah benar?" confirm-button="Ya, simpan!" --}}
-                        cancel-button="Batal">
+                    <x-splade-form :action="route('student.store')" default="{nationality:'WNI'}">
                         <x-loading />
                         <x-splade-data remember="menu" default="{currentIndex: 0, religion:'Islam' }">
                             <ol

@@ -1,20 +1,23 @@
 <?php
 
 use App\Models\BakidSetting;
+use App\Jobs\ReminderAdmission;
+use App\Jobs\JobReminderAdmission;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Models\Informal\InformalEducation;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BakidSettingController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\FormalEducationController;
 use App\Http\Controllers\InformalEducationController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ReminderNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +94,8 @@ Route::middleware(['splade'])->group(function () {
 
         Route::get('/invoice/list', [InvoiceController::class, 'index'])->name('invoice.index');
         Route::get('/invoice/show/{invoice_number}', [InvoiceController::class, 'show'])->name('invoice.show');
+
+        Route::post('/reminder/store', [ReminderNotificationController::class, 'store'])->name('reminder.registration');
     });
 });
 
@@ -100,4 +105,13 @@ Route::get('/nota/{reference}', [TransactionController::class, 'invoice'])->name
 Route::get('/test', function () {
     $whatsapp = new \App\Services\WhatsappService();
     $whatsapp->send('085333920007');
+});
+
+Route::get('/tes-job', function () {
+    // return JobReminderAdmission::dispatch();
+    //send job wa
+    // dd(1);
+    $job = (new JobReminderAdmission())->delay(now()->addSeconds(5));
+    dispatch($job);
+    return 'ok';
 });

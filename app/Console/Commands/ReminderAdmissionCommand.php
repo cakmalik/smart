@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\ReminderAdmission as JobsReminderAdmission;
-use App\Models\Admission;
 use Carbon\Carbon;
+use App\Models\Admission;
 use Illuminate\Console\Command;
+use App\Jobs\JobReminderAdmission;
 
-class ReminderAdmission extends Command
+class ReminderAdmissionCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -31,7 +31,7 @@ class ReminderAdmission extends Command
         date_default_timezone_set('Asia/Jakarta');
         $reminder = !!Admission::whereDate('start_date', Carbon::today())->where('is_active', true)->first();
         if ($reminder) {
-            JobsReminderAdmission::dispatch();
+            JobReminderAdmission::dispatch();
         }
     }
 }
