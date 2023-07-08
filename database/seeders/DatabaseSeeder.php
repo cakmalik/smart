@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\FormatMessage;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdmissionSeeder;
 use Database\Seeders\DormitorySeeder;
@@ -28,6 +30,7 @@ class DatabaseSeeder extends Seeder
             BakidEducationSeeder::class,
             PaymentInstructionSeeder::class,
             InvoiceUtilitySeeder::class,
+            FormatMessage::class
         ]);
     }
 }
