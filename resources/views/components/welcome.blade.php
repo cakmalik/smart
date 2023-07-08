@@ -18,10 +18,14 @@
             <p class="text-center"> Klik link dibawah ini agar
                 diingatkan secara otomatis
                 melalui WA jika pendaftaran telah dibuka. </p>
-            <Link href="/"
-                class="flex justify-center mt-6 p-4 px-6 bg-green-600 rounded-xl text-white hover:bg-green-700 ">
-            <span class="font-semibold">INGATKAN</span>
-            </Link>
+            @php
+                $userId = 1;
+            @endphp
+            <x-splade-link :href="route('reminder.registration')" method="POST" :data="['user_id' => $userId, 'for' => 'registration']" background
+                class="flex justify-center mt-6 p-4 px-6 bg-green-600 rounded-xl text-white hover:bg-green-700 "
+                preserve-scroll>
+                <span class="font-semibold">INGATKAN</span>
+            </x-splade-link>
         @endif
     @else
         <x-splade-lazy>
