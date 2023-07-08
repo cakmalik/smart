@@ -7,6 +7,7 @@ use App\Models\ReminderNotification;
 use ProtoneMedia\Splade\Facades\Toast;
 use App\Http\Requests\StoreReminderNotificationRequest;
 use App\Http\Requests\UpdateReminderNotificationRequest;
+use App\Jobs\JobReminderAdmission;
 
 class ReminderNotificationController extends Controller
 {
@@ -32,10 +33,25 @@ class ReminderNotificationController extends Controller
     public function store(Request $request)
     {
         try {
+            // untuk tes notif langsung
+            // JobReminderAdmission::dispatch();
+            // return back();
+            $check = ReminderNotification::where('user_id', $request->user_id)
+                ->where('for', $request->for)
+                ->first();
+
+            if ($check) {
+                Toast::title('uppps')
+                    ->message('Pengingat sudah ada')
+                    ->warning()
+                    ->centerBottom()
+                    ->backdrop();
+                return back();
+            }
             $reminderNotification = ReminderNotification::create([
                 'user_id' => $request->user_id,
             ]);
-            Toast::success('Pengingat berhasil ditambahkan');
+            Toast::centerBottom('Pengingat berhasil ditambahkan');
             return back();
         } catch (\Exception $e) {
             Toast::error('Something went wrong');

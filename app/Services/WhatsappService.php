@@ -3,25 +3,66 @@
 namespace App\Services;
 
 use App\Models\BakidSetting;
+use Illuminate\Support\Facades\Log;
 
 class WhatsappService
 {
-    public function send($phone, $message = null)
+    public function sendReminder($phone, $message = null)
     {
-        // $apiKey = 'HXe9tuKu6mB7';
+        Log::info('run: WhatsappService here');
         $apiKey = BakidSetting::where('name', 'api_key_whatsapp')->first();
         $apiKey = $apiKey?->value;
         if (!$message) {
             $message = $this->admission();
         }
         $no = formatPhoneNumber($phone);
+        // Log::info('run: WhatsappService here 2');
         try {
             $client = new \GuzzleHttp\Client();
             $url = 'http://api.textmebot.com/send.php?recipient=' . $no . '&apikey=' . $apiKey . '&text=' . $message . '&json=yes';
+            Log::info('run: WhatsappService url:' . $url);
             $response = $client->request('GET', $url);
-            return $response;
+            $response = json_decode($response->getBody()->getContents());
+            Log::info(json_encode($response) . ' ' . $phone);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        }
+    }
+    public function send($phone, $message = null)
+    {
+        // $apiKey = 'HXe9tuKu6mB7';
+        Log::info('run: WhatsappService here');
+        $apiKey = BakidSetting::where('name', 'api_key_whatsapp')->first();
+        $apiKey = $apiKey?->value;
+        if (!$message) {
+            $message = $this->admission();
+        }
+        $no = formatPhoneNumber($phone);
+        // Log::info('run: WhatsappService here 2');
+        try {
+            $client = new \GuzzleHttp\Client();
+            $url = 'http://api.textmebot.com/send.php?recipient=' . $no . '&apikey=' . $apiKey . '&text=' . $message . '&json=yes';
+            Log::info('run: WhatsappService url:' . $url);
+            $response = $client->request('GET', $url);
+            $response = json_decode($response->getBody()->getContents());
+            Log::info(json_encode($response) . ' ' . $phone);
+            // if ($response->getStatusCode() == 200) {
+            //     $success = true;
+            //     $pesan = 'Koneksi berhasil';
+            // } elseif ($response->status == 'error') {
+            //     $success = false;
+            //     $pesan = $response->comment;
+            // } else {
+            //     $success = false;
+            //     $pesan = 'Koneksi gagal';
+            // }
+            // Log::info('run: WhatsappService here 3');
+            // Log::info('run: WhatsappService here 4 sukses: ' . $pesan);
+            // return $response;
+            // Log::info('run: End WhatsappService');
         } catch (\Exception $e) {
             return $e->getMessage();
+            Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
     public function checkConnection($phone, $message = null)
