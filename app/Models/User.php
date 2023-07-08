@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Student;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\ReminderNotification;
 use Laravel\Jetstream\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -78,5 +79,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->hasRole('admin');
+    }
+
+    public function reminder()
+    {
+        return $this->hasOne(ReminderNotification::class);
     }
 }
