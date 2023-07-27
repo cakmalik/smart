@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class FormalEducation extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = ['name', 'level'];
 
     public function formalEducationClasses()
     {
