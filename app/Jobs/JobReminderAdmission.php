@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\FormatMessage;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use App\Services\WhatsappService;
@@ -31,7 +32,7 @@ class JobReminderAdmission implements ShouldQueue
     public function handle(): void
     {
         //fungsi kirim wa untuk mengingatkan semua orang yang terdaftar
-        Log::info('run: JobReminderAdmission');
+        Log::info('run: JobReminderAdmission'); 
         try {
             $reminder = ReminderNotification::with('user')
                 ->where('status', 'pending')
@@ -39,12 +40,12 @@ class JobReminderAdmission implements ShouldQueue
                 ->get();
             Log::info('run: Loop JobReminderAdmission');
             foreach ($reminder as $key => $value) {
-                $message = "Assalamualaikum " . $value->user->name . ",\n\n";
-                $message .= "Terima kasih telah berkenan untuk mendaftar di PP Miftahul Ulum Bakid.\n";
-                $message .= "Kami mengingatkan bahwa hari ini Pendaftaran Santri Baru telah dibuka.\n\n";
-                $message .= "Jangan lupa melanjutkan pengisian data santri di website bakid.id\n\n";
-                $message .= "Terima kasih,\n";
-                $message .= config('app.name');
+                // $message = "Assalamualaikum " . $value->user->name . ",\n\n";
+                // $message .= "Terima kasih telah berkenan untuk mendaftar di PP Miftahul Ulum Bakid.\n";
+                // $message .= "Kami mengingatkan bahwa hari ini Pendaftaran Santri Baru telah dibuka.\n\n";
+                // $message .= "Jangan lupa melanjutkan pengisian data santri di website bakid.id\n\n";
+                // $message .= "Terima kasih,\n";
+                // $message .= config('app.name');
 
                 $send = new JobSendWhatsappReminder($value->user->phone, $message);
                 dispatch($send);
