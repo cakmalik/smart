@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class InformalEducation extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = ['name', 'value'];
     public function informalEducationClasses()
     {
         return $this->hasMany(InformalEducationClass::class);

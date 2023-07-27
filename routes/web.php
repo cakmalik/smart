@@ -94,8 +94,8 @@ Route::middleware(['splade'])->group(function () {
         Route::resource('/room', RoomController::class);
         Route::get('/dormitory/room/{dormitory}', [DormitoryController::class, 'room'])->name('dormitory.room');
         Route::resource('/dormitory', DormitoryController::class);
-        Route::resource('/informal', InformalEducationController::class);
         Route::resource('/formal', FormalEducationController::class);
+        Route::resource('/informal', InformalEducationController::class);
 
         Route::get('/payment/choose-method/{invoice_number}', [PaymentMethodController::class, 'chooseMethod'])->name('payment.choose-method');
         Route::post('/payment/change-method/', [PaymentMethodController::class, 'changeMethod'])->name('payment.change-method');
@@ -104,6 +104,10 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/invoice/show/{invoice_number}', [InvoiceController::class, 'show'])->name('invoice.show');
 
         Route::post('/reminder/store', [ReminderNotificationController::class, 'store'])->name('reminder.registration');
+
+        Route::get('/coba', function () {
+            return view('bakid.education.formal.show');
+        });
     });
 });
 
@@ -119,7 +123,7 @@ Route::get('/tes-job', function () {
     // return JobReminderAdmission::dispatch();
     //send job wa
     // dd(1);
-    JobReminderAdmission::dispatch();
+    // JobReminderAdmission::dispatch();
     // JobSendWhatsapp::dispatch();
     return 'ok';
 });

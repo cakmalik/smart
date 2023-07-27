@@ -35,7 +35,7 @@
                                 </x-splade-form> --}}
 
 
-                                <Link href="#addFormal"><svg xmlns="http://www.w3.org/2000/svg" width="32"
+                                <Link href="#addInformal"><svg xmlns="http://www.w3.org/2000/svg" width="32"
                                     height="32" fill="#000000" viewBox="0 0 256 256">
                                     <path
                                         d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z">
@@ -43,9 +43,9 @@
                                 </svg></Link>
 
                                 {{-- start modal create --}}
-                                <x-splade-modal position="center" max-width="lg" name="addFormal" close-explicitly>
-                                    <x-splade-form :action="route('formal.store')" method="POST" stay background reset-on-success
-                                        @success="$splade.emit('formal-added')">
+                                <x-splade-modal position="center" max-width="lg" name="addInformal" close-explicitly>
+                                    <x-splade-form :action="route('informal.store')" method="POST" stay background reset-on-success
+                                        @success="$splade.emit('informal-added')">
 
                                         <x-splade-input name="name" placeholder="Nama" class="mb-3" />
                                         <x-splade-select name="level" class="mb-3 capitalize">
@@ -74,15 +74,15 @@
                             <div class="h-[55vh] overflow-y-scroll">
                                 <div class="grid grid-col sm:grid-cols-4 gap-2 lg:gap-4">
                                     {{-- start template card --}}
-                                    <x-splade-rehydrate on="formal-added,formal-changed,formal-updated">
+                                    <x-splade-rehydrate on="informal-added,informal-changed,informal-updated" prevent-scroll>
                                         @forelse ($data as $i)
                                             <div class="relative bg-white rounded-lg overflow-hidden pt-3 z-40">
                                                 {{-- <div
                                                 class="absolute text-white opacity-40 text-9xl font-extrabold right-10 rotate-4 text-center z-1 pointer-events-none">
                                                 name</div> --}}
-                                                <div class="px-3 flex justify-between">
+                                                <div class="px-3 flex justify-between ">
                                                     <span>Nama</span>
-                                                    <span class="bg-gr text-2xl font-semibold">
+                                                    <span class="bg-gr text-2xl font-semibold overflow-flip">
                                                         {{ $i->name }}
                                                     </span>
                                                 </div>
@@ -97,17 +97,17 @@
                                                     <x-splade-link
                                                         class="border hover:border-gray-600 duration-200 bg-white hover:bg-yellow-500 cursor-pointer p-1 rounded-full">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="15"
-                                                            height="15" fill="##ffffff" viewBox="0 0 256 256">
+                                                            height="15" fill="currentColor" viewBox="0 0 256 256">
                                                             <path
                                                                 d="M152,112a8,8,0,0,1-8,8H120v24a8,8,0,0,1-16,0V120H80a8,8,0,0,1,0-16h24V80a8,8,0,0,1,16,0v24h24A8,8,0,0,1,152,112Zm77.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88.11,88.11,0,1,1,11.31-11.31l50.07,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z">
                                                             </path>
                                                         </svg>
                                                     </x-splade-link>
                                                     {{-- edit icon --}}
-                                                    <Link modal href="{{ route('formal.show', $i->id) }}"
+                                                    <Link modal href="{{ route('informal.show', $i->id) }}"
                                                         class="border hover:border-gray-600 duration-200 bg-white hover:bg-yellow-500 cursor-pointer p-1 rounded-full">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="15"
-                                                        height="15" fill="##ffffff" viewBox="0 0 256 256">
+                                                        height="15" fill="currentColor" viewBox="0 0 256 256">
                                                         <path
                                                             d="M240,100.68a15.86,15.86,0,0,0-4.69-11.31L166.63,20.68a16,16,0,0,0-22.63,0L115.57,49.11l-58,21.77A16.06,16.06,0,0,0,47.35,83.23L24.11,222.68A8,8,0,0,0,32,232a8.4,8.4,0,0,0,1.32-.11l139.44-23.24a16,16,0,0,0,12.35-10.17l21.77-58L235.31,112A15.87,15.87,0,0,0,240,100.68Zm-69.87,92.19L55.32,212l47.37-47.37a28,28,0,1,0-11.32-11.32L44,200.7,63.13,85.86,118,65.29,190.7,138ZM104,140a12,12,0,1,1,12,12A12,12,0,0,1,104,140Zm96-15.32L131.31,56l24-24L224,100.68Z">
                                                         </path>

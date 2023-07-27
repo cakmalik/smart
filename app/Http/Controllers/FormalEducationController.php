@@ -6,6 +6,7 @@ use App\Http\Requests\StoreFormalEducationRequest;
 use App\Http\Requests\UpdateFormalEducationRequest;
 use App\Models\Formal\FormalEducation;
 use ProtoneMedia\Splade\Facades\Toast;
+use Symfony\Component\CssSelector\Parser\Tokenizer\Tokenizer;
 
 class FormalEducationController extends Controller
 {
@@ -56,16 +57,25 @@ class FormalEducationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFormalEducationRequest $request, FormalEducation $formalEducation)
+    public function update(UpdateFormalEducationRequest $request, FormalEducation $formal)
     {
-        //
+        $formal->update($request->all());
+        Toast::success('Data berhasil diperbarui')->autoDismiss(2);
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FormalEducation $formalEducation)
+    public function destroy(FormalEducation $formal)
     {
-        //
+        try {
+
+            $formal->delete();
+            Toast::success('Berhasil dihapus')->autoDismiss(2);
+        } catch (\Exception $e) {
+            Toast::danger('Gagal menghapus, terdapat data yang terkait')->autoDismiss(5);
+        }
+        return back();
     }
 }

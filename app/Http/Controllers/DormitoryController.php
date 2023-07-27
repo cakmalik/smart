@@ -64,6 +64,7 @@ class DormitoryController extends Controller
         return view('bakid.dormitory.show-dormitory', compact('dormitory'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      */
