@@ -6,6 +6,7 @@ use App\Http\Requests\StoreInformalEducationRequest;
 use App\Http\Requests\UpdateInformalEducationRequest;
 use App\Models\Informal\InformalEducation;
 use ProtoneMedia\Splade\Facades\Toast;
+use Symfony\Component\CssSelector\Parser\Tokenizer\Tokenizer;
 
 class InformalEducationController extends Controller
 {
@@ -48,7 +49,7 @@ class InformalEducationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(InformalEducation $informalEducation)
+    public function edit(InformalEducation $informal)
     {
         //
     }
@@ -56,16 +57,25 @@ class InformalEducationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInformalEducationRequest $request, InformalEducation $informalEducation)
+    public function update(UpdateInformalEducationRequest $request, InformalEducation $informal)
     {
-        //
+        $informal->update($request->all());
+        Toast::success('Data berhasil diperbarui')->autoDismiss(2);
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(InformalEducation $informalEducation)
+    public function destroy(InformalEducation $informal)
     {
-        //
+        try {
+
+            $informal->delete();
+            Toast::success('Berhasil dihapus')->autoDismiss(2);
+        } catch (\Exception $e) {
+            Toast::danger('Gagal menghapus, terdapat data yang terkait')->autoDismiss(5);
+        }
+        return back();
     }
 }
