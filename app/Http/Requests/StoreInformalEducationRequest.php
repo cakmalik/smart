@@ -23,7 +23,7 @@ class StoreInformalEducationRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'levels' => 'required'
+            'level' => 'required'
         ];
     }
 }
