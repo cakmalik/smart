@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInformalEducationRequest;
 use App\Http\Requests\UpdateInformalEducationRequest;
 use App\Models\Informal\InformalEducation;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class InformalEducationController extends Controller
 {
@@ -13,7 +14,9 @@ class InformalEducationController extends Controller
      */
     public function index()
     {
-        //
+        $data = InformalEducation::all();
+        // dd($data);
+        return view('bakid.education.informal.index', compact('data'));
     }
 
     /**
@@ -29,15 +32,17 @@ class InformalEducationController extends Controller
      */
     public function store(StoreInformalEducationRequest $request)
     {
-        //
+        InformalEducation::create($request->all());
+        Toast::success('Berhasil menambah data')->autoDismiss(3);
+        return back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(InformalEducation $informalEducation)
+    public function show(InformalEducation $informal)
     {
-        //
+        return view('bakid.education.informal.show', compact('informal'));
     }
 
     /**
@@ -62,10 +67,5 @@ class InformalEducationController extends Controller
     public function destroy(InformalEducation $informalEducation)
     {
         //
-    }
-
-    public function getInformalClassesFromInFormalEducation(InformalEducation $informalEducation)
-    {
-        return response()->json($informalEducation->informalEducationClasses);
     }
 }
