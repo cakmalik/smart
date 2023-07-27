@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFormalEducationRequest;
 use App\Http\Requests\UpdateFormalEducationRequest;
 use App\Models\Formal\FormalEducation;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class FormalEducationController extends Controller
 {
@@ -13,7 +14,9 @@ class FormalEducationController extends Controller
      */
     public function index()
     {
-        //
+        $data = FormalEducation::all();
+        // dd($data);
+        return view('bakid.education.formal.index', compact('data'));
     }
 
     /**
@@ -29,15 +32,17 @@ class FormalEducationController extends Controller
      */
     public function store(StoreFormalEducationRequest $request)
     {
-        //
+        FormalEducation::create($request->all());
+        Toast::success('Berhasil menambah data')->autoDismiss(3);
+        return back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(FormalEducation $formalEducation)
+    public function show(FormalEducation $formal)
     {
-        //
+        return view('bakid.education.formal.show', compact('formal'));
     }
 
     /**
