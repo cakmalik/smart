@@ -70,22 +70,22 @@ if (!function_exists('invoiceNumber')) {
     }
 }
 
-if (!function_exists('changeMessageTagar')) {
-    function changeMessageTagar($for)
-    {
-        public static function replaceVariables($variabel, $pesan, $nama, $posisi)
-        {
-            switch ($variabel) {
-                case 'nama':
-                    $pesan = str_replace("#nama", $nama, $pesan);
-                    break;
-                case 'posisi':
-                    $pesan = str_replace("#posisi", $posisi, $pesan);
-                    break;
-                // Tambahkan case lain sesuai kebutuhan
-            }
+// if (!function_exists('changeMessageTagar')) {
+//     function changeMessageTagar($for)
+//     {
+//         public static function replaceVariables($variabel, $pesan, $nama, $posisi)
+//         {
+//             switch ($variabel) {
+//                 case 'nama':
+//                     $pesan = str_replace("#nama", $nama, $pesan);
+//                     break;
+//                 case 'posisi':
+//                     $pesan = str_replace("#posisi", $posisi, $pesan);
+//                     break;
+//                 // Tambahkan case lain sesuai kebutuhan
+//             }
 
-            return $pesan;
-        }
-    }
-}
+//             return $pesan;
+//         }
+//     }
+// }
