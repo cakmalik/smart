@@ -23,7 +23,7 @@ class UpdateInformalEducationRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'levels' => 'required'
+            'level' => 'required'
         ];
     }
 }
