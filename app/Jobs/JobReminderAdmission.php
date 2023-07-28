@@ -32,20 +32,27 @@ class JobReminderAdmission implements ShouldQueue
     public function handle(): void
     {
         //fungsi kirim wa untuk mengingatkan semua orang yang terdaftar
-        Log::info('run: JobReminderAdmission'); 
+        Log::info('run: JobReminderAdmission');
         try {
             $reminder = ReminderNotification::with('user')
                 ->where('status', 'pending')
-                ->where('for', 'registration')
+                // ->where('for', 'registration')
                 ->get();
+
             Log::info('run: Loop JobReminderAdmission');
+            $message = FormatMessage::where('name', 'reminder_registration')->first()->message;
+
             foreach ($reminder as $key => $value) {
-                // $message = "Assalamualaikum " . $value->user->name . ",\n\n";
-                // $message .= "Terima kasih telah berkenan untuk mendaftar di PP Miftahul Ulum Bakid.\n";
-                // $message .= "Kami mengingatkan bahwa hari ini Pendaftaran Santri Baru telah dibuka.\n\n";
-                // $message .= "Jangan lupa melanjutkan pengisian data santri di website bakid.id\n\n";
-                // $message .= "Terima kasih,\n";
-                // $message .= config('app.name');
+
+                // placeholder
+                $namaOrtu = $value->user->name;
+                $enter = PHP_EOL;
+                $placeholders = ['#nama_ortu', '#enter'];
+                $values = [$namaOrtu, $enter];
+
+                // formatted + to url
+                $pesanFormatted = formatMessage($message, $placeholders, $values);
+                $message = urlencode($pesanFormatted);
 
                 $send = new JobSendWhatsappReminder($value->user->phone, $message);
                 dispatch($send);
