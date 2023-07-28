@@ -20,6 +20,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\FormalEducationController;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\ReminderNotificationController;
+use App\Jobs\JobSendWhatsappReminder;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,9 +122,9 @@ Route::get('/test', function () {
 
 Route::get('/tes-job', function () {
     // return JobReminderAdmission::dispatch();
-    //send job wa
+    // send job wa
     // dd(1);
-    // JobReminderAdmission::dispatch();
-    // JobSendWhatsapp::dispatch();
+    JobReminderAdmission::dispatch();
+    // JobSendWhatsappReminder::dispatch($data);
     return 'ok';
 });
