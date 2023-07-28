@@ -18,3 +18,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+!storage/app/public/student-photos/example.jpg
