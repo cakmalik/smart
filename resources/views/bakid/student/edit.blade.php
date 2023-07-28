@@ -113,7 +113,7 @@
                                 <x-splade-select class="mt-2" name="nationality" :options="['WNI', 'WNA']" :label="__('bakid.nationality')"
                                     :placeholder="__('bakid.pl.nationality')" choices="{searchEnabled:false}" />
 
-                                <div class="flex justify-center gap-2">
+                                <div class="flex justify-start gap-2">
 
                                     <x-splade-input class="mt-2" name="child_number" type="number"
                                         :label="__('bakid.child_number')" />
