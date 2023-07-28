@@ -12,8 +12,8 @@
                             'value' => 'primary',
                         ],
                         [
-                            'label' => 'Secondary',
-                            'value' => 'Secondary',
+                            'label' => 'secondary',
+                            'value' => 'secondary',
                         ],
                         [
                             'label' => 'high',
