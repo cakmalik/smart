@@ -51,7 +51,8 @@ class FormatMessages extends AbstractTable
             ->withGlobalSearch(columns: ['id', 'label'])
             ->column('id', sortable: true)
             ->column('label', sortable: true)
-            ->rowLink(fn (FormatMessage $formatMessage) => route('format-message.edit', $formatMessage));
+            ->column('action');
+        // ->rowLink(fn (FormatMessage $formatMessage) => route('format-message.edit', $formatMessage));
         // ->searchInput()
         // ->selectFilter()
         // ->withGlobalSearch()

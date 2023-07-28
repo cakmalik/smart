@@ -21,6 +21,8 @@ use App\Http\Controllers\FormalEducationController;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\ReminderNotificationController;
 use App\Jobs\JobSendWhatsappReminder;
+use App\Services\WhatsappService;
+use ProtoneMedia\Splade\Facades\Toast;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +94,12 @@ Route::middleware(['splade'])->group(function () {
 
 
         Route::get('tes/wa', [BakidSettingController::class, 'checkConnection'])->name('test.wa');
+        Route::get('tes/message', function () {
+            $ms = new WhatsappService();
+            $ms->tesMessage();
+            Toast::success('sedang dikirim...')->autoDismiss(3)->centerBottom();
+            return back();
+        })->name('tes.message');
         Route::resource('/room', RoomController::class);
         Route::get('/dormitory/room/{dormitory}', [DormitoryController::class, 'room'])->name('dormitory.room');
         Route::resource('/dormitory', DormitoryController::class);
@@ -120,11 +128,8 @@ Route::get('/test', function () {
     $whatsapp->send('085333920007');
 });
 
+// fungsi berikut sudah jalan
 Route::get('/tes-job', function () {
-    // return JobReminderAdmission::dispatch();
-    // send job wa
-    // dd(1);
     JobReminderAdmission::dispatch();
-    // JobSendWhatsappReminder::dispatch($data);
     return 'ok';
 });
