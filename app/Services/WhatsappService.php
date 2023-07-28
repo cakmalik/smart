@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Jobs\JobReminderAdmission;
+use App\Jobs\JobSendWhatsappReminder;
 use App\Models\BakidSetting;
+use App\Models\FormatMessage;
 use Illuminate\Support\Facades\Log;
 
 class WhatsappService
@@ -116,5 +119,29 @@ class WhatsappService
     public function bill()
     {
         return "Assalamualaikum wr.wb.\nBerikut rincian tagihan untuk pendaftaran ananda: \n*" . $transaction->customer_name . "*\n\n~~~~~~~~~~~\nNominal : *Rp. " . number_format($transaction->amount) . "*\nMelalui : " . $transaction->payment_name . "\nKode Pembayaran : *" . $transaction->pay_code . "*\nLakukan pembayaran sebelum : " . Carbon::createFromTimestamp($transaction->expired_time)->isoFormat('dddd, D MMMM Y, H:m') . "\n~~~~~~~~~~~\n\n_Wa ini dikirim otomatis, untuk informasi lebih lanjut hubungi kami di +6285216329458_\n\nwww.mubakid.or.id";
+    }
+
+    function tesMessage(string $type = 'reminder_registration'): bool
+    {
+        try {
+            $message = FormatMessage::where('name', $type)->first()->message;
+
+            // placeholder
+            $namaOrtu = '#nama_ortu';
+            $enter = PHP_EOL;
+            $placeholders = ['#nama_ortu', '#enter'];
+            $values = [$namaOrtu, $enter];
+
+            // formatted + to url
+            $pesanFormatted = formatMessage($message, $placeholders, $values);
+            $message = urlencode($pesanFormatted);
+
+            $send = new JobSendWhatsappReminder('085333920007', $message);
+            dispatch($send);
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
