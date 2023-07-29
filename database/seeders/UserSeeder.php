@@ -29,8 +29,8 @@ class UserSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@bakid.com',
             'password' => bcrypt('password'),
-            'phone' => '081234567890',
-            'kk' => '1234567890123456',
+            'phone' => '123',
+            'kk' => '1234',
         ])->assignRole('admin');
 
 
