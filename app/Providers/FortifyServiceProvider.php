@@ -49,7 +49,10 @@ class FortifyServiceProvider extends ServiceProvider
 
             $user = User::where('email', $request->identity)
 
-                ->orWhere('username', $request->identity)->first();
+                ->orWhere('username', $request->identity)
+                ->orWhere('phone', $request->identity)
+                ->orWhere('kk', $request->identity)
+                ->first();
 
 
 
