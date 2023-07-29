@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Admin',
+            'username' => 'admin',
             'email' => 'admin@bakid.com',
             'password' => bcrypt('password'),
             'phone' => '081234567890',
@@ -47,6 +48,7 @@ class UserSeeder extends Seeder
 
         $santri = User::create([
             'name' => 'Santri bakid',
+            'username' => 'santri2',
             'email' => 'santri@bakid.com',
             'password' => bcrypt('password'),
             'current_team_id' => 2,
