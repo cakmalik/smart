@@ -12,7 +12,7 @@
         @endif
 
         <x-splade-form class="space-y-4">
-            <x-splade-input id="email" name="email" type="email" :label="__('Email / Username / KK / No.HP')" required autofocus />
+            <x-splade-input id="email" name="identity" type="text" :label="__('Email / Username / KK / No.HP')" required autofocus />
             <x-splade-input id="password" name="password" type="password" :label="__('Password')" required
                 autocomplete="current-password" />
 
@@ -36,7 +36,7 @@
                     </path>
                 </svg>
                 </Link>
-                <x-splade-submit :label="__('Masuk')" class="ml-4"/>
+                <x-splade-submit :label="__('Masuk')" class="ml-4" />
             </div>
         </x-splade-form>
 </x-authentication-card>
