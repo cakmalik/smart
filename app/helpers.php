@@ -77,3 +77,10 @@ if (!function_exists('formatMessage')) {
         return $pesanFormatted;
     }
 }
+
+if (!function_exists('roleName')) {
+    function roleName(): string
+    {
+        return auth()->user()->roles[0]->name;
+    }
+}
