@@ -6,12 +6,14 @@ namespace Database\Seeders;
 
 use App\Models\FormatMessage;
 use Illuminate\Database\Seeder;
+use Database\Seeders\RoleSeeder;
 use Database\Seeders\AdmissionSeeder;
 use Database\Seeders\DormitorySeeder;
 use Database\Seeders\PaymentMethodSeeder;
 use Database\Seeders\BakidEducationSeeder;
 use Database\Seeders\InvoiceUtilitySeeder;
 use Database\Seeders\InvoiceCategorySeeder;
+use Database\Seeders\RoleHasPermissionSeeder;
 use Database\Seeders\PaymentInstructionSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +24,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            UserSeeder::class,
             AdmissionSeeder::class,
             InvoiceCategorySeeder::class,
             PaymentMethodSeeder::class,
@@ -31,7 +32,11 @@ class DatabaseSeeder extends Seeder
             PaymentInstructionSeeder::class,
             InvoiceUtilitySeeder::class,
             FormatMessageSeeder::class,
-            StudentSeeder::class
+            RoleSeeder::class,
+            PermissionSeeder::class,
+            UserSeeder::class,
+            RoleHasPermissionSeeder::class,
+            StudentSeeder::class,
         ]);
     }
 }

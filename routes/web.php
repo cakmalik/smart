@@ -69,7 +69,7 @@ Route::middleware(['splade'])->group(function () {
         'auth:sanctum',
         config('jetstream.auth_session'),
         'verified',
-        'role:admin',
+        'can:access users'
     ])->group(function () {
         Route::resource('/user', UserController::class);
     });
@@ -78,14 +78,19 @@ Route::middleware(['splade'])->group(function () {
         'auth:sanctum',
         config('jetstream.auth_session'),
         'verified',
-        'role:santri|admin',
     ])->group(function () {
         Route::prefix('wali')->group(function () {
             Route::get('/student/family', [UserController::class, 'familyMembers'])->name('student.families');
         });
+
         Route::post('/student/complete-admission', [StudentController::class, 'completeEducation'])->name('student.complete-education');
         Route::post('/student/complete-room', [StudentController::class, 'completeRoom'])->name('student.complete-room');
-        Route::resource('/student', StudentController::class);
+
+        // students
+        Route::group(['middleware' => ['role_or_permission:admin|access students']], function () {
+            Route::resource('/student', StudentController::class);
+        });
+
         Route::prefix('setting')->group(function () {
             Route::resource('format-message', FormatMessageController::class);
         });

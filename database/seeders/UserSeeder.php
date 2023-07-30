@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Actions\Jetstream\AddTeamMember;
 
 class UserSeeder extends Seeder
 {
@@ -17,39 +18,49 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::create(['name' => 'admin']);
-        $santriRole = Role::create(['name' => 'santri']);
-        $permission = Permission::create(['name' => 'manage users']);
-        $permissionSantri = Permission::create(['name' => 'manage family']);
-        $role->givePermissionTo($permission);
-        $santriRole->givePermissionTo($permissionSantri);
+        //Create a team
+        $adminTeam = Team::create([
+            'user_id' => 1,
+            'name' => 'Admin Team',
+            'personal_team' => false,
+        ]);
 
-        User::create([
+        //create user admin
+        $admin = User::create([
             'name' => 'Admin',
             'username' => 'admin',
-            'email' => 'admin@bakid.com',
+            'email' => 'admin@bakid.id',
             'password' => bcrypt('password'),
             'phone' => '123',
             'kk' => '1234',
+            'current_team_id' => 1
         ])->assignRole('admin');
 
+        $seketaris = User::create([
+            'name' => 'Sekretaris',
+            'username' => 'sekretaris',
+            'email' => 'sekretaris@bakid.id',
+            'password' => bcrypt('password'),
+            'phone' => '111',
+            'kk' => '1111', 'current_team_id' => 1
 
-        Team::create([
-            'user_id' => 1,
-            'name' => 'John Doe',
-            'personal_team' => true,
-        ]);
+        ])->assignRole('sekretaris');
 
         $santri_team = Team::create([
-            'user_id' => 2,
+            'user_id' => 3,
             'name' => 'Santri bakid',
             'personal_team' => false,
         ]);
 
+        $santriRole = Role::create(['name' => 'santri']);
+        $permissionSantri = Permission::create(['name' => 'manage family']);
+        // $role->givePermissionTo($permission);
+        $santriRole->givePermissionTo($permissionSantri);
+        //create dummy user
         $santri = User::create([
             'name' => 'Santri bakid',
             'username' => 'santri2',
-            'email' => 'santri@bakid.com',
+            'email' => 'santri@bakid.id',
             'password' => bcrypt('password'),
             'current_team_id' => 2,
             'phone' => '08123456783390',
@@ -57,8 +68,7 @@ class UserSeeder extends Seeder
 
         ])->assignRole('santri');
 
+        //assign person to team
         $santri->teams()->attach($santri_team->id, ['role' => 'santri']);
-
-        $this->command->info('User seeded!');
     }
 }
