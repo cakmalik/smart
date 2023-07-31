@@ -73,7 +73,8 @@ class Students extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $dormitories = Dormitory::get()->mapWithKeys(function ($dormitory) {
-            return [$dormitory->id => $dormitory->name . ' - ' . $dormitory->gender];
+            $g = $dormitory->gender == 'L' ? 'Laki-laki' : 'Perempuan';
+            return [$dormitory->id => $dormitory->name . ' - ' . $g];
         })->toArray();
         $table
             ->withGlobalSearch('Search through the data...', ['name', 'email'])
@@ -81,11 +82,11 @@ class Students extends AbstractTable
             ->column(key: 'parent.father_name', label: 'Ayah', sortable: false)
             ->column('city', label: 'Kota', sortable: true)
             ->column('phone', label: 'No. HP')
-            ->column('dormitory', label: 'Asrama')
+            ->column('dormitory.name', label: 'Asrama')
 
             // ->searchInput()
             ->selectFilter(
-                key: 'room.dormitory_id',
+                key: 'dormitory.id',
                 label: 'Daerah',
                 options: $dormitories,
                 noFilterOption: true,
@@ -94,6 +95,7 @@ class Students extends AbstractTable
             // ->withGlobalSearch()
 
             // ->bulkAction()
+            ->column('action', label: 'Aksi')
             ->export();
     }
 }
