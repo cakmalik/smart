@@ -9,12 +9,10 @@
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
                 <x-splade-table :for="$students" striped>
                     <x-slot name="empty-state">
                         <p class="text-center">No students found.</p>
                     </x-slot>
-
                     @cell('action', $students)
                         <div class="flex gap-1 ">
                             <Link modal href="{{ route('student.show', $students->id) }}"

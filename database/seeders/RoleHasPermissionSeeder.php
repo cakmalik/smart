@@ -27,5 +27,6 @@ class RoleHasPermissionSeeder extends Seeder
 
         $sekretaris = Role::where('name', 'sekretaris')->first();
         $sekretaris->givePermissionTo($p_users);
+        $sekretaris->givePermissionTo($p_students);
     }
 }
