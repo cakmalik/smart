@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use ProtoneMedia\Splade\SpladeTable;
 use Illuminate\Support\ServiceProvider;
 use ProtoneMedia\Splade\Components\Form\Input;
 use ProtoneMedia\Splade\Components\Form\Select;
@@ -28,5 +29,9 @@ class AppServiceProvider extends ServiceProvider
         Input::defaultDateFormat('d-m-Y');
         Input::defaultTimeFormat('H:i');
         Input::defaultDatetimeFormat('d-m-Y H:i');
+
+        SpladeTable::defaultPerPageOptions([50, 100]);
+        SpladeTable::hidePaginationWhenResourceContainsOnePage();
+        SpladeTable::defaultColumnCanBeHidden(false);
     }
 }

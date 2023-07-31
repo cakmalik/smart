@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('room_students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_id')->constrained();
+            $table->foreignId('dormitory_id')->constrained();
             $table->foreignId('student_id')->constrained();
             $table->enum('status', ['waiting', 'approved', 'rejected'])->default('waiting');
             $table->timestamps();

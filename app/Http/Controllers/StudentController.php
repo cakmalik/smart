@@ -22,6 +22,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
 use App\Services\Invoice\InvoiceService;
+use App\Tables\Students;
 
 class StudentController extends Controller
 {
@@ -52,33 +53,36 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
-            $query->where(function ($query) use ($value) {
-                Collection::wrap($value)->each(function ($value) use ($query) {
-                    $query
-                        ->orWhere('name', 'LIKE', "%{$value}%")
-                        ->orWhere('nickname', 'LIKE', "%{$value}%");
-                });
-            });
-        });
-        $globalSearch =
-            $students = QueryBuilder::for(Student::class)
-            ->defaultSort('name')
-            // ->allowedSorts(['name', 'email'])
-            ->allowedFilters(['name', 'nickname', $globalSearch])
-            ->paginate()
-            ->withQueryString();
-        return view('bakid.student.index', [
-            'students' => SpladeTable::for($students)
-                // ->defaultSort('name')
-                ->column('name', sortable: true, searchable: true, canBeHidden: false)
-                ->withGlobalSearch()
-                // ->rowLink(fn (student $student) => route('student.show', $student))
-                ->column('action')
-            // ->selectFilter('name', [
-            //     'name' => 'name',
-            // ])
+        // $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+        //     $query->where(function ($query) use ($value) {
+        //         Collection::wrap($value)->each(function ($value) use ($query) {
+        //             $query
+        //                 ->orWhere('name', 'LIKE', "%{$value}%")
+        //                 ->orWhere('nickname', 'LIKE', "%{$value}%");
+        //         });
+        //     });
+        // });
+        // $globalSearch =
+        //     $students = QueryBuilder::for(Student::class)
+        //     ->defaultSort('name')
+        //     // ->allowedSorts(['name', 'email'])
+        //     ->allowedFilters(['name', 'nickname', $globalSearch])
+        //     ->paginate()
+        //     ->withQueryString();
+        // return view('bakid.student.index', [
+        //     'students' => SpladeTable::for($students)
+        //         // ->defaultSort('name')
+        //         ->column('name', sortable: true, searchable: true, canBeHidden: false)
+        //         ->withGlobalSearch()
+        //         // ->rowLink(fn (student $student) => route('student.show', $student))
+        //         ->column('action')
+        //     // ->selectFilter('name', [
+        //     //     'name' => 'name',
+        //     // ])
 
+        // ]);
+        return view('bakid.student.index', [
+            'students' => Students::class
         ]);
     }
     /**

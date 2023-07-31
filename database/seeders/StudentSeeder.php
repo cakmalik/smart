@@ -40,7 +40,7 @@ class StudentSeeder extends Seeder
             'student_family_id' => $sf->id,
             'name' => 'anggajaya',
             'nickname' => 'angga',
-            'user_id' => 2,
+            'user_id' => 3,
             'nik' => '1234567890',
             'place_of_birth' => 'Jakarta',
             'date_of_birth' => '1990-01-01',

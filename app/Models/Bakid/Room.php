@@ -13,7 +13,7 @@ class Room extends Model
     //dormitory
     public function dormitory()
     {
-        return $this->belongsTo(Dormitory::class);
+        return $this->belongsTo(Dormitory::class, 'dormitory_id');
     }
     //students
     public function students()
