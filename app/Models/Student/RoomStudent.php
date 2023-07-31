@@ -2,8 +2,9 @@
 
 namespace App\Models\Student;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Bakid\Dormitory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RoomStudent extends Model
 {
@@ -12,7 +13,12 @@ class RoomStudent extends Model
 
     public function room()
     {
-        return $this->belongsTo(Room::class);
+        return $this->belongsTo(Room::class, 'room_id');
+    }
+
+    public function dormitory()
+    {
+        return $this->belongsTo(Dormitory::class, 'dormitory_id');
     }
 
     public function students()

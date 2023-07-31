@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bakid\Dormitory;
 use App\Models\User;
 use App\Models\Bakid\Room;
 use App\Models\StudentFamily;
@@ -107,5 +108,10 @@ class Student extends Model
     public function room()
     {
         return $this->belongsToMany(Room::class, 'room_students');
+    }
+
+    public function dormitory()
+    {
+        return $this->belongsToMany(Dormitory::class, 'room_students');
     }
 }
