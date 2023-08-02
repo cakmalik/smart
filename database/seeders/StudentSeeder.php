@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\StudentFamily;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class StudentSeeder extends Seeder
 {
@@ -36,40 +37,46 @@ class StudentSeeder extends Seeder
                 'guard_income' => '5000000',
             ]);
 
-        $student = Student::create([
-            'student_family_id' => $sf->id,
-            'name' => 'anggajaya',
-            'nickname' => 'angga',
-            'user_id' => 3,
-            'nik' => '1234567890',
-            'place_of_birth' => 'Jakarta',
-            'date_of_birth' => '1990-01-01',
-            'gender' => 'Male',
-            'address' => '123 Example Street',
-            'rt_rw' => '01/01',
-            'village' => 'Example Village',
-            'district' => 'Example District',
-            'city' => 'Example City',
-            'province' => 'Example Province',
-            'postal_code' => '12345',
-            'religion' => 'Islam',
-            'nationality' => 'Indonesian',
-            'phone' => '123456789',
-            'student_image' => 'example.jpg',
-            // 'parent_image' => 'example.jpg',
-            'nis' => '12345',
-            'hobby' => 'Melukis',
-            'ambition' => 'Example Ambition',
-            'housing_status' => 'Example Housing Status',
-            'recidency_status' => 'Example Residency Status',
-            'nism' => '123456',
-            'kis' => '1234567890',
-            'kip' => '1234567890',
-            'kks' => '1234567890',
-            'pkh' => '1234567890',
 
-            'child_number' => 1,
-            'siblings' => 4
-        ]);
+
+        for ($i = 0; $i < 20; $i++) {
+            $faker = Faker::create();
+            $student = [
+                'student_family_id' => $sf->id,
+                'name' => $faker->name,
+                'nickname' => 'angga',
+                'user_id' => 3,
+                'nik' => '1234567890',
+                'place_of_birth' => 'Jakarta',
+                'date_of_birth' => '1990-01-01',
+                'gender' => 'Male',
+                'address' => '123 Example Street',
+                'rt_rw' => '01/01',
+                'village' => 'Example Village',
+                'district' => 'Example District',
+                'city' => 'Example City',
+                'province' => 'Example Province',
+                'postal_code' => '12345',
+                'religion' => 'Islam',
+                'nationality' => 'Indonesian',
+                'phone' => '123456789',
+                'student_image' => 'example.jpg',
+                // 'parent_image' => 'example.jpg',
+                'nis' => '12345',
+                'hobby' => 'Melukis',
+                'ambition' => 'Example Ambition',
+                'housing_status' => 'Example Housing Status',
+                'recidency_status' => 'Example Residency Status',
+                'nism' => '123456',
+                'kis' => '1234567890',
+                'kip' => '1234567890',
+                'kks' => '1234567890',
+                'pkh' => '1234567890',
+
+                'child_number' => 1,
+                'siblings' => 4
+            ];
+            Student::create($student);
+        }
     }
 }
