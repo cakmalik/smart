@@ -19,6 +19,7 @@ use App\Services\Student\StudentService;
 use App\Http\Requests\StoreStudentRequest;
 use App\Services\Location\LocationService;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Bakid\Dormitory;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
 use App\Services\Invoice\InvoiceService;
@@ -53,13 +54,18 @@ class StudentController extends Controller
      */
     public function index(Request  $request)
     {
+
         $students = Student::query()
             ->leftJoin('student_families as parent', 'parent.id', '=', 'students.student_family_id')
             ->leftJoin('room_students as rs', 'students.id', '=', 'rs.student_id')
             ->leftJoin('dormitories as dr', 'dr.id', '=', 'rs.dormitory_id')
             ->leftJoin('rooms as r', 'r.id', '=', 'rs.room_id')
             ->when($request->input('dormitory_id'), function ($q, $dormitory) {
-                return $q->where('dr.id', $dormitory);
+                return $q->where('rs.dormitory_id', $dormitory);
+            })
+            ->when($request->input('search'), function ($q, $s) {
+                return $q->where('students.name', 'LIKE', '%' . $s . '%')
+                    ->orWhere('students.nickname', 'LIKE', '%' . $s . '%');
             })
             ->select(
                 'students.id as id',
@@ -74,13 +80,19 @@ class StudentController extends Controller
                 'dr.name as dormitory_name',
                 'r.name as room'
             )
-            ->paginate();
-        // dd($students->get());
+            ->paginate(5)->withQueryString();
 
-        return view('bakid.student.index', [
-            'students' => $students
-        ]);
+        $dormitories = Dormitory::get()->map(function ($i) {
+            $gender = $i->gender == 'L' ? 'Laki-laki' : 'Perempuan';
+            return [
+                'id' => $i->id,
+                'name' => '(' . $i->gender . ') ' . $i->name,
+            ];
+        });
+        // dd($dormitories);
+        return view('bakid.student.index', compact('students', 'dormitories'));
     }
+
     // public function index()
     // {
     //     // $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
