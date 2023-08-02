@@ -53,15 +53,13 @@
                     <x-splade-form :default="$student" :action="route('student.update', $student)" method="put">
                         <div class="flex justify-center mb-4">
                             <img src="{{ $student->student_image ? asset('storage/student-photos/' . $student->student_image) : asset('bakid/default_image.jpg') }}"
+                                onerror="this.onerror=null;this.src='{{ asset('bakid/default-profile.png') }}';"
                                 class="flex justify-center rounded-full w-40 h-40 object-cover hover:rounded-none hover:w-1/2 hover:h-auto"
-                                v-show="data.currentIndex==0"
-                                @error('student_image')
-                        onError="this.src='{{ asset('bakid/default_image.jpg') }}'"
-                        @enderror />
-                            <img src="{{ $student->parent?->parent_image ? asset('storage/parent-photos/' . $student->parent?->parent_image) : asset('bakid/default_image.jpg') }}"
+                                v-show="data.currentIndex==0" />
+                            <img src="{{ $student->parent?->parent_image ? asset('storage/parent-photos/' . $student->parent?->parent_image) : asset('bakid/default-profile.png') }}"
                                 class="flex justify-center rounded-full w-40 h-40 object-cover"
                                 v-show="data.currentIndex==1"
-                                onError="this.src='{{ asset('bakid/default_image.jpg') }}'" />
+                                onerror="this.onerror=null;this.src='{{ asset('bakid/default-profile.png') }}';" />
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===0">
