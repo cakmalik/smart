@@ -77,7 +77,7 @@ class Students extends AbstractTable
             return [$dormitory->id => $dormitory->name . ' - ' . $g];
         })->toArray();
         $table
-            ->withGlobalSearch('Search through the data...', ['name', 'email'])
+            ->withGlobalSearch('Cari...', ['name', 'email'])
             ->column('name', sortable: true)
             ->column(key: 'parent.father_name', label: 'Ayah', sortable: false)
             ->column('city', label: 'Kota', sortable: true)
@@ -92,10 +92,19 @@ class Students extends AbstractTable
                 noFilterOption: true,
                 noFilterOptionLabel: 'Semua Kamar'
             )
+
+            ->selectFilter(
+                key: 'dormitory.id',
+                label: 'Daerah',
+                options: $dormitories,
+                noFilterOption: true,
+                noFilterOptionLabel: 'Semua Kamar'
+            )
             // ->withGlobalSearch()
 
             // ->bulkAction()
             ->column('action', label: 'Aksi')
-            ->export();
+            // ->export();
+        ;
     }
 }

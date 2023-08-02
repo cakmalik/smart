@@ -5,7 +5,7 @@
                 <div class="">
                     <img class="rounded-xl object-cover w-full h-full"
                         src="{{ $student->student_image ? asset('storage/student-photos/' . $student->student_image) : asset('bakid/default_image.jpg') }}"
-                        onError="this.src='{{ asset('bakid/default_image.jpg') }}'" />
+                        onerror="this.onerror=null;this.src='{{ asset('bakid/default-profile.png') }}';" />
                 </div>
                 <div class="col-span-2">
                     <h3 class="text-xl">{{ $student->name }}</h3>

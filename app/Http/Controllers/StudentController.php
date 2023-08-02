@@ -51,40 +51,70 @@ class StudentController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(Request  $request)
     {
-        // $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
-        //     $query->where(function ($query) use ($value) {
-        //         Collection::wrap($value)->each(function ($value) use ($query) {
-        //             $query
-        //                 ->orWhere('name', 'LIKE', "%{$value}%")
-        //                 ->orWhere('nickname', 'LIKE', "%{$value}%");
-        //         });
-        //     });
-        // });
-        // $globalSearch =
-        //     $students = QueryBuilder::for(Student::class)
-        //     ->defaultSort('name')
-        //     // ->allowedSorts(['name', 'email'])
-        //     ->allowedFilters(['name', 'nickname', $globalSearch])
-        //     ->paginate()
-        //     ->withQueryString();
-        // return view('bakid.student.index', [
-        //     'students' => SpladeTable::for($students)
-        //         // ->defaultSort('name')
-        //         ->column('name', sortable: true, searchable: true, canBeHidden: false)
-        //         ->withGlobalSearch()
-        //         // ->rowLink(fn (student $student) => route('student.show', $student))
-        //         ->column('action')
-        //     // ->selectFilter('name', [
-        //     //     'name' => 'name',
-        //     // ])
+        $students = Student::query()
+            ->leftJoin('student_families as parent', 'parent.id', '=', 'students.student_family_id')
+            ->leftJoin('room_students as rs', 'students.id', '=', 'rs.student_id')
+            ->leftJoin('dormitories as dr', 'dr.id', '=', 'rs.dormitory_id')
+            ->leftJoin('rooms as r', 'r.id', '=', 'rs.room_id')
+            ->when($request->input('dormitory_id'), function ($q, $dormitory) {
+                return $q->where('dr.id', $dormitory);
+            })
+            ->select(
+                'students.id as id',
+                'students.name as student_name',
+                'students.nickname as nickname',
+                'students.student_image as image',
+                'parent.father_name as ayah',
+                'parent.father_phone as phone',
+                'students.gender',
+                'students.city',
+                'student_image',
+                'dr.name as dormitory_name',
+                'r.name as room'
+            )
+            ->paginate();
+        // dd($students->get());
 
-        // ]);
         return view('bakid.student.index', [
-            'students' => Students::class
+            'students' => $students
         ]);
     }
+    // public function index()
+    // {
+    //     // $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+    //     //     $query->where(function ($query) use ($value) {
+    //     //         Collection::wrap($value)->each(function ($value) use ($query) {
+    //     //             $query
+    //     //                 ->orWhere('name', 'LIKE', "%{$value}%")
+    //     //                 ->orWhere('nickname', 'LIKE', "%{$value}%");
+    //     //         });
+    //     //     });
+    //     // });
+    //     // $globalSearch =
+    //     //     $students = QueryBuilder::for(Student::class)
+    //     //     ->defaultSort('name')
+    //     //     // ->allowedSorts(['name', 'email'])
+    //     //     ->allowedFilters(['name', 'nickname', $globalSearch])
+    //     //     ->paginate()
+    //     //     ->withQueryString();
+    //     // return view('bakid.student.index', [
+    //     //     'students' => SpladeTable::for($students)
+    //     //         // ->defaultSort('name')
+    //     //         ->column('name', sortable: true, searchable: true, canBeHidden: false)
+    //     //         ->withGlobalSearch()
+    //     //         // ->rowLink(fn (student $student) => route('student.show', $student))
+    //     //         ->column('action')
+    //     //     // ->selectFilter('name', [
+    //     //     //     'name' => 'name',
+    //     //     // ])
+
+    //     // ]);
+    //     return view('bakid.student.index', [
+    //         'students' => Students::class
+    //     ]);
+    // }
     /**
      * Show the form for creating a new resource.
      */
