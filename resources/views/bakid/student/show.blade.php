@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-splade-modal>
         <x-splade-form :default="$student" :action="route('student.update', $student->id)" class="flex flex-col gap-4" method="put">
-            <div class="flex justify-center items-center gap-4">
+            <div class="grid sm:grid-cols-2 justify-center items-center gap-4">
                 <div class="w-56">
                     <img class="rounded-xl object-cover w-full h-full"
                         src="{{ $student->student_image ? asset('storage/student-photos/' . $student->student_image) : asset('bakid/default_image.jpg') }}"
@@ -12,16 +12,21 @@
                     <h3 class="text-gray-500">{{ $student->nickname }}</h3>
                     <h3>{{ $student->district . ' - ' . $student->city }}</h3>
                     <h3>Asrama </h3>
-                    <div class="flex mt-3 gap-1 text-center">
-                        <Link class="p-3 border bg-green-400 hover:bg-green-500 rounded-xl text-white">
-                        Cetak KTS
+                    <div class="grid grid-cols-2 mt-3 gap-2 text-center">
+                        <Link class="p-3 border bg-green-500 hover:bg-green-600 rounded-xl text-white">
+                        KTS
                         </Link>
-                        <Link class="p-3 border bg-green-400 hover:bg-green-500 rounded-xl text-white">
-                        Cetak MoU
-                        </Link>
-                        <Link class="p-3 border bg-green-400 hover:bg-green-500 rounded-xl text-white">
-                        Cetak Kartu Mahrom
-                        </Link>
+
+                        <Link class="p-3 border bg-green-500 hover:bg-green-600 rounded-xl text-white">
+                        Kartu Mahrom
+                        </Link> <a href="{{ route('student.pdf.mou', $student->id) }}"
+                            class="p-3 border border-slate-300 text-slate-600 hover:bg-green-200 rounded-xl">
+                            MoU
+                        </a>
+                        <a href="{{ route('student.pdf.biodata', $student->id) }}"
+                            class="p-3 border border-slate-300 text-slate-600 hover:bg-green-200 rounded-xl">
+                            Biodata
+                        </a>
                     </div>
                 </div>
             </div>

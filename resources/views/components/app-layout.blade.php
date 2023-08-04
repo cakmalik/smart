@@ -1,6 +1,6 @@
 <x-banner />
 
-<div class="min-h-screen bg-green-300">
+<div class="min-h-screen bg-green-200">
     <x-navigation />
 
     <!-- Page Heading -->
