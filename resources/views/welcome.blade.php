@@ -1,6 +1,6 @@
 @seoTitle(__('Welcome'))
 
-<div class="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker selection:bg-red-500 selection:text-white "
+<div class="relative min-h-screen bg-gray-100 bg-center flex justify-center items-center bg-dots-darker selection:bg-red-500 selection:text-white "
     style="background-image: url('{{ asset('bakid/bg-blur.jpg') }}'); background-size:cover; background-position: 25% 75%">
     {{-- @if ($canLogin)
         <div class="p-6 text-right sm:fixed sm:top-0 sm:right-0">
@@ -23,7 +23,7 @@
     @endif --}}
 
     {{-- <div class="p-6 mx-auto rounded-lg max-w-7xl lg:p-8 bg-white/20 backdrop-blur-md outline outline-1 outline-slate-50"> --}}
-    <div class="p-6 mx-auto rounded-lg max-w-7xl lg:p-8">
+    <div class="p-6 mx-auto rounded-lg max-w-7xl lg:p-8 bg-black/20 border border-slate-600">
         <div class="flex justify-center">
             <x-authentication-card-logo />
         </div>
