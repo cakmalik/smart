@@ -24,6 +24,8 @@ use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
 use App\Services\Invoice\InvoiceService;
 use App\Tables\Students;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class StudentController extends Controller
 {
@@ -60,16 +62,17 @@ class StudentController extends Controller
             ->leftJoin('room_students as rs', 'students.id', '=', 'rs.student_id')
             ->leftJoin('dormitories as dr', 'dr.id', '=', 'rs.dormitory_id')
             ->leftJoin('rooms as r', 'r.id', '=', 'rs.room_id')
-            ->when($request->input('dormitory_id'), function ($q, $dormitory) {
+            ->when($daerah = $request->input('dormitory_id'), function ($q, $dormitory) {
                 return $q->where('rs.dormitory_id', $dormitory);
             })
-            ->when($request->input('search'), function ($q, $s) {
+            ->when($cari = $request->input('search'), function ($q, $s) {
                 return $q->where('students.name', 'LIKE', '%' . $s . '%')
                     ->orWhere('students.nickname', 'LIKE', '%' . $s . '%');
             })
             ->select(
                 'students.id as id',
                 'students.name as student_name',
+                'students.gender as gender',
                 'students.nickname as nickname',
                 'students.student_image as image',
                 'parent.father_name as ayah',
@@ -89,7 +92,7 @@ class StudentController extends Controller
                 'name' => '(' . $i->gender . ') ' . $i->name,
             ];
         });
-        // dd($dormitories);
+
         return view('bakid.student.index', compact('students', 'dormitories'));
     }
 
@@ -306,5 +309,12 @@ class StudentController extends Controller
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
         }
+    }
+
+    function biodataPdf(Student $student)
+    {
+        $student->load('parent');
+        $pdf = Pdf::loadView('document.biodata', compact('student'));
+        return $pdf->download('invoice.pdf');
     }
 }

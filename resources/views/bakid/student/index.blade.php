@@ -22,19 +22,7 @@
                                     class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm dark:bg-gray-800 dark:text-gray-300">
                                     View all
                                 </button>
-
-                                {{-- <button
-                                class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                                Monitored
-                            </button>
-                            
-                            <button
-                            class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                            Unmonitored
-                        </button> --}}
                             </div>
-
-
 
                             <div class="relative flex gap-2 items-center mt-4 md:mt-0">
                                 <span class="absolute">
@@ -55,7 +43,7 @@
                                         v-model="form.search">
                                     <button type="submit"
                                         class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm dark:bg-gray-800 dark:text-gray-300 rounded-lg">
-                                        Cari
+                                        Filter
                                     </button>
                                 </div>
                             </div>
@@ -90,6 +78,11 @@
                                                                 stroke-width="0.3" />
                                                         </svg>
                                                     </button>
+                                                </th>
+
+                                                <th scope="col"
+                                                    class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                                    Jenis kelamin
                                                 </th>
 
                                                 <th scope="col"
@@ -138,9 +131,16 @@
                                                     <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
                                                         <div
                                                             class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                            {{ $i->gender }}
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                                                        <div
+                                                            class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
                                                             {{ $i->dormitory_name . '-' . $i->room }}
                                                         </div>
                                                     </td>
+
                                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                         <div>
                                                             <h4 class="text-gray-700 dark:text-gray-200">
@@ -169,7 +169,8 @@
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                     viewBox="0 0 24 24" stroke-width="1.5"
                                                                     stroke="currentColor" class="w-5 h-5 p-1">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    <path stroke-linecap="round"
+                                                                        stroke-linejoin="round"
                                                                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
                                                                 </svg>
 
@@ -238,3 +239,6 @@
             </div>
         </div>
 </x-app-layout>
+<x-splade-script>
+
+</x-splade-script>
