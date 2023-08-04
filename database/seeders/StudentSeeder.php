@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Student;
+use App\Models\Student\StudentEducationalBackground;
 use App\Models\StudentFamily;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -76,7 +77,16 @@ class StudentSeeder extends Seeder
                 'child_number' => 1,
                 'siblings' => 4
             ];
-            Student::create($student);
+            $sc = Student::create($student);
+            StudentEducationalBackground::create([
+                'student_id' => $sc->id,
+                'school_name' => 'SMP Darul ulum',
+                'level' => 'primary',
+                'school_address' => 'Jalan KH. Abdullah Kamil',
+                'school_phone_number' => '324234234',
+                'npsn' => '34234234',
+                'no_ijazah' => '4324234234'
+            ]);
         }
     }
 }
