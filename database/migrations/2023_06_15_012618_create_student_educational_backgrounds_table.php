@@ -16,9 +16,10 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('students');
             $table->string('school_name');
             $table->enum('level', ['primary', 'secondary', 'high', 'bachelor', 'master', 'doctoral']);
-            $table->string('school_address');
+            $table->string('school_address')->nullable();
             $table->string('school_phone_number')->nullable();
             $table->string('npsn')->nullable();
+            $table->string('no_ijazah')->nullable();
             $table->timestamps();
         });
     }

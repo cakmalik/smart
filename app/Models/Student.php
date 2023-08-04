@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Bakid\Dormitory;
 use App\Models\User;
 use App\Models\Bakid\Room;
+use App\Models\Student\StudentEducationalBackground;
 use App\Models\StudentFamily;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -113,5 +114,10 @@ class Student extends Model
     public function dormitory()
     {
         return $this->belongsToMany(Dormitory::class, 'room_students');
+    }
+
+    function educationBackground()
+    {
+        return $this->hasMany(StudentEducationalBackground::class);
     }
 }
