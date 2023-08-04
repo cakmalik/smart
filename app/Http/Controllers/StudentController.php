@@ -317,4 +317,11 @@ class StudentController extends Controller
         $pdf = Pdf::loadView('document.biodata', compact('student'));
         return $pdf->download('invoice.pdf');
     }
+
+    function mouPdf(Student $student)
+    {
+        $student->load('parent');
+        $pdf = Pdf::loadView('document.mou', compact('student'));
+        return $pdf->download('invoice.pdf');
+    }
 }
