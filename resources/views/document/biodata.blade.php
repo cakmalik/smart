@@ -127,44 +127,44 @@
         </tr>
         <tr>
             <td style="padding-left: 30px">Nama ayah</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->father_name }} </td>
+            <td style="width: 300px" class="capitalize">: {{ $student->parent->father_name }} </td>
         </tr>
         <tr>
             <td style="padding-left: 30px">Pendidikan Ayah</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->father_education }} </td>
+            <td style="width: 300px" class="capitalize">: {{ $student->parent->father_education }} </td>
         </tr>
         <tr>
             <td style="padding-left: 30px">pekerjaan Ayah</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->father_job }} </td>
+            <td style="width: 300px" class="capitalize">: {{ $student->parent->father_job }} </td>
         </tr>
         <tr>
             <td style="padding-left: 30px">Nama Ibu</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->mother_name }} </td>
+            <td style="width: 300px" class="capitalize">: {{ $student->parent->mother_name }} </td>
         </tr>
         <tr>
             <td style="padding-left: 30px">Pendidikan ibu</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->mother_education }} </td>
+            <td style="width: 300px" class="capitalize">: {{ $student->parent->mother_education }} </td>
         </tr>
         <tr>
             <td style="padding-left: 30px">Pekerjaan ibu</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->mother_job }} </td>
+            <td style="width: 300px" class="capitalize">: {{ $student->parent->mother_job }} </td>
         </tr>
         <tr>
             <td style="padding-left: 30px">Asal sekolah</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->name }} </td>
+            <td style="width: 300px" class="capitalize">: {{ $student->educationBackground[0]?->school_name }} </td>
         </tr>
         <tr>
             <td style="padding-left: 30px">NPSN sekolah</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->name }} </td>
+            <td style="width: 300px" class="capitalize">: {{ $student->educationBackground[0]?->npsn }} </td>
         </tr>
         <tr>
             <td style="padding-left: 30px">Alamat sekolah asal</td>
             <td style="width: 300px" class="capitalize">:
-                {{ $student->name }} </td>
+                {{ $student->educationBackground[0]?->school_address }} </td>
         </tr>
         <tr>
             <td style="padding-left: 30px">No seri ijazah</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->name }} </td>
+            <td style="width: 300px" class="capitalize">: {{ $student->educationBackground[0]?->no_ijazah }} </td>
         </tr>
     </table>
 
