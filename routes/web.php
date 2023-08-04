@@ -89,6 +89,7 @@ Route::middleware(['splade'])->group(function () {
         // students
         Route::group(['middleware' => ['role_or_permission:access students']], function () {
             Route::resource('/student', StudentController::class);
+            Route::get('/student/{student}/biodata-pdf', [StudentController::class, 'biodataPdf'])->name('student.pdf.biodata');
         });
 
         Route::prefix('setting')->group(function () {

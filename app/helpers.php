@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 if (!function_exists('getRandomAyat')) {
     function getRandomAyat()
@@ -82,5 +84,35 @@ if (!function_exists('roleName')) {
     function roleName(): string
     {
         return auth()->user()->roles[0]->name;
+    }
+}
+if (!function_exists('generateUniqueUsername')) {
+    function generateUniqueUsername($name)
+    {
+        // Ubah name menjadi lowercase dan hapus whitespace
+        $username = Str::slug(strtolower($name), '');
+
+        // Cek apakah username sudah ada dalam database
+        $isUnique = false;
+        $counter = 1;
+
+        while (!$isUnique) {
+            $tempUsername = $username;
+            if ($counter > 1) {
+                $tempUsername .= $counter;
+            }
+
+            // Lakukan pengecekan ke database untuk memastikan username unik
+            $existingUser = User::where('username', $tempUsername)->first();
+
+            if (!$existingUser) {
+                $isUnique = true;
+                $username = $tempUsername;
+            }
+
+            $counter++;
+        }
+
+        return $username;
     }
 }
