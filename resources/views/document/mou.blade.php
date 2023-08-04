@@ -9,19 +9,18 @@
     <style type="text/css">
         @font-face {
             font-family: 'bookman';
-            src: url({{ storage_path('fonts/bookman old style.ttf') }}) format("truetype");
+            src: url({{ public_path('fonts/bookman old style.ttf') }}) format("truetype");
         }
 
         body {
             font-family: "bookman";
             font-size: 14px;
         }
-
     </style>
 </head>
 
 <body>
-    <img style="width: 100%" src="{{ public_path('assets/bakid/kop.png') }}" alt="assets/img/kop.png">
+    <img style="width: 100%" src="{{ public_path('/bakid/kop.png') }}" alt="/img/kop.png">
     <div style="text-align:center"><b>
             <p> <b> SURAT PERNYATAAN</b></p>
     </div><br>
@@ -39,12 +38,12 @@
             </td>
 
             <td width="500">
-                : {{ $data->family->a_nama }}<br>
-                : {{ $data->desa }}, {{ $data->kecamatan }}, {{ $data->kota }}<br>
-                : {{ $data->family->a_phone }}<br>
-                : {{ $data->nama }} <br>
-                : {{ $data->tempat_lahir }}, {{ $data->tanggal_lahir }}<br>
-                : {{ $data->desa }}, {{ $data->kecamatan }}, {{ $data->kota }}<br>
+                : {{ $student->parent->father_name }}<br>
+                : {{ $student->village }}, {{ $student->district }}, {{ $student->city }}<br>
+                : {{ $student->parent->father_phone }}<br>
+                : {{ $student->name }} <br>
+                : {{ $student->place_of_birth }}, {{ $student->date_of_birth }}<br>
+                : {{ $student->village }}, {{ $student->district }}, {{ $student->city }}<br>
             </td>
         </tr>
     </table>
@@ -115,7 +114,7 @@
                 <br>
                 <br><br><br>
                 <br>
-                {{ $data->family->a_nama }}
+                {{ $student->parent->father_name }}
             </td>
         </tr>
     </table>
