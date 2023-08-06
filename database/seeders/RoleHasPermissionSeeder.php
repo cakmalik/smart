@@ -13,6 +13,7 @@ class RoleHasPermissionSeeder extends Seeder
      */
     public function run(): void
     {
+        $p_settings = ['access settings'];
         $p_users = ['access users', 'edit users', 'delete users', 'approval users'];
         $p_students = ['access students', 'edit students', 'delete students', 'approval students'];
         $p_dormitories = ['access dormitories', 'edit dormitories', 'delete dormitories', 'approval dormitories'];
@@ -24,6 +25,8 @@ class RoleHasPermissionSeeder extends Seeder
 
         $admin = Role::where('name', 'admin')->first();
         $admin->givePermissionTo($p_users);
+        $admin->givePermissionTo($p_students);
+        $admin->givePermissionTo($p_settings);
 
         $sekretaris = Role::where('name', 'sekretaris')->first();
         $sekretaris->givePermissionTo($p_users);

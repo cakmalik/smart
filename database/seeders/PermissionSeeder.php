@@ -21,7 +21,7 @@ class PermissionSeeder extends Seeder
         $p_violation = ['access violation', 'edit violation', 'delete violation', 'approval violation'];
         $p_permit = ['access permit', 'edit permit', 'delete permit', 'approval permit'];
         $p_invoice = ['access invoice', 'edit invoice', 'delete invoice', 'approval invoice'];
-
+        $p_settings = ['access settings'];
 
         $permissions = array_merge(
             $p_users,
@@ -31,7 +31,8 @@ class PermissionSeeder extends Seeder
             $p_informal,
             $p_violation,
             $p_permit,
-            $p_invoice
+            $p_invoice,
+            $p_settings
         );
 
         foreach ($permissions as $permission) {
