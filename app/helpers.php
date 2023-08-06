@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 if (!function_exists('getRandomAyat')) {
     function getRandomAyat()
@@ -114,5 +115,18 @@ if (!function_exists('generateUniqueUsername')) {
         }
 
         return $username;
+    }
+}
+
+if (!function_exists('generateNIS')) {
+    function generateNIS()
+    {
+        $config = [
+            'table' => 'students',
+            'field' => 'nis',
+            'length' => 6,
+            'prefix' => date('y')
+        ];
+        return IdGenerator::generate($config);
     }
 }
