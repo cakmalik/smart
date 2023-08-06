@@ -28,6 +28,8 @@ class StudentServiceImplement extends Service implements StudentService
     {
         $parent_data = $this->parentData();
         $student_data = $request->except($parent_data);
+        $student_data['nis'] = generateNIS();
+
         $student_data['user_id'] = auth()->user()->id;
 
         if ($file = $request->file('student_image')) {
