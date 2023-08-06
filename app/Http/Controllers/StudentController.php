@@ -66,6 +66,7 @@ class StudentController extends Controller
             ->leftJoin('room_students as rs', 'students.id', '=', 'rs.student_id')
             ->leftJoin('dormitories as dr', 'dr.id', '=', 'rs.dormitory_id')
             ->leftJoin('rooms as r', 'r.id', '=', 'rs.room_id')
+            ->leftJoin('users as u', 'u.id', '=', 'students.user_id')
             ->when($daerah, function ($q) use ($daerah) {
                 return $q->where('rs.dormitory_id', $daerah);
             })
@@ -178,6 +179,30 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        $student = Student::leftJoin('room_students as rs', 'students.id', '=', 'rs.student_id')
+            ->leftJoin('dormitories as dr', 'dr.id', '=', 'rs.dormitory_id')
+            ->leftJoin('rooms as r', 'r.id', '=', 'rs.room_id')
+            ->select(
+                'students.id as id',
+                'students.name as student_name',
+                'students.gender as gender',
+                'students.nickname as nickname',
+                'students.nis',
+                'students.student_image as image',
+                // 'parent.father_name as ayah',
+                // 'parent.father_phone as phone',
+                'students.gender',
+                'students.district',
+                'students.city',
+                'student_image',
+                'dr.name as dormitory_name',
+                'r.name as room',
+                DB::raw("(SELECT COUNT(*) FROM students AS s2 WHERE s2.user_id = students.user_id) AS brothers_count")
+
+            )
+            ->where('students.id', $student->id)
+            ->first();
+
         return view('bakid.student.show', compact('student'));
     }
 
