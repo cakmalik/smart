@@ -123,6 +123,7 @@ Route::middleware(['splade'])->group(function () {
         Route::post('/payment/change-method/', [PaymentMethodController::class, 'changeMethod'])->name('payment.change-method');
 
         Route::get('/invoice/list', [InvoiceController::class, 'index'])->name('invoice.index');
+        Route::post('/upload-proof', [InvoiceController::class, 'uploadProof'])->name('invoice.upload-proof');
         Route::get('/invoice/show/{invoice_number}', [InvoiceController::class, 'show'])->name('invoice.show');
 
         Route::post('/reminder/store', [ReminderNotificationController::class, 'store'])->name('reminder.registration');

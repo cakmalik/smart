@@ -14,4 +14,11 @@ class Dormitory extends Model
     {
         return $this->hasMany(Room::class);
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'room_students', 'dormitory_id', 'student_id')
+            ->withPivot('status')
+            ->withTimestamps();
+    }
 }

@@ -20,12 +20,12 @@
                 {{-- jika akun wali murid yang sudah punya anak terdaftar --}}
                 @if (roleName() == 'santri' &&
                         auth()->user()->students->count() != 0)
-                    <div class="grid grid-cols-2 gap-2 mb-4 sm:grid-cols-4 sm:gap-3">
+                    {{-- <div class="grid grid-cols-2 gap-2 mb-4 sm:grid-cols-4 sm:gap-3">
                         <x-card.summary />
                         <x-card.summary />
                         <x-card.summary />
                         <x-card.summary />
-                    </div>
+                    </div> --}}
                     <x-splade-rehydrate on="done-admission">
                         <x-dashboard.santri-baru :data="$x" />
                     </x-splade-rehydrate>

@@ -1,5 +1,5 @@
     <div class="mx-3 gap-5 sm:gap-3 sm:mx-auto max-w-5xl p-0 lg:p-8 ">
-        <h1 class="mt-0 text-2xl font-medium text-gray-900 text-center">
+        <h1 class="mt-0 text-2xl font-medium text-gray-900 text-center bg-white/50 rounded-lg p-3 backdrop-blur-md">
             Selangkah lagi
         </h1>
         <div class=" grid grid-col md:grid-cols-2 mt-4 text-center gap-3">

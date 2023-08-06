@@ -125,4 +125,13 @@ class Student extends Model
     {
         return $this->hasMany(StudentEducationalBackground::class);
     }
+
+    public function dormitories()
+    {
+        return $this->belongsToMany(Dormitory::class, 'room_students', 'student_id', 'dormitory_id')
+            ->withPivot('status')
+            ->withTimestamps();
+    }
+
+    
 }
