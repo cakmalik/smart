@@ -23,6 +23,11 @@ class RoleSeeder extends Seeder
                 'guard_name' => 'web'
 
             ],
+            [
+                'name' => 'bendahara',
+                'guard_name' => 'web'
+
+            ],
         ];
 
         Role::insert($roles);

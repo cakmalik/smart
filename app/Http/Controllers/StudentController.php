@@ -46,7 +46,7 @@ class StudentController extends Controller
     {
         // $this->middleware(['role:santri'], ['only' => ['create']]);
 
-        $this->middleware('role:admin|santri|sekretaris');
+        $this->middleware('role:admin|santri|sekretaris|bendahara');
         $this->middleware('role:santri')->only('create', 'store');
 
         $this->loc = $locationService;

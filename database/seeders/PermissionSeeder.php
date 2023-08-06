@@ -14,7 +14,7 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $p_users = ['access users', 'edit users', 'delete users', 'approval users'];
-        $p_students = ['access students', 'edit students', 'delete students', 'approval students'];
+        $p_students = ['access students', 'edit students', 'delete students', 'approval students', 'payment students'];
         $p_dormitories = ['access dormitories', 'edit dormitories', 'delete dormitories', 'approval dormitories'];
         $p_formal = ['access formal', 'edit formal', 'delete formal', 'approval formal'];
         $p_informal = ['access informal', 'edit informal', 'delete informal', 'approval informal'];
