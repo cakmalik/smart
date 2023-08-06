@@ -16,13 +16,17 @@ class Student extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
+    // protected $primaryKey = 'nis';
     // private $loc;
 
     // public function __construct(LocationService $locationService)
     // {
     //     parent::__construct();
     //     $loc = $locationService;
+    // }
+    // public function getRouteKeyName()
+    // {
+    //     return 'nis';
     // }
 
     public function user()
@@ -33,10 +37,11 @@ class Student extends Model
     protected function gender(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => 'female' ? 'Perempuan' : 'Laki-laki',
-            set: fn (string $value) => 'Perempuan' ? 'female' : 'male'
+            get: fn (string $value) => $value === 'female' ? 'Perempuan' : 'Laki-laki',
+            set: fn (string $value) => $value === 'Perempuan' ? 'female' : 'male'
         );
     }
+
     protected function dateOfBirth(): Attribute
     {
         return Attribute::make(
