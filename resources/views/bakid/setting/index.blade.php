@@ -128,6 +128,13 @@
                             <button class="px-4 py-2 w-full bg-indigo-600 text-white rounded shadow mt-3">Edit</button>
                             </Link>
                         </div>
+                        <div class="p-4 py-6 bg-white/50 border-white border-2 w-full rounded-lg">
+                            {{ __('Change background') }}
+                            <Link href="{{ route('setting.change-bg') }}">
+                            <button
+                                class="px-4 py-2 w-full bg-indigo-600 text-white rounded shadow mt-3">Switch</button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </x-splade-form>
