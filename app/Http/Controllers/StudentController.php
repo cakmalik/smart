@@ -26,7 +26,7 @@ use App\Services\Location\LocationService;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
-
+use App\Models\Student\RoomStudent;
 
 class StudentController extends Controller
 {
@@ -312,9 +312,12 @@ class StudentController extends Controller
 
         try {
             DB::beginTransaction();
-            $student = Student::findOrFail((int)$request->student_id);
-            $student->room()->attach($request->room_id, ['status' => 'waiting']);
-            $student->save();
+            RoomStudent::create([
+                'student_id' => $request->student_id,
+                'dormitory_id' => $request->dormitory_id,
+                'room_id' => $request->room_id,
+                'status' => 'waiting'
+            ]);
             DB::commit();
             Toast::title('Berhasil!')
                 ->message('Ruangan ananda sedang diajukan')
@@ -325,6 +328,7 @@ class StudentController extends Controller
             return redirect()->back();
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error($e->getMessage() . ' - ' . $e->getLine());
             return redirect()->back()->withErrors($e->getMessage());
         }
     }

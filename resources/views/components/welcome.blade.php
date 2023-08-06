@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-xl p-6 lg:p-8 border-b border-gray-200">
+<div class="mx-auto max-w-xl p-6 lg:p-8 border-b border-gray-200 bg-white/50 backdrop-blur-sm sm:rounded-lg">
     <div class="flex justify-center">
         <x-application-logo class="block h-12 w-auto mx-auto" />
     </div>
@@ -13,7 +13,7 @@
                 semua anggota keluarga yang terdaftar sebagai santri di pesantren kami.
             </p>
         @else
-            <p class="mt-3 text-center text-lg bg-yellow-300">Mohon, Maaf Pendaftaran Santri Baru Belum dibuka.
+            <p class="mt-3 text-center text-lg bg-yellow-300">Mohon Maaf, Pendaftaran Santri Baru Belum dibuka.
             </p>
             <p class="text-center"> Klik link dibawah ini agar
                 diingatkan secara otomatis
@@ -30,15 +30,14 @@
     @else
         'asdasd'
     @endif
-</div>
 
 
-@if (Auth::user()->students->count() == 0 &&
-        !auth()->user()->isAdmin() &&
-        isCanAdmission())
-    <div class="backdrop-blur-md gap-6 lg:gap-8 p-6 lg:p-8 mx-auto max-w-lg">
+    @if (Auth::user()->students->count() == 0 &&
+            !auth()->user()->isAdmin() &&
+            isCanAdmission())
+
         <div>
-            <h2 class="ml-3 text-xl font-semibold text-gray-900 text-center">
+            <h2 class="ml-3 text-xl font-semibold text-gray-900 text-center mt-5">
                 <a href="{{ route('student.create') }}">Daftarkan Sekarang</a>
             </h2>
 
@@ -63,5 +62,6 @@
                 </Link>
             </p>
         </div>
-    </div>
-@endif
+    @endif
+
+</div>
