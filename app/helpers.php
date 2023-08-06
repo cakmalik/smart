@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
@@ -128,5 +129,13 @@ if (!function_exists('generateNIS')) {
             'prefix' => date('y')
         ];
         return IdGenerator::generate($config);
+    }
+}
+
+if (!function_exists('countBrothers')) {
+    function countBrothers($student_id)
+    {
+        $s = Student::find($student_id);
+        return Student::where('user_id', $s->user_id)->count();
     }
 }
