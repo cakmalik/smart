@@ -87,11 +87,17 @@ Route::middleware(['splade'])->group(function () {
         Route::post('/student/complete-room', [StudentController::class, 'completeRoom'])->name('student.complete-room');
 
         // students
-        Route::group(['middleware' => ['role_or_permission:access students']], function () {
-            Route::resource('/student', StudentController::class);
-            Route::get('/student/{student}/biodata-pdf', [StudentController::class, 'biodataPdf'])->name('student.pdf.biodata');
-            Route::get('/student/{student}/mou-pdf', [StudentController::class, 'mouPdf'])->name('student.pdf.mou');
-        });
+        // Route::group(['middleware' => ['role_or_permission:access students']], function () {
+        // Route::get('/student/{student:nis}/show', [StudentController::class, 'show'])->name('student.show');
+        // Route::get('/student/{student:nis}/edit', [StudentController::class, 'edit'])->name('student.edit');
+        Route::get('/student/new', [StudentController::class, 'newStudent'])->name('student.new');
+        Route::resource('/student', StudentController::class);
+        Route::get('/student/{student:nis}/biodata-pdf', [StudentController::class, 'biodataPdf'])->name('student.pdf.biodata');
+        Route::get('/student/{student:nis}/mou-pdf', [StudentController::class, 'mouPdf'])->name('student.pdf.mou');
+        Route::get('/student/{student:nis}/kts', [StudentController::class, 'kts'])->name('student.kts');
+        Route::get('/student/{student:nis}/verify', [StudentController::class, 'verify'])->name('student.verify');
+        Route::get('/student/{student:nis}/k-mahrom', [StudentController::class, 'kMahrom'])->name('student.k-mahrom');
+        // });
 
         Route::prefix('setting')->group(function () {
             Route::resource('format-message', FormatMessageController::class);
@@ -124,6 +130,7 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/coba', function () {
             return view('bakid.education.formal.show');
         });
+        Route::get('/change-background', [BakidSettingController::class, 'changeBackground'])->name('setting.change-bg');
     });
 });
 
@@ -139,4 +146,15 @@ Route::get('/test', function () {
 Route::get('/tes-job', function () {
     JobReminderAdmission::dispatch();
     return 'ok';
+});
+
+Route::get('/cc', function () {
+    $snappy = \App::make('snappy.image');
+    $html = view('coba')->render();
+    $snappy->setOption('width', '85.6mm');
+    $snappy->setOption('height', '53.98mm');
+    $nameImage = \Str::random(5) . '.jpg';
+    $snappy->generateFromHtml($html, public_path($nameImage));
+
+    dd($snappy);
 });

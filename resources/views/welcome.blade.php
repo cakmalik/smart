@@ -1,7 +1,7 @@
 @seoTitle(__('Welcome'))
 
 <div class="relative min-h-screen bg-gray-100 bg-center flex justify-center items-center bg-dots-darker selection:bg-red-500 selection:text-white "
-    style="background-image: url('{{ asset('bakid/bg-blur.jpg') }}'); background-size:cover; background-position: 25% 75%">
+    style="background-image: url('{{ asset('bg/1.jpg') }}'); background-size:cover; background-position: 25% 75%">
     {{-- @if ($canLogin)
         <div class="p-6 text-right sm:fixed sm:top-0 sm:right-0">
             @auth

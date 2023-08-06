@@ -17,6 +17,7 @@
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 ">
+                {{-- jika akun wali murid yang sudah punya anak terdaftar --}}
                 @if (roleName() == 'santri' &&
                         auth()->user()->students->count() != 0)
                     <div class="grid grid-cols-2 gap-2 mb-4 sm:grid-cols-4 sm:gap-3">
@@ -28,10 +29,14 @@
                     <x-splade-rehydrate on="done-admission">
                         <x-dashboard.santri-baru :data="$x" />
                     </x-splade-rehydrate>
+                    {{-- akun wali murid yang belum pernah mendaftarkan anaknya --}}
+                @elseif (roleName() == 'santri' &&
+                        auth()->user()->students->count() == 0)
+                    <x-welcome />
+                    {{-- untuk admin --}}
                 @else
                     {{-- <div class="p-5 overflow-hidden shadow-xl bg-white/30 sm:rounded-lg backdrop-blur-md"> --}}
 
-                    {{-- <x-welcome /> --}}
                     @switch(roleName())
                         @case('admin')
                         @break
