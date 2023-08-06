@@ -38,7 +38,7 @@ return new class extends Migration
 
             $table->integer('child_number')->nullable();
             $table->integer('siblings')->nullable();
-            $table->string('nis')->nullable();
+            $table->string('nis')->unique();
             $table->string('hobby')->nullable();
             $table->string('ambition')->nullable();
             $table->string('housing_status')->nullable();
@@ -49,7 +49,11 @@ return new class extends Migration
             $table->string('kks')->nullable();
             $table->string('pkh')->nullable();
             $table->enum('status', ['waiting', 'accepted', 'rejected'])->default('waiting');
-            $table->dateTime('verified_at')->nullable();
+
+            $table->dateTime('verified_at')->nullable(); //artinya : telah di verifikasi dan menjadi santri
+            $table->dateTime('drop_out_at')->nullable();
+
+
 
             $table->timestamp('education_updated')->nullable();
 
