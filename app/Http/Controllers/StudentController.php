@@ -86,7 +86,8 @@ class StudentController extends Controller
                 'students.city',
                 'student_image',
                 'dr.name as dormitory_name',
-                'r.name as room'
+                'r.name as room',
+                DB::raw("(SELECT COUNT(*) FROM students AS s2 WHERE s2.user_id = students.user_id) AS brothers_count")
             );
     }
 
