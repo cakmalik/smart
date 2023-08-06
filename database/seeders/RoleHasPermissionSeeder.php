@@ -15,7 +15,7 @@ class RoleHasPermissionSeeder extends Seeder
     {
         $p_settings = ['access settings'];
         $p_users = ['access users', 'edit users', 'delete users', 'approval users'];
-        $p_students = ['access students', 'edit students', 'delete students', 'approval students'];
+        $p_students = ['access students', 'edit students', 'delete students'];
         $p_dormitories = ['access dormitories', 'edit dormitories', 'delete dormitories', 'approval dormitories'];
         $p_formal = ['access formal', 'edit formal', 'delete formal', 'approval formal'];
         $p_informal = ['access informal', 'edit informal', 'delete informal', 'approval informal'];
@@ -26,10 +26,17 @@ class RoleHasPermissionSeeder extends Seeder
         $admin = Role::where('name', 'admin')->first();
         $admin->givePermissionTo($p_users);
         $admin->givePermissionTo($p_students);
+        $admin->givePermissionTo('approval students');
         $admin->givePermissionTo($p_settings);
+
 
         $sekretaris = Role::where('name', 'sekretaris')->first();
         $sekretaris->givePermissionTo($p_users);
         $sekretaris->givePermissionTo($p_students);
+        $sekretaris->givePermissionTo('approval students');
+
+        $bendahara = Role::where('name', 'bendahara')->first();
+        $bendahara->givePermissionTo($p_students);
+        $bendahara->givePermissionTo('payment students');
     }
 }
