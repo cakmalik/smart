@@ -36,6 +36,7 @@ class UserSeeder extends Seeder
             'current_team_id' => 1
         ])->assignRole('admin');
 
+        //create user sekretaris
         $seketaris = User::create([
             'name' => 'Sekretaris',
             'username' => 'sekretaris',
@@ -43,8 +44,19 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
             'phone' => '111',
             'kk' => '1111', 'current_team_id' => 1
-
         ])->assignRole('sekretaris');
+
+
+        $bendahara = User::create([
+            'name' => 'Bendahara',
+            'username' => 'bendahara',
+            'email' => 'bendahara@bakid.id',
+            'password' => bcrypt('password'),
+            'phone' => '222',
+            'kk' => '222', 'current_team_id' => 1
+        ])->assignRole('bendahara');
+
+
 
         $santri_team = Team::create([
             'user_id' => 3,
