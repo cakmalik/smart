@@ -1,56 +1,60 @@
 <x-app-layout>
 
-    <x-splade-data remember="menu" default="{currentIndex:0, title:'Data Pribadi'}">
-        <div class="grid grid-cols-3 my-4 gap-4">
-            <div class="flex justify-end">
-                <div
-                    class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    <button aria-current="true" type="button"
-                        class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 rounded-t-lg cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
-                        :class="{ 'bg-green-700 text-white': data.currentIndex == 0 }"
-                        @click="data.currentIndex=0; data.title = 'Data Pribadi'"> Data
-                        Pribadi
-                    </button>
-                    <button type="button"
-                        class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200  cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
-                        @click="data.currentIndex=1; data.title = 'Keluarga'"
-                        :class="{ 'bg-green-700 text-white': data.currentIndex == 1 }">
-                        Keluarga
-                    </button>
-                    <button type="button"
-                        class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
-                        @click="data.currentIndex=2; data.title = 'Tambahan'"
-                        :class="{ 'bg-green-700 text-white': data.currentIndex == 2 }">
-                        Tambahan
-                    </button>
+    <x-splade-data remember="menu" :default="['currentIndex' => 0, 'title' => 'Data Pribadi']">
+        <x-splade-form :default="$student" :action="route('student.update', $student)" method="put">
 
-                    <button type="button"
-                        class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
-                        @click="data.currentIndex=3; data.title = 'Foto'"
-                        :class="{ 'bg-green-700 text-white': data.currentIndex == 3 }">
-                        Foto
-                    </button>
+            <div class="grid grid-cols-3 my-4 gap-4">
+                <div class="flex justify-end">
+                    <div
+                        class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <div class="flex items-center justify-center py-2 bg-slate-600 text-white mb-1">
+                            <span class="text-center">{{ $student->nis }}</span>
+                        </div>
+                        <button aria-current="true" type="button"
+                            class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 rounded-none cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
+                            :class="{ 'bg-green-700 text-white': data.currentIndex == 0 }"
+                            @click="data.currentIndex=0; data.title = 'Data Pribadi'"> Data
+                            Pribadi
+                        </button>
+                        <button type="button"
+                            class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200  cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
+                            @click="data.currentIndex=1; data.title = 'Keluarga'"
+                            :class="{ 'bg-green-700 text-white': data.currentIndex == 1 }">
+                            Keluarga
+                        </button>
+                        <button type="button"
+                            class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
+                            @click="data.currentIndex=2; data.title = 'Tambahan'"
+                            :class="{ 'bg-green-700 text-white': data.currentIndex == 2 }">
+                            Tambahan
+                        </button>
 
-                    {{-- <button type="button"
+                        <button type="button"
+                            class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
+                            @click="data.currentIndex=3; data.title = 'Foto'"
+                            :class="{ 'bg-green-700 text-white': data.currentIndex == 3 }">
+                            Foto
+                        </button>
+
+                        {{-- <button type="button"
                         class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
                         @click="data.currentIndex=4; data.title = 'Tambahan'"
                         :class="{ 'bg-green-700 text-white': data.currentIndex == 4 }">
                         Tambahan
                     </button> --}}
 
-                    {{-- <button disabled type="button"
+                        {{-- <button disabled type="button"
                     class="w-full px-4 py-2 font-medium text-left bg-gray-100 rounded-b-lg cursor-not-allowed dark:bg-gray-600 dark:text-gray-400">
                     Download
                 </button> --}}
+                    </div>
                 </div>
-            </div>
-            <div class="col-span-2">
-                <div class="bg-white/50 backdrop-filter backdrop-blur-md w-full rounded-l-lg p-4">
-                    <span
-                        class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-gray-600 text-white uppercase mb-4"
-                        v-text="data.title">
-                    </span>
-                    <x-splade-form :default="$student" :action="route('student.update', $student)" method="put">
+                <div class="col-span-2">
+                    <div class="bg-white/50 backdrop-filter backdrop-blur-md w-full rounded-l-lg p-4">
+                        <span
+                            class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-gray-600 text-white uppercase mb-4"
+                            v-text="data.title">
+                        </span>
                         <div class="flex justify-center mb-4">
                             <img src="{{ $student->student_image ? asset('storage/student-photos/' . $student->student_image) : asset('bakid/default_image.jpg') }}"
                                 onerror="this.onerror=null;this.src='{{ asset('bakid/default-profile.png') }}';"
@@ -249,10 +253,10 @@
                         <x-splade-submit class="mt-4">
                             {{ __('Save changes') }}
                         </x-splade-submit>
-                    </x-splade-form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </x-splade-form>
     </x-splade-data>
 
 

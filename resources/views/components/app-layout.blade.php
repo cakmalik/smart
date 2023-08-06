@@ -1,6 +1,7 @@
 <x-banner />
 
-<div class="min-h-screen bg-green-200">
+<div class="min-h-screen bg-green-200"
+    style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
     <x-navigation />
 
     <!-- Page Heading -->

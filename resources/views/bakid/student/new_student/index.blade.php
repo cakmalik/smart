@@ -14,9 +14,9 @@
                     <div class="sm:flex sm:items-center sm:justify-between">
                     </div>
 
-                    <x-splade-form action="/student" method="get" background :default="['search' => Request::get('search'), 'dormitory_id' => Request::get('dormitory_id')]">
+                    <x-splade-form action="/student/new" method="get" background :default="['search' => Request::get('search'), 'dormitory_id' => Request::get('dormitory_id')]">
                         <div class="mt-6 md:flex md:items-center md:justify-between">
-                            <Link href="{{ route('student.index') }}"
+                            <Link href="{{ route('student.new') }}"
                                 class="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
                             <button
                                 class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm dark:bg-gray-800 dark:text-gray-300">
@@ -25,6 +25,14 @@
                             </Link>
 
                             <div class="relative flex gap-2 items-center mt-4 md:mt-0">
+                                {{-- <span class="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
+                                </span> --}}
                                 <x-splade-select v-model="form.dormitory_id" :options="$dormitories" option-label="name"
                                     option-value="id" placeholder="Daerah" class="w-32" />
                                 <div class="flex gap-2">
@@ -90,7 +98,7 @@
                                                         class="px-4 py-4 text-sm font-medium whitespace-nowrap flex gap-3">
                                                         <img src="{{ asset('storage/student-photos/' . $i->image) }}"
                                                             onerror="this.onerror=null;this.src='{{ asset('bakid/default-profile.png') }}';"
-                                                            class="w-10 h-10 rounded-full object-cover " />
+                                                            class="w-10 h-10 rounded-full object-cover">
                                                         <div>
 
                                                             <h2

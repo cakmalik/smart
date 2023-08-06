@@ -1,5 +1,5 @@
 <div class="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0 bg-gray-100"
-    style="background-image: url('{{ asset('bakid/bg-blur.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
+    style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
     <div>
         {{ $logo }}
     </div>
