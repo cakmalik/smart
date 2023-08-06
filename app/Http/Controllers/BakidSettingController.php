@@ -118,7 +118,7 @@ class BakidSettingController extends Controller
         }
 
         Toast::message('Background diganti');
-        return back();
+        return redirect()->back();
     }
 
 

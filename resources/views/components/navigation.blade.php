@@ -32,8 +32,7 @@
                                 <x-nav-link :href="route('student.index')" :active="request()->routeIs('student.index')">
                                     {{ __('bakid.t.students') }}
                                 </x-nav-link>
-                            @endcan
-                            @can('access students')
+
                                 <x-nav-link :href="route('student.new')" :active="request()->routeIs('student.new')">
                                     {{ __('bakid.t.new_students') }}
                                 </x-nav-link>
