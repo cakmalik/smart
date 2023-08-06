@@ -26,4 +26,9 @@ class InvoiceController extends Controller
 
         return view('invoice.show', compact('invoice', 'pi'));
     }
+
+    function uploadProof(Request $request)
+    {
+        dd($request->all());
+    }
 }
