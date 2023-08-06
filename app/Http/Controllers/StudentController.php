@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use Image;
 use App\Models\Student;
+use App\Tables\Students;
 use Illuminate\Http\Request;
+use App\Models\Bakid\Dormitory;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\User\UserService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 use ProtoneMedia\Splade\SpladeTable;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -15,16 +19,13 @@ use Database\Factories\InvoiceFactory;
 use ProtoneMedia\Splade\Facades\Toast;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Support\Facades\Storage;
+use App\Services\Invoice\InvoiceService;
 use App\Services\Student\StudentService;
 use App\Http\Requests\StoreStudentRequest;
 use App\Services\Location\LocationService;
 use App\Http\Requests\UpdateStudentRequest;
-use App\Models\Bakid\Dormitory;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
-use App\Services\Invoice\InvoiceService;
-use App\Tables\Students;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class StudentController extends Controller
@@ -43,31 +44,34 @@ class StudentController extends Controller
 
     public function __construct(LocationService $locationService, StudentService $studentService, InvoiceService $invoiceService, UserService $userService)
     {
+        // $this->middleware(['role:santri'], ['only' => ['create']]);
+
+        $this->middleware('role:admin|santri|sekretaris');
+        $this->middleware('role:santri')->only('create', 'store');
+
         $this->loc = $locationService;
         $this->student = $studentService;
         $this->invoice = $invoiceService;
         $this->user = $userService;
     }
 
-    /**
-     * index
-     *
-     * @return void
-     */
-    public function index(Request  $request)
-    {
 
-        $students = Student::query()
+    private function getStudentsQuery(Request $request)
+    {
+        $daerah = $request->input('dormitory_id');
+        $cari = $request->input('search');
+
+        return Student::query()
             ->leftJoin('student_families as parent', 'parent.id', '=', 'students.student_family_id')
             ->leftJoin('room_students as rs', 'students.id', '=', 'rs.student_id')
             ->leftJoin('dormitories as dr', 'dr.id', '=', 'rs.dormitory_id')
             ->leftJoin('rooms as r', 'r.id', '=', 'rs.room_id')
-            ->when($daerah = $request->input('dormitory_id'), function ($q, $dormitory) {
-                return $q->where('rs.dormitory_id', $dormitory);
+            ->when($daerah, function ($q) use ($daerah) {
+                return $q->where('rs.dormitory_id', $daerah);
             })
-            ->when($cari = $request->input('search'), function ($q, $s) {
-                return $q->where('students.name', 'LIKE', '%' . $s . '%')
-                    ->orWhere('students.nickname', 'LIKE', '%' . $s . '%');
+            ->when($cari, function ($q) use ($cari) {
+                return $q->where('students.name', 'LIKE', '%' . $cari . '%')
+                    ->orWhere('students.nickname', 'LIKE', '%' . $cari . '%');
             })
             ->select(
                 'students.id as id',
@@ -82,8 +86,15 @@ class StudentController extends Controller
                 'student_image',
                 'dr.name as dormitory_name',
                 'r.name as room'
-            )
-            ->paginate(5)->withQueryString();
+            );
+    }
+
+    public function index(Request $request)
+    {
+        $students = $this->getStudentsQuery($request)
+            ->whereNotNull('verified_at')
+            ->paginate(10)
+            ->withQueryString();
 
         $dormitories = Dormitory::get()->map(function ($i) {
             $gender = $i->gender == 'L' ? 'Laki-laki' : 'Perempuan';
@@ -96,43 +107,24 @@ class StudentController extends Controller
         return view('bakid.student.index', compact('students', 'dormitories'));
     }
 
-    // public function index()
-    // {
-    //     // $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
-    //     //     $query->where(function ($query) use ($value) {
-    //     //         Collection::wrap($value)->each(function ($value) use ($query) {
-    //     //             $query
-    //     //                 ->orWhere('name', 'LIKE', "%{$value}%")
-    //     //                 ->orWhere('nickname', 'LIKE', "%{$value}%");
-    //     //         });
-    //     //     });
-    //     // });
-    //     // $globalSearch =
-    //     //     $students = QueryBuilder::for(Student::class)
-    //     //     ->defaultSort('name')
-    //     //     // ->allowedSorts(['name', 'email'])
-    //     //     ->allowedFilters(['name', 'nickname', $globalSearch])
-    //     //     ->paginate()
-    //     //     ->withQueryString();
-    //     // return view('bakid.student.index', [
-    //     //     'students' => SpladeTable::for($students)
-    //     //         // ->defaultSort('name')
-    //     //         ->column('name', sortable: true, searchable: true, canBeHidden: false)
-    //     //         ->withGlobalSearch()
-    //     //         // ->rowLink(fn (student $student) => route('student.show', $student))
-    //     //         ->column('action')
-    //     //     // ->selectFilter('name', [
-    //     //     //     'name' => 'name',
-    //     //     // ])
+    public function newStudent(Request $request)
+    {
+        $students = $this->getStudentsQuery($request)
+            ->whereNull('verified_at')
+            ->paginate(10)
+            ->withQueryString();
 
-    //     // ]);
-    //     return view('bakid.student.index', [
-    //         'students' => Students::class
-    //     ]);
-    // }
-    /**
-     * Show the form for creating a new resource.
-     */
+        $dormitories = Dormitory::get()->map(function ($i) {
+            $gender = $i->gender == 'L' ? 'Laki-laki' : 'Perempuan';
+            return [
+                'id' => $i->id,
+                'name' => '(' . $i->gender . ') ' . $i->name,
+            ];
+        });
+        return view('bakid.student.new_student.index', compact('students', 'dormitories'));
+    }
+
+
     public function create()
     {
         if ($this->user->isHasNotSetPaymentMethod()) {
@@ -311,6 +303,20 @@ class StudentController extends Controller
         }
     }
 
+    function verify(Student $student)
+    {
+        try {
+            $student->verified_at = now();
+            $student->save();
+            Toast::message('Berhasil diterima sebagai santri, Pesan wa terkirim')->success()->autoDismiss(5)->centerBottom();
+            return back();
+        } catch (\Exception $e) {
+            Toast::danger('Gagal, terjadi kesalahan. periksa log');
+            Log::error($e->getMessage() . '-' . $e->getLine());
+            return back();
+        }
+    }
+
     function biodataPdf(Student $student)
     {
         $student->load('parent');
@@ -323,5 +329,15 @@ class StudentController extends Controller
         $student->load('parent');
         $pdf = Pdf::loadView('document.mou', compact('student'));
         return $pdf->download('invoice.pdf');
+    }
+
+    function kts(Student $student)
+    {
+        return view('document.kts', compact('student'));
+    }
+
+    function kMahrom(Student $student)
+    {
+        return view('document.kartu_mahrom', compact('student'));
     }
 }
