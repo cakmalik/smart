@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     @spladeHead
     @vite('resources/js/app.js')
 </head>
