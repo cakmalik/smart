@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Student;
+use App\Models\Student\RoomStudent;
 use App\Models\Student\StudentEducationalBackground;
 use App\Models\StudentFamily;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -50,7 +51,7 @@ class StudentSeeder extends Seeder
                 'nik' => '1234567890',
                 'place_of_birth' => 'Jakarta',
                 'date_of_birth' => '1990-01-01',
-                'gender' => 'Male',
+                'gender' => ['male', 'female'][array_rand(['male', 'female'], 1)],
                 'address' => '123 Example Street',
                 'rt_rw' => '01/01',
                 'village' => 'Example Village',
@@ -63,7 +64,7 @@ class StudentSeeder extends Seeder
                 'phone' => '123456789',
                 'student_image' => 'example.jpg',
                 // 'parent_image' => 'example.jpg',
-                'nis' => '12345',
+                'nis' => generateNIS(),
                 'hobby' => 'Melukis',
                 'ambition' => 'Example Ambition',
                 'housing_status' => 'Example Housing Status',
@@ -87,6 +88,14 @@ class StudentSeeder extends Seeder
                 'npsn' => '34234234',
                 'no_ijazah' => '4324234234'
             ]);
+
+            RoomStudent::create(
+                [
+                    'room_id' => rand(1, 5),
+                    'student_id' => $sc->id,
+                    'dormitory_id' => rand(1, 5),
+                ]
+            );
         }
     }
 }
