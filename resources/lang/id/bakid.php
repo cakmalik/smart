@@ -110,6 +110,7 @@ return [
     // ini bahasa
     't' => [
         'family_members' => 'Daftar Anggota Keluarga',
-        'students'=> 'Data Santri',
+        'students' => 'Data Santri',
+        'new_students' => 'Santri Baru',
     ]
 ];
