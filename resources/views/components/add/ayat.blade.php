@@ -11,7 +11,7 @@
         </x-slot:placeholder>
 
         @if ($rand != null)
-            <div class="mb-5 p-3">
+            <div class="mb-5 p-3 bg-white rounded-lg">
                 <h1 class=" text-2xl text-gray-900 text-center leading-loose font-amiri">
                     {{ $rand['ayat'] }}
                 </h1>
