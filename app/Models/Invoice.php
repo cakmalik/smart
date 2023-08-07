@@ -38,4 +38,9 @@ class Invoice extends Model
     {
         return $this->hasMany(InvoiceDetail::class);
     }
+
+    function file()
+    {
+        return $this->hasOne(InvoicePaymentFile::class, 'invoice_id');
+    }
 }
