@@ -114,7 +114,7 @@
                         </section>
                     </x-splade-modal>
 
-                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                         @forelse ($data as $key => $value)
                             <div class="p-4 py-6 bg-white/50 border-white border-2 w-full rounded-lg">
                                 {{ $key }}

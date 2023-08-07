@@ -8,6 +8,9 @@ use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
+use App\Models\InvoicePaymentFile;
+use Illuminate\Support\Facades\Log;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class InvoiceController extends Controller
 {
@@ -18,6 +21,9 @@ class InvoiceController extends Controller
     public function show($invoice_number)
     {
         $invoice = Invoice::where('invoice_number', $invoice_number)->first();
+        $invoice->load('file');
+
+        // dd($invoice);
         // dd($invoice);
         $pi = DB::table('payment_methods')
             ->join('payment_instructions as pi', 'pi.payment_method_id', '=', 'payment_methods.id')
@@ -29,6 +35,45 @@ class InvoiceController extends Controller
 
     function uploadProof(Request $request)
     {
-        dd($request->all());
+        $request->validate(
+            [
+                'invoice_number' => 'required|exists:invoices,invoice_number',
+                'from_bank' => 'required',
+                'to_bank' => 'required',
+                'from_account' => 'required',
+                'filename' => 'required|image|mimes:png,jpg',
+                'amount' => 'required',
+            ]
+        );
+        $i = Invoice::where('invoice_number', $request->invoice_number)->first();
+        // Get the file from the request
+        $imageFile = $request->file('filename');
+
+        // Generate a unique name for the image to avoid conflicts
+        $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
+
+        // Store the image in the "public" disk (assuming you have configured it in config/filesystems.php)
+        $imageFile->storeAs('public/proof', $imageName);
+
+        try {
+            $ifp = new InvoicePaymentFile();
+            $ifp->invoice_id = $i->id;
+            $ifp->file_name = $imageName;
+            $ifp->from_bank = $request->from_bank;
+            $ifp->to_bank = $request->to_bank;
+            $ifp->from_account = $request->from_account;
+            $ifp->to_account = $request->to_account;
+            $ifp->amount = $request->amount;
+            $ifp->title = $request->title;
+            $ifp->reference = $request->reference;
+            $ifp->desc = $request->desc;
+            $ifp->user_id = auth()->user()->id;
+            $ifp->to_account = 'as';
+            $ifp->save();
+            Toast::success('Bukti pembayaran berhasil dikirim')->autoDismiss(20);
+            return back();
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . '--' . $e->getLine());
+        }
     }
 }

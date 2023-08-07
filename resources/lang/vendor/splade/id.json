@@ -48,5 +48,11 @@
     "Format Message": "Format Pesan",
     "Setting Format Message": "Pengaturan Format Pesan",
     "Message": "Pesan",
-    "View all": "Tampilkan semua"
+    "View all": "Tampilkan semua",
+    "draft": "Tersimpan",
+    "sent": "Terkirim",
+    "unpaid": "Menunggu pembayaran",
+    "paid": "Dibayar",
+    "canceled": "dibatalkan",
+    "expired": "kadaluarsa"
 }

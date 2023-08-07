@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('from_bank');
             $table->string('to_bank');
             $table->string('from_account');
-            $table->string('to_account');
+            $table->string('to_account')->nullable();
             $table->string('amount');
             $table->string('title')->nullable();
             $table->string('reference')->nullable();
@@ -27,6 +27,7 @@ return new class extends Migration
             //caused by foreign id
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->date('approved_at')->nullable();
+            // TODO:add approved_by
             $table->string('note')->nullable();
             $table->timestamps();
         });
