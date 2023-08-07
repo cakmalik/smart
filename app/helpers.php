@@ -139,3 +139,22 @@ if (!function_exists('countBrothers')) {
         return Student::where('user_id', $s->user_id)->count();
     }
 }
+
+function statusLabel($status)
+{
+    switch ($status) {
+        case 'unpaid':
+            return 'Menunggu pembayaran';
+            break;
+        case 'drat':
+            return 'Tersimpan';
+            break;
+        case 'sent':
+            return 'Terkirim';
+            break;
+
+        default:
+            'Menunggu pembayaran';
+            break;
+    }
+}

@@ -7,7 +7,7 @@
                 <div class="flex justify-end">
                     <div
                         class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <div class="flex items-center justify-center py-2 bg-slate-600 text-white mb-1">
+                        <div class="flex items-center justify-center py-2 bg-slate-600 text-white mb-1 rounded-t-lg">
                             <span class="text-center">{{ $student->nis }}</span>
                         </div>
                         <button aria-current="true" type="button"
