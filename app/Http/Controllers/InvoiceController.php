@@ -70,6 +70,10 @@ class InvoiceController extends Controller
             $ifp->user_id = auth()->user()->id;
             $ifp->to_account = 'as';
             $ifp->save();
+
+            $i->status = 'waiting';
+            $i->save();
+
             Toast::success('Bukti pembayaran berhasil dikirim')->autoDismiss(20);
             return back();
         } catch (\Exception $e) {
