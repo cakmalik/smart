@@ -8,12 +8,15 @@ use Illuminate\View\Component;
 
 class AdminMenuItem extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $name;
+    public $active;
+    public $icon;
+
+    public function __construct($name, $active, $icon)
     {
-        //
+        $this->name = $name;
+        $this->active = $active;
+        $this->icon = $icon;
     }
 
     /**

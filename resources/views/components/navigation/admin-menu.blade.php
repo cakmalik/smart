@@ -224,12 +224,15 @@
         <div class="flex px-3 py-3">
             <!-- 5 menu utama -->
             <div class="grid grid-cols-5 w-full gap-1 text-xs">
-                <x-navigation.admin-menu-item />
-                <x-navigation.admin-menu-item />
-                <x-navigation.admin-menu-item />
-                <x-navigation.admin-menu-item />
-                <x-navigation.admin-menu-item />
-
+                <x-navigation.admin-menu-item name="{{ __('Students') }}" :link="route('student.index')" icon="ph-user-list"
+                    :active="request()->routeIs('student')" />
+                <x-navigation.admin-menu-item name="{{ __('Search') }}" :link="route('student.index')" icon="ph-magnifying-glass"
+                    :active="request()->routeIs('search')" />
+                <x-navigation.admin-menu-item name="{{ __('Dashboard') }}" icon="ph-house-line" :active="request()->routeIs('dashboard')" />
+                <x-navigation.admin-menu-item name="{{ __('Announcement') }}" :link="route('student.index')" icon="ph-broadcast"
+                    :active="request()->routeIs('annoucement')" />
+                <x-navigation.admin-menu-item name="Menu" :link="route('student.index')" icon="ph-user-circle"
+                    :active="request()->routeIs('profile')" />
             </div>
         </div>
     </nav>
