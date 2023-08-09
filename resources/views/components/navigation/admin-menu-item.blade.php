@@ -1,10 +1,15 @@
- <div class="w-full h-12">
-     <div class="flex flex-col gap-1 items-center justify-between ">
-         <div class="w-2/3">
-             <div class="rounded-full bg-gray-200 flex justify-center items-center py-1"><i
-                     class="ph-fill ph-user-list"></i>
-             </div>
+ @props(['link' => route('dashboard')])
+ <Link class="w-full h-12" href="{{ $link }}">
+ <div class="flex flex-col gap-1 items-center justify-between ">
+     <div class="w-2/3">
+         <div class="rounded-full flex justify-center items-center py-1">
+             <i class="ph-fill {{ $icon }}"></i>
          </div>
-         <span class="font-bold">Nama</span>
      </div>
+     @if ($active)
+         <span class="font-bold ">{{ $name }}</span>
+     @else
+         <span>{{ $name }}</span>
+     @endif
  </div>
+ </Link>
