@@ -21,6 +21,16 @@ module.exports = {
                 amiri: ["Amiri Quran", "serif"],
                 noto: ["Noto Naskh Arabic", "sans-serif"],
             },
+            colors: {
+                wa: {
+                    teal1: "#075e54",
+                    teal2: "#128c7e",
+                    light: "#25d366",
+                    tea: "#dcf8c6",
+                    blue: "#34b7f1",
+                    gray: "#ece5dd",
+                },
+            },
             animation: { blob: "blob 4s infinite" },
             keyframes: {
                 blob: {

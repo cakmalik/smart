@@ -2,7 +2,7 @@
 
 <x-app-layout>
     <x-slot:header>
-        <h2 class="font-medium text-xl text-gray-800">
+        <h2 class="font-medium text-xl">
             {{ __('Rooms') }}
         </h2>
         </x-slot>

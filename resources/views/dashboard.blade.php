@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot:header>
         <div class="flex justify-between">
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            <h2 class="text-xl font-semibold leading-tight">
                 {{ __('Dashboard') }}
             </h2>
             @hasrole('santri')
