@@ -2,7 +2,7 @@
 
 <x-app-layout>
     <x-slot:header>
-        <h2 class="font-medium text-xl text-gray-800">
+        <h2 class="font-medium text-xl">
             {{ __('bakid.t.family_members') }}
         </h2>
         </x-slot>
