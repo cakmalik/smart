@@ -220,36 +220,16 @@
         </div>
     </nav>
 
-    <nav class="z-50 fixed bottom-0 w-full h-auto bg-green-500 sm:hidden">
+    <nav class="z-50 fixed bottom-0 w-full h-auto bg-white shadow-lg sm:hidden">
         <div class="flex px-3 py-3">
             <!-- 5 menu utama -->
-            <div class="grid grid-cols-5 w-full gap-10">
-                <div class="w-full h-12 border">
-                    <div class="flex flex-col items-center justify-between">
-                        <i class="ph-fill ph-user-list"></i>
-                        <span>Nama</span>
-                    </div>
-                </div>
-                <div class="w-full h-12 border">
-                    <div class="flex flex-col items-center justify-between">
-                        <span>Nama</span>
-                    </div>
-                </div>
-                <div class="w-full h-12 border">
-                    <div class="flex flex-col items-center justify-between">
-                        <span>Nama</span>
-                    </div>
-                </div>
-                <div class="w-full h-12 border">
-                    <div class="flex flex-col items-center justify-between">
-                        <span>Nama</span>
-                    </div>
-                </div>
-                <div class="w-full h-12 border">
-                    <div class="flex flex-col items-center justify-between">
-                        <span>Nama</span>
-                    </div>
-                </div>
+            <div class="grid grid-cols-5 w-full gap-1 text-xs">
+                <x-navigation.admin-menu-item />
+                <x-navigation.admin-menu-item />
+                <x-navigation.admin-menu-item />
+                <x-navigation.admin-menu-item />
+                <x-navigation.admin-menu-item />
+
             </div>
         </div>
     </nav>
