@@ -2,7 +2,7 @@
 
 <x-app-layout>
     <x-slot:header>
-        <h2 class="font-medium text-xl text-gray-800">
+        <h2 class="font-medium text-xl">
             {{ __('Rooms') }}
         </h2>
         </x-slot>
@@ -74,7 +74,8 @@
                             <div class="h-[55vh] overflow-y-scroll">
                                 <div class="grid grid-col sm:grid-cols-4 gap-2 lg:gap-4">
                                     {{-- start template card --}}
-                                    <x-splade-rehydrate on="informal-added,informal-changed,informal-updated" prevent-scroll>
+                                    <x-splade-rehydrate on="informal-added,informal-changed,informal-updated"
+                                        prevent-scroll>
                                         @forelse ($data as $i)
                                             <div class="relative bg-white rounded-lg overflow-hidden pt-3 z-40">
                                                 {{-- <div
