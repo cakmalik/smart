@@ -220,19 +220,29 @@
         </div>
     </nav>
 
-    <nav class="z-50 fixed bottom-0 w-full h-auto bg-white shadow-lg sm:hidden">
-        <div class="flex px-3 py-3">
-            <!-- 5 menu utama -->
-            <div class="grid grid-cols-5 w-full gap-1 text-xs">
-                <x-navigation.admin-menu-item name="{{ __('Students') }}" :link="route('student.index')" icon="ph-user-list"
-                    :active="request()->routeIs('student')" />
-                <x-navigation.admin-menu-item name="{{ __('Search') }}" :link="route('student.index')" icon="ph-magnifying-glass"
-                    :active="request()->routeIs('search')" />
-                <x-navigation.admin-menu-item name="{{ __('Dashboard') }}" icon="ph-house-line" :active="request()->routeIs('dashboard')" />
-                <x-navigation.admin-menu-item name="{{ __('Announcement') }}" :link="route('student.index')" icon="ph-broadcast"
-                    :active="request()->routeIs('annoucement')" />
-                <x-navigation.admin-menu-item name="Menu" :link="route('student.index')" icon="ph-user-circle"
-                    :active="request()->routeIs('profile')" />
+    <nav class="z-50 fixed bottom-0 w-full h-auto ">
+        <div class="flex justify-end  items-center w-full">
+            <div class="flex">
+                <div class="w-16 h-16 me-7 mb-7 bg-wa-light rounded-full flex items-center justify-center text-white">
+                    <div class="ph-fill ph-list"></div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white shadow-lg sm:hidden">
+            <div class="flex px-3 py-3">
+                <!-- 5 menu utama -->
+                <div class="grid grid-cols-5 w-full gap-1 text-xs">
+                    <x-navigation.admin-menu-item name="{{ __('Students') }}" :link="route('student.index')" icon="ph-user-list"
+                        :active="request()->routeIs('student.index')" />
+                    <x-navigation.admin-menu-item name="{{ __('Search') }}" :link="route('student.index')"
+                        icon="ph-magnifying-glass" :active="request()->routeIs('search')" />
+                    <x-navigation.admin-menu-item name="{{ __('Dashboard') }}" icon="ph-house-line"
+                        :active="request()->routeIs('dashboard')" />
+                    <x-navigation.admin-menu-item name="{{ __('Announcement') }}" :link="route('student.index')"
+                        icon="ph-broadcast" :active="request()->routeIs('annoucement')" />
+                    <x-navigation.admin-menu-item name="Menu" :link="route('student.index')" icon="ph-user-circle"
+                        :active="request()->routeIs('profile')" />
+                </div>
             </div>
         </div>
     </nav>
