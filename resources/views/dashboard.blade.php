@@ -1,13 +1,11 @@
 @seoTitle(__('Dashboard'))
-
+<script setup>
+    const framework = ref('laravel');
+</script>
 <x-app-layout>
     <x-slot:header>
         <div class="flex items-center gap-3">
-            @hasrole('santri')
-                <img src="{{ asset('bakid/logo-ppmu.png') }}" alt="Logo" class="w-10 h-10 " />
-            @else
-                <img src="{{ asset('bakid/logo-ppmu.png') }}" alt="Logo" class="w-10 h-10 sm:hidden" />
-            @endhasrole
+           
             <h2 class="text-xl font-semibold leading-tight">
                 {{ __('Dashboard') }}
             </h2>
