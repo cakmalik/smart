@@ -72,66 +72,7 @@
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <div class="relative ml-3">
-                        {{-- @if (\Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                                <x-splade-dropdown>
-                                    <x-slot:trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button type="button"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
-                                                {{ auth()->user()->currentTeam->name }}
-
-                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                        </svg>
-                        </button>
-                        </span>
-                        </x-slot>
-
-                        <div class="py-1 mt-2 bg-white rounded-md shadow-lg w-60 ring-1 ring-black ring-opacity-5">
-                            <!-- Team Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Team') }}
-                            </div>
-
-                            <!-- Team Settings -->
-                            <x-dropdown-link :href="route('teams.show', auth()->user()->currentTeam)">
-                                {{ __('Team Settings') }}
-                            </x-dropdown-link>
-
-                            @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                            <x-dropdown-link :href="route('teams.create')">
-                                {{ __('Create New Team') }}
-                            </x-dropdown-link>
-                            @endcan
-
-                            <div class="border-t border-gray-200" />
-
-                            <!-- Team Switcher -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Switch Teams') }}
-                            </div>
-
-                            @foreach (auth()->user()->allTeams() as $team)
-                            <x-splade-form method="PUT" :action="route('current-team.update')" :default="['team_id' => $team->getKey()]">
-                                <x-dropdown-link as="button">
-                                    <div class="flex items-center">
-                                        @if ($team->is(auth()->user()->currentTeam))
-                                        <svg class="w-5 h-5 mr-2 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        @endif
-
-                                        <div>{{ $team->name }}</div>
-                                    </div>
-                                </x-dropdown-link>
-                            </x-splade-form>
-                            @endforeach
-                        </div>
-                        </x-splade-dropdown>
-                        @endif --}}
                     </div>
-                    {{-- TODO:#DROPDOWN --}}
-
                     <div class="relative ml-3">
                         <button
                             class="relative flex items-center justify-center w-8 h-8 p-1 bg-transparent border border-indigo-100 rounded-full">
@@ -200,73 +141,11 @@
                         </x-splade-dropdown>
                     </div>
                 </div>
-
-                <!-- Hamburger -->
-                <div class="flex items-center -mr-2 sm:hidden">
-                    <button
-                        class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500"
-                        @click="mobileNavigation.open = ! mobileNavigation.open">
-                        <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path :class="{ 'hidden': mobileNavigation.open, 'inline-flex': !mobileNavigation.open }"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                            <path :class="{ 'hidden': !mobileNavigation.open, 'inline-flex': mobileNavigation.open }"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
             </div>
         </div>
     </nav>
 
-    <x-splade-toggle data="isShowMobileMenu">
-        <x-splade-transition show="isShowMobileMenu" animation="slide-right">
-            <div class="z-[100] fixed top-0 right-0 min-h-screen w-full bg-black/50 backdrop-blur-md">
-                <div class="flex justify-end h-full">
-                    <div class="w-4/5 bg-black/50 border-l border-white/30 min-h-screen">
-                        <div class="w-full text-white">
-                            <div class="p-5 border-b border-white/10">
-                                <div class="flex items-end justify-start gap-2">
-                                    <img src="{{ asset('bakid/logo-ppmu.png') }}" alt="Logo" class="w-8 h-8" />
-                                    <span class=" text-2xl italic font-bold ">Bakid</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div @click.prevent="setToggle('isShowMobileMenu',false)"
-                            class="absolute bottom-5 right-5 w-10 h-10 cursor-pointer bg-wa-teal1 rounded-full flex items-center justify-center text-white text-sm">
-                            <i class="ph-bold ph-x"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </x-splade-transition>
-        <nav class="z-50 fixed bottom-0 w-full h-auto sm:hidden">
-            <div class="flex justify-end  items-center w-full" v-if="!isShowMobileMenu">
-                <div @click.prevent="setToggle('isShowMobileMenu',true)"
-                    class="w-12 h-12 me-5 mb-5 cursor-pointer bg-wa-light rounded-full flex items-center justify-center text-white">
-                    <i class="ph-bold ph-list"></i>
-                </div>
-            </div>
-
-            <div class="bg-white shadow-lg">
-                <div class="flex px-3 py-3">
-                    <!-- 5 menu utama -->
-                    <div class="grid grid-cols-4 w-full gap-1 text-xs">
-                        <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                            :active="request()->routeIs('dashboard')" />
-                        <x-navigation.admin-menu-component name="{{ __('Announcement') }}" :link="route('student.index')"
-                            icon="ph-broadcast" :active="request()->routeIs('annoucement')" />
-                        <x-navigation.admin-menu-component name="{{ __('Search') }}" :link="route('student.index')"
-                            icon="ph-magnifying-glass" :active="request()->routeIs('search')" />
-                        <x-navigation.admin-menu-component name="Santri" :link="route('student.index')" icon="ph-user-circle"
-                            :active="request()->routeIs('profile')" />
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </x-splade-toggle>
-
+    @include('components.navigation.mobile.layout')
 
 
 </x-splade-rehydrate>
