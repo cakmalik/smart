@@ -1,9 +1,10 @@
  <x-splade-toggle data="isShowMobileMenu">
      <x-splade-transition show="isShowMobileMenu" animation="slide-right">
          <div class="z-[51] fixed min-h-screen w-full bg-black/50 backdrop-blur-md">
-             <div class="w-4/5 bg-black/50 border-l border-white/30 min-h-screen text-white ml-auto overflow-scroll">
+             <div
+                 class="w-4/5 bg-black/50 border-l border-white/30 max-h-screen text-white ml-auto overflow-scroll flex flex-col">
                  {{-- bagian header dan profile  --}}
-                 <div class="h-auto">
+                 <div class="h-40">
                      <div class="px-3 py-5 border-b border-white/10">
                          <div class="flex items-end justify-start gap-2">
                              <img src="{{ asset('bakid/logo-ppmu.png') }}" alt="Logo" class="w-10 h-10" />
@@ -25,7 +26,7 @@
                      </div>
                  </div>
                  {{-- bagian menu --}}
-                 <div class="h-96  p-2 space-y-1 overflow-scroll">
+                 <div class="flex-1  p-2 space-y-1 overflow-scroll">
                      <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
                          :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
                      <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
@@ -74,7 +75,7 @@
                          :link="route('student.index')" :active="request()->routeIs('student.index')" />
                  </div>
                  {{-- bagian footer --}}
-                 <div class="relative bottom-0 w-full">
+                 <div class="h-20 relative bottom-0 w-full">
                      <div class="p-4 py-1 mb-4 bg-black/50 items-center">
                          <Link class="flex gap-1 items-center justify-start p-2 pe-6" confirm="Apakah yakin keluar?"
                              confirm-button="Ya!" cancel-button="Tidak" href="{{ route('logout') }}" method="post"
