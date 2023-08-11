@@ -6,13 +6,13 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class AdminMenuItem extends Component
+class AdminMenuComponent extends Component
 {
     public $name;
     public $active;
     public $icon;
 
-    public function __construct($name, $active, $icon)
+    public function __construct(string $name, bool $active = false, string $icon)
     {
         $this->name = $name;
         $this->active = $active;
@@ -24,6 +24,6 @@ class AdminMenuItem extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navigation.admin-menu-item');
+        return view('components.navigation.admin-menu-component');
     }
 }
