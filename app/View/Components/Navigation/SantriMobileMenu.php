@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Mobile extends Component
+class SantriMobileMenu extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Mobile extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navigation.mobile');
+        return view('components.navigation.santri-mobile-menu');
     }
 }

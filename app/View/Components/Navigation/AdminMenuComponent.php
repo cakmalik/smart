@@ -24,6 +24,6 @@ class AdminMenuComponent extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navigation.admin-menu-component');
+        return view('components.navigation.mobile.admin-menu-component');
     }
 }
