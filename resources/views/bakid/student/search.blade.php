@@ -25,7 +25,7 @@
     </div>
 </x-splade-form>
 
-<Link class="absolute top-0 right-0 text-gray-600 p-5" href="{{ route('dashboard') }}">
+<Link class="absolute top-0 right-0 text-gray-600 p-5" href="{{ route('student.index') }}">
 <i class="ph-bold ph-x" style="font-size: 30px"></i>
 </Link>
 </div>
