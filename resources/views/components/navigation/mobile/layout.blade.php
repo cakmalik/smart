@@ -2,7 +2,7 @@
      <x-splade-transition show="isShowMobileMenu" animation="slide-right">
          <div class="z-[51] fixed min-h-screen w-full bg-black/50 backdrop-blur-md">
              <div
-                 class="w-4/5 bg-black/50 border-l border-white/30 max-h-screen text-white ml-auto overflow-scroll flex flex-col">
+                 class="w-4/5 bg-black/50 border-l border-white/30 min-h-screen max-h-screen text-white ml-auto overflow-scroll flex flex-col">
                  {{-- bagian header dan profile  --}}
                  <div class="h-40">
                      <div class="px-3 py-5 border-b border-white/10">
@@ -29,50 +29,12 @@
                  <div class="flex-1  p-2 space-y-1 overflow-scroll">
                      <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
                          :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-house-line"
-                         :link="route('student.index')" :active="request()->routeIs('student.index')" />
+                     <x-navigation.admin-menu-component name="{{ __('Announcement') }}" icon="ph-house-line"
+                         :link="route('dashboard')" :active="request()->routeIs('announcement.index')" />
+                     {{-- <x-navigation.admin-menu-component name="{{ __('Search') }}" icon="ph-house-line"
+                         :link="route('student.search')" :active="request()->routeIs('student.search')" /> --}}
+
+
                  </div>
                  {{-- bagian footer --}}
                  <div class="h-20 relative bottom-0 w-full">
@@ -110,7 +72,7 @@
                      <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Announcement') }}"
                          :link="route('student.index')" icon="ph-broadcast" :active="request()->routeIs('annoucement')" />
                      <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Search') }}"
-                         :link="route('student.index')" icon="ph-magnifying-glass" :active="request()->routeIs('search')" />
+                         :link="route('student.search')" icon="ph-magnifying-glass" :active="request()->routeIs('student.search')" />
                      <x-navigation.admin-menu-component :is_highlight="true" name="Santri" :link="route('student.index')"
                          icon="ph-user-circle" :active="request()->routeIs('profile')" />
                  </div>
