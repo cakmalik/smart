@@ -94,7 +94,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $students = $this->getStudentsQuery($request)
-            ->whereNotNull('verified_at')
+            // ->whereNotNull('verified_at')
             ->paginate(10)
             ->withQueryString();
 
@@ -369,5 +369,21 @@ class StudentController extends Controller
     function kMahrom(Student $student)
     {
         return view('document.kartu_mahrom', compact('student'));
+    }
+
+    // highlight search
+    function search(Request $request)
+    {
+        if (!empty($request->q)) {
+            $students = Student::where('name', 'LIKE', "%{$request->q}%")
+                ->orWhere('nickname', 'LIKE', "%{$request->q}%")
+                ->limit(9)
+                ->get();
+            if ($students->count() <= 0) {
+                Toast::danger('Tidak ditemukan')->autoDismiss(1)->centerBottom();
+            }
+            return view('bakid.student.search', compact('students'));
+        }
+        return view('bakid.student.search');
     }
 }
