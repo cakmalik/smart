@@ -7,7 +7,7 @@
         </h2>
         </x-slot>
         <x-splade-toggle data="isUpload">
-            <div class="max-w-7xl py-12 mx-auto sm:px-6 lg:px-8">
+            <div class="sm:max-w-7xl py-12 mx-auto sm:px-6 lg:px-8">
                 <div class="flex mb-3">
                     <Link v-if="!isUpload" href="{{ route('dashboard') }}"
                         class="py-1 px-3 bg-white rounded-full mb-3 flex items-center justify-between">
@@ -33,36 +33,37 @@
                 </div>
 
                 {{-- start Invoice --}}
-                <div class="grid grid-col sm:grid-cols-3 gap-3" v-if="!isUpload">
-                    <div class="col-span-2 bg-white sm:rounded-lg p-4 sm:p-6">
+                <div class="w-full grid grid-col sm:grid-cols-3 gap-3" v-if="!isUpload">
+                    <div class="w-full col-span-2 bg-white sm:rounded-lg p-4 sm:p-6">
                         <div class="">
-                            <div class="flex justify-between">
-                                <img src="{{ asset('bakid/MUBAKID-with-label.png') }}" class="w-[300px]">
+                            <div class="grid grid-col sm:flex justify-between gap-3">
+                                <img src="{{ asset('bakid/MUBAKID-with-label.png') }}"
+                                    class="w-[200px] sm:w-[300px] order-last sm:order-first">
                                 @if ($invoice->file?->id)
                                     @switch($invoice->file->status)
                                         @case('approved')
                                             <h3
-                                                class="uppercase px-3 rounded-lg border h-7 border-green-500 bg-green-200 font-semibold">
-                                                diterima
+                                                class="uppercase px-3 rounded-lg border  border-green-500 bg-green-200 font-semibold">
+                                                dibayar
                                             </h3>
                                         @break
 
                                         @case('waiting')
                                             <h3
-                                                class="uppercase px-3 rounded-lg border h-7 border-yellow-500 bg-yellow-200 font-semibold">
+                                                class="uppercase px-3 rounded-lg border  border-yellow-500 bg-yellow-200 font-semibold">
                                                 Menunggu persetujuan
                                             </h3>
                                         @break
 
                                         @default
                                             <h3
-                                                class="uppercase px-3 rounded-lg border h-7 border-red-500 bg-red-200 font-semibold">
+                                                class="uppercase px-3 rounded-lg border  border-red-500 bg-red-200 font-semibold">
                                                 ditolak
                                             </h3>
                                     @endswitch
                                 @else
                                     <h3
-                                        class="uppercase px-3 rounded-lg border h-7 border-yellow-500 bg-yellow-200 font-semibold">
+                                        class="uppercase px-3 rounded-lg border border-yellow-500 bg-yellow-200 font-semibold">
                                         {{ __($invoice->status) }}
                                     </h3>
                                 @endif
@@ -115,8 +116,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white sm:rounded-lg p-4 sm:p-6">
-                        <div class="mb-4">
+                    <div class=" bg-red-300 sm:rounded-lg p-4 sm:p-6">
+                        <div class="w-full mb-4">
                             <span
                                 class="text-lg font-semibold border-b border-gray-300">{{ __('Payment Instructions') }}:</span>
                         </div>
@@ -131,7 +132,9 @@
                         </div>
                     </div>
                 </div>
+
                 {{-- end Invoice --}}
+
                 <div class="flex justify-center w-full" v-else>
                     <div class="flex justify-center bg-white/30 sm:rounded-lg p-3 w-1/2">
                         <x-splade-form action="{{ route('invoice.upload-proof') }}" :default="$invoice">
