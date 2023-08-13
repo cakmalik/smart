@@ -14,10 +14,27 @@ use ProtoneMedia\Splade\Facades\Toast;
 
 class InvoiceController extends Controller
 {
-    public function index()
+    function invoiceQuery(Request $request)
     {
-        return view('invoice.list');
+        $inv = Invoice::query()
+            ->leftJoin('invoice_categories as ic', 'invoices.invoice_category_id', '=', 'ic.id')
+            ->select('invoices.*', 'ic.name as category_name');
+        return $inv;
     }
+
+    public function index(Request $request)
+    {
+        $invoices = $this->invoiceQuery($request)
+            ->where('status', 'unpaid')
+            ->get();
+        $histories = $this->invoiceQuery($request)
+            ->where('status', 'paid')->get();
+
+        if (auth()->user()->hasRole('santri')) {
+            return view('invoice.list', compact('invoices', 'histories'));
+        }
+    }
+
     public function show($invoice_number)
     {
         $invoice = Invoice::where('invoice_number', $invoice_number)->first();
