@@ -2,29 +2,26 @@
     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
         {{ __('message.dashboard') }}
     </x-nav-link>
-    @can('access users')
-        <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
-            {{ __('Users') }}
-        </x-nav-link>
-    @endcan
+
     @can('access students')
         <x-nav-link :href="route('student.index')" :active="request()->routeIs('student.index')">
             {{ __('bakid.t.students') }}
         </x-nav-link>
-
-        <x-nav-link :href="route('student.new')" :active="request()->routeIs('student.new')">
-            {{ __('bakid.t.new_students') }}
-        </x-nav-link>
     @endcan
     @can('access admission')
-        <x-nav-link-group main="Manajemen" :items="[
-            ['name' => 'Santri baru', 'link' => route('dormitory.index')],
-            ['name' => 'Rekap pembayaran', 'link' => route('formal.index')],
+        <x-nav-link-group main="PSB" :items="[
+            ['name' => 'Santri baru', 'link' => route('student.new')],
+            ['name' => 'Rekap pembayaran', 'link' => route('invoice.index')],
         ]" />
     @endcan
     @can('access settings')
         <x-nav-link :href="route('setting.index')" :active="request()->routeIs('setting.index')">
             {{ __('Settings') }}
+        </x-nav-link>
+    @endcan
+    @can('access users')
+        <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+            {{ __('Users') }}
         </x-nav-link>
     @endcan
     @can(['access dormitories'])

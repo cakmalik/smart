@@ -64,11 +64,11 @@
                      <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Dashboard') }}" :link="route('dashboard')"
                          icon="ph-house-line" :active="request()->routeIs('dashboard')" />
                      <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Announcement') }}"
-                         :link="route('announcement.index')" icon="ph-broadcast" :active="request()->routeIs('annoucement')" />
+                         :link="route('announcement.index')" icon="ph-broadcast" :active="request()->routeIs('announcement.index')" />
                      <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Search') }}" :link="route('student.search')"
                          icon="ph-magnifying-glass" :active="request()->routeIs('student.search')" />
                      <x-navigation.admin-menu-component :is_highlight="true" name="Santri" :link="route('student.index')"
-                         icon="ph-user-circle" :active="request()->routeIs('profile')" />
+                         icon="ph-user-circle" :active="request()->routeIs('student.index')" />
 
                  </div>
              </div>
