@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -22,6 +23,7 @@ class PermissionSeeder extends Seeder
         $p_permit = ['access permit', 'edit permit', 'delete permit', 'approval permit'];
         $p_invoice = ['access invoice', 'edit invoice', 'delete invoice', 'approval invoice'];
         $p_settings = ['access settings'];
+        $p_admission = ['access admission'];
 
         $permissions = array_merge(
             $p_users,
@@ -32,11 +34,32 @@ class PermissionSeeder extends Seeder
             $p_violation,
             $p_permit,
             $p_invoice,
-            $p_settings
+            $p_settings,
+            $p_admission
         );
 
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission, 'guard_name' => 'web']);
         }
+
+        $admin = Role::where('name', 'admin')->first();
+        $admin->givePermissionTo($p_users);
+        $admin->givePermissionTo($p_students);
+        $admin->givePermissionTo('approval students');
+        $admin->givePermissionTo($p_settings);
+        $admin->givePermissionTo($p_dormitories);
+        $admin->givePermissionTo($p_admission);
+
+
+        $sekretaris = Role::where('name', 'sekretaris')->first();
+        $sekretaris->givePermissionTo($p_users);
+        $sekretaris->givePermissionTo($p_students);
+        $sekretaris->givePermissionTo('approval students');
+        $sekretaris->givePermissionTo($p_admission);
+        
+        $bendahara = Role::where('name', 'bendahara')->first();
+        $bendahara->givePermissionTo($p_students);
+        $bendahara->givePermissionTo('payment students');
+        $bendahara->givePermissionTo($p_admission);
     }
 }
