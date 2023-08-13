@@ -73,7 +73,7 @@
              </div>
          </div>
      </x-splade-transition>
-     <nav class="z-[29] fixed bottom-0 w-full h-auto sm:hidden">
+     <nav class="z-[29] fixed bottom-0 w-full h-auto sm:hidden bottom-vagigation">
          <div class="flex justify-end  items-center w-full" v-if="!isShowMobileMenu">
              <div @click.prevent="setToggle('isShowMobileMenu',true)"
                  class="w-12 h-12 me-5 mb-5 cursor-pointer bg-wa-light rounded-full flex items-center justify-center text-white">
@@ -94,9 +94,39 @@
                      <x-navigation.admin-menu-component :is_highlight="true" name="Santri" :link="route('student.index')"
                          icon="ph-user-circle" :active="request()->routeIs('profile')" />
 
-
                  </div>
              </div>
          </div>
      </nav>
  </x-splade-toggle>
+ <x-splade-script>
+     document.addEventListener("DOMContentLoaded", function () {
+     var navElement = document.querySelector(".bottom-vagigation");
+
+     function isScrollAtBottom() {
+     var scrollPosition = window.scrollY || window.pageYOffset;
+     var windowHeight = window.innerHeight;
+     var documentHeight = Math.max(
+     document.body.scrollHeight,
+     document.body.offsetHeight,
+     document.documentElement.clientHeight,
+     document.documentElement.scrollHeight,
+     document.documentElement.offsetHeight
+     );
+     return scrollPosition + windowHeight >= documentHeight - 10; // Toleransi 10 piksel
+     }
+
+     function hideNavigationIfAtBottom() {
+     if (isScrollAtBottom()) {
+     navElement.style.display = "none";
+     } else {
+     navElement.style.display = "block";
+     }
+     }
+
+     // Panggil fungsi hideNavigationIfAtBottom() saat halaman dimuat dan ketika dilakukan scrolling
+     hideNavigationIfAtBottom(); // Panggil saat halaman dimuat untuk menyesuaikan status awal
+     window.addEventListener("scroll", hideNavigationIfAtBottom);
+     });
+
+ </x-splade-script>
