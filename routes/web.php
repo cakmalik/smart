@@ -1,11 +1,15 @@
 <?php
 
+use App\Models\Announcement;
 use App\Models\BakidSetting;
 use App\Jobs\JobSendWhatsapp;
 use App\Jobs\ReminderAdmission;
+use App\Services\WhatsappService;
 use App\Jobs\JobReminderAdmission;
+use App\Jobs\JobSendWhatsappReminder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use ProtoneMedia\Splade\Facades\Toast;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Models\Informal\InformalEducation;
@@ -14,15 +18,13 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BakidSettingController;
 use App\Http\Controllers\FormatMessageController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\FormalEducationController;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\ReminderNotificationController;
-use App\Jobs\JobSendWhatsappReminder;
-use App\Services\WhatsappService;
-use ProtoneMedia\Splade\Facades\Toast;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +101,8 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/student/{student:nis}/kts', [StudentController::class, 'kts'])->name('student.kts');
         Route::get('/student/{student:nis}/verify', [StudentController::class, 'verify'])->name('student.verify');
         Route::get('/student/{student:nis}/k-mahrom', [StudentController::class, 'kMahrom'])->name('student.k-mahrom');
-        // });
+
+        Route::resource('announcement', AnnouncementController::class);
 
         Route::prefix('setting')->group(function () {
             Route::resource('format-message', FormatMessageController::class);
@@ -107,14 +110,6 @@ Route::middleware(['splade'])->group(function () {
 
         Route::resource('/setting', BakidSettingController::class);
 
-
-        Route::get('tes/wa', [BakidSettingController::class, 'checkConnection'])->name('test.wa');
-        Route::get('tes/message', function () {
-            $ms = new WhatsappService();
-            $ms->tesMessage();
-            Toast::success('sedang dikirim...')->autoDismiss(3)->centerBottom();
-            return back();
-        })->name('tes.message');
         Route::resource('/room', RoomController::class);
         Route::get('/dormitory/room/{dormitory}', [DormitoryController::class, 'room'])->name('dormitory.room');
         Route::resource('/dormitory', DormitoryController::class);
@@ -130,9 +125,6 @@ Route::middleware(['splade'])->group(function () {
 
         Route::post('/reminder/store', [ReminderNotificationController::class, 'store'])->name('reminder.registration');
 
-        Route::get('/coba', function () {
-            return view('bakid.education.formal.show');
-        });
         Route::get('/change-background', [BakidSettingController::class, 'changeBackground'])->name('setting.change-bg');
     });
 });
