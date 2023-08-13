@@ -94,7 +94,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $students = $this->getStudentsQuery($request)
-            // ->whereNotNull('verified_at')
+            ->whereNotNull('verified_at')
             ->paginate(10)
             ->withQueryString();
 
