@@ -81,6 +81,14 @@ Route::middleware(['splade'])->group(function () {
         config('jetstream.auth_session'),
         'verified',
     ])->group(function () {
+        Route::get('tes/wa', [BakidSettingController::class, 'checkConnection'])->name('test.wa');
+        Route::get('tes/message', function () {
+            $ms = new WhatsappService();
+            $ms->tesMessage();
+            Toast::success('sedang dikirim...')->autoDismiss(3)->centerBottom();
+            return back();
+        })->name('tes.message');
+
         Route::prefix('wali')->group(function () {
             Route::get('/student/family', [UserController::class, 'familyMembers'])->name('student.families');
         });
