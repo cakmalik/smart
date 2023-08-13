@@ -53,41 +53,24 @@
                              ['name' => 'Formal', 'link' => route('formal.index')],
                              ['name' => 'Non-Formal', 'link' => route('informal.index')],
                          ]" />
-                     {{-- <x-splade-dropdown>
-                         <x-slot:trigger>
-                             <div class="flex w-full cursor-pointer">
-                                 <div class="py-1 px-1 rounded-full">
-                                     <div class="flex items-center gap-2 justify-normal px-2">
-                                         <i class="ph-fill ph-house" style="font-size: 20px"></i>
-                                         <span>as</span>
-                                     </div>
-                                 </div>
-                         </x-slot:trigger>
-                         <div class=" bottom-0 flex bg-red-400 w-32 h-auto">
-                             df
-                         </div>
                  </div>
-                 </x-splade-dropdown> --}}
+                 {{-- bagian footer --}}
+                 <div class="h-20 relative bottom-0 w-full">
+                     <div class="p-4 py-1 mb-4 bg-black/50 items-center">
+                         <Link class="flex gap-1 items-center justify-start p-2 pe-6" confirm="Apakah yakin keluar?"
+                             confirm-button="Ya!" cancel-button="Tidak" href="{{ route('logout') }}" method="post"
+                             @click.prevent="setToggle('isShowMobileMenu',false)">
+                         <i class="ph-fill ph-sign-out"></i>
+                         <span>Keluar</span>
+                         </Link>
 
-
-             </div>
-             {{-- bagian footer --}}
-             <div class="h-20 relative bottom-0 w-full">
-                 <div class="p-4 py-1 mb-4 bg-black/50 items-center">
-                     <Link class="flex gap-1 items-center justify-start p-2 pe-6" confirm="Apakah yakin keluar?"
-                         confirm-button="Ya!" cancel-button="Tidak" href="{{ route('logout') }}" method="post"
-                         @click.prevent="setToggle('isShowMobileMenu',false)">
-                     <i class="ph-fill ph-sign-out"></i>
-                     <span>Keluar</span>
-                     </Link>
-
-                 </div>
-                 <div @click.prevent="setToggle('isShowMobileMenu',false)"
-                     class="absolute top-1 right-2 w-10 h-10 cursor-pointer bg-wa-teal1 rounded-full flex items-center justify-center text-white text-sm">
-                     <i class="ph-bold ph-x"></i>
+                     </div>
+                     <div @click.prevent="setToggle('isShowMobileMenu',false)"
+                         class="absolute top-1 right-2 w-10 h-10 cursor-pointer bg-wa-teal1 rounded-full flex items-center justify-center text-white text-sm">
+                         <i class="ph-bold ph-x"></i>
+                     </div>
                  </div>
              </div>
-         </div>
          </div>
      </x-splade-transition>
      <nav class="z-[29] fixed bottom-0 w-full h-auto sm:hidden">

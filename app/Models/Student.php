@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Bakid\Dormitory;
 use App\Models\User;
 use App\Models\Bakid\Room;
+use App\Models\Scopes\GenderScope;
 use App\Models\Student\StudentEducationalBackground;
 use App\Models\StudentFamily;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Student extends Model
 {
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new GenderScope);
+    }
+
     use HasFactory;
     protected $guarded = [];
     // protected $primaryKey = 'nis';
@@ -132,6 +138,4 @@ class Student extends Model
             ->withPivot('status')
             ->withTimestamps();
     }
-
-    
 }
