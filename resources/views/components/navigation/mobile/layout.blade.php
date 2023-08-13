@@ -27,32 +27,8 @@
                  </div>
                  {{-- bagian menu --}}
                  <div class="flex-1  p-2 overflow-scroll">
-                     <x-navigation.admin-menu-component name="{{ __('Dashboard') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('dashboard')" />
-                     <x-navigation.admin-menu-component name="{{ __('Announcement') }}" icon="ph-house-line"
-                         :link="route('dashboard')" :active="request()->routeIs('announcement.index')" />
-                     <x-navigation.admin-menu-component name="{{ __('Asrama') }}" icon="ph-house-line" link=""
-                         :active="request()->routeIs('dormitory.index')" :submenu="[
-                             ['name' => 'Asrama', 'link' => route('dormitory.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Non-Formal', 'link' => route('informal.index')],
-                         ]" />
-                     <x-navigation.admin-menu-component name="{{ __('Asrama') }}" icon="ph-house-line" link=""
-                         :active="request()->routeIs('dormitory.index')" :submenu="[
-                             ['name' => 'Asrama', 'link' => route('dormitory.index')],
-                             ['name' => 'Formal', 'link' => route('formal.index')],
-                             ['name' => 'Non-Formal', 'link' => route('informal.index')],
-                         ]" />
+                     <x-menu.admin-mobile-menu />
+
                  </div>
                  {{-- bagian footer --}}
                  <div class="h-20 relative bottom-0 w-full">
@@ -81,16 +57,16 @@
              </div>
          </div>
 
-         <div class="bg-white shadow-lg">
+         <div class="bg-white shadow-lg bottom-navigation">
              <div class="flex px-3 py-3">
                  <!-- 4 menu utama -->
-                 <div class="grid grid-cols-4 w-full gap-1 text-xs">
-                     <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Dashboard') }}"
+                 <div class="grid grid-cols-4 w-full gap-1 text-xs ">
+                     <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Dashboard') }}" :link="route('dashboard')"
                          icon="ph-house-line" :active="request()->routeIs('dashboard')" />
                      <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Announcement') }}"
-                         :link="route('student.index')" icon="ph-broadcast" :active="request()->routeIs('annoucement')" />
-                     <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Search') }}"
-                         :link="route('student.search')" icon="ph-magnifying-glass" :active="request()->routeIs('student.search')" />
+                         :link="route('announcement.index')" icon="ph-broadcast" :active="request()->routeIs('annoucement')" />
+                     <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Search') }}" :link="route('student.search')"
+                         icon="ph-magnifying-glass" :active="request()->routeIs('student.search')" />
                      <x-navigation.admin-menu-component :is_highlight="true" name="Santri" :link="route('student.index')"
                          icon="ph-user-circle" :active="request()->routeIs('profile')" />
 
@@ -101,7 +77,19 @@
  </x-splade-toggle>
  <x-splade-script>
      document.addEventListener("DOMContentLoaded", function () {
-     var navElement = document.querySelector(".bottom-vagigation");
+     var navElement = document.querySelector(".bottom-navigation");
+
+     function isScrollable() {
+     var documentHeight = Math.max(
+     document.body.scrollHeight,
+     document.body.offsetHeight,
+     document.documentElement.clientHeight,
+     document.documentElement.scrollHeight,
+     document.documentElement.offsetHeight
+     );
+     var windowHeight = window.innerHeight;
+     return documentHeight > windowHeight;
+     }
 
      function isScrollAtBottom() {
      var scrollPosition = window.scrollY || window.pageYOffset;
@@ -117,7 +105,7 @@
      }
 
      function hideNavigationIfAtBottom() {
-     if (isScrollAtBottom()) {
+     if (isScrollable() && isScrollAtBottom()) {
      navElement.style.display = "none";
      } else {
      navElement.style.display = "block";
@@ -128,5 +116,6 @@
      hideNavigationIfAtBottom(); // Panggil saat halaman dimuat untuk menyesuaikan status awal
      window.addEventListener("scroll", hideNavigationIfAtBottom);
      });
+
 
  </x-splade-script>

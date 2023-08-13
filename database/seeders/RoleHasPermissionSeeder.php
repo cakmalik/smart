@@ -13,15 +13,16 @@ class RoleHasPermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $p_settings = ['access settings'];
         $p_users = ['access users', 'edit users', 'delete users', 'approval users'];
-        $p_students = ['access students', 'edit students', 'delete students'];
+        $p_students = ['access students', 'edit students', 'delete students', 'approval students', 'payment students'];
         $p_dormitories = ['access dormitories', 'edit dormitories', 'delete dormitories', 'approval dormitories'];
         $p_formal = ['access formal', 'edit formal', 'delete formal', 'approval formal'];
         $p_informal = ['access informal', 'edit informal', 'delete informal', 'approval informal'];
         $p_violation = ['access violation', 'edit violation', 'delete violation', 'approval violation'];
         $p_permit = ['access permit', 'edit permit', 'delete permit', 'approval permit'];
         $p_invoice = ['access invoice', 'edit invoice', 'delete invoice', 'approval invoice'];
+        $p_settings = ['access settings'];
+        $p_admission = ['access admission'];
 
         $admin = Role::where('name', 'admin')->first();
         $admin->givePermissionTo($p_users);
