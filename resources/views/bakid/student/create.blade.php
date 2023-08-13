@@ -2,7 +2,7 @@
 
 <x-app-layout>
     {{-- <x-slot:header>
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             {{ __('Santri Baru') }}
         </h2>
         </x-slot> --}}
