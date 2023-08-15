@@ -17,18 +17,26 @@ class InvoiceController extends Controller
     function invoiceQuery(Request $request)
     {
         $inv = Invoice::query()
-            ->leftJoin('invoice_categories as ic', 'invoices.invoice_category_id', '=', 'ic.id')
-            ->select('invoices.*', 'ic.name as category_name');
+        ->Join('invoice_categories as ic', 'invoices.invoice_category_id', '=', 'ic.id')
+        ->select('invoices.*', 'ic.name as category_name');
         return $inv;
     }
 
     public function index(Request $request)
     {
+
         $invoices = $this->invoiceQuery($request)
             ->where('status', 'unpaid')
+
             ->get();
+
         $histories = $this->invoiceQuery($request)
-            ->where('status', 'paid')->get();
+            ->where('user_id', auth()->user()->id)
+            ->where(function ($q) {
+                $q->where('status', 'paid');
+                $q->orWhere('status', 'waiting');
+            })
+            ->get();
 
         if (auth()->user()->hasRole('santri')) {
             return view('invoice.list', compact('invoices', 'histories'));
