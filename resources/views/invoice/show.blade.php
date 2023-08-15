@@ -133,7 +133,7 @@
                 {{-- end Invoice --}}
 
                 <div class="flex justify-center w-full" v-else>
-                    <div class="flex justify-center bg-white/30 sm:rounded-lg p-3 w-1/2">
+                    <div class="flex justify-center bg-white/30 sm:rounded-lg p-3 sm:w-1/2">
                         <x-splade-form action="{{ route('invoice.upload-proof') }}" :default="$invoice">
                             <x-splade-input class="mt-2" name="invoice_number" type="text" label="Kode Tagihan" />
 

@@ -2,10 +2,11 @@
     <x-splade-toggle data="isHistory">
         <div class="flex justify-between mt-6 gap-1">
             <button class="w-full py-2 border border-slate-400 rounded-l-md"
-                :class="{ 'bg-green-500 text-white': !isHistory }" @click.prevent="toggle('isHistory')">List
-                tagihan</button>
+                :class="{ 'bg-green-500 text-white': !isHistory }" @click.prevent="setToggle('isHistory',false)">
+                Tagihan</button>
             <button class="w-full py-2 border border-slate-400 rounded-r-md"
-                :class="{ 'bg-green-500 text-white': isHistory }" @click.prevent="toggle('isHistory')">Riwayat</button>
+                :class="{ 'bg-green-500 text-white': isHistory }"
+                @click.prevent="setToggle('isHistory',true)">Riwayat</button>
         </div>
         <div v-show="isHistory">
             <x-table v-show="isHistory">
@@ -17,11 +18,11 @@
                         <th scope="col" class="px-6 py-3">
                             Nominal
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Rincian
-                        </th>
+                        
                         <th scope="col" class="px-6 py-3">
                             Status
+                        </th><th scope="col" class="px-6 py-3">
+                            Rincian
                         </th>
                     </tr>
                 </x-slot>
@@ -29,26 +30,33 @@
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="px-6 py-4">
+                            {{ $i->description }}
+                        </td>
+                        <td class="px-6 py-4">
+                            Rp{{ number_format($i->amount) }}
+                        </td>
+                        <td class="px-6 py-4 bg-yellow-500 text-white">
+                            {{ __($i->status) }}
+                        </td>
+                        <td class="px-6 py-4">
                             <Link class="flex items-center justify-center cursor-pointer"
                                 href="{{ route('invoice.show', $i->invoice_number) }}">
                             <i class="ph-fill ph-magnifying-glass-plus"></i>
                             <span>{{ $i->invoice_number }}</span>
                             </Link>
                         </td>
-
-                        <td class="px-6 py-4">
-                            {{ $i->description }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $i->amount }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $i->status }}
-                        </td>
                     </tr>
                 @empty
-                    <tr>
-                        <td colspan="4"> Belum ada riwayat pembayaran</td>
+                    <tr class="text-center h-40">
+                        <td colspan="4">
+                            <div class="flex flex-col justify-center items-center p-4 gap-1">
+                                <lottie-player
+                                    src="https://lottie.host/e1929754-8ae8-40ae-af73-de3d132e5fb6/ZVkbeMfTvv.json"
+                                    background="transparent" speed="1" style="width: 300px; height: 300px;" loop
+                                    autoplay></lottie-player>
+                                <span class="text-lg">Belum ada riwayat pembayaran</span>
+                            </div>
+                        </td>
                     </tr>
                 @endforelse
             </x-table>
