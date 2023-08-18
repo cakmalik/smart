@@ -17,6 +17,7 @@
                             autoplay></lottie-player>
                     </div>
                 </x-slot:empty-state>
+
                 @cell('action', $invoices)
                     <div class="flex gap-1 ">
                         <Link href="{{ route('invoice.show', $invoices->invoice_number) }}"
@@ -28,6 +29,13 @@
                         <i class="ph-fill ph-user-circle"></i>
                         </Link>
                     </div>
+                @endcell
+
+                @cell('status', $invoices)
+                    <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ statusBgColor($invoices->status) . ' ' . statusTextColor($invoices->status) }}">
+                        {{ $invoices->status }}
+                    </span>
                 @endcell
             </x-splade-table>
 
