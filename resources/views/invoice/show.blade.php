@@ -37,7 +37,7 @@
                 {{-- start Invoice --}}
                 <div class="w-full grid grid-col sm:grid-cols-3 gap-4" v-if="!isUpload">
 
-                    <div class="w-full col-span-2 bg-white sm:rounded-lg p-4 sm:p-6">
+                    <div class="w-full col-span-2 bg-white sm:rounded-lg ps-4 pe-6 pt-4 sm:p-6">
                         <div class="grid grid-col sm:flex justify-between gap-3">
                             <img src="{{ asset('bakid/MUBAKID-with-label.png') }}"
                                 class="w-3/4 sm:w-[300px] order-last sm:order-first">
@@ -113,22 +113,76 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
-                        <div class="w-full mb-4">
-                            <span
-                                class="text-lg font-semibold border-b border-gray-300">{{ __('Payment Instructions') }}:</span>
+                    @if ($invoice->status == 'waiting' && $invoice->file?->id)
+                        <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
+                            <div class="w-full mb-4">
+                                <span
+                                    class="text-lg font-semibold border-b border-gray-300">{{ __('Proof of payment') }}:</span>
+                            </div>
+                            <div class="mb-2 sm:w-full">
+                                <img src="{{ asset('storage/proof/' . $invoice->file->file_name) }}" alt="">
+                            </div>
+                            <table class="text-left">
+                                <tr>
+                                    <th>
+                                        <span class="">Kode Tagihan</span>
+                                    </th>
+                                    <td>
+                                        <span class="">: {{ $invoice->invoice_number }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span class="">Bank pengirim</span>
+                                    </th>
+                                    <td>
+                                        <span class="">: {{ $invoice->file->from_bank }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span class="">Nama pengirim</span>
+                                    </th>
+                                    <td>
+                                        <span class="">: {{ $invoice->file->from_account }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span class="">Bank tujuan</span>
+                                    </th>
+                                    <td>
+                                        <span class="">: {{ $invoice->file->to_bank }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span class="">Nominal</span>
+                                    </th>
+                                    <td>
+                                        <span class="">: Rp
+                                            {{-- {{ number_format($invoice->file->amount) }}</span> --}}
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
-                        <div class="p-3 sm:w-full">
-                            <p>
-                            <ul class="list-decimal">
-                                @foreach (json_decode($pi->steps) as $step)
-                                    <li>{{ $step }}</li>
-                                @endforeach
-                            </ul>
-                            </p>
+                    @else
+                        <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
+                            <div class="w-full mb-4">
+                                <span
+                                    class="text-lg font-semibold border-b border-gray-300">{{ __('Payment Instructions') }}:</span>
+                            </div>
+                            <div class="p-3 sm:w-full">
+                                <p>
+                                <ul class="list-decimal">
+                                    @foreach (json_decode($pi->steps) as $step)
+                                        <li>{{ $step }}</li>
+                                    @endforeach
+                                </ul>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                 </div>
 
