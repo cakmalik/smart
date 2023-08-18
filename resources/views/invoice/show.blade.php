@@ -161,10 +161,45 @@
                                     </th>
                                     <td>
                                         <span class="">: Rp
-                                            {{-- {{ number_format($invoice->file->amount) }}</span> --}}
+                                            {{ number_format($invoice->file->amount) }}</span>
                                     </td>
                                 </tr>
                             </table>
+
+                            <div class="w-full my-4">
+                                <span
+                                    class="text-lg font-semibold border-b border-gray-300">{{ __('Tindakan') }}:</span>
+                            </div>
+                            {{-- @can('approval payment') --}}
+                            <x-splade-form>
+
+                                <x-splade-data default="{ accepted: true }">
+                                    <div class="w-full flex justify-start items-center gap-1">
+                                        <button @click.prevent="data.accepted=true"
+                                            class="rounded-lg flex items-center justify-center gap-1 py-2 px-4 bg-green-100 text-green-800 hover:bg-green-200 border border-green-600"
+                                            :class="{ 'bg-green-600 text-white hover:bg-green-700': data.accepted }">
+                                            <i class="ph-fill ph-check-circle"></i>
+                                            <span>{{ __('Approve') }}</span>
+                                        </button>
+                                        <button @click.prevent="data.accepted=false"
+                                            class="rounded-lg flex items-center justify-center gap-1 py-2 px-4 bg-red-100 text-red-800 hover:bg-red-200 border border-red-600"
+                                            :class="{ 'bg-red-600 text-white hover:bg-red-700': !data.accepted }">
+                                            <i class="ph-fill ph-x-circle"></i>
+                                            <span>{{ __('Reject') }}</span>
+                                        </button>
+                                    </div>
+                                    <div v-if="!data.accepted">
+                                        <x-splade-input :label="__('Reason')" name="reason" class="mb-3" />
+                                        <x-splade-submit label="Konfirmasi" confirm-text="Are you sure?"
+                                            class="rounded-lg" />
+                                    </div>
+                                    <div class="mt-3" v-else>
+                                        <x-splade-submit label="Konfirmasi" confirm-text="Are you sure?"
+                                            class="rounded-lg" />
+                                    </div>
+                                </x-splade-data>
+                            </x-splade-form>
+                            {{-- @endcan --}}
                         </div>
                     @else
                         <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
@@ -201,8 +236,9 @@
                             <x-splade-input class="mt-2" name="reference" type="text" label="Kode referensi" />
                             <x-splade-input class="mt-2" name="desc" type="text" label="Keterangan" />
 
-                            <x-splade-file name="filename" :show-filename="false" label="Bukti transfer (Wajib dilampirkan)"
-                                filepond accept="image/jpg, image/png, image/jpeg" max-size="2MB" class="mt-2" />
+                            <x-splade-file name="filename" :show-filename="false"
+                                label="Bukti transfer (Wajib dilampirkan)" filepond
+                                accept="image/jpg, image/png, image/jpeg" max-size="2MB" class="mt-2" />
                             <img class="w-full p-5" v-if="form.filename" :src="form.$fileAsUrl('filename')"
                                 class="mt-2" />
                             {{-- 
@@ -229,8 +265,8 @@
                             v-if="!isUpload">
                             <Link
                                 class="flex items-center gap-2 px-5 py-3 sm:py-4 ring-2 bg-white ring-green-700 sm:rounded-full hover:bg-slate-200 text-base">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="hidden sm:block" width="20" height="20"
-                                fill="#000000" viewBox="0 0 256 256">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="hidden sm:block" width="20"
+                                height="20" fill="#000000" viewBox="0 0 256 256">
                                 <path
                                     d="M197.67,186.37a8,8,0,0,1,0,11.29C196.58,198.73,170.82,224,128,224c-37.39,0-64.53-22.4-80-39.85V208a8,8,0,0,1-16,0V160a8,8,0,0,1,8-8H88a8,8,0,0,1,0,16H55.44C67.76,183.35,93,208,128,208c36,0,58.14-21.46,58.36-21.68A8,8,0,0,1,197.67,186.37ZM216,40a8,8,0,0,0-8,8V71.85C192.53,54.4,165.39,32,128,32,85.18,32,59.42,57.27,58.34,58.34a8,8,0,0,0,11.3,11.34C69.86,69.46,92,48,128,48c35,0,60.24,24.65,72.56,40H168a8,8,0,0,0,0,16h48a8,8,0,0,0,8-8V48A8,8,0,0,0,216,40Z">
                                 </path>
