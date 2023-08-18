@@ -158,3 +158,77 @@ function statusLabel($status)
             break;
     }
 }
+
+if (!function_exists('formatRupiah')) {
+    function formatRupiah($angka)
+    {
+        $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
+        return $hasil_rupiah;
+    }
+}
+
+if (!function_exists('statusBgColor')) {
+    function statusBgColor($status)
+    {
+        switch ($status) {
+            case 'unpaid':
+                return 'bg-yellow-300';
+                break;
+            case 'drat':
+                return 'bg-gray-300';
+                break;
+            case 'sent':
+                return 'bg-blue-300';
+                break;
+            case 'waiting':
+                return 'bg-blue-300';
+                break;
+            case 'paid':
+                return 'bg-green-300';
+                break;
+            case 'canceled':
+                return 'bg-red-300';
+                break;
+            case 'expired':
+                return 'bg-red-300';
+                break;
+
+            default:
+                'bg-gray-300';
+                break;
+        }
+    }
+
+    if (!function_exists('statusTextColor')) {
+        function statusTextColor($status)
+        {
+            switch ($status) {
+                case 'unpaid':
+                    return 'text-yellow-800';
+                    break;
+                case 'drat':
+                    return 'text-gray-800';
+                    break;
+                case 'sent':
+                    return 'text-blue-800';
+                    break;
+                case 'waiting':
+                    return 'text-blue-800';
+                    break;
+                case 'paid':
+                    return 'text-green-800';
+                    break;
+                case 'canceled':
+                    return 'text-red-800';
+                    break;
+                case 'expired':
+                    return 'text-red-800';
+                    break;
+
+                default:
+                    'text-gray-800';
+                    break;
+            }
+        }
+    }
+}
