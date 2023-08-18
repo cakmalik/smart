@@ -12,7 +12,7 @@ class Invoice extends Model
 {
     use HasFactory;
     use PowerJoins;
-    
+
     protected $guarded = [];
     public static function boot()
     {
@@ -45,5 +45,11 @@ class Invoice extends Model
     function file()
     {
         return $this->hasOne(InvoicePaymentFile::class, 'invoice_id');
+    }
+
+    // student
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
     }
 }

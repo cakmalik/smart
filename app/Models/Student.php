@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Bakid\Dormitory;
 use App\Models\User;
+use App\Models\Invoice;
 use App\Models\Bakid\Room;
-use App\Models\Scopes\GenderScope;
-use App\Models\Student\StudentEducationalBackground;
 use App\Models\StudentFamily;
+use App\Models\Bakid\Dormitory;
+use App\Models\Scopes\GenderScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Services\Location\LocationServiceImplement;
+use App\Models\Student\StudentEducationalBackground;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Student extends Model
@@ -137,5 +138,10 @@ class Student extends Model
         return $this->belongsToMany(Dormitory::class, 'room_students', 'student_id', 'dormitory_id')
             ->withPivot('status')
             ->withTimestamps();
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
     }
 }
