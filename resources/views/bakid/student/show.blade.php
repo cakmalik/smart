@@ -34,9 +34,11 @@
                             </svg> </Link>
                         </div>
                     @endif
+                    <Link href="{{ route('student.edit', $student->id) }}">
                     <img class="rounded-xl object-cover w-full h-full"
                         src="{{ $student->student_image ? asset('storage/student-photos/' . $student->student_image) : asset('bakid/default_image.jpg') }}"
                         onerror="this.onerror=null;this.src='{{ asset('bakid/default-profile.png') }}';" />
+                    </Link>
 
                 </div>
                 <div class="grow">
