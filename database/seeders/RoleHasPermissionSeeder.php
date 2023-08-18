@@ -23,6 +23,8 @@ class RoleHasPermissionSeeder extends Seeder
         $p_invoice = ['access invoice', 'edit invoice', 'delete invoice', 'approval invoice'];
         $p_settings = ['access settings'];
         $p_admission = ['access admission'];
+        $p_report = ['access report'];
+        $p_payment = ['access payment', 'edit payment', 'delete payment', 'approval payment'];
 
         $admin = Role::where('name', 'admin')->first();
         $admin->givePermissionTo($p_users);
@@ -30,16 +32,19 @@ class RoleHasPermissionSeeder extends Seeder
         $admin->givePermissionTo('approval students');
         $admin->givePermissionTo($p_settings);
         $admin->givePermissionTo($p_dormitories);
+        $admin->givePermissionTo($p_payment);
 
 
         $sekretaris = Role::where('name', 'sekretaris')->first();
         $sekretaris->givePermissionTo($p_users);
         $sekretaris->givePermissionTo($p_students);
         $sekretaris->givePermissionTo('approval students');
+        $sekretaris->givePermissionTo($p_payment);
 
         $bendahara = Role::where('name', 'bendahara')->first();
         $bendahara->givePermissionTo($p_students);
         $bendahara->givePermissionTo('payment students');
+        $bendahara->givePermissionTo($p_payment);
 
         $student = Role::where('name', 'santri')->first();
         $student->givePermissionTo($p_students);
