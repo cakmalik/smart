@@ -59,5 +59,8 @@
     "Announcement": "Pengumuman",
     "Users": "Pengguna",
     "waiting": "menunggu",
-    "Proof of payment": "Bukti pembayaran"
+    "Proof of payment": "Bukti pembayaran",
+    "Reason": "Alasan",
+    "Approve": "Setujui",
+    "Reject": "Tolak"
 }
