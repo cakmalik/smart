@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('to_bank');
             $table->string('from_account');
             $table->string('to_account')->nullable();
-            $table->string('amount');
+            $table->integer('amount');
             $table->string('title')->nullable();
             $table->string('reference')->nullable();
             $table->string('desc')->nullable();
