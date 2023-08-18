@@ -40,5 +40,9 @@ class RoleHasPermissionSeeder extends Seeder
         $bendahara = Role::where('name', 'bendahara')->first();
         $bendahara->givePermissionTo($p_students);
         $bendahara->givePermissionTo('payment students');
+
+        $student = Role::where('name', 'santri')->first();
+        $student->givePermissionTo($p_students);
+        $student->givePermissionTo('change payment method');
     }
 }
