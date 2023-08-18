@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\InvoicePaymentFile;
+use App\Tables\Invoices;
 use Illuminate\Support\Facades\Log;
 use ProtoneMedia\Splade\Facades\Toast;
 
@@ -17,8 +18,8 @@ class InvoiceController extends Controller
     function invoiceQuery(Request $request)
     {
         $inv = Invoice::query()
-        ->Join('invoice_categories as ic', 'invoices.invoice_category_id', '=', 'ic.id')
-        ->select('invoices.*', 'ic.name as category_name');
+            ->Join('invoice_categories as ic', 'invoices.invoice_category_id', '=', 'ic.id')
+            ->select('invoices.*', 'ic.name as category_name');
         return $inv;
     }
 
@@ -40,6 +41,13 @@ class InvoiceController extends Controller
 
         if (auth()->user()->hasRole('santri')) {
             return view('invoice.list', compact('invoices', 'histories'));
+        } else {
+            return view(
+                'invoice.index',
+                [
+                    'invoices' => Invoices::class
+                ]
+            );
         }
     }
 
