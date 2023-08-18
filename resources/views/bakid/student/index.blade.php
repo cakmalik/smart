@@ -104,13 +104,13 @@
                                                     </td>
                                                     <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
                                                         <div
-                                                            class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800 @if ($i->gender == 'Perempuan') bg-red-100 text-red-500 @endif">
+                                                            class="inline px-3 py-1 text-sm font-normal rounded-full text-white gap-x-2 bg-wa-teal2 dark:bg-gray-800 @if ($i->gender == 'Perempuan') bg-red-100 text-red-500 @endif">
                                                             {{ $i->gender }}
                                                         </div>
                                                     </td>
                                                     <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
                                                         <div
-                                                            class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                            class="inline px-3 py-1 text-sm font-normal rounded-full text-white gap-x-2 bg-wa-teal2 dark:bg-gray-800">
                                                             {{ $i->dormitory_name . '-' . $i->room }}
                                                         </div>
                                                     </td>
@@ -140,23 +140,13 @@
                                                         <div class="flex items-center">
                                                             <div class="flex gap-1 ">
                                                                 <Link modal href="{{ route('student.show', $i->id) }}"
-                                                                    class="flex rounded-full py-2 px-3 bg-slate-500 text-white hover:bg-green-500">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                    viewBox="0 0 24 24" stroke-width="1.5"
-                                                                    stroke="currentColor" class="w-5 h-5 p-1">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
-                                                                </svg>
+                                                                    class="rounded-full flex items-center justify-center gap-1 p-1 pe-2 bg-wa-teal2 text-white hover:bg-green-500">
+                                                                <i class="ph-fill ph-magnifying-glass-plus"></i>
                                                                 Detail
                                                                 </Link>
-                                                                <Link modal href="{{ route('student.edit', $i->id) }}"
-                                                                    class="flex rounded-full py-2 px-3 bg-slate-500 text-white hover:bg-green-500">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                    viewBox="0 0 24 24" stroke-width="1.5"
-                                                                    stroke="currentColor" class="w-5 h-5 p-1">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                                </svg>
+                                                                <Link edit href="{{ route('student.edit', $i->id) }}"
+                                                                    class="rounded-full flex items-center justify-center gap-1 p-1 pe-2 bg-wa-teal2 text-white hover:bg-green-500">
+                                                                <i class="ph-fill ph-pencil-circle"></i>
                                                                 Edit
                                                                 </Link>
 
