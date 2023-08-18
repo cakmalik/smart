@@ -88,7 +88,7 @@ Route::middleware(['splade'])->group(function () {
             Toast::success('sedang dikirim...')->autoDismiss(3)->centerBottom();
             return back();
         })->name('tes.message');
-
+        
         Route::prefix('wali')->group(function () {
             Route::get('/student/family', [UserController::class, 'familyMembers'])->name('student.families');
         });

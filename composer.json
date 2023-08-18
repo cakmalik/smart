@@ -14,6 +14,7 @@
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "haruncpi/laravel-id-generator": "^1.1",
         "intervention/image": "^2.7",
+        "kirschbaum-development/eloquent-power-joins": "^3.2",
         "laravel/dusk": "^7.7",
         "laravel/framework": "^10.8",
         "laravel/sanctum": "^3.2",
