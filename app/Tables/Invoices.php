@@ -36,15 +36,8 @@ class Invoices extends AbstractTable
      */
     public function for()
     {
-        $formattedData = Invoice::query()
-            ->where('status', 'paid')
-            ->orderBy('created_at', 'desc');
-        // ->map(function ($invoice) {
-        //     $invoice->amount = number_format($invoice->amount, 2, ',', '.'); // Ubah format angka
-        //     return $invoice;
-        // });
-
-        return $formattedData;
+        $data =  Invoice::query()->selectRaw('*, concat("Rp ", format(amount, 0)) as amount');
+        return $data;
     }
 
     /**
@@ -68,11 +61,24 @@ class Invoices extends AbstractTable
             ->column('description', sortable: true)
             ->column('amount', sortable: true)
             ->column('status', sortable: true)
-            ->paginate(15);
-        // ->selectFilter()
-        // ->withGlobalSearch()
-
-        // ->bulkAction()
-        // ->export()
+            ->paginate()
+            ->selectFilter(
+                key: 'status',
+                label: 'Status',
+                options: [
+                    'paid' => 'Paid',
+                    'unpaid' => 'Unpaid',
+                ]
+            )->selectFilter(
+                key: 'method_id',
+                label: 'Payment method',
+                options: [
+                    1 => 'Credit card',
+                    2 => 'Paypal',
+                    3 => 'Bank transfer',
+                ]
+            )->withGlobalSearch(
+                columns: ['id', 'invoice_number', 'title', 'description', 'amount']
+            )->column('action', label: 'Action');
     }
 }

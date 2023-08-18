@@ -18,10 +18,11 @@
                         <th scope="col" class="px-6 py-3">
                             Nominal
                         </th>
-                        
+
                         <th scope="col" class="px-6 py-3">
                             Status
-                        </th><th scope="col" class="px-6 py-3">
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Rincian
                         </th>
                     </tr>
@@ -94,10 +95,10 @@
                         <td class="px-6 py-4">
                             {{ $i->description }}
                         </td>
-                        <td class="flex items-center px-6 py-4 space-x-3">
-                            {{ $i->amount }}
+                        <td class="px-6 py-4">
+                            Rp{{ number_format($i->amount) }}
                         </td>
-                        <td class="flex items-center px-6 py-4 space-x-3">
+                        <td class="px-6 py-4">
                             {{ $i->status }}
                         </td>
                     </tr>
