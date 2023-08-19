@@ -88,7 +88,7 @@ Route::middleware(['splade'])->group(function () {
             Toast::success('sedang dikirim...')->autoDismiss(3)->centerBottom();
             return back();
         })->name('tes.message');
-        
+
         Route::prefix('wali')->group(function () {
             Route::get('/student/family', [UserController::class, 'familyMembers'])->name('student.families');
         });
@@ -130,6 +130,8 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/invoice/list', [InvoiceController::class, 'index'])->name('invoice.index');
         Route::post('/upload-proof', [InvoiceController::class, 'uploadProof'])->name('invoice.upload-proof');
         Route::get('/invoice/show/{invoice_number}', [InvoiceController::class, 'show'])->name('invoice.show');
+        Route::post('/invoice/confirm', [InvoiceController::class, 'confirm'])->name('invoice.confirm');
+        Route::get('/invoice/{invoice_number}/approve', [InvoiceController::class, 'approve'])->name('invoice.approve');
 
         Route::post('/reminder/store', [ReminderNotificationController::class, 'store'])->name('reminder.registration');
 

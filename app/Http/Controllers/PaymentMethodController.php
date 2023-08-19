@@ -13,11 +13,11 @@ class PaymentMethodController extends Controller
     public function chooseMethod($invoice_number)
     {
         $invoice = Invoice::where('invoice_number', $invoice_number)->first();
-        if ($invoice->payment_method_id != null) {
-            return redirect()->route('invoice.show', $invoice->invoice_number);
-        }
+        $invoice->load('method');
+        // if ($invoice->payment_method_id != null && $invoice->status == 'unpaid') {
+        //     return redirect()->route('invoice.show', $invoice->invoice_number);
+        // }
         $payment_methods = PaymentMethod::all();
-        // dd($payment_methods);
         return view('invoice.choose_method', compact('invoice', 'payment_methods'));
     }
 

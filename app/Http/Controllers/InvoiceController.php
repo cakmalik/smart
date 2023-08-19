@@ -112,4 +112,59 @@ class InvoiceController extends Controller
             Log::error($e->getMessage() . '--' . $e->getLine());
         }
     }
+
+    public function confirm(Request $request)
+    {
+        dd($request->all());
+        $request->validate(
+            [
+                'invoice_number' => 'required|exists:invoices,invoice_number',
+            ]
+        );
+
+        if ($request->has('reject')) {
+            $i = Invoice::where('invoice_number', $request->invoice_number)->first();
+            $i->status = 'rejected';
+            $i->save();
+
+            $ipf = InvoicePaymentFile::where('invoice_id', $i->id)->first();
+            $ipf->status = 'rejected';
+            $ipf->desc = $request->desc;
+            $ipf->save();
+
+            Toast::success('Pembayaran berhasil ditolak')->autoDismiss(5);
+            return back();
+        }
+
+        $i = Invoice::where('invoice_number', $request->invoice_number)->first();
+        $i->status = 'paid';
+        $i->save();
+
+        Toast::success('Pembayaran berhasil dikonfirmasi')->autoDismiss(20);
+        return back();
+    }
+
+    public function approve($invoice_number)
+    {
+        DB::beginTransaction();
+        try {
+            $i = Invoice::where('invoice_number', $invoice_number)->first();
+            $i->status = 'paid';
+            $i->save();
+
+            $ipf = InvoicePaymentFile::where('invoice_id', $i->id)->first();
+            $ipf->status = 'approved';
+            $ipf->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e->getMessage() . '--' . $e->getLine());
+            Toast::error('Pembayaran gagal dikonfirmasi')->autoDismiss(6);
+            return back();
+        }
+
+        Toast::success('Pembayaran berhasil dikonfirmasi')->autoDismiss(6);
+        return redirect()->route('invoice.index');
+    }
 }
