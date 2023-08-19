@@ -36,7 +36,7 @@
                         <td class="px-6 py-4">
                             Rp{{ number_format($i->amount) }}
                         </td>
-                        <td class="px-6 py-4 bg-yellow-500 text-white">
+                        <td class="px-6 py-4 {{ statusBgColor($i->status) }}">
                             {{ __($i->status) }}
                         </td>
                         <td class="px-6 py-4">
