@@ -73,16 +73,30 @@
                         </div>
                         <div class="relative mt-3 bg-yellow-300 w-full h-6 overflow-scroll">
                             <div class="absolute bg-white px-2 right-8 my-auto  flex items-center">
-                                <h3 class="font-semibold text-lg ">INVOICE</h3>
+                                <h3 class="font-semibold text-lg ">{{ __('INVOICE') }}</h3>
                             </div>
                         </div>
                         <div id="content" class="w-full mt-3 p-3 overflow-scroll">
-                            <div class="flex justify-between">
-                                <div> </div>
+                            <div class="flex items-start  sm:justify-between">
+                                <div class="hidden sm:block"> </div>
                                 <div>
                                     <p> Invoice# : {{ $invoice->invoice_number }}</p>
-                                    <p> Date : {{ Carbon\Carbon::parse($invoice->invoice_date)->format('d/m/Y') }}
-                                    </p>
+
+                                    @if ($invoice->status == 'paid')
+                                        <p> Date : {{ Carbon\Carbon::parse($invoice->invoice_date)->format('d/m/Y') }}
+                                        </p>
+                                    @else
+                                        <div class="">
+                                            <div><span> Berakhir pada </span>:
+                                                <span
+                                                    class="font-bold">{{ Carbon\Carbon::parse($invoice->updated_at)->addHours(24)->translatedFormat('D, d M Y') }}</span>
+                                            </div>
+                                            <div><span> Jam </span>:
+                                                <span
+                                                    class="font-bold">{{ Carbon\Carbon::parse($invoice->updated_at)->addHours(24)->format('H:i') }}</span>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="mt-5">
@@ -171,31 +185,31 @@
                                     class="text-lg font-semibold border-b border-gray-300">{{ __('Tindakan') }}:</span>
                             </div>
                             {{-- @can('approval payment') --}}
-                            <x-splade-form>
-
-                                <x-splade-data default="{ accepted: true }">
-                                    <div class="w-full flex justify-start items-center gap-1">
+                            <x-splade-form :action="route('invoice.confirm')" methood="POST" :default="$invoice">
+                                <x-splade-data :default="['accepted' => true]">
+                                    <div class="w-full flex justify-start items-center">
                                         <button @click.prevent="data.accepted=true"
-                                            class="rounded-lg flex items-center justify-center gap-1 py-2 px-4 bg-green-100 text-green-800 hover:bg-green-200 border border-green-600"
+                                            class=" flex items-center justify-center gap-1 py-2 px-4 bg-green-50 text-green-800 hover:bg-green-200"
                                             :class="{ 'bg-green-600 text-white hover:bg-green-700': data.accepted }">
                                             <i class="ph-fill ph-check-circle"></i>
                                             <span>{{ __('Approve') }}</span>
                                         </button>
                                         <button @click.prevent="data.accepted=false"
-                                            class="rounded-lg flex items-center justify-center gap-1 py-2 px-4 bg-red-100 text-red-800 hover:bg-red-200 border border-red-600"
+                                            class=" flex items-center justify-center gap-1 py-2 px-4 bg-red-50 text-red-800 hover:bg-red-200 "
                                             :class="{ 'bg-red-600 text-white hover:bg-red-700': !data.accepted }">
                                             <i class="ph-fill ph-x-circle"></i>
                                             <span>{{ __('Reject') }}</span>
                                         </button>
                                     </div>
+                                    <x-splade-input type="hidden" v-model="invoice_number" name="invoice_number" />
                                     <div v-if="!data.accepted">
-                                        <x-splade-input :label="__('Reason')" name="reason" class="mb-3" />
-                                        <x-splade-submit label="Konfirmasi" confirm-text="Are you sure?"
-                                            class="rounded-lg" />
+                                        <x-splade-input :label="__('Reason')" name="desc" class="mb-3" />
+                                        <x-splade-submit label="Konfirmasi" class="rounded-lg" />
                                     </div>
                                     <div class="mt-3" v-else>
-                                        <x-splade-submit label="Konfirmasi" confirm-text="Are you sure?"
-                                            class="rounded-lg" />
+                                        <x-button.base :link="route('invoice.approve', $invoice->invoice_number)" variant="md" color="success">
+                                            Konfirmasi
+                                        </x-button.base>
                                     </div>
                                 </x-splade-data>
                             </x-splade-form>
@@ -205,14 +219,17 @@
                         <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
                             <div class="w-full mb-4">
                                 <span
-                                    class="text-lg font-semibold border-b border-gray-300">{{ __('Payment Instructions') }}:</span>
+                                    class="text-lg font-semibold border-b border-gray-300">{{ __('Payment Instructions') }}
+                                    ({{ $invoice->method->name }}):</span>
                             </div>
                             <div class="p-3 sm:w-full">
                                 <p>
                                 <ul class="list-decimal">
-                                    @foreach (json_decode($pi->steps) as $step)
-                                        <li>{{ $step }}</li>
-                                    @endforeach
+                                    @isset($pi->steps)
+                                        @foreach (json_decode($pi->steps) as $step)
+                                            <li>{{ $step }}</li>
+                                        @endforeach
+                                    @endisset
                                 </ul>
                                 </p>
                             </div>
@@ -263,7 +280,7 @@
                     @if (!$invoice->file?->id)
                         <div class="flex justify-around sm:justify-end items-center sm:mt-4 sm:gap-4 sm:mx-3"
                             v-if="!isUpload">
-                            <Link
+                            <Link href="{{ route('payment.choose-method', $invoice->invoice_number) }}"
                                 class="flex items-center gap-2 px-5 py-3 sm:py-4 ring-2 bg-white ring-green-700 sm:rounded-full hover:bg-slate-200 text-base">
                             <svg xmlns="http://www.w3.org/2000/svg" class="hidden sm:block" width="20"
                                 height="20" fill="#000000" viewBox="0 0 256 256">
