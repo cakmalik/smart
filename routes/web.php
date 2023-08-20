@@ -118,7 +118,7 @@ Route::middleware(['splade'])->group(function () {
         });
 
         Route::prefix('doc')->group(function () {
-            Route::get('/generate/kts', [DocumentController::class, 'generateKts'])->name('doc.generate.kts');
+            Route::get('/generate/kts/{nis}/{action}', [DocumentController::class, 'kts'])->name('doc.generate.kts');
         });
 
         Route::resource('/setting', BakidSettingController::class);
