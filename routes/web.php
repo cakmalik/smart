@@ -20,6 +20,7 @@ use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BakidSettingController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FormatMessageController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\FormalEducationController;
@@ -114,6 +115,10 @@ Route::middleware(['splade'])->group(function () {
 
         Route::prefix('setting')->group(function () {
             Route::resource('format-message', FormatMessageController::class);
+        });
+
+        Route::prefix('doc')->group(function () {
+            Route::get('/generate/kts', [DocumentController::class, 'generateKts'])->name('doc.generate.kts');
         });
 
         Route::resource('/setting', BakidSettingController::class);
