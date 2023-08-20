@@ -174,6 +174,7 @@ return [
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
     ])->toArray(),
 
     /*
@@ -192,6 +193,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];
