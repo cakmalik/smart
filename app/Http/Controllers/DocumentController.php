@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use ProtoneMedia\Splade\Facades\Toast;
 use Illuminate\Support\Facades\Storage;
@@ -17,14 +18,14 @@ class DocumentController extends Controller
     public function kartuMahram(string $nis, $action = 'preview')
     {
         $dataSantri = Student::where('nis', $nis)->first();
-        $dataSantri->load('parent', 'room', 'dormitory');
+        $dataSantri->load('parent', 'room', 'dormitory', 'user');
         return $this->generateKartuMahram($dataSantri, $action);
     }
 
     public function kts(string $nis, $action = 'preview')
     {
         $dataSantri = Student::where('nis', $nis)->first();
-        $dataSantri->load('parent', 'room', 'dormitory');
+        $dataSantri->load('parent', 'room', 'dormitory', 'user');
 
         if (!$dataSantri) {
             Toast::danger('data tidak ditemukan')->autoDismiss(2);
@@ -36,230 +37,286 @@ class DocumentController extends Controller
 
     public function generateKts($dataSantri, string $action = 'preview') //preview or download
     {
-        // Buat kanvas gambar dengan lebar dan tinggi tertentu
-        // $width = 85.60 * 300 / 25.4; // sekitar 1011 piksel
-        // $height = 53.98 * 300 / 25.4; // sekitar 638 piksel
-        $width = 5037;
-        $height = 3081;
-        $fontSemiboldPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
-        $fontRegularPath = public_path('fonts/PlusJakartaSans-Regular.ttf');
+        try {
+            // Buat kanvas gambar dengan lebar dan tinggi tertentu
+            // $width = 85.60 * 300 / 25.4; // sekitar 1011 piksel
+            // $height = 53.98 * 300 / 25.4; // sekitar 638 piksel
+            $width = 5037;
+            $height = 3081;
+            $fontSemiboldPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
+            $fontRegularPath = public_path('fonts/PlusJakartaSans-Regular.ttf');
 
-        $image = Image::canvas($width, $height, '#ffffff');
+            $image = Image::canvas($width, $height, '#ffffff');
 
-        // Buat gambar latar belakang dengan ukuran yang sama seperti kanvas
-        $background = Image::canvas($width, $height);
-        $backgroundImage = Image::make(public_path('bakid/kartu/kts.jpg'));
-        $background->insert($backgroundImage, 'center');
-        $image->insert($background);
+            // Buat gambar latar belakang dengan ukuran yang sama seperti kanvas
+            $background = Image::canvas($width, $height);
+            $backgroundImage = Image::make(public_path('bakid/kartu/kts.jpg'));
+            $background->insert($backgroundImage, 'center');
+            $image->insert($background);
 
-        // Tambahkan foto profil
-        // $profileImage = Image::make(public_path('bakid/bg-bakid.png'));
-        // $profileImage->resize(150, 150);
-        // $image->insert($profileImage, 'top-left', 30, 30);
+            // Tambahkan foto profil
+            // $profileImage = Image::make(public_path('bakid/bg-bakid.png'));
+            // $profileImage->resize(150, 150);
+            // $image->insert($profileImage, 'top-left', 30, 30);
 
-        // Tambahkan barcode ke kanvas gambar
-        $barcodeImage = $this->generateBarcode('123456');
-        $image->insert($barcodeImage, 'top-left', 3300, 1600);
+            // Tambahkan barcode ke kanvas gambar
+            $barcodeImage = $this->generateBarcode($dataSantri->nis);
+            $image->insert($barcodeImage, 'top-left', 3300, 1600);
 
-        // Tanggal terdaftar
-        $fontPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
-        $image->text(Carbon::now()->translatedFormat('d F Y'), 3300, 2100, function ($font) use ($fontPath) {
-            $font->file($fontPath);
-            $font->size(110);
-            $font->color('#ffffff');
-            $font->align('left');
-            $font->valign('top');
-        });
-
-        // Tambahkan label (gunakan metode yang sesuai dengan kebutuhan Anda)
-        $tableText = "NO INDUK \nNama \nAsrama \nTempat, Tgl Lahir \nAlamat \nDesa \nKecamatan \nKota/Kab \nAyah \nNo HP";
-        $tableLines = explode("\n", $tableText);
-        $tableX = 200; // Koordinat horizontal awal
-        $tableY = 1050; // Koordinat vertikal awal
-        $tableLineHeight = 200; // Tinggi baris tabel
-
-        foreach ($tableLines as $tableLine) {
-            // Jika baris berisi "Desa", tambahkan spasi di sebelah kiri
-            if (strpos($tableLine, 'Desa') !== false || strpos($tableLine, 'Kecamatan') !== false || strpos($tableLine, 'Kota/Kab') !== false) {
-                $image->text('       ' . $tableLine, $tableX, $tableY, function ($font) use ($fontRegularPath) {
-                    $font->file($fontRegularPath);
-                    $font->size(120);
-                    $font->color('#ffffff');
-                    $font->align('left');
-                    $font->valign('top');
-                });
-            } else {
-                $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontRegularPath) {
-                    $font->file($fontRegularPath);
-                    $font->size(120);
-                    $font->color('#ffffff');
-                    $font->align('left');
-                    $font->valign('top');
-                });
-            }
-            $tableY += $tableLineHeight;
-        }
-
-        // Tambahkan value
-        $tgl_lhr = Carbon::parse($dataSantri->date_of_birth)->translatedFormat('d/m/Y');
-        $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
-
-        $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->place_of_birth}, {$tgl_lhr} \n \n: {$dataSantri->village} \n: {$dataSantri->district} \n: {$dataSantri->city} \n: {$dataSantri->parent?->father_name} \n: {$dataSantri->phone}";
-        $tableLines = explode("\n", $tableText);
-        $tableX = 1250; // Koordinat horizontal awal
-        $tableY = 1050; // Koordinat vertikal awal
-        $tableLineHeight = 200; // Tinggi baris tabel
-
-        foreach ($tableLines as $tableLine) {
-            // Jika baris berisi "Desa", tambahkan spasi di sebelah kiri
-
-            $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontSemiboldPath) {
-                $font->file($fontSemiboldPath);
-                $font->size(120);
+            // Tanggal terdaftar
+            $fontPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
+            $image->text(Carbon::now()->translatedFormat('d F Y'), 3300, 2100, function ($font) use ($fontPath) {
+                $font->file($fontPath);
+                $font->size(110);
                 $font->color('#ffffff');
                 $font->align('left');
                 $font->valign('top');
             });
 
-            $tableY += $tableLineHeight;
-        }
+            // Tambahkan label (gunakan metode yang sesuai dengan kebutuhan Anda)
+            $tableText = "NO INDUK \nNama \nAsrama \nTempat, Tgl Lahir \nAlamat \nDesa \nKecamatan \nKota/Kab \nAyah \nNo HP";
+            $tableLines = explode("\n", $tableText);
+            $tableX = 200; // Koordinat horizontal awal
+            $tableY = 1050; // Koordinat vertikal awal
+            $tableLineHeight = 200; // Tinggi baris tabel
+
+            foreach ($tableLines as $tableLine) {
+                // Jika baris berisi "Desa", tambahkan spasi di sebelah kiri
+                if (strpos($tableLine, 'Desa') !== false || strpos($tableLine, 'Kecamatan') !== false || strpos($tableLine, 'Kota/Kab') !== false) {
+                    $image->text('       ' . $tableLine, $tableX, $tableY, function ($font) use ($fontRegularPath) {
+                        $font->file($fontRegularPath);
+                        $font->size(120);
+                        $font->color('#ffffff');
+                        $font->align('left');
+                        $font->valign('top');
+                    });
+                } else {
+                    $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontRegularPath) {
+                        $font->file($fontRegularPath);
+                        $font->size(120);
+                        $font->color('#ffffff');
+                        $font->align('left');
+                        $font->valign('top');
+                    });
+                }
+                $tableY += $tableLineHeight;
+            }
+
+            // Tambahkan value
+            $tgl_lhr = Carbon::parse($dataSantri->date_of_birth)->translatedFormat('d/m/Y');
+            $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
+
+            $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->place_of_birth}, {$tgl_lhr} \n \n: {$dataSantri->village} \n: {$dataSantri->district} \n: {$dataSantri->city} \n: {$dataSantri->parent?->father_name} \n: {$dataSantri->phone}";
+            $tableLines = explode("\n", $tableText);
+            $tableX = 1250; // Koordinat horizontal awal
+            $tableY = 1050; // Koordinat vertikal awal
+            $tableLineHeight = 200; // Tinggi baris tabel
+
+            foreach ($tableLines as $tableLine) {
+                // Jika baris berisi "Desa", tambahkan spasi di sebelah kiri
+
+                $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontSemiboldPath) {
+                    $font->file($fontSemiboldPath);
+                    $font->size(120);
+                    $font->color('#ffffff');
+                    $font->align('left');
+                    $font->valign('top');
+                });
+
+                $tableY += $tableLineHeight;
+            }
 
 
-        if ($action == 'download') {
-            $file_name = $dataSantri->nis . '.jpg';
-            $path = 'storage/kts/' . $file_name;
-            $image->save(public_path($path));
-            return response()->download(public_path($path));
-        } else {
-            $image->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $temporaryImagePath = 'storage/temp_images/' . $dataSantri->nis . '.jpg';
-            $image->save(public_path($temporaryImagePath));
+            if ($action == 'download') {
+                $file_name = $dataSantri->nis . '.jpg';
+                $path = 'storage/kts/' . $file_name;
+                $image->save(public_path($path));
+                return response()->download(public_path($path));
+            } else {
+                $image->resize(500, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $temporaryImagePath = 'storage/temp_images/' . $dataSantri->nis . '.jpg';
+                $image->save(public_path($temporaryImagePath));
 
-            // Return URL
-            return asset($temporaryImagePath);
+                // Return URL
+                return asset($temporaryImagePath);
+            }
+            return true;
+        } catch (\Exception $e) {
+            return false;
+            Log::error('kts gagal dibuat ' . $e->getMessage() . ' - ' . $e->getLine());
         }
     }
 
     public function generateKartuMahram($dataSantri, string $action = 'preview') //preview or download
     {
-        // Buat kanvas gambar dengan lebar dan tinggi tertentu
-        // $width = 85.60 * 300 / 25.4; // sekitar 1011 piksel
-        // $height = 53.98 * 300 / 25.4; // sekitar 638 piksel
-        $width = 5037;
-        $height = 3081;
-        $fontSemiboldPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
-        $fontRegularPath = public_path('fonts/PlusJakartaSans-Regular.ttf');
+        try {
+            // Buat kanvas gambar dengan lebar dan tinggi tertentu
+            // $width = 85.60 * 300 / 25.4; // sekitar 1011 piksel
+            // $height = 53.98 * 300 / 25.4; // sekitar 638 piksel
+            $width = 5037;
+            $height = 3081;
+            $fontSemiboldPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
+            $fontRegularPath = public_path('fonts/PlusJakartaSans-Regular.ttf');
 
-        $image = Image::canvas($width, $height, '#ffffff');
+            $image = Image::canvas($width, $height, '#ffffff');
 
-        // Buat gambar latar belakang dengan ukuran yang sama seperti kanvas
-        $background = Image::canvas($width, $height);
-        $backgroundImage = Image::make(public_path('bakid/kartu/k_mahram.jpg'));
-        $background->insert($backgroundImage, 'center');
-        $image->insert($background);
+            // Buat gambar latar belakang dengan ukuran yang sama seperti kanvas
+            $background = Image::canvas($width, $height);
+            $backgroundImage = Image::make(public_path('bakid/kartu/k_mahram.jpg'));
+            $background->insert($backgroundImage, 'center');
+            $image->insert($background);
 
-        // Tambahkan foto profil
-        // $profileImage = Image::make(public_path('bakid/bg-bakid.png'));
-        // $profileImage->resize(150, 150);
-        // $image->insert($profileImage, 'top-left', 30, 30);
-
-
-        // Generate QR Code using the QrCode facade
-        $qrCode = QrCode::size(300)->generate('https://your-url-here.com');
-
-        // Save the QR code as a temporary file
-        $qrCodeTempPath = tempnam(sys_get_temp_dir(), 'qrcode');
-        file_put_contents($qrCodeTempPath, $qrCode);
-
-        // Display debug information
-        // dd([
-        //     'QR Code Generated' => $qrCode,
-        //     'QR Code Temp Path' => $qrCodeTempPath,
-        // ]);
-
-        // Create an image from the QR Code data
-        $qrCodeImage = Image::make($qrCodeTempPath);
+            // Tambahkan foto profil
+            // $profileImage = Image::make(public_path('bakid/bg-bakid.png'));
+            // $profileImage->resize(150, 150);
+            // $image->insert($profileImage, 'top-left', 30, 30);
 
 
-        // Tanggal terdaftar
-        $fontPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
-        $image->text(Carbon::now()->translatedFormat('d F Y'), 2270, 2230, function ($font) use ($fontPath) {
-            $font->file($fontPath);
-            $font->size(80);
-            $font->color('#000000');
-            $font->align('left');
-            $font->valign('top');
-        });
+            // Generate QR Code using the QrCode facade
+            // $qrCode = QrCode::size(300)->generate('aaa', public_path('storage/qrcode/qr1.png'));
+            $qrCode = QrCode::format('png')->size(550)->generate($dataSantri->user?->kk, public_path('storage/qrcode/' . $dataSantri->user?->kk . '.png'));
+            // $qrCodeTempPath = tempnam(sys_get_temp_dir(), 'qrcode');
+            // file_put_contents($qrCodeTempPath, $qrCode);
 
-        // Tambahkan label (gunakan metode yang sesuai dengan kebutuhan Anda)
-        $tableText = "NO INDUK \nNama \nAsrama \nOrang Tua/Wali \nAlamat";
-        $tableLines = explode("\n", $tableText);
-        $tableX = 350; // Koordinat horizontal awal
-        $tableY = 1090; // Koordinat vertikal awal
-        $tableLineHeight = 170; // Tinggi baris tabel
+            // Display debug information
+            // dd([
+            //     'QR Code Generated' => $qrCode,
+            //     'QR Code Temp Path' => $qrCodeTempPath,
+            // ]);
 
-        foreach ($tableLines as $tableLine) {
-            // Jika baris berisi "Desa", tambahkan spasi di sebelah kiri
-            if (strpos($tableLine, 'Desa') !== false || strpos($tableLine, 'Kecamatan') !== false || strpos($tableLine, 'Kota/Kab') !== false) {
-                $image->text('       ' . $tableLine, $tableX, $tableY, function ($font) use ($fontRegularPath) {
-                    $font->file($fontRegularPath);
-                    $font->size(120);
-                    $font->color('#000000');
-                    $font->align('left');
-                    $font->valign('top');
-                });
-            } else {
-                $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontRegularPath) {
-                    $font->file($fontRegularPath);
-                    $font->size(120);
-                    $font->color('#000000');
-                    $font->align('left');
-                    $font->valign('top');
-                });
+            // Create an image from the QR Code data
+            $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/' . $dataSantri->user?->kk . '.png')));
+            $image->insert($qrCodeImage, 'bottom-left', 390, 300);
+
+
+            // ...
+            // Insert the parent photo
+            try {
+                if ($dataSantri->parent?->parent_image != null) {
+                    $fotoOrtu = Image::make(public_path('storage/parent-photos/' . $dataSantri->parent?->parent_image));
+                } else {
+                    $fotoOrtu = Image::make(public_path('bakid/default-profile.png'));
+                }
+            } catch (\Exception $e) {
+                // Jika terjadi kesalahan saat membuka gambar, tangani di sini
+                // Anda dapat memberikan fallback gambar atau melakukan tindakan lain
+                $fotoOrtu = Image::make(public_path('bakid/default-profile.png'));
             }
-            $tableY += $tableLineHeight;
-        }
 
-        // Tambahkan value
-        $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
-        $addr = $dataSantri->village . ', ' . $dataSantri->district;
-        $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->parent?->father_name} \n: {$addr} \n  {$dataSantri->city}";
-        $tableLines = explode("\n", $tableText);
-        $tableX = 1260; // Koordinat horizontal awal
-        $tableY = 1090; // Koordinat vertikal awal
-        $tableLineHeight = 170; // Tinggi baris tabel
+            // Determine the dimensions of the larger canvas
+            $canvasWidth = 1200; // Ganti dengan lebar canvas yang Anda inginkan
+            $canvasHeight = 1500; // Ganti dengan tinggi canvas yang Anda inginkan
 
-        foreach ($tableLines as $tableLine) {
-            // Jika baris berisi "Desa", tambahkan spasi di sebelah kiri
+            // Create the canvas
+            $canvas = Image::canvas($canvasWidth, $canvasHeight);
 
-            $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontSemiboldPath) {
-                $font->file($fontSemiboldPath);
-                $font->size(120);
+            // Fit the parent's photo to the canvas and position it in the center
+            $fotoOrtu->fit($canvasWidth, $canvasHeight, null, 'center');
+
+            // Add border radius
+            $radius = 50; // Ganti dengan nilai radius yang Anda inginkan
+            $fotoOrtu->rectangle(0, 0, $fotoOrtu->width(), $fotoOrtu->height(), function ($draw) use ($radius) {
+                $draw->border($radius, '#ffffff'); // Border radius dan warna dapat disesuaikan
+            });
+
+            // Insert the resized and bordered parent's photo to the canvas
+            $canvas->insert($fotoOrtu);
+
+            // Insert the canvas to the main image
+            $image->insert($canvas, 'bottom-right', 210, 400);
+
+            // Set the border radius on the original image
+            $radius = 50; // You can adjust this value based on your preference
+            $image->circle($radius * 2, $canvas->width() / 2, $canvas->height() / 2, function ($draw) {
+                $draw->border(5, '#ffffff'); // You can adjust the border width and color
+            });
+            // ...
+
+            // Tanggal terdaftar
+            $fontPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
+            $image->text(Carbon::now()->translatedFormat('d F Y'), 2270, 2230, function ($font) use ($fontPath) {
+                $font->file($fontPath);
+                $font->size(80);
                 $font->color('#000000');
                 $font->align('left');
                 $font->valign('top');
             });
 
-            $tableY += $tableLineHeight;
-        }
+            // Tambahkan label (gunakan metode yang sesuai dengan kebutuhan Anda)
+            $tableText = "NO INDUK \nNama \nAsrama \nOrang Tua/Wali \nAlamat";
+            $tableLines = explode("\n", $tableText);
+            $tableX = 350; // Koordinat horizontal awal
+            $tableY = 1090; // Koordinat vertikal awal
+            $tableLineHeight = 170; // Tinggi baris tabel
+
+            foreach ($tableLines as $tableLine) {
+                // Jika baris berisi "Desa", tambahkan spasi di sebelah kiri
+                if (strpos($tableLine, 'Desa') !== false || strpos($tableLine, 'Kecamatan') !== false || strpos($tableLine, 'Kota/Kab') !== false) {
+                    $image->text('       ' . $tableLine, $tableX, $tableY, function ($font) use ($fontRegularPath) {
+                        $font->file($fontRegularPath);
+                        $font->size(120);
+                        $font->color('#000000');
+                        $font->align('left');
+                        $font->valign('top');
+                    });
+                } else {
+                    $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontRegularPath) {
+                        $font->file($fontRegularPath);
+                        $font->size(120);
+                        $font->color('#000000');
+                        $font->align('left');
+                        $font->valign('top');
+                    });
+                }
+                $tableY += $tableLineHeight;
+            }
+
+            // Tambahkan value
+            $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
+            $addr = $dataSantri->village . ', ' . $dataSantri->district;
+            $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->parent?->father_name} \n: {$addr} \n  {$dataSantri->city}";
+            $tableLines = explode("\n", $tableText);
+            $tableX = 1260; // Koordinat horizontal awal
+            $tableY = 1090; // Koordinat vertikal awal
+            $tableLineHeight = 170; // Tinggi baris tabel
+
+            foreach ($tableLines as $tableLine) {
+                // Jika baris berisi "Desa", tambahkan spasi di sebelah kiri
+
+                $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontSemiboldPath) {
+                    $font->file($fontSemiboldPath);
+                    $font->size(120);
+                    $font->color('#000000');
+                    $font->align('left');
+                    $font->valign('top');
+                });
+
+                $tableY += $tableLineHeight;
+            }
 
 
-        if ($action == 'download') {
-            $file_name = $dataSantri->nis . '.jpg';
-            $path = 'storage/kts/' . $file_name;
-            $image->save(public_path($path));
-            return response()->download(public_path($path));
-        } else {
-            $image->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $temporaryImagePath = 'storage/temp_images/' . $dataSantri->nis . '.jpg';
-            $image->save(public_path($temporaryImagePath));
+            if ($action == 'download') {
+                $file_name = $dataSantri->nis . '.jpg';
+                $path = 'storage/k_mahram/' . $file_name;
+                $image->save(public_path($path));
+                return response()->download(public_path($path));
+            } else {
+                $image->resize(500, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $temporaryImagePath = 'storage/temp_images/' . $dataSantri->nis . '.jpg';
+                $image->save(public_path($temporaryImagePath));
 
-            // Return URL
-            return asset($temporaryImagePath);
+                // Return URL
+                return asset($temporaryImagePath);
+            }
+            return true;
+        } catch (\Exception $e) {
+            dd($e->getMessage() . ' - ' . $e->getLine());
+            return false;
+            Log::error('kartu mahram gagal dibuat ' . $e->getMessage() . ' - ' . $e->getLine());
         }
     }
 
