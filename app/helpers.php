@@ -140,22 +140,24 @@ if (!function_exists('countBrothers')) {
     }
 }
 
-function statusLabel($status)
-{
-    switch ($status) {
-        case 'unpaid':
-            return 'Menunggu pembayaran';
-            break;
-        case 'drat':
-            return 'Tersimpan';
-            break;
-        case 'sent':
-            return 'Terkirim';
-            break;
+if (!function_exists('statusLabel')) {
+    function statusLabel($status)
+    {
+        switch ($status) {
+            case 'unpaid':
+                return 'Menunggu pembayaran';
+                break;
+            case 'drat':
+                return 'Tersimpan';
+                break;
+            case 'sent':
+                return 'Terkirim';
+                break;
 
-        default:
-            'Menunggu pembayaran';
-            break;
+            default:
+                'Menunggu pembayaran';
+                break;
+        }
     }
 }
 
