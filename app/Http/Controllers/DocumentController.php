@@ -59,9 +59,9 @@ class DocumentController extends Controller
             // $profileImage->resize(150, 150);
             // $image->insert($profileImage, 'top-left', 30, 30);
 
-            // Tambahkan barcode ke kanvas gambar
-            $barcodeImage = $this->generateBarcode($dataSantri->nis);
-            $image->insert($barcodeImage, 'top-left', 3300, 1600);
+            QrCode::format('png')->size(900)->generate($dataSantri->user?->kk, public_path('storage/qrcode/' . $dataSantri->nis . '.png'));
+            $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/' . $dataSantri->nis . '.png')));
+            $image->insert($qrCodeImage, 'top-right', 120, 1000);
 
             // Tanggal terdaftar
             $fontPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
@@ -168,25 +168,8 @@ class DocumentController extends Controller
             $background->insert($backgroundImage, 'center');
             $image->insert($background);
 
-            // Tambahkan foto profil
-            // $profileImage = Image::make(public_path('bakid/bg-bakid.png'));
-            // $profileImage->resize(150, 150);
-            // $image->insert($profileImage, 'top-left', 30, 30);
-
-
-            // Generate QR Code using the QrCode facade
-            // $qrCode = QrCode::size(300)->generate('aaa', public_path('storage/qrcode/qr1.png'));
+            //make qrcode
             $qrCode = QrCode::format('png')->size(550)->generate($dataSantri->user?->kk, public_path('storage/qrcode/' . $dataSantri->user?->kk . '.png'));
-            // $qrCodeTempPath = tempnam(sys_get_temp_dir(), 'qrcode');
-            // file_put_contents($qrCodeTempPath, $qrCode);
-
-            // Display debug information
-            // dd([
-            //     'QR Code Generated' => $qrCode,
-            //     'QR Code Temp Path' => $qrCodeTempPath,
-            // ]);
-
-            // Create an image from the QR Code data
             $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/' . $dataSantri->user?->kk . '.png')));
             $image->insert($qrCodeImage, 'bottom-left', 390, 300);
 
