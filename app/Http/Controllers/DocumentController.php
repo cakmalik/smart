@@ -169,8 +169,8 @@ class DocumentController extends Controller
             $image->insert($background);
 
             //make qrcode
-            $qrCode = QrCode::format('png')->size(550)->generate($dataSantri->user?->kk, public_path('storage/qrcode/' . $dataSantri->user?->kk . '.png'));
-            $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/' . $dataSantri->user?->kk . '.png')));
+            $qrCode = QrCode::format('png')->size(550)->generate($dataSantri->user?->kk, public_path('storage/qrcode/kk' . $dataSantri->user?->kk . '.png'));
+            $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/kk' . $dataSantri->user?->kk . '.png')));
             $image->insert($qrCodeImage, 'bottom-left', 390, 300);
 
 
