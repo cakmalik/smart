@@ -5,8 +5,8 @@
         <h2 class="font-medium text-xl">
             {{ __('bakid.t.students') }}
         </h2>
-        </x-slot>
-
+    </x-slot:header>
+    <x-splade-rehydrate on="kts-generated">
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <!-- component -->
@@ -166,7 +166,8 @@
                     <div class="mt-6 sm:flex sm:items-center sm:justify-between">
                         <div class="text-sm text-gray-500 dark:text-gray-400">
                             Page <span
-                                class="font-medium text-gray-700 dark:text-gray-100">{{ $students->currentPage() }} of
+                                class="font-medium text-gray-700 dark:text-gray-100">{{ $students->currentPage() }}
+                                of
                                 {{ $students->lastPage() }}</span>
                         </div>
 
@@ -203,6 +204,7 @@
                 </section>
             </div>
         </div>
+    </x-splade-rehydrate>
 </x-app-layout>
 <x-splade-script>
 

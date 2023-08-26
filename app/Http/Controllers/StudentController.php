@@ -204,6 +204,12 @@ class StudentController extends Controller
             ->where('students.id', $student->id)
             ->first();
 
+        $fileExists = File::exists(public_path('storage/temp_images/' . $student->nis . '.jpg'));
+        // if (!$fileExists) {
+        //     (new DocumentController)->kts($student->nis);
+        // }
+        $student->kts = $fileExists;
+
         return view('bakid.student.show', compact('student'));
     }
 
