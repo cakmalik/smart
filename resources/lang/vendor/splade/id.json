@@ -63,5 +63,6 @@
     "Reason": "Alasan",
     "Approve": "Setujui",
     "Reject": "Tolak",
-    "INVOICE": "TAGIHAN"
+    "INVOICE": "TAGIHAN",
+    "loading": "sedang memuat"
 }

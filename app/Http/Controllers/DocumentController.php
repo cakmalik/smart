@@ -104,7 +104,11 @@ class DocumentController extends Controller
 
             // Tambahkan value
             $tgl_lhr = Carbon::parse($dataSantri->date_of_birth)->translatedFormat('d/m/Y');
-            $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
+            if (count($dataSantri->dormitory) == 0) {
+                $asrama = '';
+            }else{
+                $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
+            }
 
             $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->place_of_birth}, {$tgl_lhr} \n \n: {$dataSantri->village} \n: {$dataSantri->district} \n: {$dataSantri->city} \n: {$dataSantri->parent?->father_name} \n: {$dataSantri->phone}";
             $tableLines = explode("\n", $tableText);
@@ -126,7 +130,6 @@ class DocumentController extends Controller
                 $tableY += $tableLineHeight;
             }
 
-
             if ($action == 'download') {
                 $file_name = $dataSantri->nis . '.jpg';
                 $path = 'storage/kts/' . $file_name;
@@ -138,12 +141,16 @@ class DocumentController extends Controller
                 });
                 $temporaryImagePath = 'storage/temp_images/' . $dataSantri->nis . '.jpg';
                 $image->save(public_path($temporaryImagePath));
-
+                // return true;
+                // Toast::success('kartu tanda santri berhasil dibuat')->autoDismiss(2);
+                // return redirect()->back();
                 // Return URL
-                return asset($temporaryImagePath);
+                // return asset($temporaryImagePath);
             }
-            return true;
+            // Toast::success('kartu tanda santri berhasil dibuat')->autoDismiss(2);
+            // return back();
         } catch (\Exception $e) {
+
             return false;
             Log::error('kts gagal dibuat ' . $e->getMessage() . ' - ' . $e->getLine());
         }
