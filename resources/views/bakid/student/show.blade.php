@@ -93,7 +93,7 @@
                     @if ($student->kts)
                         <img class="w-full" src="{{ asset('storage/temp_images/' . $student->nis . '.jpg') }}"
                             alt="">
-                        <a class="mt=4"
+                        <a class="mt-4"
                             href="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'download']) }}">Download
                             File</a>
                     @else
@@ -106,7 +106,7 @@
                             <br>
                             <div class="flex items-center gap-2">
                                 <x-splade-submit label="Generate KTS" :spinner="true" />
-                                <a class="mt=4"
+                                <a class="rounded-full p-3 border"
                                     href="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'download']) }}">Download
                                     File</a>
                             </div>
