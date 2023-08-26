@@ -106,7 +106,7 @@ class DocumentController extends Controller
             $tgl_lhr = Carbon::parse($dataSantri->date_of_birth)->translatedFormat('d/m/Y');
             if (count($dataSantri->dormitory) == 0) {
                 $asrama = '';
-            }else{
+            } else {
                 $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
             }
 
@@ -296,7 +296,7 @@ class DocumentController extends Controller
                 $image->resize(500, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
-                $temporaryImagePath = 'storage/temp_images/' . $dataSantri->nis . '.jpg';
+                $temporaryImagePath = 'storage/temp_images/km' . $dataSantri->nis . '.jpg';
                 $image->save(public_path($temporaryImagePath));
 
                 // Return URL
