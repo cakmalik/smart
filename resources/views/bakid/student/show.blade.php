@@ -7,13 +7,13 @@
                     @click="data.active='main'">
                     <i class="ph ph-caret-left text-white"></i>
                 </button>
-                <span class="py-1 px-3 rounded-lg border border-wa-teal2" v-show="data.active!='main'"
+                <span class="ms-3 py-1 px-3 rounded-lg border border-wa-teal2" v-show="data.active!='main'"
                     v-text="data.active"></span>
                 <aside v-show="data.active=='main'">
                     <x-splade-form :default="$student" :action="route('student.update', $student->id)" class=" flex flex-col gap-4" method="put">
                         <div class="grid sm:grid-cols-2 justify-center items-center gap-4">
                             <div class="relative w-56">
-                                @if (!$student->verified_at)
+                                @if ($student->verified_at === null)
                                     @can('approval students')
                                         <div class="absolute bottom-0 left-2 flex justify-center my-3 gap-1">
                                             <Link href="{{ route('student.verify', $student->nis) }}"
@@ -32,16 +32,15 @@
                                     @endcan
                                 @else
                                     <div class="absolute top-0 right-2 flex justify-center my-3 gap-1">
-                                        <Link href="{{ route('student.verify', $student->nis) }}"
-                                            confirm="Konfirmasi..." confirm-text="Akan diterima santri aktif?"
-                                            confirm-button="Ya" cancel-button="Tidak, cek dulu"
+                                        <div
                                             class="flex items-center justify-between  rounded-full text-green-600 hover:bg-green-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            fill="currentColor" class="bg-white rounded-full" viewBox="0 0 256 256">
-                                            <path
-                                                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z">
-                                            </path>
-                                        </svg> </Link>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                                                fill="currentColor" class="bg-white rounded-full" viewBox="0 0 256 256">
+                                                <path
+                                                    d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z">
+                                                </path>
+                                            </svg>
+                                        </div>
                                     </div>
                                 @endif
                                 <h3 class="bg-wa-teal2 rounded-t-xl p-1 text-center text-white">{{ $student->nis }}</h3>
@@ -52,9 +51,9 @@
                                 </Link>
                             </div>
                             <div class="grow">
-                                <h3 class="text-xl">{{ $student->student_name }}</h3>
-                                <h3 class="text-gray-500">{{ $student->nickname }}</h3>
-                                <h3>{{ $student->district . ' - ' . $student->city }}</h3>
+                                <h3 class="text-xl capitalize">{{ $student->student_name }}</h3>
+                                <h3 class="text-gray-500 capitalize">{{ $student->nickname }}</h3>
+                                <h3 class="capitalize">{{ $student->district . ' - ' . $student->city }}</h3>
                                 <h3>Asrama : {{ $student->dormitory_name . '-' . $student->room }}</h3>
                                 <h3>Jumlah saudara : {{ $student->brothers_count }}</h3>
                                 @hasrole('bendahara')
@@ -66,14 +65,16 @@
                                     </div>
                                 @else
                                     <div class="grid grid-cols-2 mt-3 gap-2 text-center">
-                                        <button @click="data.active='kts'"
+                                        <button @click="data.active='KTS'"
                                             class="p-3 border bg-green-500 hover:bg-green-600 rounded-xl text-white">
                                             KTS
                                         </button>
-                                        <button @click="data.active='mahram'"
-                                            class="p-3 border bg-green-500 hover:bg-green-600 rounded-xl text-white">
-                                            MAHRAM
-                                        </button>
+                                        @if ($student->gender == 'Perempuan')
+                                            <button @click="data.active='MAHRAM'"
+                                                class="p-3 border bg-green-500 hover:bg-green-600 rounded-xl text-white">
+                                                MAHRAM
+                                            </button>
+                                        @endif
                                         <a href="{{ route('student.pdf.mou', $student->nis) }}"
                                             class="p-3 border border-slate-300 text-slate-600 hover:bg-green-200 rounded-xl">
                                             MoU
@@ -89,24 +90,26 @@
                     </x-splade-form>
                 </aside>
 
-                <aside class="mt-3 w-full" v-show="data.active=='kts'">
+                <aside class="mt-3 w-full" v-show="data.active=='KTS'">
                     @if ($student->kts)
                         <img class="w-full" src="{{ asset('storage/temp_images/' . $student->nis . '.jpg') }}"
                             alt="">
-                        <a class="mt-4"
-                            href="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'download']) }}">Download
-                            File</a>
+                        <div class="flex justify-center items-center">
+                            <a class=" rounded-full p-5"
+                                href="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'download']) }}">Download
+                                File</a>
+                        </div>
                     @else
                         <x-splade-form background stay method="GET" @success="$splade.emit('kts-generated')"
                             action="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'preview']) }}">
                             <p v-if="form.processingInBackground">Sedang generate KTS...</p>
                             <p v-else-if="form.wasSuccessful">Berhasil digenerate, tutup dan klik lagi detail!
                             </p>
-                            <p v-else> UPPSss, Kts belum tersedia </p>
+                            <p v-else> Upss, KTS belum tersedia </p>
                             <br>
                             <div class="flex items-center gap-2">
                                 <x-splade-submit label="Generate KTS" :spinner="true" />
-                                <a class="rounded-full p-3 border"
+                                <a class="rounded-full p-3 py-2 border"
                                     href="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'download']) }}">Download
                                     File</a>
                             </div>
@@ -115,9 +118,31 @@
 
                 </aside>
 
-                <aside class="mt-3 w-full" v-show="data.active=='mahram'">
-                    <img class="w-full" src="{{ asset('storage/temp_images/' . $student->nis . '.jpg') }}"
-                        alt="">
+                <aside class="mt-3 w-full" v-show="data.active=='MAHRAM'">
+                    @if ($student->mahram)
+                        <img class="w-full" src="{{ asset('storage/temp_images/km' . $student->nis . '.jpg') }}"
+                            alt="">
+                        <div class="flex justify-center items-center">
+                            <a class=" rounded-full p-5"
+                                href="{{ route('doc.generate.k_mahram', ['nis' => $student->nis, 'action' => 'download']) }}">Download
+                                File</a>
+                        </div>
+                    @else
+                        <x-splade-form background stay method="GET" @success="$splade.emit('kts-generated')"
+                            action="{{ route('doc.generate.k_mahram', ['nis' => $student->nis, 'action' => 'preview']) }}">
+                            <p v-if="form.processingInBackground">Sedang generate Kartu Mahram...</p>
+                            <p v-else-if="form.wasSuccessful">Berhasil digenerate, tutup dan klik lagi detail!
+                            </p>
+                            <p v-else> Upss, Kartu Mahram belum tersedia </p>
+                            <br>
+                            <div class="flex items-center gap-2">
+                                <x-splade-submit label="Generate KTS" :spinner="true" />
+                                <a class="rounded-full p-3 py-2 border"
+                                    href="{{ route('doc.generate.k_mahram', ['nis' => $student->nis, 'action' => 'download']) }}">Download
+                                    File</a>
+                            </div>
+                        </x-splade-form>
+                    @endif
                 </aside>
             </x-splade-data>
         </x-splade-lazy>
