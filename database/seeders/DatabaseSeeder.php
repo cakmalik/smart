@@ -13,7 +13,6 @@ use Database\Seeders\PaymentMethodSeeder;
 use Database\Seeders\BakidEducationSeeder;
 use Database\Seeders\InvoiceUtilitySeeder;
 use Database\Seeders\InvoiceCategorySeeder;
-use Database\Seeders\RoleHasPermissionSeeder;
 use Database\Seeders\PaymentInstructionSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,8 +32,8 @@ class DatabaseSeeder extends Seeder
             InvoiceUtilitySeeder::class,
             FormatMessageSeeder::class,
             RoleSeeder::class,
-            PermissionSeeder::class,
             UserSeeder::class,
+            PermissionSeeder::class,
             StudentSeeder::class,
         ]);
     }

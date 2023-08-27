@@ -24,6 +24,7 @@ class PermissionSeeder extends Seeder
         $p_invoice = ['access invoice', 'edit invoice', 'delete invoice', 'approval invoice'];
         $p_settings = ['access settings'];
         $p_admission = ['access admission'];
+        $payment = ['change payment method'];
 
         $permissions = array_merge(
             $p_users,
@@ -35,7 +36,8 @@ class PermissionSeeder extends Seeder
             $p_permit,
             $p_invoice,
             $p_settings,
-            $p_admission
+            $p_admission,
+            $payment
         );
 
         foreach ($permissions as $permission) {
@@ -48,18 +50,23 @@ class PermissionSeeder extends Seeder
         $admin->givePermissionTo('approval students');
         $admin->givePermissionTo($p_settings);
         $admin->givePermissionTo($p_dormitories);
+        $admin->givePermissionTo($p_invoice);
         $admin->givePermissionTo($p_admission);
-
 
         $sekretaris = Role::where('name', 'sekretaris')->first();
         $sekretaris->givePermissionTo($p_users);
         $sekretaris->givePermissionTo($p_students);
         $sekretaris->givePermissionTo('approval students');
-        $sekretaris->givePermissionTo($p_admission);
-        
+        $sekretaris->givePermissionTo($p_invoice);
+        $admin->givePermissionTo($p_admission);
+
         $bendahara = Role::where('name', 'bendahara')->first();
         $bendahara->givePermissionTo($p_students);
-        $bendahara->givePermissionTo('payment students');
-        $bendahara->givePermissionTo($p_admission);
+        $bendahara->givePermissionTo($p_invoice);
+        $admin->givePermissionTo($p_admission);
+
+        $student = Role::where('name', 'santri')->first();
+        $student->givePermissionTo($p_students);
+        $student->givePermissionTo($payment);
     }
 }
