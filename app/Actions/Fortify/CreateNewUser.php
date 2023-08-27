@@ -4,11 +4,12 @@ namespace App\Actions\Fortify;
 
 use App\Models\Team;
 use App\Models\User;
+use Laravel\Jetstream\Jetstream;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Jetstream\Jetstream;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -24,11 +25,32 @@ class CreateNewUser implements CreatesNewUsers
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'string', 'max:255', 'unique:users,phone'],
-            'kk' => ['required', 'numeric', 'unique:users,kk'],
+            'phone' => ['required', 'string',],
+            'kk' => ['required', 'numeric'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
+
+        //isthere
+        $isthere = User::where('kk', $input['kk'])
+            ->orWhere('phone', $input['phone'])
+            ->orWhere('email', $input['email'])->first();
+
+        if ($isthere) {
+            if ($isthere->email == $input['email']) {
+                throw ValidationException::withMessages([
+                    'email' => __('The email has already been taken.'),
+                ]);
+            } elseif ($isthere->phone == $input['phone']) {
+                throw ValidationException::withMessages([
+                    'phone' => __('Nomor HP sudah digunakan, jika anda pernah mendaftar silahkan login.'),
+                ]);
+            } elseif ($isthere->kk == $input['kk']) {
+                throw ValidationException::withMessages([
+                    'kk' => __('Nomor KK sudah digunakan, jika anda pernah mendaftar silahkan login.'),
+                ]);
+            }
+        }
 
         return DB::transaction(function () use ($input) {
             return tap(User::create([
