@@ -13,7 +13,7 @@ class GenderScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        if (auth()->check() && auth()->user()->role !== 'santri') {
+        if (auth()->check() && roleName() != 'santri') {
             $builder->where('students.gender', auth()->user()->gender);
         }
     }

@@ -32,8 +32,7 @@
                     <x-dashboard.santri-baru :data="$x" />
                 </x-splade-rehydrate>
                 {{-- akun wali murid yang belum pernah mendaftarkan anaknya --}}
-            @elseif (roleName() == 'santri' &&
-                    auth()->user()->students->count() == 0)
+            @elseif (roleName() == 'santri' && isHasStudents() > 0)
                 <x-welcome />
                 {{-- untuk admin --}}
             @else

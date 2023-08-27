@@ -32,7 +32,7 @@
     @endif
 
 
-    @if (Auth::user()->students->count() == 0 &&
+    @if (isHasStudents() == 0 &&
             !auth()->user()->isAdmin() &&
             isCanAdmission())
 
@@ -42,7 +42,7 @@
             </h2>
 
             <p class="mt-4 text-gray-900 text-base leading-relaxed text-center">
-                @if (Auth::user()->students->count() == 0)
+                @if (isHasStudents() == 0)
                     Anda terdeteksi belum mendaftarkan putra/putri anda sebagai santri di pesantren kami, silahkan
                     daftarkan
                 @endif
