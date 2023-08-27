@@ -83,7 +83,7 @@
 
                                                 <th scope="col"
                                                     class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-slate-700 dark:text-gray-400">
-                                                    Phone</th>
+                                                    Mendaftar</th>
 
                                                 <th scope="col" class="relative py-3.5 px-4">
                                                     <span class="sr-only">Edit</span>
@@ -140,7 +140,7 @@
 
                                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                         <div class="flex items-center">
-                                                            {{ $i->phone }}
+                                                            {{ Carbon\Carbon::parse($i->created_at)->diffForHumans() }}
                                                         </div>
                                                     </td>
 
