@@ -184,6 +184,7 @@ class StudentController extends Controller
         $student = Student::leftJoin('room_students as rs', 'students.id', '=', 'rs.student_id')
             ->leftJoin('dormitories as dr', 'dr.id', '=', 'rs.dormitory_id')
             ->leftJoin('rooms as r', 'r.id', '=', 'rs.room_id')
+            ->join('users as u', 'u.id', '=', 'students.user_id')
             ->select(
                 'students.id as id',
                 'students.name as student_name',
@@ -200,6 +201,7 @@ class StudentController extends Controller
                 'dr.name as dormitory_name',
                 'r.name as room',
                 'students.verified_at',
+                'u.kk',
                 DB::raw("(SELECT COUNT(*) FROM students AS s2 WHERE s2.user_id = students.user_id) AS brothers_count")
 
             )
@@ -207,10 +209,11 @@ class StudentController extends Controller
             ->first();
 
         $fileExists = File::exists(public_path('storage/temp_images/' . $student->nis . '.jpg'));
-        $fileMahram = File::exists(public_path('storage/temp_images/km' . $student->nis . '.jpg'));
+        $fileMahram = File::exists(public_path('storage/temp_images/kk' . $student->kk . '.jpg'));
         // if (!$fileExists) {
         //     (new DocumentController)->kts($student->nis);
         // }
+
         $student->kts = $fileExists;
         $student->mahram = $fileMahram;
 

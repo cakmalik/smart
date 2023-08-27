@@ -119,7 +119,7 @@
                     History
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
-                <x-nav-link :href="route('student.create')" data-tooltip-target="tooltip-profile" type="button"
+                <x-nav-link :href="route('family.cards')" data-tooltip-target="tooltip-profile" type="button"
                     class="inline-flex flex-col items-center justify-center px-5 rounded-r-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <svg class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
