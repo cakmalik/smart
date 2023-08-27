@@ -200,37 +200,44 @@ if (!function_exists('statusBgColor')) {
                 break;
         }
     }
+}
 
-    if (!function_exists('statusTextColor')) {
-        function statusTextColor($status)
-        {
-            switch ($status) {
-                case 'unpaid':
-                    return 'text-yellow-800';
-                    break;
-                case 'drat':
-                    return 'text-gray-800';
-                    break;
-                case 'sent':
-                    return 'text-blue-800';
-                    break;
-                case 'waiting':
-                    return 'text-blue-800';
-                    break;
-                case 'paid':
-                    return 'text-green-800';
-                    break;
-                case 'canceled':
-                    return 'text-red-800';
-                    break;
-                case 'expired':
-                    return 'text-red-800';
-                    break;
+if (!function_exists('statusTextColor')) {
+    function statusTextColor($status)
+    {
+        switch ($status) {
+            case 'unpaid':
+                return 'text-yellow-800';
+                break;
+            case 'drat':
+                return 'text-gray-800';
+                break;
+            case 'sent':
+                return 'text-blue-800';
+                break;
+            case 'waiting':
+                return 'text-blue-800';
+                break;
+            case 'paid':
+                return 'text-green-800';
+                break;
+            case 'canceled':
+                return 'text-red-800';
+                break;
+            case 'expired':
+                return 'text-red-800';
+                break;
 
-                default:
-                    'text-gray-800';
-                    break;
-            }
+            default:
+                'text-gray-800';
+                break;
         }
     }
+}
+
+function isHasStudents()
+{
+    $s = Student::where('user_id', auth()->user()->id)->count();
+    dd($s);
+    return $s;
 }
