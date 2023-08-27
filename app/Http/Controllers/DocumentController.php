@@ -180,7 +180,6 @@ class DocumentController extends Controller
             $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/kk' . $dataSantri->user?->kk . '.png')));
             $image->insert($qrCodeImage, 'bottom-left', 390, 300);
 
-
             // ...
             // Insert the parent photo
             try {
@@ -264,7 +263,11 @@ class DocumentController extends Controller
             }
 
             // Tambahkan value
-            $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
+            if (count($dataSantri->dormitory) == 0) {
+                $asrama = '';
+            } else {
+                $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
+            }
             $addr = $dataSantri->village . ', ' . $dataSantri->district;
             $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->parent?->father_name} \n: {$addr} \n  {$dataSantri->city}";
             $tableLines = explode("\n", $tableText);
@@ -288,7 +291,7 @@ class DocumentController extends Controller
 
 
             if ($action == 'download') {
-                $file_name = $dataSantri->nis . '.jpg';
+                $file_name = $dataSantri->user?->kk . '.jpg';
                 $path = 'storage/k_mahram/' . $file_name;
                 $image->save(public_path($path));
                 return response()->download(public_path($path));
@@ -296,7 +299,7 @@ class DocumentController extends Controller
                 $image->resize(500, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
-                $temporaryImagePath = 'storage/temp_images/km' . $dataSantri->nis . '.jpg';
+                $temporaryImagePath = 'storage/temp_images/kk' . $dataSantri->user?->kk . '.jpg';
                 $image->save(public_path($temporaryImagePath));
 
                 // Return URL

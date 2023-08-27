@@ -120,7 +120,7 @@
 
                 <aside class="mt-3 w-full" v-show="data.active=='MAHRAM'">
                     @if ($student->mahram)
-                        <img class="w-full" src="{{ asset('storage/temp_images/km' . $student->nis . '.jpg') }}"
+                        <img class="w-full" src="{{ asset('storage/temp_images/kk' . $student->kk . '.jpg') }}"
                             alt="">
                         <div class="flex justify-center items-center">
                             <a class=" rounded-full p-5"
