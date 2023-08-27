@@ -8,20 +8,19 @@
             <h2 class="text-xl font-semibold leading-tight">
                 {{ __('Dashboard') }}
             </h2>
-            {{-- @hasrole('santri')
+            @if (roleName() == 'santri' && isHasStudents() == 0)
                 <Link confirm="Apakah yakin keluar?" confirm-button="Ya!" cancel-button="Tidak" href="{{ route('logout') }}"
                     method="post">
                 <i class="ph-fill ph-sign-out"></i>
                 </Link>
-            @endhasrole --}}
+            @endif
         </div>
     </x-slot:header>
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 ">
             {{-- jika akun wali murid yang sudah punya anak terdaftar --}}
-            @if (roleName() == 'santri' &&
-                    auth()->user()->students->count() != 0)
+            @if (roleName() == 'santri' && isHasStudents() != 0)
                 {{-- <div class="grid grid-cols-2 gap-2 mb-4 sm:grid-cols-4 sm:gap-3">
                         <x-card.summary />
                         <x-card.summary />
@@ -32,7 +31,7 @@
                     <x-dashboard.santri-baru :data="$x" />
                 </x-splade-rehydrate>
                 {{-- akun wali murid yang belum pernah mendaftarkan anaknya --}}
-            @elseif (roleName() == 'santri' && isHasStudents() > 0)
+            @elseif (roleName() == 'santri' && isHasStudents() == 0)
                 <x-welcome />
                 {{-- untuk admin --}}
             @else

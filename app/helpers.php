@@ -191,6 +191,9 @@ if (!function_exists('statusBgColor')) {
             case 'canceled':
                 return 'bg-red-300';
                 break;
+            case 'reject':
+                return 'bg-red-300';
+                break;
             case 'expired':
                 return 'bg-red-300';
                 break;
@@ -224,6 +227,9 @@ if (!function_exists('statusTextColor')) {
             case 'canceled':
                 return 'text-red-800';
                 break;
+            case 'reject':
+                return 'text-red-800';
+                break;
             case 'expired':
                 return 'text-red-800';
                 break;
@@ -238,6 +244,5 @@ if (!function_exists('statusTextColor')) {
 function isHasStudents()
 {
     $s = Student::where('user_id', auth()->user()->id)->count();
-    dd($s);
     return $s;
 }

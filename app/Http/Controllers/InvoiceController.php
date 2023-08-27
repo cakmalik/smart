@@ -28,7 +28,7 @@ class InvoiceController extends Controller
 
         $invoices = $this->invoiceQuery($request)
             ->where('status', 'unpaid')
-
+            ->orderByDesc('id')
             ->get();
 
         $histories = $this->invoiceQuery($request)
@@ -74,7 +74,7 @@ class InvoiceController extends Controller
                 'to_bank' => 'required',
                 'from_account' => 'required',
                 'filename' => 'required|image|mimes:png,jpg',
-                'amount' => 'required',
+                'amount' => 'required|numeric',
             ]
         );
         $i = Invoice::where('invoice_number', $request->invoice_number)->first();
@@ -87,6 +87,13 @@ class InvoiceController extends Controller
         // Store the image in the "public" disk (assuming you have configured it in config/filesystems.php)
         $imageFile->storeAs('public/proof', $imageName);
 
+        //find invoice payment file
+        $ipf = InvoicePaymentFile::where('invoice_id', $i->id)->first();
+        //jika ada, hapus dulu
+        if ($ipf) {
+            $ipf->delete();
+        }
+        
         try {
             $ifp = new InvoicePaymentFile();
             $ifp->invoice_id = $i->id;
@@ -107,41 +114,40 @@ class InvoiceController extends Controller
             $i->save();
 
             Toast::success('Bukti pembayaran berhasil dikirim')->autoDismiss(20);
-            return back();
+            return redirect()->route('dashboard');
         } catch (\Exception $e) {
+            Toast::danger('Bukti pembayaran gagal dikirim')->autoDismiss(2);
             Log::error($e->getMessage() . '--' . $e->getLine());
+            return back();
         }
     }
 
     public function confirm(Request $request)
     {
-        dd($request->all());
         $request->validate(
             [
                 'invoice_number' => 'required|exists:invoices,invoice_number',
             ]
         );
 
-        if ($request->has('reject')) {
+        try {
+
             $i = Invoice::where('invoice_number', $request->invoice_number)->first();
-            $i->status = 'rejected';
+            $i->status = 'waiting';
             $i->save();
 
             $ipf = InvoicePaymentFile::where('invoice_id', $i->id)->first();
-            $ipf->status = 'rejected';
+            $ipf->status = 'reject';
             $ipf->desc = $request->desc;
             $ipf->save();
 
-            Toast::success('Pembayaran berhasil ditolak')->autoDismiss(5);
+            Toast::success('Penolakan berhasil dikonfirmasi')->autoDismiss(5);
+            return back();
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . '--' . $e->getLine());
+            Toast::danger('Penolakan gagal dikonfirmasi')->autoDismiss(5);
             return back();
         }
-
-        $i = Invoice::where('invoice_number', $request->invoice_number)->first();
-        $i->status = 'paid';
-        $i->save();
-
-        Toast::success('Pembayaran berhasil dikonfirmasi')->autoDismiss(20);
-        return back();
     }
 
     public function approve($invoice_number)

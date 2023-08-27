@@ -64,5 +64,6 @@
     "Approve": "Setujui",
     "Reject": "Tolak",
     "INVOICE": "TAGIHAN",
-    "loading": "sedang memuat"
+    "loading": "sedang memuat",
+    "reject": "Ditolak"
 }
