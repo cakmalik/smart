@@ -15,12 +15,13 @@ use App\Http\Controllers\UserController;
 use App\Models\Informal\InformalEducation;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\MutationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BakidSettingController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FormatMessageController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\FormalEducationController;
@@ -111,6 +112,10 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/student/{student:nis}/kts', [StudentController::class, 'kts'])->name('student.kts');
         Route::get('/student/{student:nis}/verify', [StudentController::class, 'verify'])->name('student.verify');
         Route::get('/student/{student:nis}/k-mahrom', [StudentController::class, 'kMahrom'])->name('student.k-mahrom');
+
+        Route::prefix('mutation')->group(function () {
+            Route::get('/', [MutationController::class, 'index'])->name('mutation.index');
+        });
 
         Route::resource('announcement', AnnouncementController::class);
 

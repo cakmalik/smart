@@ -14,22 +14,14 @@
             ['name' => 'Rekap pembayaran', 'link' => route('invoice.index')],
         ]" />
     @endcan
-    @can('access settings')
-        <x-nav-link :href="route('setting.index')" :active="request()->routeIs('setting.index')">
-            {{ __('Settings') }}
-        </x-nav-link>
-    @endcan
-    @can('access users')
-        <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
-            {{ __('Users') }}
-        </x-nav-link>
-    @endcan
+
     @can(['access dormitories'])
         <x-nav-link-group main="Manajemen" :items="[
             // 'sub' => [
             ['name' => 'Asrama', 'link' => route('dormitory.index')],
             ['name' => 'Formal', 'link' => route('formal.index')],
             ['name' => 'Non-Formal', 'link' => route('informal.index')],
+            ['name' => 'Mutasi', 'link' => route('mutation.index')],
             // ],
         ]" />
         <x-nav-link-group main="Formal" :items="[
@@ -47,6 +39,19 @@
             // ],
         ]" />
     @endcan
+
+    @can('access users')
+        <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+            {{ __('Users') }}
+        </x-nav-link>
+    @endcan
+
+    @can('access settings')
+        <x-nav-link :href="route('setting.index')" :active="request()->routeIs('setting.index')">
+            {{ __('Settings') }}
+        </x-nav-link>
+    @endcan
+
     @hasrole('santri')
         @if (Auth::user()->students->count() > 0)
             <x-nav-link :href="route('student.families')" :active="request()->routeIs('student.families')">
