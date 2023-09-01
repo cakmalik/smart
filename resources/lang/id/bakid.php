@@ -113,5 +113,6 @@ return [
         'family_cards' => 'Kartu Keluarga',
         'students' => 'Data Santri',
         'new_students' => 'Santri Baru',
+        'mutation' => 'Mutasi'
     ]
 ];
