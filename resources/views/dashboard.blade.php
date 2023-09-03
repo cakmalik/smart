@@ -1,7 +1,4 @@
 @seoTitle(__('Dashboard'))
-<script setup>
-    const framework = ref('laravel');
-</script>
 <x-app-layout>
     <x-slot:header>
         <div class="flex justify-between items-center gap-3">
