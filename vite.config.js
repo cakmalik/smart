@@ -21,7 +21,18 @@ export default defineConfig({
     ssr: {
         noExternal: ["vue", "@protonemedia/laravel-splade"],
     },
+    // build: {
+    //     chunkSizeWarningLimit: 1000 * 2024, // 1 MB
+    //   },
     build: {
-        chunkSizeWarningLimit: 1600,
-      },
+        rollupOptions: {
+          output: {
+            manualChunks(id) {
+              if (id.includes('node_modules')) {
+                return 'vendor';
+              }
+            },
+          },
+        },
+    }
 });
