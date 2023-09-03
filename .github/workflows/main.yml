@@ -24,7 +24,7 @@ jobs:
           port: 21
           script_stop: true
           script: |
-            cd public_html/dev-bepos-tab
+            cd public_html
             php artisan down
             git stash
             git checkout dev-server
