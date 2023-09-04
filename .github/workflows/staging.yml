@@ -24,6 +24,7 @@ jobs:
           script_stop: true
           script: |
             cd ../home/bakid.id/public_html
+            git checkout staging
             git pull origin staging
             npm install
             npm run build
