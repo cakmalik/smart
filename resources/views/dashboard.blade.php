@@ -13,6 +13,18 @@
             @endif
         </div>
     </x-slot:header>
+        <div class="flex justify-between items-center gap-3">
+            <h2 class="text-xl font-semibold leading-tight">
+                {{ __('Dashboard') }}
+            </h2>
+            @if (roleName() == 'santri' && isHasStudents() == 0)
+                <Link confirm="Apakah yakin keluar?" confirm-button="Ya!" cancel-button="Tidak" href="{{ route('logout') }}"
+                    method="post">
+                <i class="ph-fill ph-sign-out"></i>
+                </Link>
+            @endif
+        </div>
+    </x-slot:header>
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 ">
