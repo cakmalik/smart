@@ -3,7 +3,7 @@ name: Laravel Release
 on:
   push:
     branches:
-      - staging
+      - main
 
 jobs:
   deploy_development:
