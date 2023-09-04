@@ -13,7 +13,7 @@ createApp({
     render: renderSpladeApp({ el }),
 })
     .use(SpladePlugin, {
-        "suppress_compile_errors": true,
+        suppress_compile_errors: true,
         max_keep_alive: 10,
         transform_anchors: false,
         progress_bar: false,
