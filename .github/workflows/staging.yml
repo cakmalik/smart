@@ -26,6 +26,9 @@ jobs:
            export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             cd ../home/bakid.id/public_html
+            php artisan down
+            php artisan migrate --force
+            composer install --no-interaction --no-dev --prefer-dist
             git checkout staging
             git pull origin staging
             npm install
