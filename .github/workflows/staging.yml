@@ -23,6 +23,9 @@ jobs:
           port: 22
           script_stop: true
           script: |
+           export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            npm --help
             cd ../home/bakid.id/public_html
             git checkout staging
             git pull origin staging
