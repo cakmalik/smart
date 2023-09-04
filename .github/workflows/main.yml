@@ -27,8 +27,8 @@ jobs:
             cd public_html
             php artisan down
             git stash
-            git checkout dev-server
-            git pull origin dev-server
+            git checkout staging
+            git pull origin staging
             composer install
             php artisan migrate --force
             php artisan optimize
