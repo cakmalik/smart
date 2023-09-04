@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - staging
+name: 🚀 Deploy website on push staging
+
+jobs:
+  deploy_development:
+    name: 🎉 Deploy to development
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy to development with SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SERVER_SSHKEY }}
+          # passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          port: 22
+          script_stop: true
+          script: |
+            cd ../home/bakid.id/public_html
