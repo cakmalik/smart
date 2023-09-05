@@ -1,4 +1,5 @@
  @props(['link' => '#', 'is_highlight' => false, 'submenu' => false])
+ {{-- BOTTOM --}}
  @if ($is_highlight)
      <Link class="w-full h-12" href="{{ $link }}">
      <div class="flex flex-col gap-1 items-center justify-between ">
@@ -11,6 +12,7 @@
      </div>
      </Link>
  @else
+     {{-- SIDEBAR --}}
      @if ($submenu == false)
          <Link href="{{ $link }}" class="flex w-full ">
          <div class="flex">
@@ -32,7 +34,7 @@
                              <span>{{ $name }}</span>
                          </div>
                      </div>
-                     <div class=" flex flex-col w-full gap-1 ps-10" v-show="toggled">
+                     <div class=" flex flex-col w-full gap-2 ps-10" v-show="toggled">
                          @foreach ($submenu as $sm)
                              <Link href="{{ $sm['link'] }}">
                              {{ $sm['name'] }}

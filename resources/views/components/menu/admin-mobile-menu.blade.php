@@ -9,3 +9,13 @@
         ['name' => 'Santri Baru', 'link' => route('student.new')],
         ['name' => 'Rekap pembayaran', 'link' => route('invoice.index')],
     ]" />
+
+<x-navigation.admin-menu-component name="{{ __('Management') }}" icon="ph-house-line" link="" :active="request()->routeIs(['dormitory.index', 'formal.index', 'informal.index', 'mutation.index'])"
+    :submenu="[
+        ['name' => 'Asrama', 'link' => route('dormitory.index')],
+        ['name' => 'Pendidikan Formal', 'link' => route('formal.index')],
+        ['name' => 'Pendidikan Non-Formal', 'link' => route('informal.index')],
+        ['name' => 'Mutasi', 'link' => route('mutation.index')],
+    ]" />
+
+<x-navigation.admin-menu-component name="{{ __('User') }}" icon="ph-megaphone" :link="route('user.index')" :active="request()->routeIs('user.index')" />
