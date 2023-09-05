@@ -33,3 +33,4 @@ jobs:
             git pull origin staging
             npm install
             npm run build
+            php artisan up
