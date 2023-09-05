@@ -1,6 +1,6 @@
     <x-splade-toggle data="isShowMobileMenu">
-        <div id="mobileMenuId"
-            class="fixed z-50 w-full h-16 max-w-lg transition-opacity duration-300 ease-in-out -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
+        <div id="mobileMenuId" class="z-40"
+            class="fixed z-40 w-full h-16 max-w-lg transition-opacity duration-300 ease-in-out -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
             <div class="relative grid h-full max-w-lg grid-cols-5 mx-auto">
                 <x-nav-link :href="route('dashboard')" data-tooltip-target="tooltip-home" type="button"
                     class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
@@ -155,7 +155,6 @@
 
 
                 let lastTouchY = null;
-                const stickyButton = document.getElementById('mobileMenuId');
 
                 window.addEventListener('touchmove', (event) => {
                 const currentTouchY = event.touches[0].clientY;
