@@ -1,6 +1,6 @@
 @seoTitle(__('Dashboard'))
 <x-app-layout>
-    <x-slot:header>
+    <x-slot>
         <div class="flex justify-between items-center gap-3">
             <h2 class="text-xl font-semibold leading-tight">
                 {{ __('Dashboard') }}
@@ -12,7 +12,7 @@
                 </Link>
             @endif
         </div>
-    </x-slot:header>
+    </x-slot>
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 ">
