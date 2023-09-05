@@ -139,29 +139,35 @@
             </div>
         </div>
         <x-splade-script>
-            {{-- window.onscroll = function () {
-        if (pageYOffset >= 50) {
-        document.getElementById('mobileMenuId').style.visibility = "hidden";
-        } else {
-        document.getElementById('mobileMenuId').style.visibility = "visible";
-        }
-        }; --}}
-
-            let scrollPosition = 0;
+            let lastScrollPosition = window.scrollY;
             const stickyButton = document.getElementById('mobileMenuId');
 
-            window.addEventListener('wheel', (event) => {
-            if (event.deltaY < 0) { stickyButton.classList.remove('hidden'); {{-- stickyButton.classList.remove('opacity-0');
-                stickyButton.classList.add('opacity-100');  --}} } else if
-                (event.deltaY> 0) {
-                {{-- stickyButton.classList.remove('opacity-100');
-                stickyButton.classList.add('opacity-0'); --}}
-                {{-- setTimeout(() => { --}}
-                stickyButton.classList.add('hidden');
-                {{-- }, 1000); --}}
-                }else{
+            window.addEventListener('scroll', () => {
+            const currentScrollPosition = window.scrollY;
 
+            if (currentScrollPosition < lastScrollPosition) { stickyButton.classList.remove('hidden'); } else if
+                (currentScrollPosition> lastScrollPosition) {
+                stickyButton.classList.add('hidden');
                 }
+
+                lastScrollPosition = currentScrollPosition;
                 });
+
+
+                let lastTouchY = null;
+                const stickyButton = document.getElementById('mobileMenuId');
+
+                window.addEventListener('touchmove', (event) => {
+                const currentTouchY = event.touches[0].clientY;
+
+                if (lastTouchY !== null) {
+                if (currentTouchY < lastTouchY) { stickyButton.classList.add('hidden'); } else if (currentTouchY>
+                    lastTouchY) {
+                    stickyButton.classList.remove('hidden');
+                    }
+                    }
+
+                    lastTouchY = currentTouchY;
+                    });
         </x-splade-script>
     </x-splade-toggle>
