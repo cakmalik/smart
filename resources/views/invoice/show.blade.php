@@ -5,7 +5,7 @@
         <h2 class="font-medium text-xl">
             {{ __('Invoice Details') }}
         </h2>
-    </x-slot:header>
+    </x-slot>
     <x-splade-toggle data="isUpload">
         <div class="max-w-7xl py-12 mx-auto sm:px-6 lg:px-8">
             <x-button.back />

@@ -14,7 +14,7 @@
             <i class="ph-fill ph-sign-out"></i>
             </Link>
         @endhasrole
-    </x-slot:header>
+    </x-slot>
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 ">
