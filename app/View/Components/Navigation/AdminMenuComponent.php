@@ -12,7 +12,7 @@ class AdminMenuComponent extends Component
     public $active;
     public $icon;
 
-    public function __construct(string $name, bool $active = false, string $icon)
+    public function __construct(string $name,  string $icon, bool $active = false)
     {
         $this->name = $name;
         $this->active = $active;

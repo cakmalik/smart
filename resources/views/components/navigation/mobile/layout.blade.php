@@ -76,7 +76,6 @@
      </nav>
  </x-splade-toggle>
  <x-splade-script>
-     console.log(1)
      document.addEventListener("DOMContentLoaded", function () {
      var navElement = document.querySelector(".bottom-navigation");
 
@@ -93,6 +92,7 @@
      }
 
      function isScrollAtBottom() {
+     console.log('bawah');
      var scrollPosition = window.scrollY || window.pageYOffset;
      var windowHeight = window.innerHeight;
      var documentHeight = Math.max(
@@ -113,8 +113,6 @@
      }
      }
 
-     // Panggil fungsi hideNavigationIfAtBottom() saat halaman dimuat dan ketika dilakukan scrolling
-     hideNavigationIfAtBottom(); // Panggil saat halaman dimuat untuk menyesuaikan status awal
      window.addEventListener("scroll", hideNavigationIfAtBottom);
      });
 
