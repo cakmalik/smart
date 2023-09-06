@@ -30,6 +30,7 @@ jobs:
             php artisan migrate --force
             composer install --no-interaction --no-dev --prefer-dist
             git checkout staging
+            git reset --hard
             git pull origin staging
             npm install
             npm run build
