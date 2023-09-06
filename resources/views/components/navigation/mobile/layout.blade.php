@@ -26,7 +26,7 @@
                      </div>
                  </div>
                  {{-- bagian menu --}}
-                 <div class="flex-1 p-2 py-5 overflow-scroll">
+                 <div class="flex-1  p-2 overflow-scroll">
                      <x-menu.admin-mobile-menu />
 
                  </div>
@@ -49,7 +49,7 @@
              </div>
          </div>
      </x-splade-transition>
-     <nav class="z-[29] fixed bottom-0 w-full h-auto sm:hidden bottom-vagigation">
+     <nav class="z-40 fixed bottom-0 w-full h-auto sm:hidden bottom-navigation">
          <div class="flex justify-end  items-center w-full" v-if="!isShowMobileMenu">
              <div @click.prevent="setToggle('isShowMobileMenu',true)"
                  class="w-12 h-12 me-5 mb-5 cursor-pointer bg-wa-light rounded-full flex items-center justify-center text-white">
@@ -76,6 +76,7 @@
      </nav>
  </x-splade-toggle>
  <x-splade-script>
+     console.log(1)
      document.addEventListener("DOMContentLoaded", function () {
      var navElement = document.querySelector(".bottom-navigation");
 
