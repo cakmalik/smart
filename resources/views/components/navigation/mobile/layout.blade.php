@@ -75,7 +75,7 @@
          </div>
      </nav>
  </x-splade-toggle>
- <x-splade-script>
+ {{-- <x-splade-script>
      document.addEventListener("DOMContentLoaded", function () {
      var navElement = document.querySelector(".bottom-navigation");
 
@@ -117,4 +117,4 @@
      });
 
 
- </x-splade-script>
+ </x-splade-script> --}}
