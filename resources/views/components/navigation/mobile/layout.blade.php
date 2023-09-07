@@ -118,3 +118,42 @@
 
 
  </x-splade-script> --}}
+ {{-- <x-splade-script>
+     document.addEventListener("DOMContentLoaded", function () {
+     var navElement = document.querySelector(".bottom-navigation");
+
+     function hideNavigationIfScrolling() {
+     var scrollPosition = window.scrollY || window.pageYOffset;
+     if (scrollPosition >= 50) { // Ubah 50 sesuai kebutuhan Anda
+     navElement.style.display = "none";
+     } else {
+     navElement.style.display = "block";
+     }
+     }
+
+     window.addEventListener("scroll", hideNavigationIfScrolling);
+     });
+
+ </x-splade-script> --}}
+ <x-splade-script>
+     document.addEventListener("DOMContentLoaded", function () {
+     var navElement = document.querySelector(".bottom-navigation");
+     var lastScrollPosition = 0;
+
+     function hideNavigationIfScrolling() {
+     var scrollPosition = window.scrollY || window.pageYOffset;
+
+     if (scrollPosition > lastScrollPosition) {
+     // Scroll ke bawah, sembunyikan navigasi
+     navElement.style.display = "none";
+     } else {
+     // Scroll ke atas, tampilkan navigasi
+     navElement.style.display = "block";
+     }
+
+     lastScrollPosition = scrollPosition;
+     }
+
+     window.addEventListener("scroll", hideNavigationIfScrolling);
+     });
+ </x-splade-script>
