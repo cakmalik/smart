@@ -49,7 +49,7 @@
              </div>
          </div>
      </x-splade-transition>
-     <nav class="z-40 fixed bottom-0 w-full h-auto sm:hidden bottom-navigation">
+     <nav class="z-30 fixed bottom-0 w-full h-auto sm:hidden bottom-navigation">
          <div class="flex justify-end  items-center w-full" v-if="!isShowMobileMenu">
              <div @click.prevent="setToggle('isShowMobileMenu',true)"
                  class="w-12 h-12 me-5 mb-5 cursor-pointer bg-wa-light rounded-full flex items-center justify-center text-white">
@@ -75,4 +75,3 @@
          </div>
      </nav>
  </x-splade-toggle>
- 
