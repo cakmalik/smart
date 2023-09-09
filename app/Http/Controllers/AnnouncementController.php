@@ -2,9 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Carbon\Carbon;
+use App\Models\Announcement;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use ProtoneMedia\Splade\SpladeForm;
+use Illuminate\Support\Facades\Auth;
+use ProtoneMedia\Splade\SpladeTable;
+use Spatie\QueryBuilder\QueryBuilder;
+use ProtoneMedia\Splade\Facades\Toast;
+use Spatie\QueryBuilder\AllowedFilter;
+use ProtoneMedia\Splade\FormBuilder\Date;
+use ProtoneMedia\Splade\FormBuilder\File;
+use ProtoneMedia\Splade\FormBuilder\Input;
+use App\Forms\Bakid\CreateAnnouncementForm;
+use ProtoneMedia\Splade\FormBuilder\Submit;
+use ProtoneMedia\Splade\FormBuilder\Textarea;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\UpdateAnnouncementRequest;
-use App\Models\Announcement;
 
 class AnnouncementController extends Controller
 {
@@ -13,7 +30,30 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        return view('announcement.index');
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                Collection::wrap($value)->each(function ($value) use ($query) {
+                    $query
+                        ->orWhere('title', 'LIKE', "%{$value}%");
+                });
+            });
+        });
+
+        $data = QueryBuilder::for(Announcement::class)
+            ->defaultSort('title')
+            ->allowedSorts(['title'])
+            ->allowedFilters(['title', $globalSearch]);
+
+        return view('announcement.index', [
+            'data' => SpladeTable::for($data)
+                ->withGlobalSearch()
+                ->defaultSort('title')
+                ->column(key: 'title', searchable: true, sortable: true, canBeHidden: false)
+                ->column(key: 'start_show', searchable: true, sortable: true)
+                ->column(key: 'end_show', searchable: true, sortable: true)
+                ->column(label: 'Actions')
+                ->paginate(15),
+        ]);
     }
 
     /**
@@ -21,7 +61,9 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        //
+        return view('announcement.create', [
+            'form' => CreateAnnouncementForm::class
+        ]);
     }
 
     /**
@@ -29,8 +71,33 @@ class AnnouncementController extends Controller
      */
     public function store(StoreAnnouncementRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $start = Carbon::createFromFormat('d-m-Y H:i', $request->start_show);
+            $end = Carbon::createFromFormat('d-m-Y H:i', $request->end_show);
+
+            $announ = new Announcement();
+            $announ->title = $request->title;
+            $announ->body = $request->body;
+            $announ->start_show = $start->format('Y-m-d H:i:s');
+            $announ->end_show = $end->format('Y-m-d H:i:s');
+            $announ->created_by = Auth::user()->id;
+            $announ->save();
+
+            DB::commit();
+
+            Toast::success('Berhasil menambah pengumuman');
+            Log::info('Pengumuman berhasil ditambahkan');
+
+            return redirect()->route('announcement.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+            Toast::danger('Terjadi kesalahan: ' . $e->getMessage());
+            Log::error($e->getMessage() . ' - ' . $e->getLine()); // Cek penggunaan Log
+            return back()->withInput();
+        }
     }
+
 
     /**
      * Display the specified resource.

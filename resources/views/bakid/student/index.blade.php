@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot:header>
         <h2 class="font-medium text-xl">
-            {{ __('bakid.t.students') }}
+            {{ __('students') }}
         </h2>
     </x-slot>
     <x-splade-rehydrate on="kts-generated">

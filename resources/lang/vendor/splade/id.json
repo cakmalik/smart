@@ -66,5 +66,20 @@
     "INVOICE": "TAGIHAN",
     "loading": "sedang memuat",
     "reject": "Ditolak",
-    "Mutation": "Mutasi"
+    "Mutation": "Mutasi",
+    "title": "judul",
+    "content": "Konten",
+    "start": "mulai",
+    "end": "berakhir",
+    "image": "gambar",
+    "create": "buat",
+    "create announcement": "buat pengumuman",
+    "students": "santri",
+    "mutation": "mutasi",
+    "family_members": "anggota keluarga",
+    "family_cards": "kartu anggota",
+    "dashboard":"dashboard",
+    "family_member":"anggota keluarga",
+    "manage_account":"kelola akun",
+    "sign out":"keluar"
 }

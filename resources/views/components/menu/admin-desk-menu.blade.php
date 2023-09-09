@@ -1,11 +1,11 @@
 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-        {{ __('message.dashboard') }}
+        {{ __('dashboard') }}
     </x-nav-link>
 
     @can('access students')
         <x-nav-link :href="route('student.index')" :active="request()->routeIs('student.index')">
-            {{ __('bakid.t.students') }}
+            {{ __('students') }}
         </x-nav-link>
     @endcan
     @can('access admission')
@@ -55,7 +55,7 @@
     @hasrole('santri')
         @if (Auth::user()->students->count() > 0)
             <x-nav-link :href="route('student.families')" :active="request()->routeIs('student.families')">
-                {{ __('message.family_member') }}
+                {{ __(family_member') }}
             </x-nav-link>
         @endif
     @endhasrole

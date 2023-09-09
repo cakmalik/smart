@@ -64,7 +64,7 @@
                                     class="w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                                     <!-- Account Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('message.manage_account') }}
+                                        {{ __('manage_account') }}
                                     </div>
 
                                     <x-dropdown-link :href="route('profile.show')">
@@ -82,7 +82,7 @@
                                     <!-- Authentication -->
                                     <x-splade-form :action="route('logout')">
                                         <x-dropdown-link as="button">
-                                            {{ __('message.sign_out') }}
+                                            {{ __(sign_out') }}
                                         </x-dropdown-link>
                                     </x-splade-form>
                                 </div>

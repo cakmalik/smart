@@ -241,8 +241,10 @@ if (!function_exists('statusTextColor')) {
     }
 }
 
-function isHasStudents()
-{
-    $s = Student::where('user_id', auth()->user()->id)->count();
-    return $s;
+if (!function_exists('isHasStudents')) {
+    function isHasStudents()
+    {
+        $s = Student::where('user_id', auth()->user()->id)->count();
+        return $s;
+    }
 }

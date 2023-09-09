@@ -19,10 +19,10 @@
     ]" />
 <x-navigation.admin-menu-component name="{{ __('Approval') }}" icon="ph-check-circle" link="" :active="request()->routeIs(['approval.index'])"
     :submenu="[
-        ['name' => 'Dropout', 'link' => route('approval.index', 'dropout')],
+        ['name' => 'Dropout (on progress)', 'link' => route('approval.index', 'dropout')],
         ['name' => 'Asrama', 'link' => route('approval.index', 'asrama')],
-        ['name' => 'Formal', 'link' => route('approval.index', 'formal')],
-        ['name' => 'Nonformal', 'link' => route('approval.index', 'nonformal')],
+        ['name' => 'Formal (on progress)', 'link' => route('approval.index', 'formal')],
+        ['name' => 'Nonformal (on progress)', 'link' => route('approval.index', 'nonformal')],
     ]" />
 <x-navigation.admin-menu-component name="{{ __('User') }}" icon="ph-megaphone" :link="route('user.index')"
     :active="request()->routeIs('user.index')" />

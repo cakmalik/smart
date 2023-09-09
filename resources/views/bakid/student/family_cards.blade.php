@@ -1,9 +1,9 @@
-@seoTitle(__('bakid.t.family_members'))
+@seoTitle(__('family_members'))
 
 <x-app-layout>
     <x-slot:header>
         <h2 class="font-medium text-xl">
-            {{ __('bakid.t.family_cards') }}
+            {{ __('family_cards') }}
         </h2>
     </x-slot>
 

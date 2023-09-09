@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot:header>
         <h2 class="font-medium text-xl">
-            {{ __('bakid.t.mutation') }}
+            {{ __('mutation') }}
         </h2>
     </x-slot>
     <div class="py-12">

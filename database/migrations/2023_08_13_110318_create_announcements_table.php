@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('body');
+            $table->dateTime('start_show');
+            $table->dateTime('end_show');
+            $table->unsignedBigInteger('created_by');
+            $table->string('image')->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
