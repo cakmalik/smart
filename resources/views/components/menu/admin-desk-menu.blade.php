@@ -55,7 +55,7 @@
     @hasrole('santri')
         @if (Auth::user()->students->count() > 0)
             <x-nav-link :href="route('student.families')" :active="request()->routeIs('student.families')">
-                {{ __(family_member') }}
+                {{ __('family_member') }}
             </x-nav-link>
         @endif
     @endhasrole
