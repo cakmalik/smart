@@ -36,8 +36,7 @@ class UserController extends Controller
                 });
             });
         });
-        $globalSearch =
-            $users = QueryBuilder::for(User::class)
+        $users = QueryBuilder::for(User::class)
             ->defaultSort('name')
             ->allowedSorts(['name', 'email'])
             ->allowedFilters(['name', 'email', $globalSearch])

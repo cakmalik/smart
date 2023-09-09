@@ -21,12 +21,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\Bakid\ApprovalController;
 use App\Http\Controllers\BakidSettingController;
 use App\Http\Controllers\FormatMessageController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\FormalEducationController;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\ReminderNotificationController;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,6 +114,9 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/student/{student:nis}/kts', [StudentController::class, 'kts'])->name('student.kts');
         Route::get('/student/{student:nis}/verify', [StudentController::class, 'verify'])->name('student.verify');
         Route::get('/student/{student:nis}/k-mahrom', [StudentController::class, 'kMahrom'])->name('student.k-mahrom');
+
+        Route::get('/approval/{category}', [ApprovalController::class, 'index'])->name('approval.index');
+        Route::get('/approve/{id}/{category}', [ApprovalController::class, 'action'])->name('approval.action');
 
         Route::prefix('mutation')->group(function () {
             Route::get('/', [MutationController::class, 'index'])->name('mutation.index');
