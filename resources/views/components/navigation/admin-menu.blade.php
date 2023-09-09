@@ -14,7 +14,7 @@
                     </div>
 
                     <!-- Navigation Links -->
-                    <x-menu.admin-desk-menu/>
+                    <x-menu.admin-desk-menu />
 
                 </div>
 
@@ -58,34 +58,33 @@
                                         </button>
                                     </span>
                                 @endif
-                                </x-slot>
+                            </x-slot>
 
-                                <div
-                                    class="w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
-                                    <!-- Account Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('manage_account') }}
-                                    </div>
-
-                                    <x-dropdown-link :href="route('profile.show')">
-                                        {{ __('Profile') }}
-                                    </x-dropdown-link>
-                                    @hasrole('admin')
-                                        @if (\Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                            <x-dropdown-link :href="route('api-tokens.index')">
-                                                {{ __('API Tokens') }}
-                                            </x-dropdown-link>
-                                        @endif
-                                    @endhasrole
-                                    <div class="border-t border-gray-200" />
-
-                                    <!-- Authentication -->
-                                    <x-splade-form :action="route('logout')">
-                                        <x-dropdown-link as="button">
-                                            {{ __(sign_out') }}
-                                        </x-dropdown-link>
-                                    </x-splade-form>
+                            <div class="w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                                <!-- Account Management -->
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    {{ __('manage_account') }}
                                 </div>
+
+                                <x-dropdown-link :href="route('profile.show')">
+                                    {{ __('Profile') }}
+                                </x-dropdown-link>
+                                @hasrole('admin')
+                                    @if (\Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                        <x-dropdown-link :href="route('api-tokens.index')">
+                                            {{ __('API Tokens') }}
+                                        </x-dropdown-link>
+                                    @endif
+                                @endhasrole
+                                <div class="border-t border-gray-200" />
+
+                                <!-- Authentication -->
+                                <x-splade-form :action="route('logout')">
+                                    <x-dropdown-link as="button">
+                                        {{ __('sign_out') }}
+                                    </x-dropdown-link>
+                                </x-splade-form>
+                            </div>
                         </x-splade-dropdown>
                     </div>
                 </div>
