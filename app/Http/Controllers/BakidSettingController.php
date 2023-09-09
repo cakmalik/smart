@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\BakidSetting;
 use Illuminate\Http\Request;
 use Psy\Formatter\Formatter;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Config;
 use ProtoneMedia\Splade\Facades\Toast;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreBakidSettingRequest;
 use App\Http\Requests\UpdateBakidSettingRequest;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class BakidSettingController extends Controller
 {
@@ -138,5 +141,23 @@ class BakidSettingController extends Controller
         }
 
         return [];
+    }
+
+    function switchLocale()
+    {
+        // Mendapatkan locale saat ini dari session atau nilai default dari konfigurasi
+        $currentLocale = Session::get('locale', Config::get('app.locale'));
+
+        // Menentukan locale yang akan diganti
+        $newLocale = ($currentLocale == 'en') ? 'id' : 'en';
+
+        // Menyimpan nilai baru ke dalam session
+        Session::put('locale', $newLocale);
+
+        // Anda bisa mengembalikan nilai $newLocale jika diperlukan
+        App::setLocale($newLocale);
+        // return $newLocale;
+        Toast::success('Berhasil ganti bahasa');
+        return back();
     }
 }

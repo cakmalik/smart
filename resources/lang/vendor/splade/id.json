@@ -78,8 +78,11 @@
     "mutation": "mutasi",
     "family_members": "anggota keluarga",
     "family_cards": "kartu anggota",
-    "dashboard":"dashboard",
-    "family_member":"anggota keluarga",
-    "manage_account":"kelola akun",
-    "sign out":"keluar"
+    "dashboard": "dashboard",
+    "family_member": "anggota keluarga",
+    "manage_account": "kelola akun",
+    "Sign out": "keluar",
+    "add": "tambah",
+    "delete": "hapus",
+    "Deleted": "Berhasil dihapus"
 }

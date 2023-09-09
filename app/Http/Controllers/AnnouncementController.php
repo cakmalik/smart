@@ -51,7 +51,7 @@ class AnnouncementController extends Controller
                 ->column(key: 'title', searchable: true, sortable: true, canBeHidden: false)
                 ->column(key: 'start_show', searchable: true, sortable: true)
                 ->column(key: 'end_show', searchable: true, sortable: true)
-                ->column(label: 'Actions')
+                ->column(label: 'action')
                 ->paginate(15),
         ]);
     }
@@ -76,19 +76,22 @@ class AnnouncementController extends Controller
             $start = Carbon::createFromFormat('d-m-Y H:i', $request->start_show);
             $end = Carbon::createFromFormat('d-m-Y H:i', $request->end_show);
 
+            if ($file = $request->file('image')) {
+                $filename =  compressAndStoreImage($file, 'announcement');
+            }
+
             $announ = new Announcement();
             $announ->title = $request->title;
             $announ->body = $request->body;
             $announ->start_show = $start->format('Y-m-d H:i:s');
             $announ->end_show = $end->format('Y-m-d H:i:s');
             $announ->created_by = Auth::user()->id;
+            $announ->image = $filename;
             $announ->save();
 
             DB::commit();
 
             Toast::success('Berhasil menambah pengumuman');
-            Log::info('Pengumuman berhasil ditambahkan');
-
             return redirect()->route('announcement.index');
         } catch (Exception $e) {
             DB::rollBack();
@@ -128,6 +131,8 @@ class AnnouncementController extends Controller
      */
     public function destroy(Announcement $announcement)
     {
-        //
+        $announcement->delete();
+        Toast::success(__('Deleted'));
+        return back();
     }
 }

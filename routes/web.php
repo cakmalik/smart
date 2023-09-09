@@ -153,6 +153,7 @@ Route::middleware(['splade'])->group(function () {
         Route::post('/reminder/store', [ReminderNotificationController::class, 'store'])->name('reminder.registration');
 
         Route::get('/change-background', [BakidSettingController::class, 'changeBackground'])->name('setting.change-bg');
+        Route::get('/switch-locale', [BakidSettingController::class, 'switchLocale'])->name('setting.switch-locale');
     });
 });
 

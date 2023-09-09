@@ -81,7 +81,7 @@
                                 <!-- Authentication -->
                                 <x-splade-form :action="route('logout')">
                                     <x-dropdown-link as="button">
-                                        {{ __('sign_out') }}
+                                        {{ __('Sign out') }}
                                     </x-dropdown-link>
                                 </x-splade-form>
                             </div>

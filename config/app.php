@@ -111,6 +111,12 @@ return [
 
     'faker_locale' => 'id_ID',
 
+
+    'available_locales' => [
+        'English' => 'en',
+        'Indonesia' => 'id',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
