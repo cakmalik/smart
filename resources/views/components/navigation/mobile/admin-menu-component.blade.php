@@ -1,12 +1,12 @@
  @props(['link' => '#', 'is_highlight' => false, 'submenu' => false])
  {{-- BOTTOM --}}
  @if ($is_highlight)
-     <Link class="w-full h-12" href="{{ $link }}">
-     <div class="flex flex-col gap-1 items-center justify-between ">
+     <Link class="w-full" href="{{ $link }}">
+     <div class="flex flex-col items-center justify-between">
          <div class="w-2/3">
              <div
-                 class="rounded-full flex justify-center items-center py-1 bg-white @if ($active) bg-gray-200 @endif">
-                 <i class="ph-fill {{ $icon }}"></i>
+                 class="rounded-full flex justify-center items-center bg-white @if ($active) bg-gray-200 @endif">
+                 <i class="text-xl ph @if ($active) ph-fill @endif {{ $icon }}"></i>
              </div>
          </div>
          <span @class(['font-bold ' => $active])>{{ $name }}</span>
