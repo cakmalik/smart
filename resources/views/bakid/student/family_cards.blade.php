@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot:header>
         <h2 class="font-medium text-xl">
-            {{ __('family_cards') }}
+            {{ __('Family Cards') }}
         </h2>
     </x-slot>
 

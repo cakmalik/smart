@@ -20,7 +20,7 @@
                     <div class="flex gap-3">
                         <Link href="{{ route('setting.switch-locale') }}" class="uppercase">{{ config('app.locale') }}
                         </Link>
-                        @if (roleName() == 'santri' && isHasStudents() == 0)
+                        @if (roleName() == 'santri')
                             <Link confirm="Apakah yakin keluar?" confirm-button="Ya!" cancel-button="Tidak"
                                 href="{{ route('logout') }}" method="post">
                             <i class="ph-fill ph-sign-out text-base rounded-full  p-1"></i>
