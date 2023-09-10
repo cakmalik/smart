@@ -23,15 +23,16 @@ jobs:
           port: 22
           script_stop: true
           script: |
-           export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            cd ../home/bakid.id/public_html
-            php artisan down
-            php artisan migrate --force
-            composer install --no-interaction --no-dev --prefer-dist
-            git checkout staging
-            git reset --hard
-            git pull origin staging
-            npm install
-            npm run build
-            php artisan up
+            export NVM_DIR=~/.nvm
+             source ~/.nvm/nvm.sh
+             cd ../home/bakid.id/public_html
+             php artisan down
+             php artisan migrate --force
+             composer install --no-interaction --no-dev --prefer-dist
+             git checkout staging
+             git reset --hard
+             git pull origin staging
+             php artisan optimize:clear
+             npm install
+             npm run build
+             php artisan up
