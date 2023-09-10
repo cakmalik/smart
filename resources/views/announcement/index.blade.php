@@ -38,6 +38,10 @@
                     </x-slot>
                     @cell('action', $data)
                         <div class="flex gap-1 ">
+                            <Link modal href="{{ route('announcement.show', $data->id) }}"
+                                class="rounded-full p-1 px-2 capitalize bg-wa-light text-white hover:bg-green-600 hover:text-white">
+                            {{ __('Show') }}
+                            </Link>
                             <Link confirm method="DELETE" href="{{ route('announcement.destroy', $data->id) }}"
                                 class="rounded-full p-1 px-2 capitalize bg-red-200 text-red-500 hover:bg-red-500 hover:text-white">
                             {{ __('delete') }}

@@ -14,7 +14,7 @@
                     </div>
 
                     <!-- Navigation Links -->
-                    <x-menu.admin-desk-menu />
+                    {{-- <x-menu.admin-desk-menu /> --}}
 
                 </div>
 

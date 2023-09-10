@@ -6,10 +6,11 @@
          <div class="w-2/3">
              <div
                  class="rounded-full flex justify-center items-center bg-white @if ($active) bg-gray-200 @endif">
-                 <i class="text-xl ph @if ($active) ph-fill @endif {{ $icon }}"></i>
+                 <i
+                     class="text-xl ph @if ($active) text-wa-light ph-fill @endif {{ $icon }}"></i>
              </div>
          </div>
-         <span @class(['font-bold ' => $active])>{{ $name }}</span>
+         <span class="@if ($active) text-wa-light @endif">{{ $name }}</span>
      </div>
      </Link>
  @else

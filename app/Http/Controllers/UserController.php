@@ -49,6 +49,7 @@ class UserController extends Controller
                 ->column('email', sortable: true, searchable: true)
                 ->withGlobalSearch()
                 // ->rowLink(fn (User $user) => route('user.show', $user))
+                ->column('created_at')
                 ->column('action')
                 ->selectFilter('name', [
                     'name' => 'name',
