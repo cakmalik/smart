@@ -3,7 +3,7 @@
 <SpladeInput {{ $attributes->only(['v-if', 'v-show', 'v-for', 'class'])->class(['hidden' => $isHidden()]) }}
     :flatpickr="@js($flatpickrOptions)" :js-flatpickr-options="{!! $jsFlatpickrOptions !!}" v-model="{{ $vueModel() }}"
     #default="inputScope">
-    <label class="block">
+    <label class="block capitalize">
         @includeWhen($label, 'splade::form.label', ['label' => $label])
 
         <div class="flex rounded-md shadow-sm">
