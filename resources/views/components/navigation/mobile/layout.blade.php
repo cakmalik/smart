@@ -17,11 +17,11 @@
                          <button
                              class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
                              <img class="object-cover w-9 h-9 bg-green-400 rounded-full"
-                                 src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}">
+                                 src="{{ auth()->user()?->profile_photo_url }}" alt="{{ auth()->user()?->name }}">
                          </button>
                          <div class="flex flex-col gap-0">
-                             <span class="font-semibold capitalize">{{ auth()->user()->name }}</span>
-                             <span class="text-sm">{{ auth()->user()->email }}</span>
+                             <span class="font-semibold capitalize">{{ auth()->user()?->name }}</span>
+                             <span class="text-sm">{{ auth()->user()?->email }}</span>
                          </div>
                      </div>
                  </div>

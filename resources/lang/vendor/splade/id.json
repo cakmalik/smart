@@ -85,5 +85,7 @@
     "add": "tambah",
     "delete": "hapus",
     "Deleted": "Berhasil dihapus",
-    "Show": "Lihat"
+    "Show": "Lihat",
+    "Login": "Masuk",
+    "Register": "Mendaftar"
 }

@@ -40,8 +40,8 @@
                                     <button
                                         class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
                                         <img class="object-cover w-8 h-8 bg-green-400 rounded-full"
-                                            src="{{ auth()->user()->profile_photo_url }}"
-                                            alt="{{ auth()->user()->name }}">
+                                            src="{{ auth()->user()?->profile_photo_url }}"
+                                            alt="{{ auth()->user()?->name }}">
                                     </button>
                                 @else
                                     <span class="inline-flex rounded-md">

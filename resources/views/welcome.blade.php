@@ -6,16 +6,16 @@
                     @auth
                         <Link href="{{ url('/dashboard') }}"
                             class="py-2 px-3 uppercase font-semibold rounded border-[0.5px] border-white text-white bg-white/30 backdrop-blur-sm">
-                        Dashboard</Link>
+                        {{ __('Dashboard') }}</Link>
                     @else
                         <Link href="{{ route('login') }}"
                             class="py-2 px-3 uppercase font-semibold rounded border-[0.5px] border-white text-white bg-white/30 backdrop-blur-sm">
-                        Log in</Link>
+                        {{ __('Login') }}</Link>
 
                         @if ($canRegister)
                             <Link href="{{ route('register') }}"
                                 class="ml-4 py-2 px-3 uppercase font-semibold rounded border-[0.5px] border-white text-white bg-white/30 backdrop-blur-sm">
-                            Register</Link>
+                            {{ __('Register') }}</Link>
                         @endif
                     @endauth
                 @endif
