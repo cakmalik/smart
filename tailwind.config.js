@@ -15,6 +15,10 @@ module.exports = {
             // fontFamily: {
             //     primary: "Usmani",
             // },
+            backgroundImage: {
+                "hero-pattern": "url('/bakid/img/hero_pattern.jpg')",
+                "footer-texture": "url('/img/footer-texture.png')",
+            },
             fontFamily: {
                 pjs: ["Plus Jakarta Sans", "sans-serif"],
                 culpa: ['"Mea Culpa"', "cursive"],

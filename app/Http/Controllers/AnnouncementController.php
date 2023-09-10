@@ -86,7 +86,7 @@ class AnnouncementController extends Controller
             $announ->start_show = $start->format('Y-m-d H:i:s');
             $announ->end_show = $end->format('Y-m-d H:i:s');
             $announ->created_by = Auth::user()->id;
-            $announ->image = $filename;
+            $announ->image = $filename ?? null;
             $announ->save();
 
             DB::commit();
@@ -107,7 +107,8 @@ class AnnouncementController extends Controller
      */
     public function show(Announcement $announcement)
     {
-        //
+        $data = $announcement;
+        return view('announcement.show', compact('data'));
     }
 
     /**

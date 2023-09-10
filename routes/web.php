@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\Announcement;
 use App\Models\BakidSetting;
 use App\Jobs\JobSendWhatsapp;
@@ -21,14 +22,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AnnouncementController;
-use App\Http\Controllers\Bakid\ApprovalController;
 use App\Http\Controllers\BakidSettingController;
 use App\Http\Controllers\FormatMessageController;
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\Bakid\ApprovalController;
 use App\Http\Controllers\FormalEducationController;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\ReminderNotificationController;
-use Symfony\Component\CssSelector\Node\FunctionNode;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,13 +56,22 @@ Route::middleware(['splade'])->group(function () {
     Route::spladeUploads();
 
     Route::get('/', function () {
+        $now = Carbon::now();
+        $announcements = Announcement::where('start_show', '<=', $now)
+            ->where('end_show', '>=', $now)
+            ->get();
+
         return view('welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
+            'announcement' => $announcements
         ]);
     });
+
+    // universal route
+    Route::get('/announcement/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
 
     Route::middleware([
         'auth:sanctum',
@@ -122,7 +132,7 @@ Route::middleware(['splade'])->group(function () {
             Route::get('/', [MutationController::class, 'index'])->name('mutation.index');
         });
 
-        Route::resource('announcement', AnnouncementController::class);
+        Route::resource('announcement', AnnouncementController::class)->except('show');
 
         Route::prefix('setting')->group(function () {
             Route::resource('format-message', FormatMessageController::class);
