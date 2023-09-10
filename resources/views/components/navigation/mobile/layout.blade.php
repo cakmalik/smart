@@ -26,7 +26,7 @@
                      </div>
                  </div>
                  {{-- bagian menu --}}
-                 <div class="flex-1  p-2 overflow-scroll">
+                 <div class="flex-1 p-2 overflow-scroll space-y-3">
                      <x-menu.admin-mobile-menu />
 
                  </div>
