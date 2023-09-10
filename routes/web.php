@@ -71,7 +71,7 @@ Route::middleware(['splade'])->group(function () {
     });
 
     // universal route
-    Route::get('/announcement/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
+    Route::get('/announcement/{announcement}/show', [AnnouncementController::class, 'show'])->name('announcement.show');
 
     Route::middleware([
         'auth:sanctum',
