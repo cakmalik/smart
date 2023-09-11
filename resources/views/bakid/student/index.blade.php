@@ -2,7 +2,7 @@
 
 <x-app-layout>
     <x-slot:header>
-        <h2 class="font-medium text-xl">
+        <h2 class="font-medium text-xl capitalize">
             {{ __('students') }}
         </h2>
     </x-slot>
