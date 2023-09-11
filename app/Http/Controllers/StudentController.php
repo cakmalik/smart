@@ -29,6 +29,7 @@ use App\Models\Student\InformalEducationStudent;
 use App\Models\Student\RoomStudent;
 use App\Tables\Bakid\Alumni;
 use App\Tables\Bakid\Students as BakidStudents;
+use App\Tables\Bakid\NewStudent as BakidNewStudents;
 
 class StudentController extends Controller
 {
@@ -58,47 +59,11 @@ class StudentController extends Controller
     }
 
 
-    private function getStudentsQuery(Request $request)
-    {
-        $daerah = $request->input('dormitory_id');
-        $cari = $request->input('search');
-
-        return Student::query()
-            ->leftJoin('student_families as parent', 'parent.id', '=', 'students.student_family_id')
-            ->leftJoin('room_students as rs', 'students.id', '=', 'rs.student_id')
-            ->leftJoin('dormitories as dr', 'dr.id', '=', 'rs.dormitory_id')
-            ->leftJoin('rooms as r', 'r.id', '=', 'rs.room_id')
-            ->leftJoin('users as u', 'u.id', '=', 'students.user_id')
-            ->when($daerah, function ($q) use ($daerah) {
-                return $q->where('rs.dormitory_id', $daerah);
-            })
-            ->when($cari, function ($q) use ($cari) {
-                return $q->where('students.name', 'LIKE', '%' . $cari . '%')
-                    ->orWhere('students.nickname', 'LIKE', '%' . $cari . '%');
-            })
-            ->select(
-                'students.id as id',
-                'students.name as student_name',
-                'students.gender as gender',
-                'students.nickname as nickname',
-                'students.student_image as image',
-                'parent.father_name as ayah',
-                'parent.father_phone as phone',
-                'students.gender',
-                'students.city',
-                'student_image',
-                'dr.name as dormitory_name',
-                'r.name as room',
-                'students.created_at',
-                DB::raw("(SELECT COUNT(*) FROM students AS s2 WHERE s2.user_id = students.user_id) AS brothers_count")
-            );
-    }
-
     public function index(Request $request)
     {
         return view(
             'bakid.student.index',
-            ['students' => BakidStudents::class]
+            ['students' => BakidStudents::class, 'title' => 'Students']
         );
     }
 
@@ -112,19 +77,13 @@ class StudentController extends Controller
 
     public function newStudent(Request $request)
     {
-        $students = $this->getStudentsQuery($request)
-            ->whereNull('verified_at')
-            ->paginate(10)
-            ->withQueryString();
-
-        $dormitories = Dormitory::get()->map(function ($i) {
-            $gender = $i->gender == 'L' ? 'Laki-laki' : 'Perempuan';
-            return [
-                'id' => $i->id,
-                'name' => '(' . $i->gender . ') ' . $i->name,
-            ];
-        });
-        return view('bakid.student.new_student.index', compact('students', 'dormitories'));
+        return view(
+            'bakid.student.index',
+            [
+                'students' => BakidNewStudents::class,
+                'title' => 'New Students'
+            ]
+        );
     }
 
 

@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot:header>
         <h2 class="font-medium text-xl capitalize">
-            {{ __('students') }}
+            {{ __($title) }}
         </h2>
     </x-slot>
     <x-splade-rehydrate on="kts-generated">

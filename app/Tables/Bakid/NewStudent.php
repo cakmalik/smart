@@ -2,7 +2,6 @@
 
 namespace App\Tables\Bakid;
 
-use App\Models\Alumnus;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\Bakid\Dormitory;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use ProtoneMedia\Splade\SpladeTable;
 use ProtoneMedia\Splade\AbstractTable;
 
-class Alumni extends AbstractTable
+class NewStudent extends AbstractTable
 {
     /**
      * Create a new instance.
@@ -42,7 +41,7 @@ class Alumni extends AbstractTable
     {
         return Student::query()
             ->with('user', 'room', 'dormitory')
-            ->whereNotNull('drop_out_at');
+            ->whereNull('verified_at');
     }
 
     /**
@@ -60,15 +59,37 @@ class Alumni extends AbstractTable
         })->toArray();
 
         // Ambil tahun unik dari kolom 'verified_at' dalam model 'Student'
-        $years = DB::table('students')->whereNotNull('drop_out_at')->distinct()->pluck(DB::raw('YEAR(verified_at) as year'))->toArray();
+        $years = DB::table('students')->whereNotNull('verified_at')->distinct()->pluck(DB::raw('YEAR(verified_at) as year'))->toArray();
 
+        // Tambahkan pilihan 'Semua' ke pilihan tahun
         $table
             ->withGlobalSearch(columns: ['name', 'parent.father_name'])
+            ->defaultSort('name')
             ->column('id', sortable: true)
             ->column('name', sortable: true)
             ->column('gender')
             ->column('asrama')
-            ->column('family', 'saudara')
+            ->column('family', 'saudara', canBeHidden: true)
+            ->column(
+                key: 'district',
+                label: 'District',
+                sortable: true,
+                canBeHidden: true
+            )
+            ->column(
+                key: 'city',
+                label: 'city',
+                sortable: true,
+                canBeHidden: true
+            )
+            ->column('action')
+            ->selectFilter(
+                key: 'dormitory.id',
+                options: $transformedArray,
+                label: 'Asrama',
+                noFilterOption: true,
+                noFilterOptionLabel: 'Semua'
+            )
             ->selectFilter(
                 key: 'verified_at',
                 options: $years, // Gunakan pilihan tahun yang telah dibuat

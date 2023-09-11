@@ -64,13 +64,24 @@ class Students extends AbstractTable
         // Tambahkan pilihan 'Semua' ke pilihan tahun
         $table
             ->withGlobalSearch(columns: ['name', 'parent.father_name'])
+            ->defaultSort('name')
             ->column('id', sortable: true)
             ->column('name', sortable: true)
             ->column('gender')
             ->column('asrama')
-            ->column('family', 'saudara')
-            // ->column('formal')
-            // ->column('non-formal')
+            ->column('family', 'saudara', canBeHidden: true)
+            ->column(
+                key: 'district',
+                label: 'District',
+                sortable: true,
+                canBeHidden: true
+            )
+            ->column(
+                key: 'city',
+                label: 'city',
+                sortable: true,
+                canBeHidden: true
+            )
             ->column('action')
             ->selectFilter(
                 key: 'dormitory.id',
