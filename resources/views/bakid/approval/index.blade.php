@@ -2,8 +2,8 @@
 
 <x-app-layout>
     <x-slot:header>
-        <h2 class="font-medium text-xl">
-            {{ __('students') }}
+        <h2 class="font-medium text-xl capitalize">
+            {{ __('Approval') . ' (' . $title . ')' }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -12,11 +12,23 @@
                 <x-slot name="empty-state">
                     <p class="text-center">No data found.</p>
                 </x-slot>
-                {{-- @cell('image', $users)
-                        <img src="{{ $user->image }}" alt="{{ $user->name }}" class="rounded-full h-10 w-10">
-                    @endcell --}}
-                @cell('asrama', $data)
-                    <span>{{ $data->dormitory?->name . $data->room?->name }}</span>
+                @cell('tujuan', $data)
+                    @switch(request()->segment(2))
+                        @case('asrama')
+                            <span>{{ $data->dormitory?->name . $data->room?->name }}</span>
+                        @break
+
+                        @case('formal')
+                            <span>{{ $data->formal?->name . ' (Kls ' . $data->class?->class_name . ')' }}</span>
+                        @break
+
+                        @case('nonformal')
+                            <span>{{ $data->informal?->name . ' (Kls ' . $data->class?->class_name . ')' }}</span>
+                        @break
+
+                        @default
+                            <a href="">as</a>
+                    @endswitch
                 @endcell
                 @cell('action', $data)
                     <div class="flex gap-1 ">

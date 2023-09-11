@@ -21,12 +21,12 @@ class FormalEducationStudent extends Model
 
     public function formal()
     {
-        return $this->belongsTo(FormalEducation::class);
+        return $this->belongsTo(FormalEducation::class, 'formal_education_id');
     }
 
     public function class()
     {
-        return $this->belongsTo(FormalEducationClass::class);
+        return $this->belongsTo(FormalEducationClass::class, 'formal_education_class_id');
     }
 
     public function grade()
