@@ -128,6 +128,11 @@ class Student extends Model
         return $this->belongsToMany(Dormitory::class, 'room_students');
     }
 
+    function getAsramaName()
+    {
+        return $this->dormitory[0]->name . '' . $this->room[0]->name;
+    }
+
     function educationBackground()
     {
         return $this->hasMany(StudentEducationalBackground::class);
@@ -143,5 +148,10 @@ class Student extends Model
     public function invoices()
     {
         return $this->hasMany(Invoice::class);
+    }
+
+    public function getTotalStudentsAttribute()
+    {
+        return $this->user->totalStudents();
     }
 }

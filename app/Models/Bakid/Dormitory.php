@@ -21,4 +21,9 @@ class Dormitory extends Model
             ->withPivot('status')
             ->withTimestamps();
     }
+
+    public function scopeFilter($query, $val)
+    {
+        return $query->where('gender', $val);
+    }
 }

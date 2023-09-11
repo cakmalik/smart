@@ -27,6 +27,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
 use App\Models\Student\RoomStudent;
+use App\Tables\Bakid\Students as BakidStudents;
 
 class StudentController extends Controller
 {
@@ -94,20 +95,10 @@ class StudentController extends Controller
 
     public function index(Request $request)
     {
-        $students = $this->getStudentsQuery($request)
-            ->whereNotNull('verified_at')
-            ->paginate(10)
-            ->withQueryString();
-
-        $dormitories = Dormitory::get()->map(function ($i) {
-            $gender = $i->gender == 'L' ? 'Laki-laki' : 'Perempuan';
-            return [
-                'id' => $i->id,
-                'name' => '(' . $i->gender . ') ' . $i->name,
-            ];
-        });
-
-        return view('bakid.student.index', compact('students', 'dormitories'));
+        return view(
+            'bakid.student.index',
+            ['students' => BakidStudents::class]
+        );
     }
 
     public function newStudent(Request $request)

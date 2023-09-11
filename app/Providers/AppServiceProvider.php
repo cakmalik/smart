@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Select::defaultChoices();
         Select::defaultResetOnNewRemoteUrl();
         // Select::defaultSelectFirstRemoteOption();
+        SpladeTable::defaultSearchDebounce(1000);
 
         Input::defaultDateFormat('d-m-Y');
         Input::defaultTimeFormat('H:i');

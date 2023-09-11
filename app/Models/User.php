@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->hasMany(Student::class);
     }
 
+    public function totalStudents()
+    {
+        return $this->students->count();
+    }
+
     protected function name(): Attribute
     {
         return Attribute::make(
