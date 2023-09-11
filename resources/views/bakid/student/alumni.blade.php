@@ -14,7 +14,6 @@
                     <x-slot:empty-state>
                         <x-bakid.state.empty />
                     </x-slot>
-
                     @cell('asrama', $students)
                         <span class="text-green-500 p-1 rounded-xl bg-green-100 border">
                             {{ $students->dormitory[0]->name . $students->room[0]->name }}</span>

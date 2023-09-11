@@ -118,6 +118,7 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/student/search', [StudentController::class, 'search'])->name('student.search');
         // Route::post('/student/search', [StudentController::class, 'searchPost']);
         Route::get('/student/new', [StudentController::class, 'newStudent'])->name('student.new');
+        Route::get('/alumni', [StudentController::class, 'alumni'])->name('student.alumni');
         Route::resource('/student', StudentController::class);
         Route::get('/student/{student:nis}/biodata-pdf', [StudentController::class, 'biodataPdf'])->name('student.pdf.biodata');
         Route::get('/student/{student:nis}/mou-pdf', [StudentController::class, 'mouPdf'])->name('student.pdf.mou');

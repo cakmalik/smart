@@ -27,6 +27,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
 use App\Models\Student\RoomStudent;
+use App\Tables\Bakid\Alumni;
 use App\Tables\Bakid\Students as BakidStudents;
 
 class StudentController extends Controller
@@ -98,6 +99,14 @@ class StudentController extends Controller
         return view(
             'bakid.student.index',
             ['students' => BakidStudents::class]
+        );
+    }
+
+    function alumni(Request $request)
+    {
+        return view(
+            'bakid.student.alumni',
+            ['students' => Alumni::class]
         );
     }
 

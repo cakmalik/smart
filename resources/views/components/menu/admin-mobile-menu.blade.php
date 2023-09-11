@@ -2,6 +2,7 @@
     :active="request()->routeIs('dashboard')" />
 <x-navigation.admin-menu-component name="{{ __('Announcement') }}" icon="ph-megaphone" :link="route('announcement.index')"
     :active="request()->routeIs('announcement.index')" />
+{{-- <x-navigation.admin-menu-component name="{{ __('student') }}" icon="ph-megaphone" :link="route('student.index')" :active="request()->routeIs('student.index')" /> --}}
 
 {{-- cek route --}}
 <x-navigation.admin-menu-component name="{{ __('PSB') }}" icon="ph-user-circle-plus" link="" :active="request()->routeIs(['student.new', 'invoice.index'])"
@@ -10,6 +11,8 @@
         ['name' => 'Rekap pembayaran', 'link' => route('invoice.index')],
     ]" />
 
+<x-navigation.admin-menu-component name="{{ __('Students') }}" icon="ph-users" :link="route('student.index')" :active="request()->routeIs('student.index')" />
+<x-navigation.admin-menu-component name="{{ __('Alumni') }}" icon="ph-users" :link="route('student.alumni')" :active="request()->routeIs('student.alumni')" />
 <x-navigation.admin-menu-component name="{{ __('Management') }}" icon="ph-coffee" link="" :active="request()->routeIs(['dormitory.index', 'formal.index', 'informal.index', 'mutation.index'])"
     :submenu="[
         ['name' => 'Asrama', 'link' => route('dormitory.index')],
