@@ -18,7 +18,12 @@
         ['name' => 'Asrama', 'link' => route('dormitory.index')],
         ['name' => 'Pendidikan Formal', 'link' => route('formal.index')],
         ['name' => 'Pendidikan Non-Formal', 'link' => route('informal.index')],
-        ['name' => 'Mutasi', 'link' => route('mutation.index')],
+    ]" />
+
+<x-navigation.admin-menu-component name="{{ __('Mutation') }}" icon="ph-arrows-left-right" link="" :active="request()->routeIs()"
+    :submenu="[
+        ['name' => 'Kelola Mutasi', 'link' => route('mutation.index')],
+        ['name' => 'Mutation History', 'link' => route('mutation.history')],
     ]" />
 <x-navigation.admin-menu-component name="{{ __('Approval') }}" icon="ph-check-circle" link="" :active="request()->routeIs(['approval.index'])"
     :submenu="[

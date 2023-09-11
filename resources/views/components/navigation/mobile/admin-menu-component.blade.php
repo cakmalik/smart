@@ -10,7 +10,7 @@
                      class="text-xl ph @if ($active) text-wa-light ph-fill @endif {{ $icon }}"></i>
              </div>
          </div>
-         <span class="@if ($active) text-wa-light @endif">{{ $name }}</span>
+         <span class="@if ($active) text-wa-light @endif">{{ __($name) }}</span>
      </div>
      </Link>
  @else
@@ -22,7 +22,7 @@
                  <div class="flex items-center gap-2 justify-normal px-2">
                      <i class="ph @if ($active) ph-fill @endif {{ $icon }} "
                          style="font-size: 20px"></i>
-                     <span>{{ $name }}</span>
+                     <span>{{ __($name) }}</span>
                  </div>
              </div>
          </div>
@@ -35,7 +35,7 @@
                          <div class="flex items-center gap-2 justify-start px-2">
                              <i class="ph @if ($active) ph-fill @endif {{ $icon }}"
                                  style="font-size: 20px"></i>
-                             <span>{{ $name }}</span>
+                             <span>{{ __($name) }}</span>
                          </div>
                      </div>
                      <div class=" flex flex-col w-full gap-2 ps-10" v-show="toggled">

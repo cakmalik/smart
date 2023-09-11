@@ -131,6 +131,7 @@ Route::middleware(['splade'])->group(function () {
 
         Route::prefix('mutation')->group(function () {
             Route::get('/', [MutationController::class, 'index'])->name('mutation.index');
+            Route::get('/history', [MutationController::class, 'index'])->name('mutation.history');
         });
 
         Route::resource('announcement', AnnouncementController::class)->except('show');
