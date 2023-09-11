@@ -15,14 +15,33 @@
                         <x-bakid.state.empty />
                     </x-slot>
 
-                    @cell('asrama', $students)
+                    <x-splade-cell asrama as="$students">
                         <span class="text-green-500 p-1 rounded-xl bg-green-100 border">
                             {{ $students->dormitory[0]->name . $students->room[0]->name }}</span>
-                    @endcell
-                    @cell('family', $students)
+                    </x-splade-cell>
+
+                    <x-splade-cell family as="$students">
                         <span>
                             {{ $students->parent?->father_name . ' (' . $students->getTotalStudentsAttribute() . ')' }}</span>
-                    @endcell
+                    </x-splade-cell>
+
+                    <x-splade-cell action as="$students">
+                        <div class="flex items-center">
+                            <div class="flex gap-1 ">
+                                <Link modal href="{{ route('student.show', $students->id) }}"
+                                    class="rounded-full px-6 flex items-center justify-center gap-1 p-1 bg-wa-teal2 text-white hover:bg-green-500">
+                                <i class="ph-fill ph-magnifying-glass-plus"></i>
+                                {{-- Detail --}}
+                                </Link>
+                                <Link edit href="{{ route('student.edit', $students->id) }}"
+                                    class="rounded-full px-6 flex items-center justify-center gap-1 p-1 bg-wa-teal2 text-white hover:bg-green-500">
+                                <i class="ph-fill ph-pencil-circle"></i>
+                                {{-- Edit --}}
+                                </Link>
+
+                            </div>
+                        </div>
+                    </x-splade-cell>
 
                     {{-- <x-slot name="head">
                         <thead>

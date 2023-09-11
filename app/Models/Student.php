@@ -130,7 +130,7 @@ class Student extends Model
 
     function getAsramaName()
     {
-        return $this->dormitory[0]->name . '' . $this->room[0]->name;
+        return $this->dormitory[0]->name . '' . $this->dormitory[0]->name;
     }
 
     function educationBackground()

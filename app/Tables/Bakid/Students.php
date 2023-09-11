@@ -2,12 +2,13 @@
 
 namespace App\Tables\Bakid;
 
-use App\Models\Bakid\Dormitory;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Models\Bakid\Dormitory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
+use ProtoneMedia\Splade\AbstractTable;
 
 class Students extends AbstractTable
 {
@@ -57,6 +58,10 @@ class Students extends AbstractTable
             return [$dormitory['id'] => $dormitory['name']];
         })->toArray();
 
+        // Ambil tahun unik dari kolom 'verified_at' dalam model 'Student'
+        $years = DB::table('students')->whereNotNull('verified_at')->distinct()->pluck(DB::raw('YEAR(verified_at) as year'))->toArray();
+
+        // Tambahkan pilihan 'Semua' ke pilihan tahun
         $table
             ->withGlobalSearch(columns: ['name', 'parent.father_name'])
             ->column('id', sortable: true)
@@ -64,10 +69,20 @@ class Students extends AbstractTable
             ->column('gender')
             ->column('asrama')
             ->column('family', 'saudara')
+            // ->column('formal')
+            // ->column('non-formal')
+            ->column('action')
             ->selectFilter(
                 key: 'dormitory.id',
                 options: $transformedArray,
                 label: 'Asrama',
+                noFilterOption: true,
+                noFilterOptionLabel: 'Semua'
+            )
+            ->selectFilter(
+                key: 'verified_at',
+                options: $years, // Gunakan pilihan tahun yang telah dibuat
+                label: 'Tahun',
                 noFilterOption: true,
                 noFilterOptionLabel: 'Semua'
             );
