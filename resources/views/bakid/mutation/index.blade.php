@@ -22,14 +22,9 @@
                 placeholder="Cari NIS / Nama Santri">
             <div class="grid grid-cols-3 sm:grid-cols-5 gap-1 sm:gap-3 w-full items-center text-center"> --}}
             <x-splade-table :for="$data">
-                <x-slot:empty-state>
-                    <div class="flex flex-col items-center mb-3">
-                        <lottie-player src="https://lottie.host/e1929754-8ae8-40ae-af73-de3d132e5fb6/ZVkbeMfTvv.json"
-                            background="transparent" speed="1" style="width: 300px; height: 300px;" loop
-                            autoplay></lottie-player>
-                        <p class="text-center">Data tidak ditemukan</p>
-                    </div>
-                </x-slot>
+                   <x-slot:empty-state>
+                        <x-bakid.state.empty />
+                    </x-slot>
                 @cell('asrama', $data)
                     <div class="flex gap-1 ">
                         <span>{{ $data->dormitory[0]?->name }}-{{ $data->room[0]?->name }}</span>

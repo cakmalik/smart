@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bakid\Dormitory;
+use App\Models\Bakid\MutationHistory;
 use App\Models\Bakid\Room;
 use App\Models\Formal\FormalEducation;
 use App\Models\Informal\InformalEducation;
@@ -68,5 +69,15 @@ class MutationController extends Controller
         // ]);
 
         dd($request->all(), $student);
+    }
+
+    function dropout(Student $student)
+    {
+        try {
+            $do = new MutationHistory();
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }

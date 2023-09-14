@@ -134,6 +134,7 @@ Route::middleware(['splade'])->group(function () {
             Route::get('/', [MutationController::class, 'index'])->name('mutation.index');
             Route::get('/history', [MutationController::class, 'index'])->name('mutation.history');
             Route::put('/{student:nis}/update', [MutationController::class, 'update'])->name('mutation.update');
+            Route::put('/{student:nis}/drop_out', [MutationController::class, 'dropout'])->name('mutation.dropout');
         });
 
         Route::resource('announcement', AnnouncementController::class)->except('show');

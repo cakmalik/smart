@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('model');
             $table->unsignedBigInteger('before_id')->nullable();
             $table->unsignedBigInteger('after_id')->nullable();
-
+            $table->string('marker')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

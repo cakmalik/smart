@@ -2,15 +2,17 @@
     <x-splade-modal>
         <x-splade-lazy>
             <x-slot:placeholder> {{ __('loading') }}... </x-slot:placeholder>
-            <div class="flex mb-6 text-xl">
+            <div class="flex items-center mb-6 text-xl gap-2">
+                <img src="{{ asset('/storage/student-photos/' . $student->student_image) }}" alt="bakid"
+                    class="w-12 h-12 rounded-lg object-cover">
                 <div class="flex flex-col">
-                    <span>{{ $student->name }}</span>
-                    <span class="text-base">{{ $student->nickname }}</span>
+                    <span class="leading-none">{{ $student->name }}</span>
+                    <span class="leading-relaxed text-base">{{ $student->nickname }}</span>
                 </div>
             </div>
 
             <x-splade-form method="put" action="{{ route('mutation.update', $student->nis) }}" :default="$student"
-                confirm="Delete profile" confirm-text="Are you sure you want to delete your profile?">
+                confirm="Mutasi santri" confirm-text="Apakah yakin ingin memindahkan santri ini?">
                 <div class="flex justify-between border-b border-slate-400 my-3">
                     <div class="font-semibold">Asrama</div>
                     <div class="font-semibold mb-3">Sekarang:
@@ -44,7 +46,7 @@
                 <div class="flex justify-between border-b border-slate-400 my-3">
                     <div class="font-semibold">Non-Formal</div>
                     <div class="font-semibold mb-3">Sekarang:
-                        {{ $student->informal?->lembaga?->name . ' (' . $student->informal?->kelas?->class_name . $student->formal?->rombel?->grade_name . ')' }}
+                        {{ $student->informal?->lembaga?->name . ' (' . $student->informal?->kelas?->class_name . $student->informal?->rombel?->grade_name . ')' }}
                     </div>
                 </div>
                 <x-splade-select class="mb-3" :options="$informal" option-label="name" option-value="id"
@@ -54,8 +56,16 @@
                     placeholder="{{ __('Pilih Kelas') }}" />
 
 
+
                 <x-splade-submit />
             </x-splade-form>
+            <div class="fixed bottom-0 right-0 m-6">
+                <Link method="put" href="{{ route('mutation.dropout', $student->nis) }}" confirm="Jadikan Alumni"
+                    confirm-text="Apakah yakin ingin menjadikan alumi?" confirm-button="Ya, saya yakin"
+                    cancel-button="Tidak"
+                    class="font-semibold p-2 px-3 bg-red-100 border border-red-500 rounded-lg text-red-600">DROP
+                OUT (BOYONG)</Link>
+            </div>
         </x-splade-lazy>
     </x-splade-modal>
 </x-app-layout>
