@@ -125,6 +125,7 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/student/{student:nis}/kts', [StudentController::class, 'kts'])->name('student.kts');
         Route::get('/student/{student:nis}/verify', [StudentController::class, 'verify'])->name('student.verify');
         Route::get('/student/{student:nis}/k-mahrom', [StudentController::class, 'kMahrom'])->name('student.k-mahrom');
+        Route::get('/student/{student:nis}/mutation', [MutationController::class, 'mutation'])->name('student.mutation');
 
         Route::get('/approval/{category}', [ApprovalController::class, 'index'])->name('approval.index');
         Route::get('/approve/{id}/{category}', [ApprovalController::class, 'action'])->name('approval.action');
@@ -132,6 +133,7 @@ Route::middleware(['splade'])->group(function () {
         Route::prefix('mutation')->group(function () {
             Route::get('/', [MutationController::class, 'index'])->name('mutation.index');
             Route::get('/history', [MutationController::class, 'index'])->name('mutation.history');
+            Route::put('/{student:nis}/update', [MutationController::class, 'update'])->name('mutation.update');
         });
 
         Route::resource('announcement', AnnouncementController::class)->except('show');

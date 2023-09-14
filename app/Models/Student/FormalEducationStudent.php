@@ -13,10 +13,16 @@ class FormalEducationStudent extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $table = 'formal_education_students';
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id');
+    }
+
+    public function lembaga()
+    {
+        return $this->belongsTo(FormalEducation::class, 'formal_education_id');
     }
 
     public function formal()
@@ -24,13 +30,13 @@ class FormalEducationStudent extends Model
         return $this->belongsTo(FormalEducation::class, 'formal_education_id');
     }
 
-    public function class()
+    public function kelas()
     {
         return $this->belongsTo(FormalEducationClass::class, 'formal_education_class_id');
     }
 
-    public function grade()
+    public function rombel()
     {
-        return $this->belongsTo(FormalEducationGrade::class);
+        return $this->belongsTo(FormalEducationGrade::class, 'formal_education_grade_id');
     }
 }

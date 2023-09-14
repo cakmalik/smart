@@ -10,8 +10,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-splade-table :for="$users" striped>
-                <x-slot name="empty-state">
-                    <p class="text-center">No users found.</p>
+                <x-slot:empty-state>
+                    <div class="flex flex-col items-center mb-3">
+                        <lottie-player src="https://lottie.host/e1929754-8ae8-40ae-af73-de3d132e5fb6/ZVkbeMfTvv.json"
+                            background="transparent" speed="1" style="width: 300px; height: 300px;" loop
+                            autoplay></lottie-player>
+                        <p class="text-center">Data tidak ditemukan</p>
+                    </div>
                 </x-slot>
                 {{-- @cell('image', $users)
                         <img src="{{ $user->image }}" alt="{{ $user->name }}" class="rounded-full h-10 w-10">

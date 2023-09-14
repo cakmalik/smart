@@ -17,24 +17,27 @@ class InformalEducationStudent extends Model
     use HasFactory;
 
     protected $guarded = [];
-
+    protected $table = 'informal_education_students';
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id');
     }
 
-    public function informal()
+    public function lembaga()
     {
         return $this->belongsTo(InformalEducation::class, 'informal_education_id');
     }
-
-    public function class()
+    public function informal()
     {
-        return $this->belongsTo(InformalEducationClass::class,'informal_education_class_id');
+        return $this->belongsTo(FormalEducation::class, 'formal_education_id');
+    }
+    public function kelas()
+    {
+        return $this->belongsTo(InformalEducationClass::class, 'informal_education_class_id');
     }
 
-    public function grade()
+    public function rombel()
     {
-        return $this->belongsTo(InformalEducationGrade::class);
+        return $this->belongsTo(InformalEducationGrade::class, 'informal_education_grade_id');
     }
 }

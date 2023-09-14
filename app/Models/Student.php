@@ -9,6 +9,8 @@ use App\Models\StudentFamily;
 use App\Models\Bakid\Dormitory;
 use App\Models\Scopes\GenderScope;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Student\FormalEducationStudent;
+use App\Models\Student\InformalEducationStudent;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Services\Location\LocationServiceImplement;
 use App\Models\Student\StudentEducationalBackground;
@@ -153,5 +155,25 @@ class Student extends Model
     public function getTotalStudentsAttribute()
     {
         return $this->user->totalStudents();
+    }
+
+    function scopeSantri($query)
+    {
+        return $query->whereNotNull('verified_at')->whereNull('drop_out_at');
+    }
+
+    function scopeAlumni($query)
+    {
+        return $query->whereNotNull('verified_at')->whereNotNull('drop_out_at');
+    }
+
+    public function formal()
+    {
+        return $this->hasOne(FormalEducationStudent::class, 'student_id');
+    }
+
+    public function informal()
+    {
+        return $this->hasOne(InformalEducationStudent::class, 'student_id');
     }
 }
