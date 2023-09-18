@@ -64,6 +64,8 @@ class MutationController extends Controller
     {
         $mutation_status = null;
         DB::beginTransaction();
+        //uniq code
+        $code = 'MUT' . date('Ymd') . rand(1000, 9999);
         try {
             if ($request->dormitory_id && $request->room_id) {
                 $room_s = RoomStudent::firstOrNew(['student_id' => $student->id]);
@@ -75,6 +77,7 @@ class MutationController extends Controller
                     'after_id' => $request->room_id,
                     'marker' => 'Some Marker',
                     'note' => 'Some Note',
+                    'code' => $code,
                 ]);
 
                 $room_s->room_id = $request->room_id;
@@ -104,6 +107,7 @@ class MutationController extends Controller
                     'after_id' => $request->formal_id,
                     'marker' => 'Some Marker',
                     'note' => 'Some Note',
+                    'code' => $code,
                 ]);
 
 
@@ -131,6 +135,7 @@ class MutationController extends Controller
                     'after_id' => $request->informal_id,
                     'marker' => 'Some Marker',
                     'note' => 'Some Note',
+                    'code' => $code,
                 ]);
 
 

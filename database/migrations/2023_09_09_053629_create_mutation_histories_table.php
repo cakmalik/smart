@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('after_id')->nullable();
             $table->string('marker')->nullable();
             $table->string('note')->nullable();
+            $table->string('code')->nullable();
             $table->timestamps();
         });
     }
