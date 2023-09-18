@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bakid\Dormitory;
-use App\Models\Bakid\MutationHistory;
-use App\Models\Bakid\Room;
-use App\Models\Formal\FormalEducation;
-use App\Models\Informal\InformalEducation;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Bakid\Room;
 use Illuminate\Http\Request;
+use App\Models\Bakid\Dormitory;
 use Illuminate\Support\Collection;
+use App\Models\Student\RoomStudent;
 use ProtoneMedia\Splade\SpladeTable;
+use App\Models\Bakid\MutationHistory;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Models\Formal\FormalEducation;
 use Spatie\QueryBuilder\AllowedFilter;
+use App\Models\Informal\InformalEducation;
+use App\Models\Student\FormalEducationStudent;
+use App\Models\Student\InformalEducationStudent;
 
 class MutationController extends Controller
 {
@@ -58,24 +61,41 @@ class MutationController extends Controller
     function update(Request $request, Student $student)
     {
         // $request->validate([
-        //     'student_id' => 'required|exists:students,id',
         //     'formal_id' => 'sometimes|required_without:informal_id',
         //     'informal_id' => 'sometimes|required_without:formal_id',
         //     'formal_class_id' => 'sometimes|required_without:informal_class_id',
         //     'informal_class_id' => 'sometimes|required_without:formal_class_id',
-        // ], [
-        //     'student_id.required' => 'Mohon pilih putra/i terlebih dahulu',
-        //     'student_id.exists' => 'Siswa tidak ditemukan',
         // ]);
+        $mutation_status = null;
+        if ($request->dormitory_id && $request->room_id) {
+            $room = RoomStudent::where('student_id', $student->id)->first();
+            if ($room) {
+                $mutation_history = MutationHistory::create([
+                    'student_id' => $student->id,
+                    'model' => 'App\Models\Bakid\RoomStudent',
+                    'before_id' => $room->room_id,
+                    'after_id' => $request->room_id,
+                    'marker' => 'Some Marker',
+                    'note' => 'Some Note',
+                ]);
 
-        dd($request->all(), $student);
+                $room->room_id = $request->room_id;
+                $room->dormitory_id = $request->dormitory_id;
+                $room->save();
+            }
+        }
+        if ($request->formal_id && $request->formal_class_id) {
+            $formal = FormalEducationStudent::where('student_id', $student->id);
+        }
+        if ($request->informal_id && $request->informal_class_id) {
+            $informal = InformalEducationStudent::where('student_id', $student->id);
+        }
     }
 
     function dropout(Student $student)
     {
         try {
             $do = new MutationHistory();
-            
         } catch (\Throwable $th) {
             //throw $th;
         }
