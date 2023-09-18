@@ -8,6 +8,7 @@ use App\Models\Bakid\Room;
 use Illuminate\Http\Request;
 use App\Models\Bakid\Dormitory;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use App\Models\Student\RoomStudent;
 use ProtoneMedia\Splade\SpladeTable;
 use App\Models\Bakid\MutationHistory;
@@ -17,6 +18,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use App\Models\Informal\InformalEducation;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class MutationController extends Controller
 {
@@ -60,36 +62,104 @@ class MutationController extends Controller
 
     function update(Request $request, Student $student)
     {
-        // $request->validate([
-        //     'formal_id' => 'sometimes|required_without:informal_id',
-        //     'informal_id' => 'sometimes|required_without:formal_id',
-        //     'formal_class_id' => 'sometimes|required_without:informal_class_id',
-        //     'informal_class_id' => 'sometimes|required_without:formal_class_id',
-        // ]);
         $mutation_status = null;
-        if ($request->dormitory_id && $request->room_id) {
-            $room = RoomStudent::where('student_id', $student->id)->first();
-            if ($room) {
-                $mutation_history = MutationHistory::create([
+        DB::beginTransaction();
+        try {
+            if ($request->dormitory_id && $request->room_id) {
+                $room_s = RoomStudent::firstOrNew(['student_id' => $student->id]);
+
+                MutationHistory::create([
                     'student_id' => $student->id,
                     'model' => 'App\Models\Bakid\RoomStudent',
-                    'before_id' => $room->room_id,
+                    'before_id' => $room_s->room_id,
                     'after_id' => $request->room_id,
                     'marker' => 'Some Marker',
                     'note' => 'Some Note',
                 ]);
 
-                $room->room_id = $request->room_id;
-                $room->dormitory_id = $request->dormitory_id;
-                $room->save();
+                $room_s->room_id = $request->room_id;
+                $room_s->dormitory_id = $request->dormitory_id;
+                $room_s->status = 'approved';
+                $room_s->save();
+
+                $mutation_status[] = [
+                    'room' => !!$room_s,
+                ];
+
+                if ($room_s->exists) {
+                    // push notification to student
+                }
+
+                //mutation history
+
             }
+
+            if ($request->formal_id && $request->formal_class_id) {
+                $formal = FormalEducationStudent::firstOrNew(['student_id' => $student->id]);
+
+                MutationHistory::create([
+                    'student_id' => $student->id,
+                    'model' => 'App\Models\Student\FormalEducationStudent',
+                    'before_id' => $formal->formal_education_id,
+                    'after_id' => $request->formal_id,
+                    'marker' => 'Some Marker',
+                    'note' => 'Some Note',
+                ]);
+
+
+                $formal->formal_education_id = $request->formal_id;
+                $formal->formal_education_class_id = $request->formal_class_id;
+                $formal->status = 'accepted';
+                $formal->save();
+
+                $mutation_status[] = [
+                    'formal' => !!$formal,
+                ];
+
+                if ($formal->exists) {
+                    // push notification to student
+                }
+            }
+
+            if ($request->informal_id && $request->informal_class_id) {
+                $informal = InformalEducationStudent::firstOrNew(['student_id' => $student->id]);
+
+                MutationHistory::create([
+                    'student_id' => $student->id,
+                    'model' => 'App\Models\Student\InformalEducationStudent',
+                    'before_id' => $informal->informal_education_id,
+                    'after_id' => $request->informal_id,
+                    'marker' => 'Some Marker',
+                    'note' => 'Some Note',
+                ]);
+
+
+                $informal->informal_education_id = $request->informal_id;
+                $informal->informal_education_class_id = $request->informal_class_id;
+                $informal->status = 'accepted';
+                $informal->save();
+
+                $mutation_status[] = [
+                    'informal' => !!$informal,
+                ];
+
+                if ($informal->exists) {
+                    // push notification to student
+                }
+            }
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            //throw $th;
         }
-        if ($request->formal_id && $request->formal_class_id) {
-            $formal = FormalEducationStudent::where('student_id', $student->id);
+        if ($mutation_status) {
+            Toast::success('Mutasi Berhasil');
+        } else {
+            Toast::danger('Mutasi Gagal');
         }
-        if ($request->informal_id && $request->informal_class_id) {
-            $informal = InformalEducationStudent::where('student_id', $student->id);
-        }
+
+        return redirect()->route('mutation.index');
     }
 
     function dropout(Student $student)
