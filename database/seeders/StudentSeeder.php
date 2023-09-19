@@ -8,7 +8,6 @@ use App\Models\Student\StudentEducationalBackground;
 use App\Models\StudentFamily;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 class StudentSeeder extends Seeder
 {
@@ -42,7 +41,7 @@ class StudentSeeder extends Seeder
 
 
         for ($i = 0; $i < 20; $i++) {
-            $faker = Faker::create();
+            $faker = \Faker\Factory::create();
             $student = [
                 'student_family_id' => $sf->id,
                 'name' => $faker->name,
