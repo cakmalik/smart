@@ -14,6 +14,7 @@ use Database\Seeders\BakidEducationSeeder;
 use Database\Seeders\InvoiceUtilitySeeder;
 use Database\Seeders\InvoiceCategorySeeder;
 use Database\Seeders\PaymentInstructionSeeder;
+use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,7 +23,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
+        $seeders = [
             AdmissionSeeder::class,
             InvoiceCategorySeeder::class,
             PaymentMethodSeeder::class,
@@ -34,7 +35,15 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             PermissionSeeder::class,
-            StudentSeeder::class,
-        ]);
+        ];
+    
+        if (App::environment('production')) {
+            $key = array_search(StudentSeeder::class, $seeders);
+            if ($key !== false) {
+                unset($seeders[$key]);
+            }
+        }
+    
+        $this->call($seeders);
     }
 }
