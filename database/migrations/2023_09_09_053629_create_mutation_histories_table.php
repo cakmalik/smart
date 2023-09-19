@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('mutation_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Student::class);
-            $table->string('model');
-            $table->unsignedBigInteger('before_id')->nullable();
-            $table->unsignedBigInteger('after_id')->nullable();
+            $table->string('model')->nullable();
+            $table->string('before')->nullable();
+            $table->string('after')->nullable();
             $table->string('marker')->nullable();
             $table->string('note')->nullable();
             $table->string('code')->nullable();
+            $table->foreignIdFor(User::class, 'created_by');
             $table->timestamps();
         });
     }

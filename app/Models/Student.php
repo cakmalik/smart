@@ -130,12 +130,22 @@ class Student extends Model
         return $this->belongsToMany(Dormitory::class, 'room_students');
     }
 
-    function getAsramaName()
+    public function getAsramaName()
     {
-        return $this->dormitory[0]->name . '' . $this->dormitory[0]->name;
+        return $this->dormitory[0]->name . '-' . $this->room[0]->name;
     }
 
-    function educationBackground()
+    public function getFormalName()
+    {
+        return $this->formal?->lembaga->name . '-' . $this->formal?->kelas->class_name;
+    }
+
+    public function getInformalName()
+    {
+        return $this->informal?->lembaga->name . '-' . $this->informal?->kelas->class_name;
+    }
+
+    public function educationBackground()
     {
         return $this->hasMany(StudentEducationalBackground::class);
     }

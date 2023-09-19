@@ -245,6 +245,7 @@ class StudentController extends Controller
                     'student_id' => $student->id,
                     'formal_education_id' => $request->formal_id,
                     'formal_education_class_id' => $request->formal_class_id,
+                    'status' => 'waiting'
                 ]);
             }
             if ($request->informal_id && $request->informal_class_id) {
@@ -253,6 +254,7 @@ class StudentController extends Controller
                     'student_id' => $student->id,
                     'informal_education_id' => $request->informal_id,
                     'informal_education_class_id' => $request->informal_class_id,
+                    'status' => 'waiting'
                 ]);
             }
             DB::commit();
@@ -305,11 +307,32 @@ class StudentController extends Controller
         }
     }
 
-    function verify(Student $student)
+    public function verify(Student $student)
     {
         try {
             $student->verified_at = now();
             $student->save();
+
+            //student room
+            $room = RoomStudent::where('student_id', $student->id)->first();
+            if ($room) {
+                $room->status = 'approved';
+                $room->save();
+            }
+
+            //student education
+            $formal = FormalEducationStudent::where('student_id', $student->id)->first();
+            if ($formal) {
+                $formal->status = 'accepted';
+                $formal->save();
+            }
+
+            $informal = InformalEducationStudent::where('student_id', $student->id)->first();
+            if ($informal) {
+                $informal->status = 'accepted';
+                $informal->save();
+            }
+
             Toast::message('Berhasil diterima sebagai santri, Pesan wa terkirim')->success()->autoDismiss(5)->centerBottom();
             return back();
         } catch (\Exception $e) {
@@ -358,6 +381,4 @@ class StudentController extends Controller
         }
         return view('bakid.student.search');
     }
-
-   
 }

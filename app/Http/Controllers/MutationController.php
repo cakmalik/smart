@@ -14,11 +14,13 @@ use ProtoneMedia\Splade\SpladeTable;
 use App\Models\Bakid\MutationHistory;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Models\Formal\FormalEducation;
+use ProtoneMedia\Splade\Facades\Toast;
 use Spatie\QueryBuilder\AllowedFilter;
 use App\Models\Informal\InformalEducation;
+use App\Models\Formal\FormalEducationClass;
 use App\Models\Student\FormalEducationStudent;
+use App\Models\Informal\InformalEducationClass;
 use App\Models\Student\InformalEducationStudent;
-use ProtoneMedia\Splade\Facades\Toast;
 
 class MutationController extends Controller
 {
@@ -52,7 +54,7 @@ class MutationController extends Controller
         ]);
     }
 
-    function mutation(Student $student)
+    public function mutation(Student $student)
     {
         $student = $student->load(['formal', 'informal', 'dormitory', 'room']);
         $formal = FormalEducation::all();
@@ -60,7 +62,7 @@ class MutationController extends Controller
         return view('bakid.mutation.manage', compact('student', 'formal', 'informal'));
     }
 
-    function update(Request $request, Student $student)
+    public function update(Request $request, Student $student)
     {
         $mutation_status = null;
         DB::beginTransaction();
@@ -70,15 +72,20 @@ class MutationController extends Controller
             if ($request->dormitory_id && $request->room_id) {
                 $room_s = RoomStudent::firstOrNew(['student_id' => $student->id]);
 
-                MutationHistory::create([
-                    'student_id' => $student->id,
-                    'model' => 'App\Models\Bakid\RoomStudent',
-                    'before_id' => $room_s->room_id,
-                    'after_id' => $request->room_id,
-                    'marker' => 'Some Marker',
-                    'note' => 'Some Note',
-                    'code' => $code,
-                ]);
+                //get name dormitory
+                $dormitory = Dormitory::find((int)$request->dormitory_id);
+                $room = Room::find($request->room_id);
+
+                //mutation history
+                $mutation = new MutationHistory();
+                $mutation->student_id = $student->id;
+                $mutation->code = $code;
+                $mutation->before = $student->getAsramaName();
+                $mutation->after = $dormitory->name . '-' . $room->name;
+                $mutation->created_by = auth()->user()->id;
+                $mutation->marker = 'asrama';
+                $mutation->save();
+
 
                 $room_s->room_id = $request->room_id;
                 $room_s->dormitory_id = $request->dormitory_id;
@@ -100,16 +107,19 @@ class MutationController extends Controller
             if ($request->formal_id && $request->formal_class_id) {
                 $formal = FormalEducationStudent::firstOrNew(['student_id' => $student->id]);
 
-                MutationHistory::create([
-                    'student_id' => $student->id,
-                    'model' => 'App\Models\Student\FormalEducationStudent',
-                    'before_id' => $formal->formal_education_id,
-                    'after_id' => $request->formal_id,
-                    'marker' => 'Some Marker',
-                    'note' => 'Some Note',
-                    'code' => $code,
-                ]);
+                //get name formal
+                $formal_education = FormalEducation::find($request->formal_id);
+                $formal_class = FormalEducationClass::find($request->formal_class_id);
 
+                //mutation history
+                $mutation = new MutationHistory();
+                $mutation->student_id = $student->id;
+                $mutation->code = $code;
+                $mutation->before = $student->getFormalName();
+                $mutation->after = $formal_education->name . '-' . $formal_class->class_name;
+                $mutation->created_by = auth()->user()->id;
+                $mutation->marker = 'formal';
+                $mutation->save();
 
                 $formal->formal_education_id = $request->formal_id;
                 $formal->formal_education_class_id = $request->formal_class_id;
@@ -128,15 +138,20 @@ class MutationController extends Controller
             if ($request->informal_id && $request->informal_class_id) {
                 $informal = InformalEducationStudent::firstOrNew(['student_id' => $student->id]);
 
-                MutationHistory::create([
-                    'student_id' => $student->id,
-                    'model' => 'App\Models\Student\InformalEducationStudent',
-                    'before_id' => $informal->informal_education_id,
-                    'after_id' => $request->informal_id,
-                    'marker' => 'Some Marker',
-                    'note' => 'Some Note',
-                    'code' => $code,
-                ]);
+                //get name informal
+                $informal_education = InformalEducation::find($request->informal_id);
+                $informal_class = InformalEducationClass::find($request->informal_class_id);
+
+                //mutation history
+                $mutation = new MutationHistory();
+                $mutation->student_id = $student->id;
+                $mutation->code = $code;
+                $mutation->before = $student->getInformalName();
+                $mutation->after = $informal_education->name . '-' . $informal_class->class_name;
+                $mutation->created_by = auth()->user()->id;
+                $mutation->marker = 'informal';
+                $mutation->save();
+
 
 
                 $informal->informal_education_id = $request->informal_id;
@@ -156,7 +171,7 @@ class MutationController extends Controller
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
-            //throw $th;
+            throw $th;
         }
         if ($mutation_status) {
             Toast::success('Mutasi Berhasil');
@@ -167,12 +182,25 @@ class MutationController extends Controller
         return redirect()->route('mutation.index');
     }
 
-    function dropout(Student $student)
+    public function dropout(Student $student)
     {
         try {
             $do = new MutationHistory();
+            $do->student_id = $student->id;
+            $do->code = 'DO' . date('Ymd') . rand(1000, 9999);
+            $do->before = $student->getAsramaName();
+            $do->after = null;
+            $do->created_by = auth()->user()->id;
+            $do->marker = 'drop-out';
+            $do->save();
+
+            $student->drop_out_at = now();
+            $student->save();
+
+            Toast::success('Drop Out Berhasil');
+            return redirect()->route('mutation.index');
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
         }
     }
 }
