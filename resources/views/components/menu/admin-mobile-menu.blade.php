@@ -32,5 +32,13 @@
         ['name' => 'Formal', 'link' => route('approval.index', 'formal')],
         ['name' => 'Nonformal', 'link' => route('approval.index', 'nonformal')],
     ]" />
+<x-navigation.admin-menu-component name="{{ __('Invoice') }}" icon="ph-money" link="" :active="request()->routeIs(['invoice.index'])"
+    :submenu="[
+        ['name' => 'All Invoice', 'link' => route('invoice.index')],
+        ['name' => 'By Asrama', 'link' => route('invoice.index')],
+        ['name' => 'By Lembaga', 'link' => route('invoice.index')],
+        ['name' => 'By category', 'link' => route('invoice.index')],
+        // ['name' => '', 'link' => route('approval.index', 'nonformal')],
+    ]" />
 <x-navigation.admin-menu-component name="{{ __('User') }}" icon="ph-megaphone" :link="route('user.index')"
     :active="request()->routeIs('user.index')" />
