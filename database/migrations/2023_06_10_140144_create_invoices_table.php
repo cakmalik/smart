@@ -23,6 +23,8 @@ return new class extends Migration
             $table->dateTime('due_date')->default(Carbon::now()->addDays(7));
             $table->string('description')->nullable();
             $table->bigInteger('amount')->default(0);
+            $table->bigInteger('discount_amount')->default(0);
+            $table->bigInteger('final_amount')->default(0);
             $table->enum('status', ['draft', 'sent',  'unpaid', 'waiting', 'paid', 'canceled', 'expired'])->default('unpaid');
             $table->foreignId('payment_method_id')->nullable()->constrained('payment_methods');
             $table->string('title')->nullable();

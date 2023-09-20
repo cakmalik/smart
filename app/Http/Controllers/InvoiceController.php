@@ -9,12 +9,22 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\InvoicePaymentFile;
+use App\Repositories\Invoice\InvoiceRepositoryImplement;
+use App\Tables\InvoiceCategories;
 use App\Tables\Invoices;
 use Illuminate\Support\Facades\Log;
 use ProtoneMedia\Splade\Facades\Toast;
 
 class InvoiceController extends Controller
 {
+
+    private $repo;
+
+    public function __construct(InvoiceRepositoryImplement $repo)
+    {
+        $this->repo = $repo;
+    }
+
     function invoiceQuery(Request $request)
     {
         $inv = Invoice::query()
@@ -93,7 +103,7 @@ class InvoiceController extends Controller
         if ($ipf) {
             $ipf->delete();
         }
-        
+
         try {
             $ifp = new InvoicePaymentFile();
             $ifp->invoice_id = $i->id;
@@ -172,5 +182,13 @@ class InvoiceController extends Controller
 
         Toast::success('Pembayaran berhasil dikonfirmasi')->autoDismiss(6);
         return redirect()->route('invoice.index');
+    }
+
+    public function categories()
+    {
+        $categories = $this->repo->getCategories();
+        return view('invoice.categories', [
+            'categories' => InvoiceCategories::class,
+        ]);
     }
 }

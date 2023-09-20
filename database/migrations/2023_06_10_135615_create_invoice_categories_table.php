@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->bigInteger('amount');
             $table->string('code')->unique();
+            $table->boolean('is_discount_for_siblings')->default(false);
             $table->timestamps();
         });
     }

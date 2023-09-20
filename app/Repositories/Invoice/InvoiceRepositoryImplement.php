@@ -105,4 +105,10 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
         // ->get();
 
     }
+
+    public function getCategories(): Collection
+    {
+        $categories = InvoiceCategory::all();
+        return $categories;
+    }
 }
