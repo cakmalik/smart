@@ -21,4 +21,9 @@ class InvoiceCategory extends Model
     {
         return $this->hasMany(InvoiceCategoryDiscount::class);
     }
+
+    public function isDiscount()
+    {
+        return $this->discounts()->count() > 0 && $this->is_discount_for_siblings;
+    }
 }
