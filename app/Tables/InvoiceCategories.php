@@ -51,10 +51,17 @@ class InvoiceCategories extends AbstractTable
             ->withGlobalSearch(columns: ['id'])
             ->column('id', sortable: true)
             ->column('name', sortable: true)
-            ->column('code', sortable: true)
+            // ->column('code', sortable: true)
+
             ->column(
                 key: 'amount',
                 as: fn ($amount) => number_format($amount)
-            );
+            )->column(
+                key: 'is_discount_for_siblings',
+                as: fn ($bool) => $bool ? 'Ya' : 'Tidak',
+                label: 'Discount bersaudara'
+            )
+            ->rowModal(fn (InvoiceCategory $ic) => route('invoice.category.show', ['category' => $ic->id, 'isEdit' => false]))
+            ->column('actions');
     }
 }

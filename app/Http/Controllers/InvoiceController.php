@@ -8,6 +8,7 @@ use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
+use App\Models\InvoiceCategory;
 use App\Models\InvoicePaymentFile;
 use App\Repositories\Invoice\InvoiceRepositoryImplement;
 use App\Tables\InvoiceCategories;
@@ -182,13 +183,5 @@ class InvoiceController extends Controller
 
         Toast::success('Pembayaran berhasil dikonfirmasi')->autoDismiss(6);
         return redirect()->route('invoice.index');
-    }
-
-    public function categories()
-    {
-        $categories = $this->repo->getCategories();
-        return view('invoice.categories', [
-            'categories' => InvoiceCategories::class,
-        ]);
     }
 }

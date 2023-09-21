@@ -18,25 +18,13 @@
                     </div>
                 </x-slot:empty-state>
 
-                {{-- @cell('action', $invoices)
-                    <div class="flex gap-1 ">
-                        <Link href="{{ route('invoice.show', $invoices->invoice_number) }}"
-                            class="rounded-full flex items-center justify-center gap-1 p-1 bg-slate-500 text-white hover:bg-green-500">
-                        <i class="ph-fill ph-pencil-circle"></i>
-                        </Link>
-                        <Link modal href="{{ route('student.show', $invoices->student_id) }}"
-                            class="rounded-full flex items-center justify-center gap-1 p-1 bg-slate-500 text-white hover:bg-green-500">
-                        <i class="ph-fill ph-user-circle"></i>
-                        </Link>
-                    </div>
-                @endcell
+                <x-splade-cell actions as="$category">
+                    <Link class="py-1 px-2 rounded-md border"
+                        href="{{ route('invoice.category.show', ['category' => $category->id, 'isEdit' => true]) }}">
+                    {{ __('Edit') }}
+                    </Link>
+                </x-splade-cell>
 
-                @cell('status', $invoices)
-                    <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ statusBgColor($invoices->status) . ' ' . statusTextColor($invoices->status) }}">
-                        {{ $invoices->status }}
-                    </span>
-                @endcell --}}
             </x-splade-table>
 
         </div>

@@ -27,6 +27,7 @@ use App\Http\Controllers\FormatMessageController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\Bakid\ApprovalController;
 use App\Http\Controllers\FormalEducationController;
+use App\Http\Controllers\InvoiceCategoryController;
 use Symfony\Component\CssSelector\Node\FunctionNode;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\ReminderNotificationController;
@@ -159,7 +160,9 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/payment/choose-method/{invoice_number}', [PaymentMethodController::class, 'chooseMethod'])->name('payment.choose-method');
         Route::post('/payment/change-method/', [PaymentMethodController::class, 'changeMethod'])->name('payment.change-method');
 
-        Route::get('/invoice/categories', [InvoiceController::class, 'categories'])->name('invoice.categories');
+        Route::get('/invoice/categories', [InvoiceCategoryController::class, 'index'])->name('invoice.categories');
+        Route::get('/invoice/category/{category}/{isEdit?}', [InvoiceCategoryController::class, 'show'])->name('invoice.category.show');
+        Route::put('/invoice/category/{category}', [InvoiceCategoryController::class, 'update'])->name('invoice.category.update');
 
         Route::get('/invoice/list', [InvoiceController::class, 'index'])->name('invoice.index');
         Route::post('/upload-proof', [InvoiceController::class, 'uploadProof'])->name('invoice.upload-proof');
