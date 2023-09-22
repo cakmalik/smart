@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\InvoiceCategory;
 use App\Tables\InvoiceCategories;
+use ProtoneMedia\Splade\Facades\Toast;
+use App\Models\Bakid\InvoiceCategoryDiscount;
 use App\Http\Requests\StoreInvoiceCategoryRequest;
 use App\Http\Requests\UpdateInvoiceCategoryRequest;
 
@@ -29,6 +32,8 @@ class InvoiceCategoryController extends Controller
     public function update(UpdateInvoiceCategoryRequest $request, InvoiceCategory $category)
     {
         $category->update($request->validated());
-        return redirect()->route('invoice.categories');
+        Toast::success('Category updated successfully');
+        return back();
     }
+
 }

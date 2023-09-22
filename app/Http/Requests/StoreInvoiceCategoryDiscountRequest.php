@@ -11,7 +11,7 @@ class StoreInvoiceCategoryDiscountRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreInvoiceCategoryDiscountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'number_of_child' => 'required|numeric',
+            'discount_amount' => 'required|numeric',
         ];
     }
 }

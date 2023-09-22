@@ -31,6 +31,7 @@ use App\Http\Controllers\InvoiceCategoryController;
 use Symfony\Component\CssSelector\Node\FunctionNode;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\ReminderNotificationController;
+use App\Http\Controllers\InvoiceCategoryDiscountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -163,6 +164,10 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/invoice/categories', [InvoiceCategoryController::class, 'index'])->name('invoice.categories');
         Route::get('/invoice/category/{category}/{isEdit?}', [InvoiceCategoryController::class, 'show'])->name('invoice.category.show');
         Route::put('/invoice/category/{category}', [InvoiceCategoryController::class, 'update'])->name('invoice.category.update');
+
+        Route::get('/invoice/{categoryId}/discount/create', [InvoiceCategoryDiscountController::class, 'create'])->name('invoice.discount.create');
+        Route::post('/invoice/{categoryId}/discount/store', [InvoiceCategoryDiscountController::class, 'store'])->name('invoice.discount.store');
+        Route::get('/invoice/{discount}/discount/remove', [InvoiceCategoryDiscountController::class, 'remove'])->name('invoice.discount.remove');
 
         Route::get('/invoice/list', [InvoiceController::class, 'index'])->name('invoice.index');
         Route::post('/upload-proof', [InvoiceController::class, 'uploadProof'])->name('invoice.upload-proof');
