@@ -184,6 +184,7 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/switch-locale', [BakidSettingController::class, 'switchLocale'])->name('setting.switch-locale');
 
         Route::resource('permittion', InOutPermissionController::class);
+        Route::get('/izin', [InOutPermissionController::class, 'showAccess'])->name('permittion.access');
 
         Route::resource('violation', ViolationController::class);
     });

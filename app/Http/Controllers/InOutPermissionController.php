@@ -63,4 +63,9 @@ class InOutPermissionController extends Controller
     {
         //
     }
+
+    public  function showAccess()
+    {
+        return view('bakid.permittion.access');
+    }
 }
