@@ -56,7 +56,14 @@ class UserSeeder extends Seeder
             'kk' => '222', 'current_team_id' => 1
         ])->assignRole('bendahara');
 
-
+        $hankamtib = User::create([
+            'name' => 'hankamtib',
+            'username' => 'hankamtib',
+            'email' => 'hankamtib@bakid.id',
+            'password' => bcrypt('password'),
+            'phone' => '333',
+            'kk' => '333', 'current_team_id' => 1
+        ])->assignRole('hankamtib');
 
         $santri_team = Team::create([
             'user_id' => 3,

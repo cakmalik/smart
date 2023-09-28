@@ -27,11 +27,14 @@ use App\Http\Controllers\FormatMessageController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\Bakid\ApprovalController;
 use App\Http\Controllers\FormalEducationController;
+use App\Http\Controllers\InOutPermissionController;
 use App\Http\Controllers\InvoiceCategoryController;
 use Symfony\Component\CssSelector\Node\FunctionNode;
 use App\Http\Controllers\InformalEducationController;
+use App\Http\Controllers\InOutPermissionTypeController;
 use App\Http\Controllers\ReminderNotificationController;
 use App\Http\Controllers\InvoiceCategoryDiscountController;
+use App\Http\Controllers\ViolationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -179,6 +182,10 @@ Route::middleware(['splade'])->group(function () {
 
         Route::get('/change-background', [BakidSettingController::class, 'changeBackground'])->name('setting.change-bg');
         Route::get('/switch-locale', [BakidSettingController::class, 'switchLocale'])->name('setting.switch-locale');
+
+        Route::resource('permittion', InOutPermissionController::class);
+
+        Route::resource('violation', ViolationController::class);
     });
 });
 

@@ -95,5 +95,8 @@
     "Invoice": "Tagihan",
     "All Invoice": "Semua Tagihan",
     "Created at": "Dibuat ",
-    "Updated at": "Diperbarui "
+    "Updated at": "Diperbarui ",
+    "Permittion": "Perizinan",
+    "Violation": "Pelanggaran",
+    "Show Permittion Access": "Tampilkan Akses Perizinan"
 }

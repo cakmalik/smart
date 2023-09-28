@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Bakid\Violation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('duration')->default(0); //in minutes
-            $table->integer('point')->default(0);
+            $table->foreignIdFor(Violation::class);
             $table->timestamps();
         });
     }

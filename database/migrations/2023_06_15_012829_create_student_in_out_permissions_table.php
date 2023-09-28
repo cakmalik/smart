@@ -16,12 +16,11 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Student::class, 'student_id')->constrained('students');
             $table->foreignId('in_out_permission_type_id')->constrained('in_out_permission_types');
-            $table->foreignId('dormitory_id')->constrained('dormitories');
-            $table->foreignId('room_id')->constrained('rooms');
-            $table->dateTime('start_at');
-            $table->dateTime('end_at');
-            $table->string('reason')->nullable();
+            $table->dateTime('out_time');
+            $table->dateTime('in_time')->nullable();
             $table->boolean('is_late')->default(false);
+            $table->string('reason')->nullable();
+            $table->bigInteger('approved_by')->nullable();
             $table->timestamps();
         });
     }

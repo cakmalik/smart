@@ -13,7 +13,7 @@ class ViolationController extends Controller
      */
     public function index()
     {
-        //
+        return view('bakid.violation.index');
     }
 
     /**

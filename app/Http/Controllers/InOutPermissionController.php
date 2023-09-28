@@ -13,7 +13,7 @@ class InOutPermissionController extends Controller
      */
     public function index()
     {
-        //
+        return view('bakid.permittion.index');
     }
 
     /**
