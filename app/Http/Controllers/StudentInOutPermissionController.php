@@ -16,6 +16,7 @@ class StudentInOutPermissionController extends Controller
     private $model;
     public function __construct(StudentRepository $srepo, InOutPermissionRepository $inOut)
     {
+        $this->middleware('role:hankamtib');
         $this->studentRepo = $srepo;
         $this->model = $inOut;
     }
@@ -49,9 +50,9 @@ class StudentInOutPermissionController extends Controller
         }
 
         if ($store['success']) {
-            Toast::success($store['message'])->centerTop();
+            Toast::success($store['message'])->centerBottom()->autoDismiss(3);
         } else {
-            Toast::danger($store['message'])->centerTop();
+            Toast::danger($store['message'])->centerBottom()->autoDismiss(3);
         }
 
         return back();

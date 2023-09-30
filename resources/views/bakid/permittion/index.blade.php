@@ -15,6 +15,25 @@
                 <div class="ph ph-arrow-right"></div>
                 </Link>
             </div>
+            <x-splade-table :for="$data">
+                <x-slot:empty-state>
+                    <x-bakid.state.empty />
+                </x-slot>
+                <x-splade-cell asrama>
+                    <span class="text-green-500 p-1 rounded-xl bg-green-100 border">
+                        {{ $item->student->getAsramaName() }}</span>
+                </x-splade-cell>
+                <x-splade-cell duration>
+                    {{ $item->type->duration }}
+                </x-splade-cell>
+                <x-splade-cell is_late>
+                    @if ($item->in_time == null)
+                        __
+                    @else
+                        {{ $item->is_late ? 'Y' : 'N' }}
+                    @endif
+                </x-splade-cell>
+            </x-splade-table>
         </div>
     </div>
 </x-app-layout>

@@ -2,21 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreInOutPermissionRequest;
-use App\Http\Requests\UpdateInOutPermissionRequest;
+use App\Models\Student;
+use App\Tables\Bakid\Permittion;
 use App\Models\Bakid\InOutPermission;
 use App\Models\Bakid\InOutPermissionType;
-use App\Models\Student;
 use App\Models\Student\StudentInOutPermission;
+use App\Http\Requests\StoreInOutPermissionRequest;
+use App\Http\Requests\UpdateInOutPermissionRequest;
 
 class InOutPermissionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('role:hankamtib');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('bakid.permittion.index');
+        return view('bakid.permittion.index', [
+            'data' => Permittion::class
+        ]);
     }
 
     /**
