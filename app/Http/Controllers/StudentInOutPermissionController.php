@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStudentInOutPermissionRequest;
 use App\Http\Requests\UpdateStudentInOutPermissionRequest;
 use App\Models\Student\StudentInOutPermission;
+use App\Repositories\InOutPermission\InOutPermissionRepository;
+use App\Repositories\Student\StudentRepository;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class StudentInOutPermissionController extends Controller
 {
+
+    private $studentRepo;
+    private $model;
+    public function __construct(StudentRepository $srepo, InOutPermissionRepository $inOut)
+    {
+        $this->studentRepo = $srepo;
+        $this->model = $inOut;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +41,20 @@ class StudentInOutPermissionController extends Controller
      */
     public function store(StoreStudentInOutPermissionRequest $request)
     {
-        //
+        $student = $this->studentRepo->findNis($request->nis);
+        if ($this->model->isLoggedOut($student->id)) {
+            $store = $this->model->storeOut($student->id);
+        } else {
+            $store = $this->model->storeIn($student->id, $request);
+        }
+
+        if ($store['success']) {
+            Toast::success($store['message'])->centerTop();
+        } else {
+            Toast::danger($store['message'])->centerTop();
+        }
+
+        return back();
     }
 
     /**

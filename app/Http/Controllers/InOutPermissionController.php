@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInOutPermissionRequest;
 use App\Http\Requests\UpdateInOutPermissionRequest;
 use App\Models\Bakid\InOutPermission;
+use App\Models\Bakid\InOutPermissionType;
+use App\Models\Student;
+use App\Models\Student\StudentInOutPermission;
 
 class InOutPermissionController extends Controller
 {
@@ -66,6 +69,10 @@ class InOutPermissionController extends Controller
 
     public  function showAccess()
     {
-        return view('bakid.permittion.access');
+        $type = InOutPermissionType::all();
+        $data = StudentInOutPermission::with('type', 'student')->orderByDesc('updated_at');
+        // $lastPerson = $data->first();
+        // $data = $data->get();
+        return view('bakid.permittion.access', compact('type', 'data'));
     }
 }

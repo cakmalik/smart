@@ -34,7 +34,9 @@ use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\InOutPermissionTypeController;
 use App\Http\Controllers\ReminderNotificationController;
 use App\Http\Controllers\InvoiceCategoryDiscountController;
+use App\Http\Controllers\StudentInOutPermissionController;
 use App\Http\Controllers\ViolationController;
+use App\Models\Student\StudentInOutPermission;
 
 /*
 |--------------------------------------------------------------------------
@@ -185,6 +187,7 @@ Route::middleware(['splade'])->group(function () {
 
         Route::resource('permittion', InOutPermissionController::class);
         Route::get('/izin', [InOutPermissionController::class, 'showAccess'])->name('permittion.access');
+        Route::post('/in-out-permittion/store', [StudentInOutPermissionController::class, 'store'])->name('permittion.access.post');
 
         Route::resource('violation', ViolationController::class);
     });

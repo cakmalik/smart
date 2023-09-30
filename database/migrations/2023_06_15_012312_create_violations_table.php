@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('point')->default(0);
-            $table->enum('type', ['ringan', 'sedang', 'berat']);
+            $table->enum('scope', ['ringan', 'sedang', 'berat']);
             $table->timestamps();
         });
     }

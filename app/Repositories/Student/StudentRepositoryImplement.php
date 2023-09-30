@@ -5,6 +5,7 @@ namespace App\Repositories\Student;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Student;
 use App\Models\StudentFamily;
+use Illuminate\Support\Collection;
 
 class StudentRepositoryImplement extends Eloquent implements StudentRepository
 {
@@ -29,5 +30,11 @@ class StudentRepositoryImplement extends Eloquent implements StudentRepository
     public function updateParent($data, $student)
     {
         return $student->parent->update($data);
+    }
+
+    function findNis($nis): Student
+    {
+        return
+            Student::where('nis', $nis)->first();
     }
 }
