@@ -7,7 +7,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12 px-4">
         <x-splade-form action="{{ route('setting.store') }}" :default="$data" submit-on-change="api_key_whatsapp,"
             background debounce="2000" stay @success="$splade.emit('setting-updated')">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -15,7 +15,7 @@
                     Perhatian! ini auto save, jangan mengubah apapun jika tidak yakin dan mengerti fungsinya
                 </div>
 
-                <Link class="fixed bottom-4 right-4" href="#test">
+                <Link class="fixed bottom-20 sm:bottom-4 left-4 sm:right-4" href="#test">
                 <button class="px-4 py-2 bg-indigo-600 text-white rounded shadow">Tes Fungsi</button>
                 </Link>
                 <x-splade-modal name="test" slideover max-width="lg">
@@ -114,7 +114,7 @@
                     </section>
                 </x-splade-modal>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                     @forelse ($data as $key => $value)
                         <div class="p-4 py-6 bg-white/50 border-white border-2 w-full rounded-lg">
                             {{ $key }}
@@ -128,12 +128,12 @@
                         <button class="px-4 py-2 w-full bg-indigo-600 text-white rounded shadow mt-3">Edit</button>
                         </Link>
                     </div>
-                    <div class="p-4 py-6 bg-white/50 border-white border-2 w-full rounded-lg">
+                    {{-- <div class="p-4 py-6 bg-white/50 border-white border-2 w-full rounded-lg">
                         {{ __('Change background') }}
                         <Link href="{{ route('setting.change-bg') }}">
                         <button class="px-4 py-2 w-full bg-indigo-600 text-white rounded shadow mt-3">Switch</button>
                         </Link>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </x-splade-form>

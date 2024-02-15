@@ -80,3 +80,8 @@
         <x-navigation.admin-menu-component name="{{ __('User') }}" icon="ph-megaphone" :link="route('user.index')"
             :active="request()->routeIs('user.index')" />
     @endcan
+
+    @can('access settings')
+        <x-navigation.admin-menu-component name="{{ __('Settings') }}" icon="ph-gear-six" :link="route('setting.index')"
+            :active="request()->routeIs('setting.index')" />
+    @endcan
