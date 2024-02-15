@@ -65,8 +65,9 @@ class Students extends AbstractTable
         $table
             ->withGlobalSearch(columns: ['name', 'parent.father_name'])
             ->defaultSort('name')
-            ->column('id', sortable: true)
+            // ->column('id', sortable: true)
             ->column('name', sortable: true)
+            ->column('nickname')
             ->column('gender')
             ->column('asrama')
             ->column('family', 'saudara', canBeHidden: true)
