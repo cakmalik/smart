@@ -1,7 +1,8 @@
 <x-banner />
 
-<div class="min-h-screen bg-green-200 pb-20"
-    style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
+{{-- <div class="min-h-screen bg-green-200 pb-20"
+    style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;"> --}}
+<div class="min-h-screen bg-neutral-200 pb-20">
     <x-navigation />
 
     <!-- Page Heading -->

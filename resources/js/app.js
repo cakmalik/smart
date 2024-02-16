@@ -3,6 +3,7 @@ import "../css/app.css";
 import "@protonemedia/laravel-splade/dist/style.css";
 import "../css/choices.scss";
 import Counter from "./Components/Counter.vue";
+import 'flowbite';
 
 import { createApp } from "vue/dist/vue.esm-bundler.js";
 import { renderSpladeApp, SpladePlugin } from "@protonemedia/laravel-splade";
