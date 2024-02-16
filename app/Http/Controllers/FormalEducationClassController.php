@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFormalEducationClassRequest;
 use App\Http\Requests\UpdateFormalEducationClassRequest;
 use App\Models\Formal\FormalEducationClass;
+use Illuminate\Http\Request;
 
 class FormalEducationClassController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data = FormalEducationClass::with('rombel')->where('formal_education_id', $request->formal_education_id)->get();
+        return view('bakid.education.formal.class.index',compact('data'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -23,7 +25,7 @@ class FormalEducationClassController extends Controller
     {
         //
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -31,13 +33,12 @@ class FormalEducationClassController extends Controller
     {
         //
     }
-
+    
     /**
      * Display the specified resource.
      */
     public function show(FormalEducationClass $formalEducationClass)
     {
-        //
     }
 
     /**

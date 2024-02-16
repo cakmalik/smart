@@ -20,6 +20,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MutationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DormitoryController;
+use App\Http\Controllers\ViolationController;
+use App\Models\Student\StudentInOutPermission;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BakidSettingController;
@@ -32,11 +34,11 @@ use App\Http\Controllers\InvoiceCategoryController;
 use Symfony\Component\CssSelector\Node\FunctionNode;
 use App\Http\Controllers\InformalEducationController;
 use App\Http\Controllers\InOutPermissionTypeController;
+use App\Http\Controllers\FormalEducationClassController;
 use App\Http\Controllers\ReminderNotificationController;
-use App\Http\Controllers\InvoiceCategoryDiscountController;
+use App\Http\Controllers\InformalEducationClassController;
 use App\Http\Controllers\StudentInOutPermissionController;
-use App\Http\Controllers\ViolationController;
-use App\Models\Student\StudentInOutPermission;
+use App\Http\Controllers\InvoiceCategoryDiscountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -160,9 +162,12 @@ Route::middleware(['splade'])->group(function () {
         Route::resource('/room', RoomController::class);
         Route::get('/dormitory/room/{dormitory}', [DormitoryController::class, 'room'])->name('dormitory.room');
         Route::resource('/dormitory', DormitoryController::class);
+        Route::name('formal.')->group(function () {  
+            Route::resource('/formal/class', FormalEducationClassController::class);
+        });
         Route::resource('/formal', FormalEducationController::class);
         Route::resource('/informal', InformalEducationController::class);
-
+            
         Route::get('/payment/choose-method/{invoice_number}', [PaymentMethodController::class, 'chooseMethod'])->name('payment.choose-method');
         Route::post('/payment/change-method/', [PaymentMethodController::class, 'changeMethod'])->name('payment.change-method');
 

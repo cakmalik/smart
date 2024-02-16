@@ -1,9 +1,9 @@
-@seoTitle(__('Rooms'))
+@seoTitle(__('Informal Education'))
 
 <x-app-layout>
     <x-slot:header>
         <h2 class="font-medium text-xl capitalize">
-            {{ __('Rooms') }}
+            {{ __('Informal Education') }}
         </h2>
     </x-slot>
 
@@ -21,7 +21,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <span class="text-xl text-slate-900 font-semibold"> Pendidikan Informal</span>
+                            <span class="text-xl text-slate-900 font-semibold"> {{ __('Informal Education') }}</span>
                         </h3>
                         <div class="inline-flex items-center gap-2">
 

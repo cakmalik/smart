@@ -101,14 +101,14 @@ class BakidEducationSeeder extends Seeder
                     break;
 
                 case 'STIS':
-                    $formal->formalEducationClasses()->create(['class_name' => '1', 'qty' => 40, 'current_qty' => 0]);
-                    $formal->formalEducationClasses()->create(['class_name' => '2', 'qty' => 40, 'current_qty' => 0]);
-                    $formal->formalEducationClasses()->create(['class_name' => '3', 'qty' => 40, 'current_qty' => 0]);
-                    $formal->formalEducationClasses()->create(['class_name' => '4', 'qty' => 40, 'current_qty' => 0]);
-                    $formal->formalEducationClasses()->create(['class_name' => '5', 'qty' => 40, 'current_qty' => 0]);
-                    $formal->formalEducationClasses()->create(['class_name' => '6', 'qty' => 40, 'current_qty' => 0]);
-                    $formal->formalEducationClasses()->create(['class_name' => '7', 'qty' => 40, 'current_qty' => 0]);
-                    $formal->formalEducationClasses()->create(['class_name' => '8', 'qty' => 40, 'current_qty' => 0]);
+                    $formal->formalEducationClasses()->create(['class_name' => 'Semester 1', 'qty' => 40, 'current_qty' => 0]);
+                    $formal->formalEducationClasses()->create(['class_name' => 'Semester 2', 'qty' => 40, 'current_qty' => 0]);
+                    $formal->formalEducationClasses()->create(['class_name' => 'Semester 3', 'qty' => 40, 'current_qty' => 0]);
+                    $formal->formalEducationClasses()->create(['class_name' => 'Semester 4', 'qty' => 40, 'current_qty' => 0]);
+                    $formal->formalEducationClasses()->create(['class_name' => 'Semester 5', 'qty' => 40, 'current_qty' => 0]);
+                    $formal->formalEducationClasses()->create(['class_name' => 'Semester 6', 'qty' => 40, 'current_qty' => 0]);
+                    $formal->formalEducationClasses()->create(['class_name' => 'Semester 7', 'qty' => 40, 'current_qty' => 0]);
+                    $formal->formalEducationClasses()->create(['class_name' => 'Semester 8', 'qty' => 40, 'current_qty' => 0]);
                     break;
 
                 case 'MA 1':
