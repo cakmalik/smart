@@ -1,7 +1,7 @@
 <x-splade-data store="mobileNavigation" default="{ open: false }" />
 {{-- MENU WEB --}}
 <nav class="hidden sm:block bg-white border-gray-200 dark:bg-gray-900">
-    <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto p-4 overflow-x-scroll">
+    <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto pt-4">
         <a href="https://bakid.id" class="flex  items-center space-x-3 rtl:space-x-reverse">
             <img src="{{ asset('bakid/logo-ppmu.png') }}" class="h-8" alt="Flowbite Logo" />
             <span
