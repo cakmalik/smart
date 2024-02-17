@@ -42,6 +42,8 @@ class StudentSeeder extends Seeder
 
         for ($i = 0; $i < 20; $i++) {
             $faker = \Faker\Factory::create();
+            $jk=['Perempuan','Laki-Laki'];
+            $genderKey = array_rand($jk, 1);
             $student = [
                 'student_family_id' => $sf->id,
                 'name' => $faker->name,
@@ -50,7 +52,7 @@ class StudentSeeder extends Seeder
                 'nik' => '1234567890',
                 'place_of_birth' => 'Jakarta',
                 'date_of_birth' => '1990-01-01',
-                'gender' => ['male', 'female'][array_rand(['male', 'female'], 1)],
+                'gender' => $jk[$genderKey],
                 'address' => '123 Example Street',
                 'rt_rw' => '01/01',
                 'village' => 'Example Village',
