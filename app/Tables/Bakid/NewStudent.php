@@ -65,7 +65,7 @@ class NewStudent extends AbstractTable
         $table
             ->withGlobalSearch(columns: ['name', 'parent.father_name'])
             ->defaultSort('name')
-            ->column('id', sortable: true)
+            ->column('nis', sortable: true)
             ->column('name', sortable: true)
             ->column('gender')
             ->column('asrama')
