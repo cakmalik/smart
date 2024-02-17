@@ -98,6 +98,7 @@ class BakidEducationSeeder extends Seeder
                     $formal->formalEducationClasses()->create(['class_name' => '4', 'qty' => 40, 'current_qty' => 0]);
                     $formal->formalEducationClasses()->create(['class_name' => '5', 'qty' => 40, 'current_qty' => 0]);
                     $formal->formalEducationClasses()->create(['class_name' => '6', 'qty' => 40, 'current_qty' => 0]);
+
                     break;
 
                 case 'STIS':
