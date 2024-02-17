@@ -19,6 +19,10 @@
 
 <body class="font-sans antialiased"  style="margin-bottom: 0px">
     @splade
+    
+    <x-splade-script>
+        initFlowbite();
+    </x-splade-script>
 </body>
 
 </html>

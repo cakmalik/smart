@@ -6,11 +6,6 @@
             :active="request()->routeIs('announcement.index')" />
     @endcan
 
-    @can('access blabalbla')
-        {{-- <x-navigation.admin-menu-component name="{{ __('student') }}" icon="ph-megaphone" :link="route('student.index')" :active="request()->routeIs('student.index')" /> --}}
-    @endcan
-
-
     {{-- cek route --}}
     @can('access psb')
         <x-navigation.admin-menu-component name="{{ __('PSB') }}" icon="ph-user-circle-plus" link="" :active="request()->routeIs(['student.new'])"
