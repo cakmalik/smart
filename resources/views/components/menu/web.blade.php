@@ -9,7 +9,7 @@
 
 <li>
     <a href="{{ $link }}"
-        class="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500 group">
+        class="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500 group whitespace-nowrap">
         <span class="sr-only">{{ __($label) }}</span>
         @if ($icon != null)
             <i class="text-sm ph-fill me-2 {{ $icon }}"></i>
