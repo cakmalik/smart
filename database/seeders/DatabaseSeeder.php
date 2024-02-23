@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             PaymentMethodSeeder::class,
             DormitorySeeder::class,
             BakidEducationSeeder::class,
+            BakidEducationClassSeeder::class,
             PaymentInstructionSeeder::class,
             InvoiceUtilitySeeder::class,
             FormatMessageSeeder::class,

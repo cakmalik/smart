@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInformalEducationClassRequest;
 use App\Http\Requests\UpdateInformalEducationClassRequest;
 use App\Models\Informal\InformalEducationClass;
+use Illuminate\Http\Request;
 
 class InformalEducationClassController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data = InformalEducationClass::with('rombel')->where('informal_education_id', $request->informal_education_id)->get();
+        return view('bakid.education.informal.class.index',compact('data'));
     }
 
     /**

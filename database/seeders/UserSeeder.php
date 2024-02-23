@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin PA',
             'username' => 'admin_pa',
             'email' => 'admin_pa@bakid.id',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('123'),
             'phone' => '123',
             'kk' => '1234',
             'current_team_id' => 1
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin PI',
             'username' => 'admin_pi',
             'email' => 'admin_pi@bakid.id',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('123'),
             'phone' => '12344',
             'kk' => '12345',
             'current_team_id' => 1
@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
             'name' => 'Sekretaris',
             'username' => 'sekretaris',
             'email' => 'sekretaris@bakid.id',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('123'),
             'phone' => '111',
             'kk' => '1111', 'current_team_id' => 1
         ])->assignRole('sekretaris');
@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
             'name' => 'Bendahara',
             'username' => 'bendahara',
             'email' => 'bendahara@bakid.id',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('123'),
             'phone' => '222',
             'kk' => '222', 'current_team_id' => 1
         ])->assignRole('bendahara');
@@ -70,7 +70,7 @@ class UserSeeder extends Seeder
             'name' => 'hankamtib',
             'username' => 'hankamtib',
             'email' => 'hankamtib@bakid.id',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('123'),
             'phone' => '333',
             'kk' => '333', 'current_team_id' => 1
         ])->assignRole('hankamtib');
@@ -90,7 +90,7 @@ class UserSeeder extends Seeder
             'name' => 'Santri bakid',
             'username' => 'santri2',
             'email' => 'santri@bakid.id',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('123'),
             'current_team_id' => 2,
             'phone' => '08123456783390',
             'kk' => '123456789012333456',
