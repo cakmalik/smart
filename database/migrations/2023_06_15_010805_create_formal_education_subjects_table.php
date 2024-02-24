@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('formal_education_subjects', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(FormalEducationClass::class)->constrained('formal_education_classes');
-            $table->string('name'); //e.g., Matematika
-            $table->foreignIdFor(Teacher::class)->nullable();
+            $table->string('code')->unique();
+            $table->string('name'); //eg. Matematika
+            $table->string('name_ar')->nullable(); 
             $table->timestamps();
         });
     }

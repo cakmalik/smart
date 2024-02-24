@@ -19,6 +19,10 @@ class BakidEducationGradeSeeder extends Seeder
 
          foreach ($formal_education_class as $key => $value) {
              // $value->rombel()->create(['grade_name   ' => $value->class_name . 'A', 'qty' => 40]);
+             if($value->formal_education_id == 6) {
+                continue;
+             }
+             
              FormalEducationGrade::create([
                  'formal_education_class_id' => $value->id,
                  'grade_name' => $value->class_name . 'A',

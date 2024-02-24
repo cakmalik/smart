@@ -77,7 +77,7 @@
                                 <x-splade-rehydrate on="informal-added,informal-changed,informal-updated"
                                     prevent-scroll>
                                     @forelse ($data as $i)
-                                        <div class="relative bg-white rounded-lg overflow-hidden pt-3 z-40">
+                                        <div class="relative bg-white rounded-lg overflow-hidden pt-3 z-10">
                                             {{-- <div
                                                 class="absolute text-white opacity-40 text-9xl font-extrabold right-10 rotate-4 text-center z-1 pointer-events-none">
                                                 name</div> --}}
@@ -93,7 +93,7 @@
                                                 <span class="">{{ $i->level }}</span>
                                             </div>
 
-                                            <div class="flex justify-center gap-2 bg-green-500 p-1 z-50 mt-3">
+                                            <div class="flex justify-center gap-2 bg-green-500 p-1 z-10 mt-3">
                                                 {{-- detail icon --}}
                                                 <Link slideover
                                                     href="{{ route('informal.class.index', ['informal_education_id' => $i->id]) }}"

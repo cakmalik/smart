@@ -18,16 +18,15 @@ if (!function_exists('getRandomAyat')) {
                 $fix['ayat'] = $data['arab'];
                 $fix['arti'] = $data['translation'];
 
-                $secondaryUrl  = $data['image']['secondary'];
+                $secondaryUrl = $data['image']['secondary'];
 
-                $pattern_surat_ke = "/\/(\d+)\//";
+                $pattern_surat_ke = '/\/(\d+)\//';
                 preg_match($pattern_surat_ke, $secondaryUrl, $matches);
                 $surat_ke = $matches[1];
 
-                $pattern_ayat_ke = "/\/\d+\/(\d+)/";
+                $pattern_ayat_ke = '/\/\d+\/(\d+)/';
                 preg_match($pattern_ayat_ke, $secondaryUrl, $matches);
                 $ayat_ke = $matches[1];
-
 
                 $surah = Http::get('https://quran-api-id.vercel.app/surahs/' . $surat_ke);
                 if ($surah->successful()) {
@@ -126,7 +125,7 @@ if (!function_exists('generateNIS')) {
             'table' => 'students',
             'field' => 'nis',
             'length' => 6,
-            'prefix' => date('y')
+            'prefix' => date('y'),
         ];
         return IdGenerator::generate($config);
     }
@@ -164,7 +163,7 @@ if (!function_exists('statusLabel')) {
 if (!function_exists('formatRupiah')) {
     function formatRupiah($angka)
     {
-        $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
+        $hasil_rupiah = 'Rp ' . number_format($angka, 2, ',', '.');
         return $hasil_rupiah;
     }
 }
@@ -246,5 +245,23 @@ if (!function_exists('isHasStudents')) {
     {
         $s = Student::where('user_id', auth()->user()->id)->count();
         return $s;
+    }
+}
+
+if (!function_exists('numberToRoman')) {
+    function numberToRoman($number)
+    {
+        $map = ['M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1];
+        $returnValue = '';
+        while ($number > 0) {
+            foreach ($map as $roman => $int) {
+                if ($number >= $int) {
+                    $number -= $int;
+                    $returnValue .= $roman;
+                    break;
+                }
+            }
+        }
+        return $returnValue;
     }
 }

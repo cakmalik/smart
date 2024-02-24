@@ -49,32 +49,32 @@ class BakidEducationSeeder extends Seeder
                 'name' => 'Sifir',
             ],
             [
-                'name' => '1 MID',
+                'name' => 'I MID',
             ],
             [
-                'name' => '2 MID',
+                'name' => 'II MID',
             ],
             [
-                'name' => '3 MID',
+                'name' => 'III MID',
             ],
             [
-                'name' => '4 MID',
+                'name' => 'IV MID',
             ],
             [
-                'name' => '5 MID',
+                'name' => 'V MID',
             ],
             [
-                'name' => '6 MID',
+                'name' => 'VI MID',
             ],
 
             [
-                'name' => '1 MTSD',
+                'name' => 'I MTSD',
             ],
             [
-                'name' => '2 MTSD',
+                'name' => 'II MTSD',
             ],
             [
-                'name' => '3 MTSD',
+                'name' => 'III MTSD',
             ],
         ];
 

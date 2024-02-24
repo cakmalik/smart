@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             DormitorySeeder::class,
             BakidEducationSeeder::class,
             BakidEducationClassSeeder::class,
+            BakidEducationGradeSeeder::class,
+            BakidEducationSubjectSeeder::class,
             PaymentInstructionSeeder::class,
             InvoiceUtilitySeeder::class,
             FormatMessageSeeder::class,
