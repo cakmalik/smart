@@ -15,9 +15,11 @@ return new class extends Migration
         Schema::create('informal_education_grades', function (Blueprint $table) {
             $table->id();
             // informal_education_class_id
-            $table->foreignIdFor(InformalEducationClass::class)->constrained('informal_education_classes');
+            $table->foreignIdFor(InformalEducationClass::class);
             $table->string('grade_name'); //e.g., 7a
             $table->integer('qty')->default(0);
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->nullable();
             $table->timestamps();
         });
     }

@@ -19,6 +19,12 @@ return new class extends Migration
             $table->string('class_name'); //e.g., 7
             $table->integer('qty')->default(0);
             $table->integer('current_qty')->default(0);
+            $table->string('class_name_full')->nullable();
+
+
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->nullable();
+
             $table->timestamps();
         });
     }
