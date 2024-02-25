@@ -82,7 +82,28 @@ class BakidEducationSeeder extends Seeder
             $formal = FormalEducation::create(['name' => $value['name'], 'level' => $value['level']]);
         }
 
-        $informal = InformalEducation::create(['name' => 'Madin']);
+        // $table->string('name'); //e.g., MTs2
+        // $table->string('full_name')->nullable();
+        // $table->enum('level', ['primary', 'secondary', 'high', 'bachelor', 'master', 'doctoral'])->default('primary');
+        // $table->string('address')->nullable();
+        // $table->string('postal_code')->nullable();
+        // $table->string('phone')->nullable();
+        // $table->string('email')->nullable();
+        // $table->string('website')->nullable();
+        // $table->string('npsn')->nullable();
+        // $table->string('logo')->nullable();
+
+        $informal = InformalEducation::create([
+            'name' => 'Madin',
+            'level' => 'primary',
+            'address' => 'Jl. Raya Banyuputih Kidul PO. BOX 101 Jatiroto Lumajang Jawa Timur',
+            'postal_code' => '67355',
+            'phone' => '021-3456789',
+            'email' => 'madin@bakid.id',
+            'website' => 'https://madin.bakid.id',
+            'npsn' => '12345678',
+            'logo' => 'madin-logo.png',
+        ]);
 
         foreach ($informal_classes as $key => $value) {
             InformalEducationClass::create(['informal_education_id' => $informal->id, 'class_name' => $value['name'], 'qty' => 40, 'current_qty' => 0]);

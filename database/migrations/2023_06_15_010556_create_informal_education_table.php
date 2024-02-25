@@ -14,7 +14,16 @@ return new class extends Migration
         Schema::create('informal_education', function (Blueprint $table) {
             $table->id();
             $table->string('name'); //e.g., MTs2
-            $table->enum('level', ['primary', 'secondary', 'high', 'bachelor', 'master', 'doctoral']);
+            $table->string('full_name')->nullable();
+            $table->enum('level', ['primary', 'secondary', 'high', 'bachelor', 'master', 'doctoral'])->default('primary');
+            $table->string('address')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('website')->nullable();
+            $table->string('npsn')->nullable();
+            $table->string('logo')->nullable();
+            
             $table->timestamps();
         });
     }
