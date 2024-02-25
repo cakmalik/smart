@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use App\Models\Informal\InformalEducation;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,6 +14,11 @@ return new class extends Migration
     {
         Schema::create('informal_education_academic_years', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
+            $table->foreignIdFor(InformalEducation::class);
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->integer('semester');
             $table->timestamps();
         });
     }
