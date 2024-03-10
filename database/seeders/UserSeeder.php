@@ -29,22 +29,46 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin PA',
             'username' => 'admin_pa',
+            'gender' => 'male',
             'email' => 'admin_pa@bakid.id',
             'password' => bcrypt('123'),
-            'phone' => '123',
-            'kk' => '1234',
-            'current_team_id' => 1
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
         ])->assignRole('admin');
 
         $admin = User::create([
             'name' => 'Admin PI',
             'username' => 'admin_pi',
+            'gender' => 'female',
             'email' => 'admin_pi@bakid.id',
             'password' => bcrypt('123'),
-            'phone' => '12344',
-            'kk' => '12345',
-            'current_team_id' => 1
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
         ])->assignRole('admin');
+
+        $madin_pa = User::create([
+            'name' => 'Madin PA',
+            'username' => 'madin_pa',
+            'gender' => 'male',
+            'email' => 'madin_pa@bakid.id',
+            'password' => bcrypt('123'),
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
+        ])->assignRole('madin');
+
+        $madin_pi = User::create([
+            'name' => 'Madin PI',
+            'username' => 'madin_pi',
+            'gender' => 'female',
+            'email' => 'madin_pi@bakid.id',
+            'password' => bcrypt('123'),
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
+        ])->assignRole('madin');
 
         //create user sekretaris
         $seketaris = User::create([
@@ -52,18 +76,19 @@ class UserSeeder extends Seeder
             'username' => 'sekretaris',
             'email' => 'sekretaris@bakid.id',
             'password' => bcrypt('123'),
-            'phone' => '111',
-            'kk' => '1111', 'current_team_id' => 1
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
         ])->assignRole('sekretaris');
-
 
         $bendahara = User::create([
             'name' => 'Bendahara',
             'username' => 'bendahara',
             'email' => 'bendahara@bakid.id',
             'password' => bcrypt('123'),
-            'phone' => '222',
-            'kk' => '222', 'current_team_id' => 1
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
         ])->assignRole('bendahara');
 
         $hankamtib = User::create([
@@ -71,8 +96,9 @@ class UserSeeder extends Seeder
             'username' => 'hankamtib',
             'email' => 'hankamtib@bakid.id',
             'password' => bcrypt('123'),
-            'phone' => '333',
-            'kk' => '333', 'current_team_id' => 1
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
         ])->assignRole('hankamtib');
 
         $santri_team = Team::create([
@@ -92,9 +118,8 @@ class UserSeeder extends Seeder
             'email' => 'santri@bakid.id',
             'password' => bcrypt('123'),
             'current_team_id' => 2,
-            'phone' => '08123456783390',
-            'kk' => '123456789012333456',
-
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
         ])->assignRole('santri');
 
         //assign person to team

@@ -23,6 +23,8 @@ class PermissionSeeder extends Seeder
         $p_mutation = ['access mutation', 'add mutation', 'edit mutation', 'delete mutation', 'approval mutation'];
         $p_approval = ['access approval', 'add approval', 'edit approval', 'delete approval', 'approval approval'];
 
+        $p_announcement = ['access announcement', 'edit announcement', 'delete announcement'];
+
         $p_management = ['access management', 'edit management', 'delete management', 'add management'];
         $p_management_asrama = ['access asrama', 'edit asrama', 'delete asrama', 'add asrama'];
         $p_management_formal = ['access formal', 'edit formal', 'delete formal', 'add formal'];
@@ -56,6 +58,7 @@ class PermissionSeeder extends Seeder
             $p_settings,
             $p_admission,
             $payment,
+            $p_announcement
         );
 
         foreach ($permissions as $permission) {
