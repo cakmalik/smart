@@ -21,7 +21,8 @@ return new class extends Migration
             $table->foreignIdFor(InformalEducation::class)->constrained('informal_education');
             $table->foreignIdFor(InformalEducationClass::class)->constrained('informal_education_classes');
             $table->foreignIdFor(InformalEducationGrade::class)->nullable()->constrained('informal_education_grades');
-            $table->enum('status', ['waiting', 'accepted', 'rejected', 'graduated', 'active'])->default('waiting');
+            $table->enum('status', ['waiting', 'approved', 'rejected', 'graduated', 'active', 'canceled', 'inactive'])->default('waiting');
+            $table->string('year');
             $table->timestamps();
         });
     }

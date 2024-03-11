@@ -103,5 +103,8 @@ class PermissionSeeder extends Seeder
         $student = Role::where('name', 'santri')->first();
         $student->givePermissionTo($p_students);
         $student->givePermissionTo($payment);
+
+        $madin = Role::where('name', 'madin')->first();
+        $madin->givePermissionTo($p_management);
     }
 }

@@ -20,13 +20,13 @@ return new class extends Migration
         Schema::create('formal_assessment_students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('students');
-            $table->foreignId('formal_education_id')->constrained('formal_education');
-            $table->foreignId('formal_education_class_id')->constrained('formal_education_classes');
-            $table->foreignId('formal_education_grade_id')->constrained('formal_education_grades');
-            $table->foreignId('formal_education_subject_id')->constrained('formal_education_subjects');
-            $table->string('academic_year');
-            $table->integer('score');
-            $table->string('score_text');
+            $table->foreignId('education_id')->constrained('formal_education');
+            $table->foreignId('class_id')->constrained('formal_education_classes');
+            $table->foreignId('grade_id')->constrained('formal_education_grades');
+            $table->foreignId('subjectt_id')->constrained('formal_education_subjects');
+            $table->foreignId('academic_id');
+            $table->string('score');
+            $table->string('score_text')->nullable();
             $table->string('description')->nullable();
             $table->foreignId('teacher_id')->nullable()->constrained('teachers');
             $table->timestamps();
