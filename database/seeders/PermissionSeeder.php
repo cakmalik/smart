@@ -30,6 +30,7 @@ class PermissionSeeder extends Seeder
         $p_management_formal = ['access formal', 'edit formal', 'delete formal', 'add formal'];
         $p_management_informal = ['access informal', 'edit informal', 'delete informal', 'add informal'];
 
+        
         $p_psb = ['access psb', 'approval psb'];
         $p_alumni = ['access alumni', 'approval alumni'];
         $p_campaign = ['access campaign', 'edit campaign', 'delete campaign', 'approval campaign'];
@@ -37,6 +38,10 @@ class PermissionSeeder extends Seeder
         $p_settings = ['access settings'];
         $p_admission = ['access admission'];
         $payment = ['change payment method'];
+        
+        // madin menu
+        
+
 
         $permissions = array_merge(
             $p_users,
@@ -105,6 +110,6 @@ class PermissionSeeder extends Seeder
         $student->givePermissionTo($payment);
 
         $madin = Role::where('name', 'madin')->first();
-        $madin->givePermissionTo($p_management);
+        $madin->givePermissionTo($p_management_informal);
     }
 }
