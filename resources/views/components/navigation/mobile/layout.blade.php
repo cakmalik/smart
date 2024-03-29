@@ -58,7 +58,7 @@
 
          <div class="bg-white shadow-lg bottom-navigation">
              <div class="flex px-3 py-1">
-                 <!-- 4 menu utama -->
+                 <!-- 5 menu utama -->
                  <div class="grid grid-cols-4 w-full text-xs">
                      <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Dashboard') }}" :link="route('dashboard')"
                          icon="ph-house-line" :active="request()->routeIs('dashboard')" />

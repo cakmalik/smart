@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     @isset($header)
-        <header class="text-center sm:text-start shadow bg-wa-teal2  backdrop-filter backdrop-blur-lg">
+        <header class="text-center sm:text-start shadow bg-wa-teal2/60  backdrop-filter backdrop-blur-lg  z-0">
             <div class="max-w-7xl mx-auto py-3  px-4 sm:px-6 lg:px-8 text-white">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center gap-3 w-full">
@@ -49,7 +49,7 @@
                                             </span>
                                         @endif
                                     </x-slot>
-                                    <div class="w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                                    <div class="w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10">
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ __('manage_account') }}
