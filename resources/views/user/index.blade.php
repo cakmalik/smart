@@ -9,7 +9,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto p-2 sm:px-6 lg:px-8">
-            <x-splade-table :for="$users" striped>
+            <x-splade-table :for="$users" striped class="">
                 <x-slot:empty-state>
                     <x-bakid.state.empty />
                 </x-slot>

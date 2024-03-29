@@ -1,10 +1,11 @@
-<tbody class="divide-y divide-gray-200 bg-white">
+<tbody class="divide-y divide-gray-200 ">
     @forelse($table->resource as $itemKey => $item)
+    {{-- NOTE: kalau ada darkmode nanti di ganti --}}
         <tr
             :class="{
-                'bg-gray-50': table.striped && @js($itemKey) % 2,
-                'hover:bg-gray-100': table.striped,
-                'hover:bg-gray-50': !table.striped
+                'bg-gray-50/20 backdrop-blur-md': table.striped && @js($itemKey) % 2,
+                'hover:bg-gray-100 backdrop-blur-md': table.striped,
+                'hover:bg-gray-50 backdrop-blur-md': !table.striped
             }">
             @if ($hasBulkActions = $table->hasBulkActions())
                 <td width="64" class="text-xs px-6 py-4">
@@ -26,9 +27,9 @@ pr-6
 @else
 px-6
 @endif py-4 @if ($column->highlight)
-text-gray-900 font-medium
+text-gray-700 font-medium
 @else
-text-gray-500
+text-gray-700
 @endif @if ($table->rowLinks->has($itemKey))
 cursor-pointer
 @endif {{ $column->classes }}">

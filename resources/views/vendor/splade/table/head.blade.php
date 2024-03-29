@@ -1,7 +1,7 @@
-<thead class="bg-gray-50">
+<thead class="bg-white/70 backdrop-blur-md">
     <tr>
         @if ($hasBulkActions = $table->hasBulkActions())
-            <th width="64" class="px-6 py-3 text-xs">
+            <th width="64" class="px-6 py-3 text-">
                 @include('splade::table.select-rows-dropdown')
             </th>
         @endif
@@ -12,7 +12,7 @@
 pr-6
 @else
 px-6
-@endif py-3 text-left text-xs font-medium tracking-wide text-gray-500 {{ $column->classes }}">
+@endif py-3 text-left text-xs tracking-wide text-black font-semibold {{ $column->classes }}">
                 @if ($column->sortable)
                     <Link keep-modal dusk="sort-{{ $column->key }}" href="{{ $sortBy($column) }}">
                 @endif
