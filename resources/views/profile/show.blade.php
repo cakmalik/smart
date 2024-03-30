@@ -7,7 +7,7 @@
         </h2>
         </x-slot>
 
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8 malik-bg mt-10 sm:rounded-lg ">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @include('profile.update-profile-information-form')
 

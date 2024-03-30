@@ -16,6 +16,13 @@
     }
   }
 
+  @layer components {
+    .malik-bg{
+      @apply bg-white/60 dark:bg-slate-800/60 backdrop-blur-md sm:rounded-lg;
+    }
+  }
+
+
 /*
 @layer utilities {
       .animation-delay-2000{

@@ -8,7 +8,7 @@
         </div>
     </x-slot>
     <div class="py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 ">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 malik-bg">
             {{-- jika akun wali murid yang sudah punya anak terdaftar --}}
             @if (roleName() == 'santri' && isHasStudents() != 0)
                 {{-- <div class="grid grid-cols-2 gap-2 mb-4 sm:grid-cols-4 sm:gap-3">
