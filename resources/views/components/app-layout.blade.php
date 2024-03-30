@@ -1,14 +1,45 @@
 <x-banner />
 
-<div class="min-h-screen bg-green-200 pb-20"
+<div class="min-h-screen pb-20 relative"
     style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
-{{-- <div class="min-h-screen bg-neutral-200"> --}}
+    {{-- <div class="min-h-screen bg-neutral-200"> --}}
 
-    <x-navigation />
+    @hasrole('santri')
+        @if (Auth::user()->students->count() > 0)
+            <x-navigation.santri-mobile-menu />
+        @endif
+    @else
+        <x-splade-data store="mobileNavigation" default="{ open: false }" />
+        {{-- MENU WEB --}}
+        <nav class="z-900 sm:absolute w-full h-[100px] hidden sm:block bg-white/60 dark:bg-slate-800/60 backdrop-blur-md   border-gray-200 dark:bg-gray-900">
+            <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto pt-4">
+                <a href="https://bakid.id" class="flex  items-center space-x-3 rtl:space-x-reverse">
+                    <img src="{{ asset('bakid/logo-ppmu.png') }}" class="h-8" alt="Flowbite Logo" />
+                    <span
+                        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ config('app.name') }}</span>
+                </a>
+            </div>
+            <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto p-4 overflow-x-scroll">
+                <div id="mega-menu-icons" class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+                    <ul class="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
+                        <div id="mega-menu-icons" class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+                            @include('components.menu.admin-web-menu')
+                         </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <x-splade-rehydrate on="refresh-navigation-menu, profile-information-updated">
+            @include('components.navigation.mobile.layout')
+        </x-splade-rehydrate>
+    
+    @endhasrole
+
 
     <!-- Page Heading -->
     @isset($header)
-        <header class="text-center sm:text-start shadow bg-wa-teal2/60  backdrop-filter backdrop-blur-lg  z-0">
+        <header class="z-800 absolute sm:top-[100px] w-full text-center sm:text-start shadow bg-wa-teal2/60  backdrop-filter backdrop-blur-lg ">
             <div class="max-w-7xl mx-auto py-3  px-4 sm:px-6 lg:px-8 text-white">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center gap-3 w-full">
@@ -21,7 +52,7 @@
                         <div class="flex w-full justify-between items-center">
                             {{ $header }}
                             {{-- bagian avatar dropdown --}}
-                            <div class="flex items-center gap-2"> 
+                            <div class="flex items-center gap-2">
                                 <a href="{{ route('setting.switch-locale') }}"
                                     class="uppercase font-semibold text-white">{{ config('app.locale') }}
                                 </a>
@@ -49,7 +80,8 @@
                                             </span>
                                         @endif
                                     </x-slot>
-                                    <div class="w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10">
+                                    <div
+                                        class="w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10">
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ __('manage_account') }}
@@ -73,7 +105,7 @@
                                         </x-splade-form>
                                     </div>
                                 </x-splade-dropdown>
-                               
+
                             </div>
 
                         </div>
@@ -92,7 +124,11 @@
         @endif
 
         <!-- Page Content -->
-        <main>
+        <main class="absolute w-full top-[30px] sm:top-[150px]">
             {{ $slot }}
         </main>
+
+        <x-splade-script>
+            initFlowbite();
+        </x-splade-script>
     </div>

@@ -7,9 +7,8 @@ module.exports = {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.vue",
-        "./node_modules/flowbite/**/*.js"
+        "./node_modules/flowbite/**/*.js",
     ],
-
 
     darkMode: "class",
     theme: {
@@ -17,6 +16,17 @@ module.exports = {
             // fontFamily: {
             //     primary: "Usmani",
             // },
+            zIndex: {
+                100: "100",
+                200: "200",
+                300: "300",
+                400: "400",
+                500: "500",
+                600: "600",
+                700: "700",
+                800: "800",
+                900: "900",
+            },
             backgroundImage: {
                 "hero-pattern": "url('/bakid/img/hero_pattern.jpg')",
                 "footer-texture": "url('/img/footer-texture.png')",
@@ -68,6 +78,6 @@ module.exports = {
     plugins: [
         require("@tailwindcss/forms"),
         require("@tailwindcss/typography"),
-        require('flowbite/plugin')
+        require("flowbite/plugin"),
     ],
 };
