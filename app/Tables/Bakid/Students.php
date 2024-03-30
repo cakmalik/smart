@@ -59,7 +59,11 @@ class Students extends AbstractTable
         })->toArray();
 
         // Ambil tahun unik dari kolom 'verified_at' dalam model 'Student'
+        // REMEMBER: MYSQL dan POSTGRES berbeda
+        // kalau mysql seperti ini :
         $years = DB::table('students')->whereNotNull('verified_at')->distinct()->pluck(DB::raw('YEAR(verified_at) as year'))->toArray();
+        // kalau postgres seperti ini :
+        // $years = Student::selectRaw('distinct extract(year from verified_at) as year')->whereNotNull('verified_at')->pluck('year')->toArray();
 
         // Tambahkan pilihan 'Semua' ke pilihan tahun
         $table
