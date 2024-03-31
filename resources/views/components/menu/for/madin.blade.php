@@ -1,8 +1,5 @@
 @hasrole('madin_admin')
-    @can('access informal_info')
-        <x-menu.web link="{{ route('violation.index') }}" label="Informasi Lembaga" />
-    @endcan
-
+    
     @php
         $u = auth()->user();
         $can = $u->can('access informal_akademik');
@@ -10,7 +7,7 @@
         $can = $can || $u->can('access informal_master_siswa');
         $can = $can || $u->can('access informal_master_pelajaran');
     @endphp
-    
+
     @if ($can)
         <x-menu.web-mega cols="1" label="PSB">
             <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
@@ -48,4 +45,9 @@
     @can('access informal_kelola_raport')
         <x-menu.web link="{{ route('violation.index') }}" label="Raport" />
     @endcan
+
+    @can('access informal_info')
+        <x-menu.web link="{{ route('violation.index') }}" label="Profil" />
+    @endcan
+
 @endhasrole

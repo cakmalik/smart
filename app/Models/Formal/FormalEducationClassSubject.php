@@ -5,7 +5,7 @@ namespace App\Models\Formal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FormalEducaionClassSubject extends Model
+class FormalEducationClassSubject extends Model
 {
     use HasFactory;
 }

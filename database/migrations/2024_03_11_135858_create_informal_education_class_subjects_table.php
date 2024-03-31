@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('informal_educaion_class_subjects', function (Blueprint $table) {
+        Schema::create('informal_education_class_subjects', function (Blueprint $table) {
             $table->id();
             $table->foreignId('class_id')->constrained('informal_education_classes');
             $table->foreignId('subject_id')->constrained('informal_education_subjects');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('informal_educaion_class_subjects');
+        Schema::dropIfExists('informal_education_class_subjects');
     }
 };
