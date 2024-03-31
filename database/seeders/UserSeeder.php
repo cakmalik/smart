@@ -5,11 +5,12 @@ namespace Database\Seeders;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use App\Actions\Jetstream\AddTeamMember;
 use Spatie\Permission\Models\Permission;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Actions\Jetstream\AddTeamMember;
 
 class UserSeeder extends Seeder
 {
@@ -57,7 +58,11 @@ class UserSeeder extends Seeder
             'phone' => rand(1111111111, 9999999999),
             'kk' => rand(9999999999, 99999999999),
             'current_team_id' => 1,
-        ])->assignRole('madin');
+        ])->assignRole('madin_admin');
+        DB::table('user_has_informal_education_permission')->insert([
+            'user_id' => $madin_pa->id,
+            'education_id' => 1,
+        ]);
 
         $madin_pi = User::create([
             'name' => 'Madin PI',
@@ -68,7 +73,11 @@ class UserSeeder extends Seeder
             'phone' => rand(1111111111, 9999999999),
             'kk' => rand(9999999999, 99999999999),
             'current_team_id' => 1,
-        ])->assignRole('madin');
+        ])->assignRole('madin_admin');
+        DB::table('user_has_informal_education_permission')->insert([
+            'user_id' => $madin_pi->id,
+            'education_id' => 1,
+        ]);
 
         //create user sekretaris
         $seketaris = User::create([

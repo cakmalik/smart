@@ -34,7 +34,17 @@ class RoleSeeder extends Seeder
 
             ],
             [
-                'name' => 'madin',
+                'name' => 'madin_admin',
+                'guard_name' => 'web'
+
+            ],
+            [
+                'name' => 'madin_walas',
+                'guard_name' => 'web'
+
+            ],
+            [
+                'name' => 'madin_teacher',
                 'guard_name' => 'web'
 
             ],
