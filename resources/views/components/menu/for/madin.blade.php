@@ -13,7 +13,7 @@
             <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                 <ul class="space-y-4" aria-labelledby="mega-menu-icons-dropdown-button">
                     @can('access informal_akademik')
-                        <x-menu.web link="{{ route('student.new') }}" label="Akademik" icon="ph-plus-circle" />
+                        <x-menu.web link="{{ route('informal.academic_years.index') }}" label="Tahun Akademik" icon="ph-plus-circle" />
                     @endcan
                     @can('access informal_master_kelas')
                         <x-menu.web link="{{ route('student.new') }}" label="Kelas" icon="ph-plus-circle" />

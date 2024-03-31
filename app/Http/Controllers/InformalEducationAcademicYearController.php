@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Tables\Bakid\Education\Informal\AcademicYear;
+use App\Models\Informal\InformalEducationAcademicYear;
 use App\Http\Requests\StoreInformalEducationAcademicYearRequest;
 use App\Http\Requests\UpdateInformalEducationAcademicYearRequest;
-use App\Models\Informal\InformalEducationAcademicYear;
 
 class InformalEducationAcademicYearController extends Controller
 {
@@ -13,7 +14,10 @@ class InformalEducationAcademicYearController extends Controller
      */
     public function index()
     {
-        //
+        return view('bakid.education.informal.academic_year.index', 
+        ['data' => AcademicYear::class, 
+                'title' => 'Tahun Akademik'
+        ]);
     }
 
     /**

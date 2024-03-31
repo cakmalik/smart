@@ -39,6 +39,7 @@ use App\Http\Controllers\ReminderNotificationController;
 use App\Http\Controllers\InformalEducationClassController;
 use App\Http\Controllers\StudentInOutPermissionController;
 use App\Http\Controllers\InvoiceCategoryDiscountController;
+use App\Http\Controllers\InformalEducationAcademicYearController;
 
 /*
 |--------------------------------------------------------------------------
@@ -165,8 +166,9 @@ Route::middleware(['splade'])->group(function () {
         Route::name('formal.')->group(function () {  
             Route::resource('/formal/class', FormalEducationClassController::class);
         });
-        Route::name('informal.')->group(function () {  
-            Route::resource('/informal/class', InformalEducationClassController::class);
+        Route::prefix('informal')->name('informal.')->group(function () {  
+            Route::resource('/class', InformalEducationClassController::class);
+            Route::resource('/academic_years', InformalEducationAcademicYearController::class);
         });
         Route::resource('/formal', FormalEducationController::class);
         Route::resource('/informal', InformalEducationController::class);
