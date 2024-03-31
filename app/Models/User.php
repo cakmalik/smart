@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Informal\InformalEducation;
 use App\Models\Student;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
@@ -11,7 +12,9 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\UserHasFormalEducationPermission;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\UserHasInformalEducationPermission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -89,5 +92,10 @@ class User extends Authenticatable
     public function reminder()
     {
         return $this->hasOne(ReminderNotification::class);
+    }
+
+    public function educations()
+    {
+        return $this->belongsToMany(InformalEducation::class, 'user_has_informal_education_permission', 'user_id', 'education_id');
     }
 }

@@ -27,9 +27,9 @@ pr-6
 @else
 px-6
 @endif py-4 @if ($column->highlight)
-text-gray-700 font-medium
+text-neutral-800 font-medium
 @else
-text-gray-700
+text-neutral-800
 @endif @if ($table->rowLinks->has($itemKey))
 cursor-pointer
 @endif {{ $column->classes }}">

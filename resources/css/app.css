@@ -18,7 +18,10 @@
 
   @layer components {
     .malik-bg{
-      @apply bg-white/60 dark:bg-slate-800/60 backdrop-blur-md sm:rounded-lg border border-white;
+      @apply bg-white/70 dark:bg-slate-800/60 backdrop-blur-md;
+    }
+    .malik-card{
+      @apply bg-white/70 dark:bg-slate-800/60 backdrop-blur-md rounded-xl p-3;
     }
   }
 
