@@ -38,10 +38,6 @@ class PermissionSeeder extends Seeder
         $p_settings = ['access settings'];
         $p_admission = ['access admission'];
         $payment = ['change payment method'];
-        
-        // madin menu
-        
-
 
         $permissions = array_merge(
             $p_users,
@@ -108,8 +104,5 @@ class PermissionSeeder extends Seeder
         $student = Role::where('name', 'santri')->first();
         $student->givePermissionTo($p_students);
         $student->givePermissionTo($payment);
-
-        $madin = Role::where('name', 'madin_admin')->first();
-        $madin->givePermissionTo($p_management_informal);
     }
 }
