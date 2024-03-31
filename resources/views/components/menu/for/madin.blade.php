@@ -9,20 +9,20 @@
     @endphp
 
     @if ($can)
-        <x-menu.web-mega cols="1" label="PSB">
+        <x-menu.web-mega cols="1" label="Master">
             <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                 <ul class="space-y-4" aria-labelledby="mega-menu-icons-dropdown-button">
                     @can('access informal_akademik')
-                        <x-menu.web link="{{ route('informal.academic_years.index') }}" label="Tahun Akademik" icon="ph-plus-circle" />
+                        <x-menu.web link="{{ route('informal.academic_years.index') }}" label="Akademik" icon="ph-graduation-cap" />
                     @endcan
                     @can('access informal_master_kelas')
-                        <x-menu.web link="{{ route('student.new') }}" label="Kelas" icon="ph-plus-circle" />
+                        <x-menu.web link="{{ route('student.new') }}" label="Kelas" icon="ph-user-list" />
                     @endcan
                     @can('access informal_master_siswa')
-                        <x-menu.web link="{{ route('student.new') }}" label="Siswa" icon="ph-plus-circle" />
+                        <x-menu.web link="{{ route('student.new') }}" label="Siswa" icon="ph-users" />
                     @endcan
                     @can('access informal_master_pelajaran')
-                        <x-menu.web link="{{ route('student.new') }}" label="Pelajaran" icon="ph-plus-circle" />
+                        <x-menu.web link="{{ route('student.new') }}" label="Pelajaran" icon="ph-notebook" />
                     @endcan
                 </ul>
             </div>
