@@ -84,4 +84,6 @@
         <x-menu.web link="{{ route('setting.index') }}" label="Settings" />
     @endcan
 
+    @include('components.menu.for.madin')
+
 </ul>

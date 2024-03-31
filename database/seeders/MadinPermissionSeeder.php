@@ -27,16 +27,16 @@ class MadinPermissionSeeder extends Seeder
 
          // madin menu
          $madin_menu_permission = array_merge(
-    $madin_info,
-    $madin_akademik,
-    $madin_master_kelas,
-    $madin_master_siswa,
-    $madin_master_pelajaran,
-    $madin_presensi,
-    $madin_kelola_pelajaran,
-    $madin_kelola_mutasi,
-    $madin_kelola_nilai,
-    $madin_kelola_raport
+        $madin_info,
+        $madin_akademik,
+        $madin_master_kelas,
+        $madin_master_siswa,
+        $madin_master_pelajaran,
+        $madin_presensi,
+        $madin_kelola_pelajaran,
+        $madin_kelola_mutasi,
+        $madin_kelola_nilai,
+        $madin_kelola_raport
         );
 
         foreach ($madin_menu_permission as $permission) {
