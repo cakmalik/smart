@@ -24,6 +24,14 @@ class InformalEducationAcademicYearController extends Controller
         return view('bakid.education.informal.academic_year.index', ['data' => AcademicYear::class, 'title' => 'Tahun Akademik']);
     }
 
+    public function activate(InformalEducationAcademicYear $academic_year){
+        // off all academic year
+        InformalEducationAcademicYear::where('is_active', true)->update(['is_active' => false]);
+        $academic_year->is_active = true;
+        $academic_year->save();
+        Toast::success('Tahun Akademik ' . $academic_year->code . ' aktif')->autoDismiss(5);
+        return back();
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -41,7 +49,7 @@ class InformalEducationAcademicYearController extends Controller
         $code = $request->year . $request->semester;
         if (InformalEducationAcademicYear::where('code', $code)->exists()) {
            Toast::danger('Tahun Akademik sudah ada');
-            return redirect()->back();
+           return back();
         }
 
         try {
@@ -56,10 +64,9 @@ class InformalEducationAcademicYearController extends Controller
             ]);
 
             Toast::success('Tahun Akademik berhasil ditambahkan');
-            return redirect()->back();
+            return back();
         } catch (\Exception $e) {
             Toast::danger($e->getMessage());
-            return redirect()->back();
         }
     }
 

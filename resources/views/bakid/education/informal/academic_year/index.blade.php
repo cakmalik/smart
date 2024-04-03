@@ -7,19 +7,19 @@
         </h2>
     </x-slot>
     <div class="mt-10">
-        <x-splade-rehydrate on="academy_updated">
-            <div class="max-w-7xl mx-auto p-2 sm:px-6 lg:px-8">
-                <div class="w-full flex justify-end mb-3">
-                    <Link modal href="{{ route('informal.academic_years.create') }}" close-explicitly>
-                    <x-bakid.button label="Tambah">
-                        <x-slot:leading>
-                            <x-bakid.icon name="plus" />
-                        </x-slot:leading>
-                    </x-bakid.button>
-                    </Link>
-                </div>
+        <div class="max-w-7xl mx-auto p-2 sm:px-6 lg:px-8">
+            <div class="w-full flex justify-end mb-3">
+                <Link href="#create-modal" close-explicitly>
+                <x-bakid.button label="Tambah">
+                    <x-slot:leading>
+                        <x-bakid.icon name="plus" />
+                    </x-slot:leading>
+                </x-bakid.button>
+                </Link>
+            </div>
 
-                <!-- component -->
+            <!-- component -->
+            <x-splade-rehydrate on="academy-updated">
                 <x-splade-table :for="$data" class="group">
                     <x-slot:empty-state>
                         <x-bakid.state.empty />
@@ -32,9 +32,36 @@
                             {{ $data->is_active ? 'Aktif' : 'Tidak Aktif' }}
                         </span>
                     </x-splade-cell>
+                    <x-splade-cell aksi as="$data">
+                        <Link     confirm="Lanjutkan?"
+                        confirm-text="Apakah anda yakin mengaktifkan tahun akademik ini?"
+                        confirm-button="Ya"
+                        cancel-button="Tidak" href="{{ route('informal.academic_years.activate', $data->id) }}" close-explicitly>
+                            <x-bakid.button>
+                                <x-slot:leading>    
+                                    <x-bakid.icon name="check" />
+                                </x-slot:leading>
+                            </x-bakid.button>
+                        </Link>
+                    </x-splade-cell>
                 </x-splade-table>
-            </div>
-        </x-splade-rehydrate>
+            </x-splade-rehydrate>
+
+            <x-splade-modal name="create-modal">
+                <x-splade-form :action="route('informal.academic_years.store')" stay background @success="$splade.emit('academy-updated')"
+                    class="flex flex-col gap-4" method="post">
+                    <div class="flex gap-4">
+                        <div class="w-full flex flex-col gap-4">
+                            <x-splade-input name="semester" :label="__('Kwartal')" placeholder="Kwartal / Semester" />
+                            <x-splade-input name="year" :label="__('Tahun Hijriah')" placeholder="Tahun Hijriah" />
+                            <x-splade-input name="start_date" :label="__('Start Date')" placeholder="Start Date" date />
+                            <x-splade-input name="end_date" :label="__('End Date')" placeholder="End Date" date />
+                        </div>
+                    </div>
+                    <x-splade-submit label="Simpan" />
+                </x-splade-form>
+            </x-splade-modal>
+        </div>
     </div>
 </x-app-layout>
 <x-splade-script>

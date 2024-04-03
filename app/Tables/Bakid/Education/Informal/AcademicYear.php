@@ -63,6 +63,8 @@ class AcademicYear extends AbstractTable
                 searchable: true
             )
             ->column('year', sortable: true)
-            ->column('status');
+            ->column('status')
+            ->column('aksi')
+            ->paginate(10);
     }
 }

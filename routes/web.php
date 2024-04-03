@@ -168,6 +168,8 @@ Route::middleware(['splade'])->group(function () {
         });
         Route::prefix('informal')->name('informal.')->group(function () {  
             Route::resource('/class', InformalEducationClassController::class);
+
+            Route::get('/academic_years/activate/{academic_year}', [InformalEducationAcademicYearController::class, 'activate'])->name('academic_years.activate');
             Route::resource('/academic_years', InformalEducationAcademicYearController::class);
         });
         Route::resource('/formal', FormalEducationController::class);
