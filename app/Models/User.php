@@ -98,4 +98,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(InformalEducation::class, 'user_has_informal_education_permission', 'user_id', 'education_id');
     }
+
+    public function InformalEducations()
+    {
+        return $this->belongsToMany(InformalEducation::class, 'user_has_informal_education_permission', 'user_id', 'education_id');
+    }
+
+    public function formalEducations()
+    {
+        return $this->belongsToMany(FormalEducation::class, 'user_has_formal_education_permission', 'user_id', 'education_id');
+    }
 }

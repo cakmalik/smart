@@ -7,17 +7,18 @@
         </h2>
     </x-slot>
     <div class="mt-10">
-        <x-bakid.button>
-            <x-slot:leading>
-                sadfsdf
-            </x-slot:leading>
-            asd
-        </x-bakid.button>
-        <Link modal href="{{ route('informal.academic_years.create') }}" class="bg-slate-500 p-2 text-white rounded-md">
-        Tambah Akademik
-        </Link>
         <x-splade-rehydrate on="academy_updated">
             <div class="max-w-7xl mx-auto p-2 sm:px-6 lg:px-8">
+                <div class="w-full flex justify-end mb-3">
+                    <Link modal href="{{ route('informal.academic_years.create') }}" close-explicitly>
+                    <x-bakid.button label="Tambah">
+                        <x-slot:leading>
+                            <x-bakid.icon name="plus" />
+                        </x-slot:leading>
+                    </x-bakid.button>
+                    </Link>
+                </div>
+
                 <!-- component -->
                 <x-splade-table :for="$data" class="group">
                     <x-slot:empty-state>

@@ -11,7 +11,7 @@ class StoreInformalEducationAcademicYearRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreInformalEducationAcademicYearRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'semester' => 'required|in:1,2,3',
+            'year' => 'required|numeric|digits:4',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
         ];
     }
 }

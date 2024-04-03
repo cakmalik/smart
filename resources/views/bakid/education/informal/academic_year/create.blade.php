@@ -1,11 +1,12 @@
 <x-app-layout>
     <x-splade-modal>
-        <x-splade-form :action="route('user.store')" class="flex flex-col gap-4" method="post">
+        <x-splade-form :action="route('informal.academic_years.store')" class="flex flex-col gap-4" method="post">
             <div class="flex gap-4">
                 <div class="w-full flex flex-col gap-4">
-                    <x-splade-input name="code" :label="__('Kode')"  />
                     <x-splade-input name="semester" :label="__('Kwartal')" placeholder="Kwartal / Semester"  />
-                    <x-splade-input name="year" type="year" :label="__('Tahun Hijriah')" />
+                    <x-splade-input name="year"  :label="__('Tahun Hijriah')" placeholder="Tahun Hijriah"  />
+                    <x-splade-input name="start_date" :label="__('Start Date')" placeholder="Start Date" date />
+                    <x-splade-input name="end_date" :label="__('End Date')" placeholder="End Date" date />
                 </div>
 
             </div>

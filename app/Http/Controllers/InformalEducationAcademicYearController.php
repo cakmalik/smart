@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use ProtoneMedia\Splade\Facades\Toast;
 use App\Tables\Bakid\Education\Informal\AcademicYear;
 use App\Models\Informal\InformalEducationAcademicYear;
 use App\Http\Requests\StoreInformalEducationAcademicYearRequest;
@@ -12,12 +13,15 @@ class InformalEducationAcademicYearController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    protected $model;
+    public function __construct()
+    {
+        $this->model = new InformalEducationAcademicYear();
+    }
     public function index()
     {
-        return view('bakid.education.informal.academic_year.index', 
-        ['data' => AcademicYear::class, 
-                'title' => 'Tahun Akademik'
-        ]);
+        return view('bakid.education.informal.academic_year.index', ['data' => AcademicYear::class, 'title' => 'Tahun Akademik']);
     }
 
     /**
@@ -33,7 +37,30 @@ class InformalEducationAcademicYearController extends Controller
      */
     public function store(StoreInformalEducationAcademicYearRequest $request)
     {
-        //
+        $education_id = auth()->user()->InformalEducations?->first()->id;
+        $code = $request->year . $request->semester;
+        if (InformalEducationAcademicYear::where('code', $code)->exists()) {
+           Toast::danger('Tahun Akademik sudah ada');
+            return redirect()->back();
+        }
+
+        try {
+            $this->model->create([
+                'code' => $code,
+                'year' => $request->year,
+                'semester' => $request->semester,
+                'start_date' =>inputDateFormat($request->start_date),
+                'end_date' => inputDateFormat($request->end_date),
+                'is_active' => false,
+                'informal_education_id' => $education_id
+            ]);
+
+            Toast::success('Tahun Akademik berhasil ditambahkan');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            Toast::danger($e->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**

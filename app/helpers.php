@@ -265,3 +265,9 @@ if (!function_exists('numberToRoman')) {
         return $returnValue;
     }
 }
+if (!function_exists('inputDateFormat')) {
+    function inputDateFormat($date)
+    {
+        return date('Y-m-d', strtotime($date));
+    }
+}
