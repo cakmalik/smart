@@ -25,7 +25,7 @@ class InformalEducationAcademicYearController extends Controller
      */
     public function create()
     {
-        //
+        return view('bakid.education.informal.academic_year.create');
     }
 
     /**
