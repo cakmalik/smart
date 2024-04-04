@@ -39,7 +39,7 @@
                                     confirm-text="Apakah anda yakin mengaktifkan tahun akademik ini?"
                                     confirm-button="Ya" cancel-button="Tidak"
                                     href="{{ route('informal.academic_years.activate', $data->id) }}" close-explicitly>
-                                <x-bakid.button>
+                                <x-bakid.button :is_fill="false">
                                     <x-slot:leading>
                                         <x-bakid.icon name="check" />
                                     </x-slot:leading>

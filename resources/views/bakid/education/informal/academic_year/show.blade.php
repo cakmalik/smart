@@ -12,13 +12,17 @@
                 </div>
             </div>
             <div class="flex
-                       justify-between">
+                       justify-between items-center">
                 <Link confirm="Delete..." confirm-text="Yakin?" confirm-button="Ya, Saya yakin"
                     cancel-button="Tidak" href="{{ route('informal.academic_years.destroy', $data->id) }}" method="delete"
-                    class='bg-red-500 hover:bg-red-600 p-2 px-4 text-white rounded-md text-sm items-center  '>
-                Hapus</Link>
+                    >
+                    <x-bakid.button level="danger">
+                        <x-slot:leading>
+                            <x-bakid.icon name="trash" />
+                        </x-slot:leading>
+                    </x-bakid.button>
+                </Link>
                 <x-splade-submit
-                    class="bg-slate-500 p-2 px-4 text-white rounded-md text-sm items-center  hover:bg-green-500 w-20"
                     :spinner="true">
                     Update
                 </x-splade-submit>
