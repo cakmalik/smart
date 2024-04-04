@@ -151,8 +151,8 @@ class DocumentController extends Controller
             // return back();
         } catch (\Exception $e) {
 
-            return false;
             Log::error('kts gagal dibuat ' . $e->getMessage() . ' - ' . $e->getLine());
+            return false;
         }
     }
 
