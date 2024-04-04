@@ -21,7 +21,7 @@ class InformalEducationAcademicYearController extends Controller
     }
     public function index()
     {
-        return view('bakid.education.informal.academic_year.index', ['data' => AcademicYear::class, 'title' => 'Tahun Akademik']);
+        return view('bakid.education.informal.academic_year.index', ['data' => AcademicYear::class, 'title' => 'Academic Year']);
     }
 
     public function activate(InformalEducationAcademicYear $academic_year){
@@ -76,14 +76,6 @@ class InformalEducationAcademicYearController extends Controller
     public function show(InformalEducationAcademicYear $academic_year)
     {
         return view('bakid.education.informal.academic_year.show', ['data' => $academic_year]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(InformalEducationAcademicYear $acardemi)
-    {
-        //
     }
 
     /**

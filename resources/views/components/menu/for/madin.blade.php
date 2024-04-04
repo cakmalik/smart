@@ -16,13 +16,16 @@
                         <x-menu.web link="{{ route('informal.academic_years.index') }}" label="Akademik" icon="ph-graduation-cap" />
                     @endcan
                     @can('access informal_master_kelas')
-                        <x-menu.web link="{{ route('student.new') }}" label="Kelas" icon="ph-user-list" />
+                        <x-menu.web link="{{ route('informal.class.index') }}" label="Kelas" icon="ph-user-list" />
                     @endcan
                     @can('access informal_master_siswa')
-                        <x-menu.web link="{{ route('student.new') }}" label="Siswa" icon="ph-users" />
+                        <x-menu.web link="{{ route('informal.student.index') }}" label="Siswa" icon="ph-users" />
                     @endcan
                     @can('access informal_master_pelajaran')
-                        <x-menu.web link="{{ route('student.new') }}" label="Pelajaran" icon="ph-notebook" />
+                        <x-menu.web link="{{ route('informal.subject.index') }}" label="Pelajaran" icon="ph-notebook" />
+                    @endcan
+                    @can('access informal_master_guru')
+                        <x-menu.web link="{{ route('informal.teacher.index') }}" label="Guru" icon="ph-user" />
                     @endcan
                 </ul>
             </div>

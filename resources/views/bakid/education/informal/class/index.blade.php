@@ -1,66 +1,80 @@
-<x-splade-modal>
-    <h1 class=" font-semibold text-2xl">{{ __('Class') }}</h1>
-    <div class="relative flex py-5 items-center">
-        <div class="flex-grow border-t border-gray-400"></div>
-    </div>
+@seoTitle(__($title))
 
-    <div class="grid grid-cols-1 gap-4">
-        <div id="accordion-collapse" data-accordion="collapse">
-            @forelse ($data as $i)
-                <h2 id="accordion-collapse-{{ $i->id }}">
-                    <button type="button"
-                        class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 @if ($loop->first) rounded-t-xl @endif focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                        data-accordion-target="#accordion-collapse-body-{{ $i->id }}" aria-expanded="true"
-                        aria-controls="accordion-collapse-body-{{ $i->id }}">
-                        <div class="flex gap-3">
-                            <span>{{ $i->class_name }}</span>
-                            <span class="text-gray-400">({{ $i->rombel?->count() }} {{ __('Group') }})</span>
-                        </div>
-                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5 5 1 1 5" />     
-                        </svg>
-                    </button>
-                </h2>
-                <div id="accordion-collapse-body-{{ $i->id }}" class="hidden"
-                    aria-labelledby="accordion-collapse-{{ $i->id }}">
-                    <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                        <div class="flex flex-wrap gap-2">
-                            @if ($i->rombel)
-                                @forelse ($i->rombel as $ri)
-                                    <div
-                                        class=" grow flex justify-center card text-gray-500 border rounded-md border-gray-200 px-2 py-1 bg-white hover:bg-wa-teal1 hover:text-white cursor-pointer">
-                                        {{ $ri->grade_name }}
-                                    </div>
-                                @empty
-                                    <span class="flex grow justify-center text-gray-400">
-                                        Tidak ditemukan Rombel
-                                    </span>
-                                @endforelse
+<x-app-layout>
+    <x-slot:header>
+        <h2 class="font-medium text-xl capitalize">
+            {{ __($title) }}
+        </h2>
+    </x-slot>
+    <div class="mt-10">
+        <div class="max-w-7xl mx-auto p-2 sm:px-6 lg:px-8">
+            <div class="w-full flex justify-end mb-3">
+                <Link href="#create-modal" close-explicitly>
+                <x-bakid.button label="Tambah">
+                    <x-slot:leading>
+                        <x-bakid.icon name="plus" />
+                    </x-slot:leading>
+                </x-bakid.button>
+                </Link>
+            </div>
+
+            <!-- component -->
+            <x-splade-rehydrate on="academy-updated">
+                <x-splade-table :for="$data" class="group">
+                    <x-slot:empty-state>
+                        <x-bakid.state.empty />
+                    </x-slot>
+                    <x-splade-cell status as="$data">
+                        <span class=" p-1 px-2 rounded-full " @class([
+                            'bg-green-400 text-white ' => $data->is_active,
+                            'text-black border border-neutral-500' => !$data->is_active,
+                        ])>
+                            {{ $data->is_active ? 'Aktif' : 'Tidak Aktif' }}
+                        </span>
+                    </x-splade-cell>
+                    <x-splade-cell aksi as="$data">
+                        <div class="flex gap-2 items-center">
+                            @if (!$data->is_active)
+                                <Link confirm="Lanjutkan?"
+                                    confirm-text="Apakah anda yakin mengaktifkan tahun akademik ini?"
+                                    confirm-button="Ya" cancel-button="Tidak"
+                                    href="{{ route('informal.academic_years.activate', $data->id) }}" close-explicitly>
+                                <x-bakid.button :is_fill="false">
+                                    <x-slot:leading>
+                                        <x-bakid.icon name="check" />
+                                    </x-slot:leading>
+                                </x-bakid.button>
+                                </Link>
                             @endif
-                            <div
-                                class=" grow flex justify-center items-center card text-gray-500 border rounded-md border-gray-200 px-2 py-1 bg-gray-100 hover:bg-wa-teal1 hover:text-white cursor-pointer">
-                                <i class="ph ph-plus-circle me-2"></i>
-                                <span>Tambah</span>
-                            </div>
+                            <Link modal href="{{ route('informal.academic_years.show', $data->id) }}">
+                            <x-bakid.button>
+                                <x-slot:leading>
+                                    <x-bakid.icon name="magnifying-glass-plus" />
+                                </x-slot:leading>
+                            </x-bakid.button>
+                            </Link>
+                        </div>
+                    </x-splade-cell>
+                </x-splade-table>
+            </x-splade-rehydrate>
+
+            <x-splade-modal name="create-modal">
+                <x-splade-form :action="route('informal.academic_years.store')" stay background @success="$splade.emit('academy-updated')"
+                    class="flex flex-col gap-4" method="post">
+                    <div class="flex gap-4">
+                        <div class="w-full flex flex-col gap-4">
+                            <x-splade-input name="semester" :label="__('Kwartal')" placeholder="Kwartal / Semester" />
+                            <x-splade-input name="year" :label="__('Tahun Hijriah')" placeholder="Tahun Hijriah" />
+                            <x-splade-input name="start_date" :label="__('Start Date')" placeholder="Start Date" date />
+                            <x-splade-input name="end_date" :label="__('End Date')" placeholder="End Date" date />
                         </div>
                     </div>
-                </div>
-
-                {{-- <div class=" sm:rounded-lg p-4 py-2 border border-neutral-300">
-                <div class="flex justify-between items-center">
-                    <span> </span>
-                    <div class="justify-center border rounded-lg p-2 py-1"> {{ $i->rombel->count() }}</div>
-                </div>
-            </div> --}}
-            @empty
-            @endforelse
+                    <x-splade-submit label="Simpan" />
+                </x-splade-form>
+            </x-splade-modal>
         </div>
     </div>
+</x-app-layout>
+<x-splade-script>
 
-
-    <x-splade-script>
-        initFlowbite();
-    </x-splade-script>
-</x-splade-modal>
+</x-splade-script>

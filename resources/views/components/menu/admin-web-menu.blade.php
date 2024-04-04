@@ -36,7 +36,7 @@
             <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                 <ul class="space-y-4" aria-labelledby="mega-menu-icons-dropdown-button">
                     <x-menu.web link="{{ route('mutation.index') }}" label="Kelola Mutasi" icon="ph-plus-circle" />
-                    <x-menu.web link="{{ route('mutation.history') }}" label="Mutation History" icon="ph-plus-circle" />
+                    <x-menu.web link="{{ route('mutation.history') }}" label="Riwayat Mutasi" icon="ph-plus-circle" />
                 </ul>
             </div>
         </x-menu.web-mega>

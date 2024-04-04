@@ -19,6 +19,7 @@ class MadinPermissionSeeder extends Seeder
         $madin_master_kelas = ['access informal_master_kelas', 'view informal_master_kelas', 'create informal_master_kelas', 'update informal_master_kelas', 'delete informal_master_kelas'];
         $madin_master_siswa = ['access informal_master_siswa', 'view informal_master_siswa', 'create informal_master_siswa', 'update informal_master_siswa', 'delete informal_master_siswa'];
         $madin_master_pelajaran = ['access informal_master_pelajaran', 'view informal_master_pelajaran', 'create informal_master_pelajaran', 'update informal_master_pelajaran', 'delete informal_master_pelajaran'];
+        $madin_master_guru = ['access informal_master_guru', 'view informal_master_guru', 'create informal_master_guru', 'update informal_master_guru', 'delete informal_master_guru'];
         $madin_presensi = ['access informal_presensi', 'view informal_presensi', 'create informal_presensi', 'update informal_presensi', 'delete informal_presensi'];
         $madin_kelola_pelajaran = ['access informal_kelola_pelajaran', 'view informal_kelola_pelajaran', 'create informal_kelola_pelajaran', 'update informal_kelola_pelajaran', 'delete informal_kelola_pelajaran'];
         $madin_kelola_mutasi = ['access informal_kelola_mutasi', 'view informal_kelola_mutasi', 'create informal_kelola_mutasi', 'update informal_kelola_mutasi', 'delete informal_kelola_mutasi'];
@@ -31,6 +32,7 @@ class MadinPermissionSeeder extends Seeder
         $madin_akademik,
         $madin_master_kelas,
         $madin_master_siswa,
+        $madin_master_guru,
         $madin_master_pelajaran,
         $madin_presensi,
         $madin_kelola_pelajaran,

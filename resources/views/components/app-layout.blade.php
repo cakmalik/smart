@@ -89,13 +89,13 @@
                                         <x-dropdown-link :href="route('profile.show')">
                                             {{ __('Profile') }}
                                         </x-dropdown-link>
-                                        @hasrole('admin')
+                                        {{-- @hasrole('admin')
                                             @if (\Laravel\Jetstream\Jetstream::hasApiFeatures())
                                                 <x-dropdown-link :href="route('api-tokens.index')">
                                                     {{ __('API Tokens') }}
                                                 </x-dropdown-link>
                                             @endif
-                                        @endhasrole
+                                        @endhasrole --}}
                                         <div class="border-t border-gray-200" />
                                         <!-- Authentication -->
                                         <x-splade-form :action="route('logout')">

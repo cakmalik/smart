@@ -39,6 +39,8 @@ use App\Http\Controllers\ReminderNotificationController;
 use App\Http\Controllers\InformalEducationClassController;
 use App\Http\Controllers\StudentInOutPermissionController;
 use App\Http\Controllers\InvoiceCategoryDiscountController;
+use App\Http\Controllers\InformalEducationStudentController;
+use App\Http\Controllers\InformalEducationSubjectController;
 use App\Http\Controllers\InformalEducationAcademicYearController;
 
 /*
@@ -171,6 +173,9 @@ Route::middleware(['splade'])->group(function () {
 
             Route::get('/academic_years/activate/{academic_year}', [InformalEducationAcademicYearController::class, 'activate'])->name('academic_years.activate');
             Route::resource('/academic_years', InformalEducationAcademicYearController::class);
+            Route::resource('/student', InformalEducationStudentController::class);
+            Route::resource('/subject', InformalEducationSubjectController::class);
+            Route::resource('/teacher', InformalEducationController::class);
         });
         Route::resource('/formal', FormalEducationController::class);
         Route::resource('/informal', InformalEducationController::class);
