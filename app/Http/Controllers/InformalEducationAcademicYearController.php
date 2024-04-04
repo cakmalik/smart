@@ -73,9 +73,9 @@ class InformalEducationAcademicYearController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(InformalEducationAcademicYear $informalEducationAcademicYear)
+    public function show(InformalEducationAcademicYear $academic_year)
     {
-        //
+        return view('bakid.education.informal.academic_year.show', ['data' => $academic_year]);
     }
 
     /**
@@ -89,16 +89,18 @@ class InformalEducationAcademicYearController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInformalEducationAcademicYearRequest $request, InformalEducationAcademicYear $informalEducationAcademicYear)
+    public function update(StoreInformalEducationAcademicYearRequest $request, InformalEducationAcademicYear $informalEducationAcademicYear)
     {
-        //
+        dd($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(InformalEducationAcademicYear $informalEducationAcademicYear)
+    public function destroy(InformalEducationAcademicYear $academic_year)
     {
-        //
+        $academic_year->delete();
+        Toast::success('Tahun Akademik ' . $academic_year->code . ' berhasil di hapus');
+        return back();
     }
 }

@@ -33,16 +33,27 @@
                         </span>
                     </x-splade-cell>
                     <x-splade-cell aksi as="$data">
-                        <Link     confirm="Lanjutkan?"
-                        confirm-text="Apakah anda yakin mengaktifkan tahun akademik ini?"
-                        confirm-button="Ya"
-                        cancel-button="Tidak" href="{{ route('informal.academic_years.activate', $data->id) }}" close-explicitly>
+                        <div class="flex gap-2 items-center">
+                            @if (!$data->is_active)
+                                <Link confirm="Lanjutkan?"
+                                    confirm-text="Apakah anda yakin mengaktifkan tahun akademik ini?"
+                                    confirm-button="Ya" cancel-button="Tidak"
+                                    href="{{ route('informal.academic_years.activate', $data->id) }}" close-explicitly>
+                                <x-bakid.button>
+                                    <x-slot:leading>
+                                        <x-bakid.icon name="check" />
+                                    </x-slot:leading>
+                                </x-bakid.button>
+                                </Link>
+                            @endif
+                            <Link modal href="{{ route('informal.academic_years.show', $data->id) }}">
                             <x-bakid.button>
-                                <x-slot:leading>    
-                                    <x-bakid.icon name="check" />
+                                <x-slot:leading>
+                                    <x-bakid.icon name="magnifying-glass-plus" />
                                 </x-slot:leading>
                             </x-bakid.button>
-                        </Link>
+                            </Link>
+                        </div>
                     </x-splade-cell>
                 </x-splade-table>
             </x-splade-rehydrate>

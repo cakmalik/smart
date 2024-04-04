@@ -66,5 +66,7 @@ class AcademicYear extends AbstractTable
             ->column('status')
             ->column('aksi')
             ->paginate(10);
+
+            // $table->rowModal(fn (Model $model) => route('informal.academic_years.show', $model));
     }
 }
