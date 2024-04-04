@@ -81,7 +81,7 @@ class InformalEducationAcademicYearController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(InformalEducationAcademicYear $informalEducationAcademicYear)
+    public function edit(InformalEducationAcademicYear $acardemi)
     {
         //
     }
@@ -89,9 +89,30 @@ class InformalEducationAcademicYearController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreInformalEducationAcademicYearRequest $request, InformalEducationAcademicYear $informalEducationAcademicYear)
+    public function update(StoreInformalEducationAcademicYearRequest $request, InformalEducationAcademicYear $academic_year)
     {
-        dd($request->all());
+
+        $code = $request->year . $request->semester;
+        if (InformalEducationAcademicYear::where('code', $code)
+        ->where('id', '!=', $academic_year->id)->exists()) {
+            Toast::danger('Tahun Akademik sudah ada')->autoDismiss(3);
+            return back();
+        }
+        
+        try{
+            $academic_year->update([
+                'code' => $code,
+                'year' => $request->year,
+                'semester' => $request->semester,
+                'start_date' =>inputDateFormat($request->start_date),
+                'end_date' => inputDateFormat($request->end_date), 
+            ]);
+            Toast::success('Tahun Akademik berhasil di ubah')->autoDismiss(3);
+        }
+        catch(\Exception $e){
+            Toast::danger($e->getMessage())->autoDismiss(3);
+        }
+
     }
 
     /**

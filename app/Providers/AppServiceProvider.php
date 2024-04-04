@@ -29,9 +29,9 @@ class AppServiceProvider extends ServiceProvider
         // Select::defaultSelectFirstRemoteOption();
         SpladeTable::defaultSearchDebounce(1000);
 
-        Input::defaultDateFormat('d-m-Y');
+        Input::defaultDateFormat('Y-m-d');
         Input::defaultTimeFormat('H:i');
-        Input::defaultDatetimeFormat('d-m-Y H:i');
+        Input::defaultDatetimeFormat('Y-m-d H:i');
 
         SpladeTable::defaultPerPageOptions([50, 100]);
         SpladeTable::hidePaginationWhenResourceContainsOnePage();
