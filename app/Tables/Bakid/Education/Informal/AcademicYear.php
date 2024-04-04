@@ -53,14 +53,14 @@ class AcademicYear extends AbstractTable
         $table
             ->withGlobalSearch(columns: ['id'])
             ->column('id', sortable: true)
-            ->column('code', sortable: true)
+            ->column('code', sortable: true, searchable: true)
             ->column(
                 key: 'semester',
                 label: 'Kwartal',
                 canBeHidden: true,
                 hidden: false,
                 sortable: true,
-                searchable: true
+                searchable: false
             )
             ->column('year', sortable: true)
             ->column('status')
