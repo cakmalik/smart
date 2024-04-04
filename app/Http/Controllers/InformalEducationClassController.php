@@ -12,7 +12,6 @@ use App\Http\Requests\UpdateInformalEducationClassRequest;
 
 class InformalEducationClassController extends Controller
 {
-  
     protected $model;
     public function __construct()
     {
@@ -23,12 +22,13 @@ class InformalEducationClassController extends Controller
         return view('bakid.education.informal.class.index', ['data' => Kelas::class, 'title' => 'Class']);
     }
 
-    public function activate(InformalEducationClass $academic_year){
+    public function activate(InformalEducationClass $class)
+    {
         // off all academic year
         InformalEducationClass::where('is_active', true)->update(['is_active' => false]);
-        $academic_year->is_active = true;
-        $academic_year->save();
-        Toast::success('Tahun Akademik ' . $academic_year->code . ' aktif')->autoDismiss(5);
+        $class->is_active = true;
+        $class->save();
+        Toast::success('Kelas ' . $class->code . ' aktif')->autoDismiss(5);
         return back();
     }
     /**
@@ -36,7 +36,7 @@ class InformalEducationClassController extends Controller
      */
     public function create()
     {
-        return view('bakid.education.informal.academic_year.create');
+        return view('bakid.education.informal.class.create');
     }
 
     /**
@@ -45,24 +45,24 @@ class InformalEducationClassController extends Controller
     public function store(StoreInformalEducationClassRequest $request)
     {
         $education_id = auth()->user()->InformalEducations?->first()->id;
-        $code = $request->year . $request->semester;
-        if (InformalEducationClass::where('code', $code)->exists()) {
-           Toast::danger('Tahun Akademik sudah ada');
-           return back();
+        if(InformalEducationClass::where('class_name', $request->class_name)
+        ->where('informal_education_id', $education_id)
+        ->exists()) {
+            Toast::danger('Kelas ' . $request->class_name . ' sudah ada');
+            return back();
         }
-
+        
         try {
             $this->model->create([
-                'code' => $code,
-                'year' => $request->year,
-                'semester' => $request->semester,
-                'start_date' =>inputDateFormat($request->start_date),
-                'end_date' => inputDateFormat($request->end_date),
-                'is_active' => false,
-                'informal_education_id' => $education_id
+                'informal_education_id' => $education_id,
+                'class_name' => $request->class_name,
+                'qty' => $request->qty??0,
+                'current_qty' => $request->current_qty??0,
+                'class_name_full' => $request->class_name_full ?? null,
+                'teacher_id' => $request->teacher_id ?? null,
             ]);
 
-            Toast::success('Tahun Akademik berhasil ditambahkan');
+            Toast::success('Kelas berhasil ditambahkan');
             return back();
         } catch (\Exception $e) {
             Toast::danger($e->getMessage());
@@ -72,47 +72,48 @@ class InformalEducationClassController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(InformalEducationClass $academic_year)
+    public function show(InformalEducationClass $class)
     {
-        return view('bakid.education.informal.academic_year.show', ['data' => $academic_year]);
+        return view('bakid.education.informal.class.show', ['data' => $class]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreInformalEducationClassRequest $request, InformalEducationClass $academic_year)
+    public function update(StoreInformalEducationClassRequest $request, InformalEducationClass $class)
     {
+     
+        $education_id = auth()->user()->InformalEducations?->first()->id;
 
-        $code = $request->year . $request->semester;
-        if (InformalEducationClass::where('code', $code)
-        ->where('id', '!=', $academic_year->id)->exists()) {
-            Toast::danger('Tahun Akademik sudah ada')->autoDismiss(3);
+        if(InformalEducationClass::where('class_name', $request->class_name)
+        ->where('informal_education_id', $education_id)
+        ->where('id', '!=', $class->id)
+        ->exists()) {
+            Toast::danger('Kelas ' . $request->class_name . ' sudah ada');
             return back();
         }
         
-        try{
-            $academic_year->update([
-                'code' => $code,
-                'year' => $request->year,
-                'semester' => $request->semester,
-                'start_date' =>inputDateFormat($request->start_date),
-                'end_date' => inputDateFormat($request->end_date), 
+        try {
+            $class->update([
+                'class_name' => $request->class_name,
+                'qty' => $request->qty??0,
+                'current_qty' => $request->current_qty??0,
+                'class_name_full' => $request->class_name_full ?? null,
+                'teacher_id' => $request->teacher_id ?? null,
             ]);
-            Toast::success('Tahun Akademik berhasil di ubah')->autoDismiss(3);
-        }
-        catch(\Exception $e){
+            Toast::success('Kelas berhasil di ubah')->autoDismiss(3);
+        } catch (\Exception $e) {
             Toast::danger($e->getMessage())->autoDismiss(3);
         }
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(InformalEducationClass $academic_year)
+    public function destroy(InformalEducationClass $class)
     {
-        $academic_year->delete();
-        Toast::success('Tahun Akademik ' . $academic_year->code . ' berhasil di hapus');
-        return back();
+        $class->delete();
+        Toast::success('Kelas ' . $class->code . ' berhasil di hapus');
+        return redirect()->back();
     }
 }

@@ -32,7 +32,7 @@ class StoreInformalEducationClassRequest extends FormRequest
 
         return [
             // 'informal_education_id' => ['required', 'exists:informal_educations,id'],
-            // 'class_name' => ['required', 'string', 'max:20'],
+            // 'class_name' => ['required', 'string', 'max:20','unique:informal_education_classes,class_name,except,id'],
             // 'class_name_full' => ['nullable', 'string', 'max:20'],
             // ''
         ];

@@ -54,7 +54,8 @@ class Kelas extends AbstractTable
             ->column('qty')
             ->column('current_qty')
             // ->column('class_name_full')
-            ->column('teacher_id');
+            // ->column('teacher_id')
+            ->column('aksi');
 
             $table->paginate(10);
 

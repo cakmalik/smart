@@ -19,34 +19,15 @@
             </div>
 
             <!-- component -->
-            <x-splade-rehydrate on="academy-updated">
+            <x-splade-rehydrate on="class-updated">
                 <x-splade-table :for="$data" class="group">
                     <x-slot:empty-state>
                         <x-bakid.state.empty />
                     </x-slot>
-                    <x-splade-cell status as="$data">
-                        <span class=" p-1 px-2 rounded-full " @class([
-                            'bg-green-400 text-white ' => $data->is_active,
-                            'text-black border border-neutral-500' => !$data->is_active,
-                        ])>
-                            {{ $data->is_active ? 'Aktif' : 'Tidak Aktif' }}
-                        </span>
-                    </x-splade-cell>
+
                     <x-splade-cell aksi as="$data">
                         <div class="flex gap-2 items-center">
-                            @if (!$data->is_active)
-                                <Link confirm="Lanjutkan?"
-                                    confirm-text="Apakah anda yakin mengaktifkan tahun akademik ini?"
-                                    confirm-button="Ya" cancel-button="Tidak"
-                                    href="{{ route('informal.academic_years.activate', $data->id) }}" close-explicitly>
-                                <x-bakid.button :is_fill="false">
-                                    <x-slot:leading>
-                                        <x-bakid.icon name="check" />
-                                    </x-slot:leading>
-                                </x-bakid.button>
-                                </Link>
-                            @endif
-                            <Link modal href="{{ route('informal.academic_years.show', $data->id) }}">
+                            <Link modal href="{{ route('informal.class.show', $data->id) }}">
                             <x-bakid.button>
                                 <x-slot:leading>
                                     <x-bakid.icon name="magnifying-glass-plus" />
@@ -59,14 +40,13 @@
             </x-splade-rehydrate>
 
             <x-splade-modal name="create-modal">
-                <x-splade-form :action="route('informal.academic_years.store')" stay background @success="$splade.emit('academy-updated')"
+                <x-splade-form :action="route('informal.class.store')" stay background @success="$splade.emit('class-updated')"
                     class="flex flex-col gap-4" method="post">
                     <div class="flex gap-4">
                         <div class="w-full flex flex-col gap-4">
-                            <x-splade-input name="semester" :label="__('Kwartal')" placeholder="Kwartal / Semester" />
-                            <x-splade-input name="year" :label="__('Tahun Hijriah')" placeholder="Tahun Hijriah" />
-                            <x-splade-input name="start_date" :label="__('Start Date')" placeholder="Start Date" date />
-                            <x-splade-input name="end_date" :label="__('End Date')" placeholder="End Date" date />
+                            <x-splade-input class="mb-2" name="class_name" :label="__('nama kelas')"  />
+                            <x-splade-input class="mb-2" type="number" name="qty" :label="__('maksimal kuota')" />
+                            <x-splade-input class="mb-2" type="number" name="current_qty" :label="__('kuota sekarang')" />
                         </div>
                     </div>
                     <x-splade-submit label="Simpan" />
