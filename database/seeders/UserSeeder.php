@@ -80,36 +80,76 @@ class UserSeeder extends Seeder
         ]);
 
         //create user sekretaris
-        $seketaris = User::create([
-            'name' => 'Sekretaris',
-            'username' => 'sekretaris',
-            'email' => 'sekretaris@bakid.id',
+        $seketaris_pa = User::create([
+            'name' => 'sekretaris_pa',
+            'gender' => 'male',
+            'username' => 'sekretaris_pa',
+            'email' => 'sekretaris_pa@bakid.id',
             'password' => bcrypt('123'),
             'phone' => rand(1111111111, 9999999999),
             'kk' => rand(9999999999, 99999999999),
             'current_team_id' => 1,
         ])->assignRole('sekretaris');
 
-        $bendahara = User::create([
-            'name' => 'Bendahara',
-            'username' => 'bendahara',
-            'email' => 'bendahara@bakid.id',
+        $seketaris_pi = User::create([
+            'name' => 'sekretaris_pi',
+            'gender' => 'female',
+            'username' => 'sekretaris_pi',
+            'email' => 'sekretaris_pi@bakid.id',
+            'password' => bcrypt('123'),
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
+            ])->assignRole('sekretaris');
+            
+            
+            $bendahara_pa = User::create([
+                'name' => 'Bendahara_pa',
+                'gender' => 'male',
+                'username' => 'bendahara_pa',
+                'email' => 'bendahara_pa@bakid.id',
             'password' => bcrypt('123'),
             'phone' => rand(1111111111, 9999999999),
             'kk' => rand(9999999999, 99999999999),
             'current_team_id' => 1,
         ])->assignRole('bendahara');
 
-        $hankamtib = User::create([
-            'name' => 'hankamtib',
-            'username' => 'hankamtib',
-            'email' => 'hankamtib@bakid.id',
+        $bendahara_pi = User::create([
+            'name' => 'Bendahara_pi',
+            'gender' => 'female',
+            'username' => 'bendahara_pi',
+            'email' => 'bendahara_pi@bakid.id',
+            'password' => bcrypt('123'),
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
+        ])->assignRole('bendahara');
+
+        $hankamtib_pa = User::create([
+            'name' => 'hankamtib_pa',
+            'gender' => 'male',
+            'username' => 'hankamtib_pa',
+            'email' => 'hankamtib_pa@bakid.id',
             'password' => bcrypt('123'),
             'phone' => rand(1111111111, 9999999999),
             'kk' => rand(9999999999, 99999999999),
             'current_team_id' => 1,
         ])->assignRole('hankamtib');
 
+        $hankamtib_pi = User::create([
+            'name' => 'hankamtib_pi',
+            'gender' => 'female',
+            'username' => 'hankamtib_pi',
+            'email' => 'hankamtib_pi@bakid.id',
+            'password' => bcrypt('123'),
+            'phone' => rand(1111111111, 9999999999),
+            'kk' => rand(9999999999, 99999999999),
+            'current_team_id' => 1,
+        ])->assignRole('hankamtib');
+
+
+
+        // SANTRI
         $santri_team = Team::create([
             'user_id' => 3,
             'name' => 'Santri bakid',

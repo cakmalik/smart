@@ -19,7 +19,7 @@
                 </x-slot:empty-state>
 
                 <x-splade-cell actions as="$category">
-                    <Link class="py-1 px-2 rounded-md border"
+                    <Link modal class="py-1 px-2 rounded-md border"
                         href="{{ route('invoice.category.show', ['category' => $category->id, 'isEdit' => true]) }}">
                     {{ __('Edit') }}
                     </Link>
