@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignIdFor(InformalEducationClass::class)->constrained('informal_education_classes');
             $table->foreignIdFor(InformalEducationGrade::class)->nullable()->constrained('informal_education_grades');
             $table->enum('status', ['waiting', 'approved', 'rejected', 'graduated', 'active', 'canceled', 'inactive'])->default('waiting');
-            $table->string('year');
+            $table->string('year');  //sebagai penanda untuk riwayat suatu saat, jika di filter by tahun
             $table->timestamps();
         });
     }

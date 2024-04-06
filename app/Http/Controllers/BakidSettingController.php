@@ -47,7 +47,7 @@ class BakidSettingController extends Controller
         Toast::title('Sukses!')
             ->message('Pengaturan berhasil diperbarui.')
             ->success()
-            ->rightTop()
+            ->rightBottom()
             ->backdrop()
             ->autoDismiss(5);
     }
@@ -60,14 +60,14 @@ class BakidSettingController extends Controller
             Toast::title('Sukses!')
                 ->message($response['message'])
                 ->success()
-                ->rightTop()
+                ->rightBottom()
                 ->backdrop()
                 ->autoDismiss(5);
         } else {
             Toast::title('Gagal!')
                 ->message($response['message'])
                 ->danger()
-                ->rightTop()
+                ->rightBottom()
                 ->backdrop()
                 ->autoDismiss(5);
         }

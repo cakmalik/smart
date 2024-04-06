@@ -94,7 +94,7 @@ class StudentController extends Controller
             Toast::title('Maaf!')
                 ->message('Mohon lengkapi metode pembayaran anda terlebih dahulu, sebelum menambah anggota keluarga baru.')
                 ->danger()
-                ->rightTop()
+                ->rightBottom()
                 ->backdrop();
             // ->autoDismiss(5);
             return redirect()->route('dashboard');
@@ -121,7 +121,7 @@ class StudentController extends Controller
             Toast::title('Maaf!')
                 ->message($student['message'])
                 ->danger()
-                ->rightTop()
+                ->rightBottom()
                 ->backdrop()
                 ->autoDismiss(5);
             return back();
@@ -129,7 +129,7 @@ class StudentController extends Controller
             Toast::title('Alhamdulillah!')
                 ->message($student['message'])
                 ->success()
-                ->rightTop()
+                ->rightBottom()
                 ->backdrop()
                 ->autoDismiss(5);
             return redirect()->route('dashboard');
@@ -199,7 +199,7 @@ class StudentController extends Controller
             Toast::title('Maaf!')
                 ->message($student['message'])
                 ->danger()
-                ->rightTop()
+                ->rightBottom()
                 // ->backdrop()
                 ->autoDismiss(3);
             return back();
@@ -207,7 +207,7 @@ class StudentController extends Controller
             Toast::title('Alhamdulillah!')
                 ->message($student['message'])
                 ->success()
-                ->rightTop()
+                ->rightBottom()
                 // ->backdrop()
                 ->autoDismiss(3);
             return back();
@@ -246,23 +246,24 @@ class StudentController extends Controller
                     'student_id' => $student->id,
                     'formal_education_id' => $request->formal_id,
                     'formal_education_class_id' => $request->formal_class_id,
-                    'status' => 'waiting'
+                    'status' => 'waiting',
+                    'year' => date('Y')
                 ]);
             }
             if ($request->informal_id && $request->informal_class_id) {
-
                 InformalEducationStudent::create([
                     'student_id' => $student->id,
                     'informal_education_id' => $request->informal_id,
                     'informal_education_class_id' => $request->informal_class_id,
-                    'status' => 'waiting'
+                    'status' => 'waiting',
+                    'year' => date('Y')
                 ]);
             }
             DB::commit();
             Toast::title('Berhasil!')
                 ->message('Pendidikan ananda sedang diajukan')
                 ->success()
-                ->rightTop()
+                ->rightBottom()
                 ->backdrop()
                 ->autoDismiss(5);
             return redirect()->back();
@@ -297,7 +298,7 @@ class StudentController extends Controller
             Toast::title('Berhasil!')
                 ->message('Ruangan ananda sedang diajukan')
                 ->success()
-                ->rightTop()
+                ->rightBottom()
                 ->backdrop()
                 ->autoDismiss(5);
             return redirect()->back();

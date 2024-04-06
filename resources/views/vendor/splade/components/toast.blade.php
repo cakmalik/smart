@@ -2,7 +2,7 @@
     <x-splade-component is="transition" appear show="toast.show">
         <x-splade-component is="transition" child after-leave="toast.emitDismiss">
             <div @class([
-                'p-4 pointer-events-auto border-l-4 shadow-md min-w-[240px]',
+                'z-[999999999999999999] p-4 pointer-events-auto border-l-4 shadow-md min-w-[240px]',
                 'bg-green-50 border-green-400' => $isSuccess,
                 'bg-yellow-50 border-yellow-400' => $isWarning,
                 'bg-red-50 border-red-400' => $isDanger,

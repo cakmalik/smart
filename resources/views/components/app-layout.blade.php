@@ -22,24 +22,27 @@
             <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto p-4 overflow-x-scroll">
                 <div id="mega-menu-icons" class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                     <ul class="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
-                        <div id="mega-menu-icons" class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+                        <div id="mega-menu-icons"
+                            class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                             @include('components.menu.admin-web-menu')
-                         </div>
+                        </div>
                     </ul>
                 </div>
             </div>
         </nav>
-        
+
         <x-splade-rehydrate on="refresh-navigation-menu, profile-information-updated">
             @include('components.navigation.mobile.layout')
         </x-splade-rehydrate>
-    
+
     @endhasrole
 
 
     <!-- Page Heading -->
     @isset($header)
-        <header class="z-800 absolute @hasrole('santri') top-0 @else sm:top-[100px] @endhasrole w-full text-center sm:text-start shadow bg-wa-teal2/60  backdrop-filter backdrop-blur-lg ">
+        {{-- NOTE:Z_INDEX HEADER --}}
+        <header
+            class="z-20 absolute @hasrole('santri') top-0 @else sm:top-[100px] @endhasrole w-full text-center sm:text-start shadow bg-wa-teal2/60  backdrop-filter backdrop-blur-lg ">
             <div class="max-w-7xl mx-auto py-3  px-4 sm:px-6 lg:px-8 text-white">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center gap-3 w-full">
