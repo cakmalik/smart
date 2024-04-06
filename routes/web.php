@@ -118,6 +118,8 @@ Route::middleware(['splade'])->group(function () {
         Route::prefix('wali')->group(function () {
             Route::get('/student/family', [UserController::class, 'familyMembers'])->name('student.families');
             Route::get('/family-cards', [UserController::class, 'familyCards'])->name('family.cards');
+            Route::get('/family-kts', [UserController::class, 'familyKts'])->name('family.kts');
+            Route::get('/family-mahrom', [UserController::class, 'familyMahrom'])->name('family.mahrom');
         });
 
         Route::post('/student/complete-admission', [StudentController::class, 'completeEducation'])->name('student.complete-education');

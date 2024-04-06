@@ -152,4 +152,15 @@ class UserController extends Controller
         $families = $this->model->getFamilies();
         return view('bakid.student.family_cards', compact('families'));
     }
+
+    public function familyKts()
+    {
+    }
+    
+    public function familyMahrom()
+    {
+        
+    }
+
+
 }
