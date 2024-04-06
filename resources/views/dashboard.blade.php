@@ -7,7 +7,7 @@
             </h2>
         </div>
     </x-slot>
-    <div class="py-12">
+    <div class="@hasrole('santri') @else py-12 @endhasrole">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             {{-- jika akun wali murid yang sudah punya anak terdaftar --}}
             @if (roleName() == 'santri' && isHasStudents() != 0)

@@ -39,7 +39,7 @@
 
     <!-- Page Heading -->
     @isset($header)
-        <header class="z-800 absolute sm:top-[100px] w-full text-center sm:text-start shadow bg-wa-teal2/60  backdrop-filter backdrop-blur-lg ">
+        <header class="z-800 absolute @hasrole('santri') top-0 @else sm:top-[100px] @endhasrole w-full text-center sm:text-start shadow bg-wa-teal2/60  backdrop-filter backdrop-blur-lg ">
             <div class="max-w-7xl mx-auto py-3  px-4 sm:px-6 lg:px-8 text-white">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center gap-3 w-full">
@@ -124,7 +124,7 @@
         @endif
 
         <!-- Page Content -->
-        <main class="absolute w-full top-[30px] sm:top-[150px]">
+        <main class="absolute w-full @hasrole('santri') top-20 pb-[400px] @else top-[30px] sm:top-[150px] @endhasrole">
             {{ $slot }}
         </main>
 
