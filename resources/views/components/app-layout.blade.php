@@ -9,7 +9,7 @@
             <x-navigation.santri-mobile-menu />
         @endif
     @else
-        <x-splade-data store="mobileNavigation" default="{ open: false }" />
+        {{-- <x-splade-data store="mobileNavigation" default="{ open: false }" /> --}}
         {{-- MENU WEB --}}
         <nav class="z-900 sm:absolute w-full h-[100px] hidden sm:block malik-bg   border-gray-200 dark:bg-gray-900">
             <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto pt-4">
