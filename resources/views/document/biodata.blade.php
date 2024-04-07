@@ -149,23 +149,26 @@
             <td style="padding-left: 30px">Pekerjaan ibu</td>
             <td style="width: 300px" class="capitalize">: {{ $student->parent->mother_job }} </td>
         </tr>
-        <tr>
-            <td style="padding-left: 30px">Asal sekolah</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->educationBackground[0]?->school_name }} </td>
-        </tr>
-        <tr>
-            <td style="padding-left: 30px">NPSN sekolah</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->educationBackground[0]?->npsn }} </td>
-        </tr>
-        <tr>
-            <td style="padding-left: 30px">Alamat sekolah asal</td>
-            <td style="width: 300px" class="capitalize">:
-                {{ $student->educationBackground[0]?->school_address }} </td>
-        </tr>
-        <tr>
-            <td style="padding-left: 30px">No seri ijazah</td>
-            <td style="width: 300px" class="capitalize">: {{ $student->educationBackground[0]?->no_ijazah }} </td>
-        </tr>
+        @if ($student->educationBackground->count())
+            <tr>
+                <td style="padding-left: 30px">Asal sekolah</td>
+                <td style="width: 300px" class="capitalize">: {{ $student->educationBackground[0]?->school_name }}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left: 30px">NPSN sekolah</td>
+                <td style="width: 300px" class="capitalize">: {{ $student->educationBackground[0]?->npsn }} </td>
+            </tr>
+            <tr>
+                <td style="padding-left: 30px">Alamat sekolah asal</td>
+                <td style="width: 300px" class="capitalize">:
+                    {{ $student->educationBackground[0]?->school_address }} </td>
+            </tr>
+            <tr>
+                <td style="padding-left: 30px">No seri ijazah</td>
+                <td style="width: 300px" class="capitalize">: {{ $student->educationBackground[0]?->no_ijazah }} </td>
+            </tr>
+        @endif
     </table>
 
     <table style="margin-top: 100px">

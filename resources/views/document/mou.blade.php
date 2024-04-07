@@ -40,6 +40,7 @@
             <td width="500">
                 : {{ $student->parent->father_name }}<br>
                 : {{ $student->village }}, {{ $student->district }}, {{ $student->city }}<br>
+                : {{ $student->address}}<br>
                 : {{ $student->parent->father_phone }}<br>
                 : {{ $student->name }} <br>
                 : {{ $student->place_of_birth }}, {{ $student->date_of_birth }}<br>
