@@ -10,7 +10,7 @@ class RoomController extends Controller
 {
     public function getRoomsByDormitory(Dormitory $dormitory)
     {
-        $rooms = $dormitory->rooms;
+        $rooms = $dormitory->Rooms;
         // get rooms where capacity is not full
         // dd($rooms);
         $rooms = $rooms->filter(function ($room) {

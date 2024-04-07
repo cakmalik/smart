@@ -10,7 +10,7 @@ class Dormitory extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function rooms()
+    public function Rooms()
     {
         return $this->hasMany(Room::class);
     }
