@@ -18,6 +18,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MutationController;
+use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\ViolationController;
@@ -154,6 +155,7 @@ Route::middleware(['splade'])->group(function () {
         Route::resource('announcement', AnnouncementController::class)->except('show');
 
         Route::prefix('setting')->group(function () {
+            Route::get('admission', [AdmissionController::class,'settings'])->name('admission.settings');
             Route::resource('format-message', FormatMessageController::class);
         });
 

@@ -11,6 +11,7 @@
                 <ul class="space-y-4" aria-labelledby="mega-menu-icons-dropdown-button">
                     <x-menu.web link="{{ route('student.new') }}" label="Santri Baru" icon="ph-plus-circle" />
                     <x-menu.web link="{{ route('invoice.index') }}" label="Rekap pembayaran" icon="ph-plus-circle" />
+                    <x-menu.web link="{{ route('admission.settings') }}" label="Pengaturan PSB" icon="ph-plus-circle" />
                 </ul>
             </div>
         </x-menu.web-mega>

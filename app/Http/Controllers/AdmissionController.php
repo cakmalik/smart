@@ -45,11 +45,7 @@ class AdmissionController extends Controller
 
         if ($attempts >= 1) {
             // Jika sudah mencapai batas percobaan, menunggu 1 menit sebelum melanjutkan
-            Toast::title('Hummm,')
-                ->message('Terlalu banyak percobaan gagal. Coba lagi dalam 1 menit.')
-                ->danger()
-                ->centerTop()
-                ->autoDismiss(3);
+            Toast::title('Hummm,')->message('Terlalu banyak percobaan gagal. Coba lagi dalam 1 menit.')->danger()->centerTop()->autoDismiss(3);
             sleep(60); // Menunda eksekusi selama 1 menit
             return back();
         }
@@ -60,11 +56,7 @@ class AdmissionController extends Controller
             $attempts++;
             Cache::put($attemptsKey, $attempts, 1); // Menyimpan jumlah percobaan dalam cache selama 1 menit
 
-            Toast::title('Hummm,')
-                ->message('Akun tidak ditemukan')
-                ->danger()
-                ->centerTop()
-                ->autoDismiss(3);
+            Toast::title('Hummm,')->message('Akun tidak ditemukan')->danger()->centerTop()->autoDismiss(3);
             return back();
         }
 
@@ -72,11 +64,7 @@ class AdmissionController extends Controller
         Cache::forget($attemptsKey);
 
         // Lanjutkan dengan logika berikutnya
-        Toast::title('Yeee,')
-            ->message('Berhasil.')
-            ->success()
-            ->centerTop()
-            ->autoDismiss(3);
+        Toast::title('Yeee,')->message('Berhasil.')->success()->centerTop()->autoDismiss(3);
 
         return view('admissions.login', compact('user'));
     }
@@ -84,25 +72,13 @@ class AdmissionController extends Controller
     public function loginPost(Request $request)
     {
         dd($request->all());
-        // $request = $request->only('identifier', 'password');
-        // $find = $this->model->login($request);
-        // if (!$find) {
-        //     Toast::title('Hummm,')
-        //         ->message('Akun tidak ditemukan')
-        //         ->danger()
-        //         ->centerTop()
-        //         ->autoDismiss(3);
-        //     return back();
-        // }
-
-        // Toast::title('Yeee,')
-        //     ->message('Berhasil.')
-        //     ->success()
-        //     ->centerTop()
-        //     ->autoDismiss(3);
-
-        // return redirect()->route('admissions.login');
     }
+
+    public function settings()
+    {
+        return view('bakid.setting.admission.index');
+    }
+    
     public function index()
     {
         //
