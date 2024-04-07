@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Admission;
 use Illuminate\Http\Request;
+use App\Models\InvoiceCategory;
 use Illuminate\Support\Facades\Cache;
 use ProtoneMedia\Splade\Facades\Toast;
 use App\Repositories\User\UserRepository;
@@ -79,7 +80,9 @@ class AdmissionController extends Controller
     {
         $active_admission = Admission::getActiveAdmission();
         $admissions = Admission::orderByDesc('id')->paginate(10);
-        return view('bakid.setting.admission.index', compact('active_admission', 'admissions'));
+        $adm = InvoiceCategory::where('code','psb')->first();
+        $adm->load('discounts');
+        return view('bakid.setting.admission.index', compact('active_admission', 'admissions','adm'));
     }
 
     /**

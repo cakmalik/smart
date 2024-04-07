@@ -8,6 +8,8 @@
                     <x-splade-input date name="start_date" label="Tanggal Mulai" />
                     <x-splade-input date name="end_date" label="Berakhir" />
                     <x-splade-input name="amount" label="Administrasi" />
+                    <x-splade-select name="is_active" label="Status" :options="[['label' => 'Aktif', 'value' => 1], ['label' => 'Tidak Aktif', 'value' => 0]]" />
+
             </div>
             </div>
             <div class="flex

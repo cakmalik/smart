@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <x-bakid.card>
-                <x-button.back route="invoice.categories" />
+                <x-button.back route="{{ $route_back }}" />
                 <x-splade-form :default="$category" :action="route('invoice.category.update', $category->id)" class="flex flex-col gap-4 p-6" method="put" stay 
                     preserve-scroll @success="$splade.emit('invoice-category-updated')">
                     <div class="flex gap-4">

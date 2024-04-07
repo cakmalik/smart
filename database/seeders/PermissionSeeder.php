@@ -20,6 +20,7 @@ class PermissionSeeder extends Seeder
         $p_violation = ['access violation', 'edit violation', 'delete violation', 'approval violation'];
         $p_permit = ['access permit', 'edit permit', 'delete permit', 'approval permit'];
         $p_invoice = ['access invoice', 'edit invoice', 'delete invoice', 'approval invoice'];
+        $p_invoice_categories = ['access invoice_categories', 'edit invoice_categories', 'delete invoice_categories', 'approval invoice_categories'];
         $p_mutation = ['access mutation', 'add mutation', 'edit mutation', 'delete mutation', 'approval mutation'];
         $p_approval = ['access approval', 'add approval', 'edit approval', 'delete approval', 'approval approval'];
 
@@ -46,6 +47,7 @@ class PermissionSeeder extends Seeder
             $p_violation,
             $p_permit,
             $p_invoice,
+            $p_invoice_categories,
             $p_mutation,
             $p_approval,
             $p_management,
@@ -73,6 +75,7 @@ class PermissionSeeder extends Seeder
         $admin->givePermissionTo($p_settings);
         $admin->givePermissionTo($p_dormitories);
         $admin->givePermissionTo($p_invoice);
+        $admin->givePermissionTo($p_invoice_categories);
         $admin->givePermissionTo($p_admission);
         $admin->givePermissionTo($p_campaign);
         $admin->givePermissionTo($p_psb);

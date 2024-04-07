@@ -63,7 +63,9 @@
             <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                 <ul class="space-y-4" aria-labelledby="mega-menu-icons-dropdown-button">
                     <x-menu.web link="{{ route('invoice.index') }}" label="All Invoice" icon="ph-plus-circle" />
-                    <x-menu.web link="{{ route('invoice.categories') }}" label="Category" icon="ph-plus-circle" />
+                    @can('access invoice_categories')
+                        <x-menu.web link="{{ route('invoice.categories') }}" label="Category" icon="ph-plus-circle" />
+                    @endcan
                 </ul>
             </div>
         </x-menu.web-mega>

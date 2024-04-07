@@ -7,7 +7,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 px-4 max-w-7xl mx-auto sm:px-6 lg:px-8 grid sm:grid-cols-3">
+    <div class="py-12 px-4 max-w-7xl mx-auto sm:px-6 lg:px-8 grid sm:grid-cols-3 gap-3">
         <x-bakid.card>
             <x-slot:header>
                 <div class="flex items-center justify-between">
@@ -53,6 +53,29 @@
             @endif
         </x-bakid.card>
 
+        <x-bakid.card>
+            <x-slot:header>
+                <div class="flex items-center justify-between">
+                    <span>Administrasi</span>
+                    <Link href="{{ route('invoice.category.edit', 'psb') }}">
+                    <x-bakid.icon name="pencil" variant="duotone" />
+                    </Link>
+                </div>
+            </x-slot:header>
+
+            @if ($adm)
+                <p>
+                    Adapun besaran administrasi adalah : <br> Rp{{ number_format($adm->amount) }}
+                    <br>
+                    @if ($adm->discounts->count() > 0)
+                        dan terdapat potongan jika bersaudara
+                    @endif
+                </p>
+            @else
+                Tidak ditemukan data administrasi
+            @endif
+        </x-bakid.card>
+
 
 
         {{-- list --}}
@@ -61,7 +84,7 @@
                 <div class="flex justify-between pe-6 items-center">
                     <span class="text-xl font-semibold">Riwayat Gelombang</span>
                     <Link href="#create" class="bg-primary-500 px-5 p-2 rounded-lg">
-                        <x-bakid.icon name="plus" size="xl" color="white" />
+                    <x-bakid.icon name="plus" size="xl" color="white" />
                     </Link>
                 </div>
             </div>
@@ -102,7 +125,7 @@
         </x-splade-modal>
 
         {{-- form --}}
-        <x-splade-modal name="create" close-explicitly >
+        <x-splade-modal name="create" close-explicitly>
             <x-splade-form :action="route('admission.store')" class="flex flex-col gap-4" method="POST">
                 <div class="flex gap-4 mt-5">
                     <div class="w-full flex flex-col gap-4">
@@ -115,8 +138,7 @@
                     </div>
                 </div>
                 <div class="flex justify-between">
-                <x-splade-submit size=""
-                        :spinner="true">
+                    <x-splade-submit size="" :spinner="true">
                         Tambah
                     </x-splade-submit>
                 </div>

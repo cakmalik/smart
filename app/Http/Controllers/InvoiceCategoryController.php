@@ -12,7 +12,6 @@ use App\Http\Requests\UpdateInvoiceCategoryRequest;
 
 class InvoiceCategoryController extends Controller
 {
-
     public function index()
     {
         return view('invoice.categories', [
@@ -24,7 +23,8 @@ class InvoiceCategoryController extends Controller
     {
         $category->load('discounts');
         if ($isEdit) {
-            return view('invoice.edit-category', compact('category'));
+            $route_back = 'invoice.categories';
+            return view('invoice.edit-category', compact('category','route_back'));
         }
         return view('invoice.show-category', compact('category'));
     }
@@ -35,4 +35,10 @@ class InvoiceCategoryController extends Controller
         Toast::success('Category updated successfully');
     }
 
+    public function edit(InvoiceCategory $category)
+    {
+        $category->load('discounts');
+        $route_back = 'admission.settings';
+        return view('invoice.edit-category', compact('category','route_back'));
+    }
 }

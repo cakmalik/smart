@@ -190,6 +190,7 @@ Route::middleware(['splade'])->group(function () {
         Route::post('/payment/change-method/', [PaymentMethodController::class, 'changeMethod'])->name('payment.change-method');
 
         Route::get('/invoice/categories', [InvoiceCategoryController::class, 'index'])->name('invoice.categories');
+        Route::get('/invoice/category/{category:code}/edit', [InvoiceCategoryController::class, 'edit'])->name('invoice.category.edit');
         Route::get('/invoice/category/{category}/{isEdit?}', [InvoiceCategoryController::class, 'show'])->name('invoice.category.show');
         Route::put('/invoice/category/{category}', [InvoiceCategoryController::class, 'update'])->name('invoice.category.update');
 
