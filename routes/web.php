@@ -155,7 +155,9 @@ Route::middleware(['splade'])->group(function () {
         Route::resource('announcement', AnnouncementController::class)->except('show');
 
         Route::prefix('setting')->group(function () {
-            Route::get('admission', [AdmissionController::class,'settings'])->name('admission.settings');
+            Route::get('admission', [AdmissionController::class,'index'])->name('admission.settings');
+            Route::get('admission/{admission}/edit', [AdmissionController::class,'edit'])->name('admission.edit');
+            Route::resource('admission', AdmissionController::class)->only('update','destroy');
             Route::resource('format-message', FormatMessageController::class);
         });
 

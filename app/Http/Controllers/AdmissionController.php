@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Admission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -74,14 +75,11 @@ class AdmissionController extends Controller
         dd($request->all());
     }
 
-    public function settings()
-    {
-        return view('bakid.setting.admission.index');
-    }
-    
     public function index()
     {
-        //
+        $active_admission = Admission::getActiveAdmission();
+        $admissions = Admission::orderByDesc('id')->paginate(10);
+        return view('bakid.setting.admission.index', compact('active_admission', 'admissions'));
     }
 
     /**
@@ -113,15 +111,17 @@ class AdmissionController extends Controller
      */
     public function edit(Admission $admission)
     {
-        //
+        return view('bakid.setting.admission.edit', compact('admission'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAdmissionRequest $request, Admission $admission)
+    public function update(StoreAdmissionRequest $request, Admission $admission)
     {
-        //
+        $admission->update($request->validated());
+        Toast::success('Data berhasil diperbarui')->autoDismiss(2);
+        return redirect()->back();
     }
 
     /**
@@ -129,6 +129,8 @@ class AdmissionController extends Controller
      */
     public function destroy(Admission $admission)
     {
-        //
+        $admission->delete();
+        Toast::success('Data berhasil dihapus')->autoDismiss(2);
+        return redirect()->back();
     }
 }

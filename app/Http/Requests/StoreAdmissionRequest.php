@@ -11,7 +11,7 @@ class StoreAdmissionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreAdmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'batch' => 'required',
+            'is_active' => 'required',
+            'period' => 'required',
+
         ];
     }
 }

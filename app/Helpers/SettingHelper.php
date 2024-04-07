@@ -6,5 +6,5 @@ use App\Models\Admission;
 
 function isCanAdmission(): bool
 {
-    return Admission::isAdmissionActive();
+    return Admission::isThereActiveAdmission();
 }
