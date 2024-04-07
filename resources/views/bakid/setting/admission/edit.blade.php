@@ -1,15 +1,14 @@
 <x-app-layout>
     <x-splade-modal close-explicitly>
-        <x-splade-form :default="$admission" :action="route('admission.update', $admission->id)" class="flex flex-col gap-4" method="put" 
-            @success="$splade.emit('admission-setting-updated')">
+        <x-splade-form :default="$admission" :action="route('admission.update', $admission->id)" class="flex flex-col gap-4" method="put" >
             <div class="flex gap-4 mt-5">
                 <div class="w-full flex flex-col gap-4">
                     <x-splade-input name="batch" label="Gelombang" />
                     <x-splade-input name="period" label="Periode" />
                     <x-splade-input date name="start_date" label="Tanggal Mulai" />
                     <x-splade-input date name="end_date" label="Berakhir" />
-                    <x-splade-select name="is_active" label="Administrasi" :options="[['label' => 'Aktif', 'value' => 1], ['label' => 'Tidak Aktif', 'value' => 0]]" />
-                </div>
+                    <x-splade-input name="amount" label="Administrasi" />
+            </div>
             </div>
             <div class="flex
                        justify-between">

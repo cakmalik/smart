@@ -2,7 +2,7 @@
 
 <button
     {{ $attributes->class([
-            'border rounded-full shadow-sm font-bold py-1 px-2 focus:outline-none focus:ring focus:ring-opacity-50',
+            'border rounded-full shadow-sm font-bold py-2 px-3 focus:outline-none focus:ring focus:ring-opacity-50',
             'bg-green-500 hover:bg-green-700 text-white border-transparent focus:border-green-300 focus:ring-green-200' =>
                 !$customStyling && $primary,
             'bg-red-500 hover:bg-red-700 text-white border-transparent focus:border-red-700 focus:ring-red-200' =>

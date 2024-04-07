@@ -27,6 +27,7 @@ class StoreAdmissionRequest extends FormRequest
             'batch' => 'required',
             'is_active' => 'required',
             'period' => 'required',
+            'amount' => 'required|numeric',
 
         ];
     }

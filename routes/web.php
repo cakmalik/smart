@@ -157,7 +157,7 @@ Route::middleware(['splade'])->group(function () {
         Route::prefix('setting')->group(function () {
             Route::get('admission', [AdmissionController::class,'index'])->name('admission.settings');
             Route::get('admission/{admission}/edit', [AdmissionController::class,'edit'])->name('admission.edit');
-            Route::resource('admission', AdmissionController::class)->only('update','destroy');
+            Route::resource('admission', AdmissionController::class)->only('update','destroy','store');
             Route::resource('format-message', FormatMessageController::class);
         });
 

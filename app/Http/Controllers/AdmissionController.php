@@ -95,7 +95,9 @@ class AdmissionController extends Controller
      */
     public function store(StoreAdmissionRequest $request)
     {
-        //
+        $admission = Admission::create($request->validated());
+        Toast::success('Data berhasil ditambahkan')->autoDismiss(2);
+        return redirect()->back();
     }
 
     /**
