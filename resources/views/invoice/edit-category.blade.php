@@ -25,7 +25,7 @@
                     <x-splade-rehydrate on="invoice-category-updated">
                         @if ($category->is_discount_for_siblings)
                             <div class=" border border-slate-500 rounded-md p-2 my-3">
-                                <h3 class="font-semibold text-xl mb-2">{{ __('Discout Category') }}</h3>
+                                <h3 class="font-semibold text-xl mb-2">{{ __('Discount Category') }}</h3>
                                 <div class="flex">
                                     <div class="flex w-full">
                                         <table class="table-auto w-full">

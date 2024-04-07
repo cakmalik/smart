@@ -11,7 +11,7 @@
         </svg>
     </button>
     <div id="mega-menu-icons-dropdown-{{ $id }}"
-        class="absolute z-900 grid hidden w-auto grid-cols-{{ $cols }} text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-{{ $cols }} dark:bg-gray-700">
+        class="absolute z-100 grid hidden w-auto grid-cols-{{ $cols }} text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-{{ $cols }} dark:bg-gray-700">
         {{ $slot }}
     </div>
 </li>
