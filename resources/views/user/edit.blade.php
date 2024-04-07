@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-splade-modal>
         <x-splade-form :default="$user" :action="route('user.update', $user->id)" class="flex flex-col gap-4 px-4 py-6" method="put">
-
             <div class="flex gap-4">
                 <div class="w-full flex flex-col gap-4">
                     <x-splade-input name="name" :label="__('Nama')" placeholder="namamu" />

@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <x-splade-modal>
+            <x-bakid.card>
                 <x-button.back route="invoice.categories" />
                 <x-splade-form :default="$category" :action="route('invoice.category.update', $category->id)" class="flex flex-col gap-4 p-6" method="put" stay 
                     preserve-scroll @success="$splade.emit('invoice-category-updated')">
@@ -64,13 +64,10 @@
                             <i class="ph ph-plus"></i> {{ __('Add discount ') }}
                             </Link>
                         @endif
-                        <button type="submit"
-                            class="bg-wa-teal2 p-2 text-white rounded-md text-sm items-center  hover:bg-wa-light w-20">
-                            Update
-                        </button>
+                        <x-splade-submit/>
                     </div>
                 </x-splade-form>
-             </x-splade-modal>
+             </x-bakid.card>
         </div>
     </div>
 </x-app-layout>

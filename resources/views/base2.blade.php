@@ -85,7 +85,7 @@
                                             </div>
                                             <div class="px-3 flex justify-between">
                                                 <p>Jumlah Asrama</p>
-                                                <span class="">rooms_count</span>
+                                                <span class="">rooms</span>
                                             </div>
                                             <div class="px-3 flex justify-between">
                                                 <p>Kapasitas</p>

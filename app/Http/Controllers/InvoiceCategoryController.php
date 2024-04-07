@@ -33,7 +33,6 @@ class InvoiceCategoryController extends Controller
     {
         $category->update($request->validated());
         Toast::success('Category updated successfully');
-        return back();
     }
 
 }
