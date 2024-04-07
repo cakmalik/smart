@@ -7,9 +7,9 @@
 
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <x-button.back route="invoice.categories" />
             <x-splade-modal>
-                <x-splade-form :default="$category" :action="route('invoice.category.update', $category->id)" class="flex flex-col gap-4 p-6" method="put" stay
+                <x-button.back route="invoice.categories" />
+                <x-splade-form :default="$category" :action="route('invoice.category.update', $category->id)" class="flex flex-col gap-4 p-6" method="put" stay 
                     preserve-scroll @success="$splade.emit('invoice-category-updated')">
                     <div class="flex gap-4">
                         <div class="w-full flex flex-col gap-4">
@@ -37,7 +37,7 @@
                                                         <td class="border border-white text-center">
                                                             {{ $discount->discount_amount }}</td>
                                                         <td class="border border-white text-center">
-                                                            {{ $discount->discount_type=='percentage'?'%':'Rp' }}</td>
+                                                            {{ $discount->discount_type == 'percentage' ? '%' : 'Rp' }}</td>
                                                         <td class="border border-white text-center">
                                                             <Link confirm stay preserve-scroll background
                                                                 href="{{ route('invoice.discount.remove', $discount->id) }}">
@@ -55,21 +55,22 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="flex justify-between items-center">
-                            @if ($category->is_discount_for_siblings)
-                                <Link modal href="{{ route('invoice.discount.create', $category->id) }}"
-                                    class="bg-wa-teal1 p-2 text-white rounded-md text-sm items-center  hover:bg-wa-teal1">
-                                <i class="ph ph-plus"></i> {{ __('Add discount ') }}
-                                </Link>
-                            @endif
-                            <button type="submit"
-                                class="bg-wa-teal2 p-2 text-white rounded-md text-sm items-center  hover:bg-wa-light w-20">
-                                Update
-                            </button>
-                        </div>
                     </x-splade-rehydrate>
+                    
+                    <div class="flex justify-between items-center">
+                        @if ($category->is_discount_for_siblings)
+                            <Link modal href="{{ route('invoice.discount.create', $category->id) }}"
+                                class="bg-wa-teal1 p-2 text-white rounded-md text-sm items-center  hover:bg-wa-teal1">
+                            <i class="ph ph-plus"></i> {{ __('Add discount ') }}
+                            </Link>
+                        @endif
+                        <button type="submit"
+                            class="bg-wa-teal2 p-2 text-white rounded-md text-sm items-center  hover:bg-wa-light w-20">
+                            Update
+                        </button>
+                    </div>
                 </x-splade-form>
-            </x-splade-modal>
+             </x-splade-modal>
         </div>
     </div>
 </x-app-layout>

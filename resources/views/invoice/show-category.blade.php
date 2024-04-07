@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-splade-modal>
+    <x-bakid.card>
         <x-splade-lazy>
             <x-slot:placeholder> {{ __('loading') }}... </x-slot:placeholder>
             <h3 class="mt-3 text-xl">{{ $category->name }}</h3>
@@ -35,5 +35,5 @@
                 </div>
             </div>
         </x-splade-lazy>
-    </x-splade-modal>
+    </x-bakid.card>
 </x-app-layout>

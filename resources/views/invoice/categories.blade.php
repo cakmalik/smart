@@ -24,7 +24,6 @@
                     {{ __('Edit') }}
                     </Link>
                 </x-splade-cell>
-
             </x-splade-table>
 
         </div>
