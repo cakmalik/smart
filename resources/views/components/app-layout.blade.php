@@ -59,7 +59,7 @@
                                 <a href="{{ route('setting.switch-locale') }}"
                                     class="uppercase font-semibold text-white">{{ config('app.locale') }}
                                 </a>
-                                <x-splade-dropdown>
+                                <x-splade-dropdown class="">
                                     <x-slot:trigger>
                                         @if (\Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                             <button
@@ -84,7 +84,7 @@
                                         @endif
                                     </x-slot>
                                     <div
-                                        class="w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10">
+                                        class="z-900 w-48 py-1 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ __('manage_account') }}

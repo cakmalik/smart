@@ -8,7 +8,7 @@
             type="button"
             aria-haspopup="true"
             {{ $attributes->only('class')->when($inline && !$attributes->has('class'), fn($attributes) => $attributes->class('inline')) }}
-            :class="{ 'cursor-not-allowed': dropdown.disabled }"
+            :class="{ 'cursor-not-allowed ': dropdown.disabled }"
             :disabled="dropdown.disabled"
             @click.prevent="dropdown.toggle"
         >

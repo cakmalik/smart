@@ -32,7 +32,7 @@ class PermissionSeeder extends Seeder
 
         
         $p_psb = ['access psb'];
-        $p_alumni = ['access alumni', 'approval alumni'];
+        $p_alumni = ['access alumni'];
         $p_campaign = ['access campaign', 'edit campaign', 'delete campaign', 'approval campaign'];
         $p_in_out_permit = ['access in_out_permit'];
         $p_settings = ['access settings'];
@@ -48,6 +48,7 @@ class PermissionSeeder extends Seeder
             'approval informal',
             'approval mutasi',
             'approval dropout',
+            'approval students',
         ];
 
         $permissions = array_merge(

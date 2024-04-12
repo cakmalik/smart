@@ -43,16 +43,27 @@
         </x-menu.web-mega>
     @endcan
 
-    @can('access approval')
+    @can('menu approval')
         <x-menu.web-mega cols="1" label="Approval">
             <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                 <ul class="space-y-4" aria-labelledby="mega-menu-icons-dropdown-button">
-                    <x-menu.web link="{{ route('approval.index', 'dropout') }}" label="Dropout (on progress)"
-                        icon="ph-plus-circle" />
-                    <x-menu.web link="{{ route('approval.index', 'asrama') }}" label="Asrama" icon="ph-plus-circle" />
-                    <x-menu.web link="{{ route('approval.index', 'formal') }}" label="Formal" icon="ph-plus-circle" />
-                    <x-menu.web link="{{ route('approval.index', 'nonformal') }}" label="Nonformal"
-                        icon="ph-plus-circle" />
+                    @can('approval dropout')
+                        {{-- <x-menu.web link="{{ route('approval.index', 'dropout') }}" label="Dropout (on progress)"
+                            icon="ph-plus-circle" /> --}}
+                    @endcan
+
+                    @can('approval asrama')
+                        <x-menu.web link="{{ route('approval.index', 'asrama') }}" label="Asrama" icon="ph-plus-circle" />
+                    @endcan
+
+                    @can('approval formal')
+                        <x-menu.web link="{{ route('approval.index', 'formal') }}" label="Formal" icon="ph-plus-circle" />
+                    @endcan
+
+                    @can('approval informal')
+                        <x-menu.web link="{{ route('approval.index', 'nonformal') }}" label="Nonformal"
+                            icon="ph-plus-circle" />
+                    @endcan
                 </ul>
             </div>
         </x-menu.web-mega>
