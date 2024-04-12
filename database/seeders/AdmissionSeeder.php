@@ -20,6 +20,7 @@ class AdmissionSeeder extends Seeder
           'amount'=>250000,
           'start_date'=>Carbon::now(),
           'end_date'=>Carbon::today()->addDay(),
+          'is_active'=>true
         ]);
     }
 }
