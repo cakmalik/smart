@@ -69,7 +69,7 @@
                 @if ($canLogin)
                     @auth
                         <Link href="{{ url('/dashboard') }}"
-                            class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                            class="font-semibold  hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 text-white dark:text-gray-600">
                         Dashboard</Link>
                     @else
                         <Link href="{{ route('login') }}"
