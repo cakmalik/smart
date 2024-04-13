@@ -37,6 +37,8 @@ class DashboardController extends Controller
             $x['students'] = [];
         }
 
+        // $count_new_students = Student
+
         return view('dashboard', compact('x'));
     }
 

@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Informal\InformalEducation;
 use App\Models\Student;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\ReminderNotification;
+use App\Models\Formal\FormalEducation;
 use Laravel\Jetstream\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Informal\InformalEducation;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\UserHasFormalEducationPermission;
