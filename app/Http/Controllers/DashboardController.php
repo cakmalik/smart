@@ -37,9 +37,15 @@ class DashboardController extends Controller
             $x['students'] = [];
         }
 
-        // $count_new_students = Student
+        $count_new_students = Student::where('status','waiting')->count();
+        $count_students = Student::where('status','accepted')->count();
+        // dd($count_new_students, $count_students,);
 
-        return view('dashboard', compact('x'));
+        $summary = [
+            'new_students' => $count_new_students,
+            'students' => $count_students
+        ];
+        return view('dashboard', compact('x', 'summary'));
     }
 
     public function getStudentsWithoutRooms($user)
