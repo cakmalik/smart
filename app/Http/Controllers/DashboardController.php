@@ -43,7 +43,9 @@ class DashboardController extends Controller
 
         $summary = [
             'new_students' => $count_new_students,
-            'students' => $count_students
+            'students' => $count_students,
+            'approval'=>0,
+            'mutation'=>0
         ];
         return view('dashboard', compact('x', 'summary'));
     }
