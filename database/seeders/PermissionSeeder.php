@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Team;
 use App\Models\User;
-use Laravel\Jetstream\Team;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -119,11 +119,7 @@ class PermissionSeeder extends Seeder
         $hankamtib->givePermissionTo($p_in_out_permit);
         $hankamtib->givePermissionTo($p_violation);
         
-        $student = Role::where('name', 'santri')->first();
-        $student->givePermissionTo($p_students);
-        $student->givePermissionTo($payment);
-
-         
+       
         
         // SANTRI
         $santri_team = Team::create([
@@ -149,5 +145,11 @@ class PermissionSeeder extends Seeder
 
         //assign person to team
         $santri->teams()->attach($santri_team->id, ['role' => 'santri']);
+        
+        $student = Role::where('name', 'santri')->first();
+        $student->givePermissionTo($p_students);
+        $student->givePermissionTo($payment);
+
+         
     }
 }
