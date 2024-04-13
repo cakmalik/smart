@@ -36,7 +36,7 @@ class Invoices extends AbstractTable
      */
     public function for()
     {
-        $data =  Invoice::query()->selectRaw('*, concat("Rp ", format(amount, 0)) as amount');
+        $data = Invoice::query()->selectRaw('*, concat("Rp ", format(amount, 0)) as amount')->with('student', 'method', 'invoiceCategory');
         return $data;
     }
 
@@ -52,15 +52,13 @@ class Invoices extends AbstractTable
             ->withGlobalSearch(columns: ['id'])
             ->column('id', sortable: true)
             ->column('invoice_number', sortable: true)
-            ->column(
-                key: 'method.name',
-                label: 'Payment method',
-                sortable: true
-            )
-            ->column('title', sortable: true)
-            ->column('description', sortable: true)
+            ->column(key: 'method.name', label: 'Payment method', sortable: true)
+            // ->column('title', sortable: true)
+            // ->column('description', sortable: true)
+            ->column(key:'invoiceCategory.name', label: 'Category', sortable: true)
             ->column('amount', sortable: true)
             ->column('status', sortable: true)
+            ->column(key: 'student.name', label: 'Student', sortable: true)
             ->paginate()
             ->selectFilter(
                 key: 'status',
@@ -68,17 +66,18 @@ class Invoices extends AbstractTable
                 options: [
                     'paid' => 'Paid',
                     'unpaid' => 'Unpaid',
-                ]
-            )->selectFilter(
+                ],
+            )
+            ->selectFilter(
                 key: 'method_id',
                 label: 'Payment method',
                 options: [
                     1 => 'Credit card',
                     2 => 'Paypal',
                     3 => 'Bank transfer',
-                ]
-            )->withGlobalSearch(
-                columns: ['id', 'invoice_number', 'title', 'description', 'amount']
-            )->column('action', label: 'Action');
+                ],
+            )
+            ->withGlobalSearch(columns: ['id', 'invoice_number', 'title', 'description', 'amount'])
+            ->column('action', label: 'Action');
     }
 }
