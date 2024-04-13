@@ -39,15 +39,18 @@ class ApprovalController extends Controller
                 $title = 'asrama';
                 break;
         }
+
+        $data = SpladeTable::for($this->query($request, $category))
+        ->column('student.name')
+        ->column('tujuan')
+        ->withGlobalSearch()
+        ->column('action');
+// dd($data->data);
+
         return view(
             'bakid.approval.index',
             [
-                'data' => SpladeTable::for($this->query($request, $category))
-                    ->column('student.name')
-                    ->column('tujuan')
-                    ->withGlobalSearch()
-                    ->column('action'),
-
+                'data' => $data,
                 'title' => $title
             ]
         );

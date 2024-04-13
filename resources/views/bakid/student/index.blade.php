@@ -16,8 +16,23 @@
                     </x-slot>
 
                     <x-splade-cell asrama as="$students">
-                        <span class="text-green-500 p-1 rounded-xl bg-green-100 border">
-                            {{ $students->dormitory[0]->name ?? ('-' . $students->room[0]->name ?? '-') }}</span>
+                        <div class="text-green-500 p-1 px-2 rounded-xl bg-green-100 border">
+                            <span>
+                                @if ($students->dormitory && count($students->dormitory) > 0)
+                                    {{ $students->dormitory[0]->name }}
+                                @else
+                                    -
+                                @endif
+                            </span>
+
+                            <span>
+                                @if ($students->room && count($students->room) > 0)
+                                    {{ $students->room[0]->name }}
+                                @else
+                                    -
+                                @endif
+                            </span>
+                        </div>
                     </x-splade-cell>
 
                     <x-splade-cell family as="$students">

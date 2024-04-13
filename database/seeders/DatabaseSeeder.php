@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             MadinPermissionSeeder::class,
             ViolationSeeder::class,
             InOutPermissionTypeSeeder::class,
-            StudentSeeder::class
+            // StudentSeeder::class
         ];
 
         if (App::environment('production')) {

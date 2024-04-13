@@ -27,7 +27,7 @@
                 </x-splade-transition>
             </x-splade-toggle> --}}
 
-            <div class="bg-white/40 backdrop-blur-md overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="bg-white/40 backdrop-blur-md overflow-show shadow-xl sm:rounded-lg">
                 {{-- <div class="bg-white bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8"> --}}
                 <div class='p-5'>
                     <x-splade-form :action="route('student.store')" default="{nationality:'WNI'}">
@@ -136,7 +136,7 @@
                                             :placeholder="__('bakid.pl.rt_rw')" />
 
 
-                                        <x-splade-input class="mt-2" name="postal_code" type="text"
+                                        <x-splade-input class="mt-2" name="postal_code" type="number"
                                             :label="__('bakid.postal_code')" :placeholder="__('bakid.pl.postal_code')" />
 
 

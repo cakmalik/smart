@@ -19,11 +19,11 @@
                         @break
 
                         @case('formal')
-                            <span>{{ $data->formal?->name . ' (Kls ' . $data->class?->class_name . ')' }}</span>
+                            <span>{{ $data->formal?->name . ' (Kls ' . $data->kelas?->class_name . ')' }}</span>
                         @break
 
                         @case('nonformal')
-                            <span>{{ $data->informal?->name . ' (Kls ' . $data->class?->class_name . ')' }}</span>
+                            <span>{{ $data->informal?->name . ' (Kls ' . $data->kelas?->class_name . ')' }}</span>
                         @break
 
                         @default
