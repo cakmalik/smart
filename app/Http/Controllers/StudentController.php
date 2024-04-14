@@ -24,6 +24,7 @@ use App\Services\Student\StudentService;
 use App\Http\Requests\StoreStudentRequest;
 use App\Services\Location\LocationService;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Jobs\JobSendWhatsappMessage;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
 use App\Models\Student\RoomStudent;
@@ -113,11 +114,12 @@ class StudentController extends Controller
         try {
             $student = $this->student->storeNewStudent($request);
             $invoiceService = $this->invoice->createInvoiceAdmission($student['student_id']);
+            
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
-        if ($student['status'] === false || $invoiceService === false) {
+        if ($student['status'] === false || $invoiceService['status'] === false) {
             Toast::title('Maaf!')
                 ->message($student['message'])
                 ->danger()
@@ -126,6 +128,10 @@ class StudentController extends Controller
                 ->autoDismiss(5);
             return back();
         } else {
+
+            $whatsappService = new \App\Services\WhatsappService();
+            $whatsappService->sendInvoice($invoiceService['invoice_number']);
+            
             Toast::title('Alhamdulillah!')
                 ->message($student['message'])
                 ->success()
@@ -311,33 +317,45 @@ class StudentController extends Controller
 
     public function verify(Student $student)
     {
+        $whatsappService = new \App\Services\WhatsappService();
+        $whatsappService->sendInvoice('INV-000001');
+        dd('ok');
+        DB::beginTransaction();
         try {
             $student->verified_at = now();
+            $student->status = 'accepted';
             $student->save();
-
+            
             //student room
             $room = RoomStudent::where('student_id', $student->id)->first();
             if ($room) {
                 $room->status = 'approved';
                 $room->save();
             }
-
+            
             //student education
             $formal = FormalEducationStudent::where('student_id', $student->id)->first();
             if ($formal) {
-                $formal->status = 'accepted';
+                $formal->status = 'approved';
                 $formal->save();
             }
-
+            
             $informal = InformalEducationStudent::where('student_id', $student->id)->first();
             if ($informal) {
-                $informal->status = 'accepted';
+                $informal->status = 'approved';
                 $informal->save();
             }
+            
+            if($student->phone!='-'){
+                JobSendWhatsappMessage::dispatch($student->phone, 'Pendaftaran santri baru. Terima kasih');
+            }
+            JobSendWhatsappMessage::dispatch($student->user->phone, 'Pendaftaran santri baru. Terima kasih');
 
+            DB::commit();
             Toast::message('Berhasil diterima sebagai santri, Pesan wa terkirim')->success()->autoDismiss(5)->centerBottom();
             return back();
         } catch (\Exception $e) {
+            DB::rollBack();
             Toast::danger('Gagal, terjadi kesalahan. periksa log');
             Log::error($e->getMessage() . '-' . $e->getLine());
             return back();

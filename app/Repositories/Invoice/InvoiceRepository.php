@@ -8,7 +8,7 @@ use LaravelEasyRepository\Repository;
 interface InvoiceRepository extends Repository
 {
 
-    public function createInvoiceAdmission($student_id): bool;
+    public function createInvoiceAdmission($student_id): array;
 
     public function getInvoicesByUserAndCode($user_id, $code): Collection;
 

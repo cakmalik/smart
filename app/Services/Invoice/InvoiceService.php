@@ -8,7 +8,7 @@ use LaravelEasyRepository\BaseService;
 interface InvoiceService extends BaseService
 {
 
-    public function createInvoiceAdmission($student_id): bool;
+    public function createInvoiceAdmission($student_id): array;
 
     public function getInvoicesByUserAndCode($user_id, $code): Collection;
 }

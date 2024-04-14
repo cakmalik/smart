@@ -20,7 +20,7 @@ class InvoiceServiceImplement extends Service implements InvoiceService
         $this->mainRepository = $mainRepository;
     }
 
-    public function createInvoiceAdmission($student_id): bool
+    public function createInvoiceAdmission($student_id): array
     {
         $invoice = $this->mainRepository->createInvoiceAdmission($student_id);
         return $invoice;

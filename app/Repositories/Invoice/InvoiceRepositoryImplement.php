@@ -28,7 +28,7 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
         $this->model = $model;
     }
 
-    public function createInvoiceAdmission($student_id): bool
+    public function createInvoiceAdmission($student_id): array
     {
         try {
             $findCategory = InvoiceCategory::where('code', 'psb')->first();
@@ -76,14 +76,25 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
             }
 
             $invoice->amount = $grandTotal;
+            $invoice->discount_amount = 0;
+
+            $invoice->final_amount = $grandTotal - $invoice->discount_amount;
             $invoice->save();
             DB::commit();
-            return true;
+            return [
+                'status'=>true,
+                'data'=>$invoice,
+                'message'=>'Invoice created successfully',
+            ];
         } catch (\Exception $e) {
             DB::rollBack();
 
             Log::error($e->getMessage() . ' ' . $e->getLine());
-            return false;
+            return [
+                'status'=>false,
+                'message'=>$e->getMessage(),
+                'data'=>null
+            ];
         }
         // return $invoice;
     }
