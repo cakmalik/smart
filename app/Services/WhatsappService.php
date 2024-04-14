@@ -148,7 +148,7 @@ class WhatsappService
             Log::info('invoice not found');
             return;
         }
-        $message = "Assalamualaikum wr.wb.\nBerikut rincian tagihan pembayaran: \n*" . $invoice->student?->name . "*\n\n~~~~~~~~~~~\nNominal : *Rp. " . number_format($invoice->final_amount) . "*\nMelalui : " . $invoice->method->name . "\nKode Pembayaran : *" . $invoice->invoice_number . "*\nLakukan pembayaran sebelum :\n" . Carbon::parse($invoice->due_date)->isoFormat('dddd, D MMMM Y, H:m') . "\n~~~~~~~~~~~\n\n_Wa ini dikirim otomatis, untuk informasi lebih lanjut hubungi kami di +6285216329458_\nbakid.id";
+        $message = "Assalamualaikum wr.wb.\nBerikut rincian tagihan pembayaran: \n*" . $invoice->student?->name . "*\n\n~~~~~~~~~~~\nNominal : *Rp. " . number_format($invoice->final_amount) . "*\nMelalui : " . $invoice->method->name . "\nKode Pembayaran : *" . $invoice->invoice_number . "*\nLakukan pembayaran sebelum :\n" . Carbon::parse($invoice->due_date)->isoFormat('dddd, D MMMM Y, H:m') . "\n~~~~~~~~~~~\nDetail : " . env('APP_URL') . '/invoice/show/' . $invoice->invoice_number . "\n\n_Wa ini dikirim otomatis, untuk informasi lebih lanjut hubungi kami di +6285216329458_\nbakid.id";
 
         if ($invoice->student->phone != '-') {
             JobSendWhatsappMessage::dispatch($invoice->student->phone, $message);
