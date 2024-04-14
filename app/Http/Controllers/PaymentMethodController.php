@@ -25,7 +25,6 @@ class PaymentMethodController extends Controller
     {
         try {
             if ($request->payment_method_id == null) {
-                // TODO:ini nanti diganti code
                 $payment_method = PaymentMethod::where('name', '==', 'Cash')->first()->id;
             } else {
                 $payment_method = $request->payment_method_id;
@@ -34,6 +33,9 @@ class PaymentMethodController extends Controller
             $invoice = Invoice::where('invoice_number', $request->invoice_number)->first();
             $invoice->payment_method_id = $payment_method;
             $invoice->save();
+
+            $whatsappService = new \App\Services\WhatsappService();
+            $whatsappService->sendInvoice($invoice->invoice_number);
 
             return redirect()->route('invoice.show', $invoice->invoice_number);
         } catch (\Exception $e) {

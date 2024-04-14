@@ -81,6 +81,10 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
             $invoice->final_amount = $grandTotal - $invoice->discount_amount;
             $invoice->save();
             DB::commit();
+
+            $whatsappService = new \App\Services\WhatsappService();
+            $whatsappService->sendInvoice($invoice->invoice_number);
+            
             return [
                 'status'=>true,
                 'data'=>$invoice,

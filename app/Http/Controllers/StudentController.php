@@ -128,9 +128,6 @@ class StudentController extends Controller
                 ->autoDismiss(5);
             return back();
         } else {
-
-            $whatsappService = new \App\Services\WhatsappService();
-            $whatsappService->sendInvoice($invoiceService['invoice_number']);
             
             Toast::title('Alhamdulillah!')
                 ->message($student['message'])
@@ -317,9 +314,7 @@ class StudentController extends Controller
 
     public function verify(Student $student)
     {
-        $whatsappService = new \App\Services\WhatsappService();
-        $whatsappService->sendInvoice('INV-000001');
-        dd('ok');
+      
         DB::beginTransaction();
         try {
             $student->verified_at = now();
