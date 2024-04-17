@@ -25,7 +25,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
              source ~/.nvm/nvm.sh
-             cd ../home/bakid.id/public_html
+             cd ../home/dev.bakid.id/public_html
              php artisan down
              php artisan migrate --force
              composer install --no-interaction --no-dev --prefer-dist
