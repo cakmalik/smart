@@ -48,5 +48,5 @@ jobs:
             npm install
             npm run build
 
-            # Bring the application back online
+            # Bring the application back online again
             php artisan up
