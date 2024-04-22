@@ -114,7 +114,6 @@ class StudentController extends Controller
         try {
             $student = $this->student->storeNewStudent($request);
             $invoiceService = $this->invoice->createInvoiceAdmission($student['student_id']);
-            
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', $e->getMessage());
@@ -128,7 +127,7 @@ class StudentController extends Controller
                 ->autoDismiss(5);
             return back();
         } else {
-            
+
             Toast::title('Alhamdulillah!')
                 ->message($student['message'])
                 ->success()
@@ -231,8 +230,8 @@ class StudentController extends Controller
             'student_id' => 'required|exists:students,id',
             'formal_id' => 'sometimes|required_without:informal_id',
             'informal_id' => 'sometimes|required_without:formal_id',
-            'formal_class_id' => 'sometimes|required_without:informal_class_id',
-            'informal_class_id' => 'sometimes|required_without:formal_class_id',
+            // 'formal_class_id' => 'sometimes|required_without:informal_class_id',
+            // 'informal_class_id' => 'sometimes|required_without:formal_class_id',
         ], [
             'student_id.required' => 'Mohon pilih putra/i terlebih dahulu',
             'student_id.exists' => 'Siswa tidak ditemukan',
@@ -281,22 +280,24 @@ class StudentController extends Controller
     {
         $request->validate([
             'student_id' => 'required|exists:students,id',
-            'room_id' => 'required|exists:rooms,id',
+            // 'room_id' => 'required|exists:rooms,id',
         ], [
             'student_id.required' => 'Mohon pilih putra/i terlebih dahulu',
             'student_id.exists' => 'Data tidak ditemukan',
-            'room_id.required' => 'Mohon pilih Asrama terlebih dahulu',
-            'room_id.exists' => 'Asrama tidak ditemukan',
+            // 'room_id.required' => 'Mohon pilih Asrama terlebih dahulu',
+            // 'room_id.exists' => 'Asrama tidak ditemukan',
         ]);
 
         try {
             DB::beginTransaction();
-            RoomStudent::create([
-                'student_id' => $request->student_id,
-                'dormitory_id' => $request->dormitory_id,
-                'room_id' => $request->room_id,
-                'status' => 'waiting'
-            ]);
+            if ($request->room_id != null) {
+                RoomStudent::create([
+                    'student_id' => $request->student_id,
+                    'dormitory_id' => $request->dormitory_id,
+                    'room_id' => $request->room_id,
+                    'status' => 'waiting'
+                ]);
+            }
             DB::commit();
             Toast::title('Berhasil!')
                 ->message('Ruangan ananda sedang diajukan')
@@ -314,34 +315,34 @@ class StudentController extends Controller
 
     public function verify(Student $student)
     {
-      
+
         DB::beginTransaction();
         try {
             $student->verified_at = now();
             $student->status = 'accepted';
             $student->save();
-            
+
             //student room
             $room = RoomStudent::where('student_id', $student->id)->first();
             if ($room) {
                 $room->status = 'approved';
                 $room->save();
             }
-            
+
             //student education
             $formal = FormalEducationStudent::where('student_id', $student->id)->first();
             if ($formal) {
                 $formal->status = 'approved';
                 $formal->save();
             }
-            
+
             $informal = InformalEducationStudent::where('student_id', $student->id)->first();
             if ($informal) {
                 $informal->status = 'approved';
                 $informal->save();
             }
-            
-            if($student->phone!='-'){
+
+            if ($student->phone != '-') {
                 JobSendWhatsappMessage::dispatch($student->phone, 'Pendaftaran santri baru. Terima kasih');
             }
             JobSendWhatsappMessage::dispatch($student->user->phone, 'Pendaftaran santri baru. Terima kasih');

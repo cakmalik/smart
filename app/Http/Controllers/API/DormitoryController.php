@@ -17,7 +17,12 @@ class DormitoryController extends Controller
         } else {
             $jk = 'P';
         }
-        $d = Dormitory::where('gender', $jk)->get();
+        $d = Dormitory::where('gender', $jk)->get(['id', 'name']);
+        $newD = new Dormitory();
+        $newD->id = 0;
+        $newD->name = 'Lainnya';
+        $d->push($newD);
+
         return response()->json($d);
     }
 }

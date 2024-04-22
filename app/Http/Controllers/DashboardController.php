@@ -26,8 +26,20 @@ class DashboardController extends Controller
     public function index()
     {
         $invoices_psb = $invoices = $this->invoiceService->getInvoicesByUserAndCode(auth()->user()->id, 'psb');
-        $x['formal'] = FormalEducation::all();
-        $x['informal'] = InformalEducation::all();
+        $x['formal'] = FormalEducation::get(['name', 'level', 'id']);
+        $newFormalEducation = new FormalEducation();
+        $newFormalEducation->name = 'Lainnya';
+        $newFormalEducation->level = '';
+        $newFormalEducation->id = 0;
+        $x['formal']->push($newFormalEducation);
+        // dd($x['formal']);
+        $x['informal'] = InformalEducation::all(['name', 'level', 'id']);
+        $newFormalEducation = new InformalEducation();
+        $newFormalEducation->name = 'Lainnya';
+        $newFormalEducation->level = '';
+        $newFormalEducation->id = 0;
+        $x['informal']->push($newFormalEducation);
+
         $user = Auth::user();
         if ($user->students->count() > 0) {
             $x['students'] = Student::where('user_id', auth()->user()->id)->whereNull('education_updated')->orderByDesc('id')->get();
@@ -37,15 +49,15 @@ class DashboardController extends Controller
             $x['students'] = [];
         }
 
-        $count_new_students = Student::where('status','waiting')->count();
-        $count_students = Student::where('status','accepted')->count();
+        $count_new_students = Student::where('status', 'waiting')->count();
+        $count_students = Student::where('status', 'accepted')->count();
         // dd($count_new_students, $count_students,);
 
         $summary = [
             'new_students' => $count_new_students,
             'students' => $count_students,
-            'approval'=>0,
-            'mutation'=>0
+            'approval' => 0,
+            'mutation' => 0
         ];
         return view('dashboard', compact('x', 'summary'));
     }
