@@ -48,6 +48,8 @@ jobs:
 
             composer dump-autoload
 
+            composer install --ignore-platform-reqs
+
             # Install npm dependencies and build assets
             npm install
             npm run build
