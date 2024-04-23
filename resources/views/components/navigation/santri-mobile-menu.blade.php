@@ -50,7 +50,7 @@
 
                 <x-splade-toggle data="isHistory, isProfile">
                     <button @click.prevent="toggle('isHistory'); setToggle('isProfile', false)"
-                        class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                        class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                             class="w-6 h-6 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 group-active:text-green-600 dark:group-hover:text-blue-500">
                             <path fill-rule="evenodd"
