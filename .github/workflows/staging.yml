@@ -50,6 +50,13 @@ jobs:
 
             composer install --ignore-platform-reqs
 
+            sudo chown -R $USER:www-data storage
+            sudo chown -R $USER:www-data bootstrap/cache
+
+            chmod -R 777 storage
+            chmod -R 775 bootstrap/cache
+
+
             # Install npm dependencies and build assets
             npm install
             npm run build
