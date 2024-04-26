@@ -36,6 +36,13 @@
                             Foto
                         </button>
 
+                        <button type="button"
+                            class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
+                            @click="data.currentIndex=4; data.title = 'Foto'"
+                            :class="{ 'bg-green-700 text-white': data.currentIndex == 4 }">
+                            Dokumen
+                        </button>
+
                         {{-- <button type="button"
                         class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
                         @click="data.currentIndex=4; data.title = 'Tambahan'"
@@ -247,6 +254,10 @@
                                 <img class="w-full p-5" v-if="form.parent_image"
                                     :src="form.$fileAsUrl('parent_image')" class="mt-2" />
                             </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===4">
+                            <img class="w-full p-5" src="{{ asset('storage/doc-kk/' . $student->user->doc_kk) }}" class="mt-2" />
                         </div>
 
                         <x-loading />
