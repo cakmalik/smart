@@ -39,14 +39,14 @@ jobs:
             php artisan migrate --force
 
             # Install composer dependencies
-            composer install --no-interaction --no-dev --prefer-dist
+            # composer install --no-interaction --no-dev --prefer-dist
 
             # Clear cache and optimize application
             php artisan optimize:clear
 
             php artisan config:cache
 
-            composer dump-autoload
+            # composer dump-autoload
 
             composer install --ignore-platform-reqs
 
@@ -85,8 +85,8 @@ jobs:
             sudo chmod -R gu+w bootstrap/cache/
             sudo chmod -R guo+w bootstrap/cache/
 
-            php artisan log-viewer:publish
-            php artisan storage:link
+            # php artisan log-viewer:publish
+            # php artisan storage:link
 
             # Bring the application back online again
             php artisan up
