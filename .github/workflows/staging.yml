@@ -26,7 +26,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd /home/dev.bakid.id/public_html
+            cd /home/bakid.id/public_html
 
             # Stop the application for maintenance
             php artisan down
