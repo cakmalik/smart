@@ -102,12 +102,14 @@ Route::middleware(['splade'])->group(function () {
     ])->group(function () {
         Route::resource('/user', UserController::class);
     });
-
+    
     Route::middleware([
         'auth:sanctum',
         config('jetstream.auth_session'),
         'verified',
-    ])->group(function () {
+        ])->group(function () {
+        Route::post('/user/upload-kk/{user}', [UserController::class, 'uploadKk'])->name('user.upload-kk');
+        
         Route::get('tes/wa', [BakidSettingController::class, 'checkConnection'])->name('test.wa');
         Route::get('tes/message', function () {
             $ms = new WhatsappService();

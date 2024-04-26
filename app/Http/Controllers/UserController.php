@@ -162,5 +162,21 @@ class UserController extends Controller
         
     }
 
+    public function uploadKk(Request $request, User $user){
+        $request->validate([
+            'doc_kk' => 'required'
+        ]);
+        
+        // store image to storage
+        if ($file = $request->file('doc_kk')) {
+            $filename =  compressAndStoreImage($file,'doc-kk');
+
+            $user->doc_kk = $filename;
+            $user->save();
+        }
+
+        return back();
+    }
+
 
 }
