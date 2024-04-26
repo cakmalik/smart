@@ -21,8 +21,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SERVER_SSHKEY }}
           # passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          env:
-             PORT: 8000
+          APP_PORT: 22
           script_stop: true
           script: |
             export NVM_DIR=~/.nvm
