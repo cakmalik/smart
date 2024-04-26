@@ -147,7 +147,7 @@
 
             <x-splade-modal name="modalUploadKK">
                 <x-splade-form method="post" :action="route('user.upload-kk', auth()->user()->id)" stay background reset-on-success
-                    @success="$splade.emit('done-upload-kk')">
+                    @success="$splade.emit('done-admission')">
                     <div>
                         <x-splade-file v-model="form.doc_kk" :show-filename="false" label="Foto Kartu Keluarga" filepond
                             max-size="3MB" class="mt-2" />
