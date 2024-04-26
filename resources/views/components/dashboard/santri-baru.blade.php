@@ -2,7 +2,7 @@
         @if ($data['invoices_psb']->isNotEmpty())
             <h1 class="mt-0 text-2xl font-medium text-gray-900 text-center bg-white/50 rounded-lg p-3 backdrop-blur-md">
                 Selangkah lagi
-     
+
             </h1>
             <div class=" grid grid-col md:grid-cols-2 mt-4 text-center gap-3">
                 <Link @if ($data['students']->isEmpty()) href="#"  @else href="#modalLembaga" @endif
@@ -48,14 +48,18 @@
                 <h3 class="text-xl">{{ __('Choose Rooms') }}</h3>
                 </Link>
 
-                @if(auth()->user()->doc_kk ==null)
-                <Link @if ($data['studentsWithoutRooms']->isEmpty()) href="#"  @else href="#modalUploadKK" @endif
-                    class="relative p-3 py-5 w-full @if ($data['studentsWithoutRooms']->isEmpty()) bg-white/50 cursor-default  @else bg-green-400 @endif rounded-xl">
-
-                    <svg class="inline-flex justify-center" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#000000" viewBox="0 0 256 256"><path d="M96,104a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H104A8,8,0,0,1,96,104Zm8,40h64a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16Zm128,48a32,32,0,0,1-32,32H88a32,32,0,0,1-32-32V64a16,16,0,0,0-32,0c0,5.74,4.83,9.62,4.88,9.66h0A8,8,0,0,1,24,88a7.89,7.89,0,0,1-4.79-1.61h0C18.05,85.54,8,77.61,8,64A32,32,0,0,1,40,32H176a32,32,0,0,1,32,32V168h8a8,8,0,0,1,4.8,1.6C222,170.46,232,178.39,232,192ZM96.26,173.48A8.07,8.07,0,0,1,104,168h88V64a16,16,0,0,0-16-16H67.69A31.71,31.71,0,0,1,72,64V192a16,16,0,0,0,32,0c0-5.74-4.83-9.62-4.88-9.66A7.82,7.82,0,0,1,96.26,173.48ZM216,192a12.58,12.58,0,0,0-3.23-8h-94a26.92,26.92,0,0,1,1.21,8,31.82,31.82,0,0,1-4.29,16H200A16,16,0,0,0,216,192Z"></path></svg>
+                {{-- @if (auth()->user()->doc_kk == null) --}}
+                <Link @if (auth()->user()->doc_kk != null) href="#"  @else href="#modalUploadKK" @endif
+                    class="relative p-3 py-5 w-full @if (auth()->user()->doc_kk != null) bg-white/50 cursor-default  @else bg-green-400 @endif rounded-xl">
+                <svg class="inline-flex justify-center" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                    fill="#000000" viewBox="0 0 256 256">
+                    <path
+                        d="M96,104a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H104A8,8,0,0,1,96,104Zm8,40h64a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16Zm128,48a32,32,0,0,1-32,32H88a32,32,0,0,1-32-32V64a16,16,0,0,0-32,0c0,5.74,4.83,9.62,4.88,9.66h0A8,8,0,0,1,24,88a7.89,7.89,0,0,1-4.79-1.61h0C18.05,85.54,8,77.61,8,64A32,32,0,0,1,40,32H176a32,32,0,0,1,32,32V168h8a8,8,0,0,1,4.8,1.6C222,170.46,232,178.39,232,192ZM96.26,173.48A8.07,8.07,0,0,1,104,168h88V64a16,16,0,0,0-16-16H67.69A31.71,31.71,0,0,1,72,64V192a16,16,0,0,0,32,0c0-5.74-4.83-9.62-4.88-9.66A7.82,7.82,0,0,1,96.26,173.48ZM216,192a12.58,12.58,0,0,0-3.23-8h-94a26.92,26.92,0,0,1,1.21,8,31.82,31.82,0,0,1-4.29,16H200A16,16,0,0,0,216,192Z">
+                    </path>
+                </svg>
                 <h3 class="text-xl">{{ __('Upload Kartu Keluarga') }}</h3>
                 </Link>
-                @endif
+                {{-- @endif --}}
 
                 {{-- TODO:kerjakan next --}}
                 @if ($data['invoices_psb']->isNotEmpty())
@@ -140,16 +144,14 @@
                     {{-- <Counter :formal="@js($data['formal'])" /> --}}
                 </x-splade-form>
             </x-splade-modal>
-            
+
             <x-splade-modal name="modalUploadKK">
                 <x-splade-form method="post" :action="route('user.upload-kk', auth()->user()->id)" stay background reset-on-success
                     @success="$splade.emit('done-upload-kk')">
                     <div>
-                        <x-splade-file v-model="form.doc_kk" :show-filename="false"
-                            label="Foto Kartu Keluarga" filepond 
+                        <x-splade-file v-model="form.doc_kk" :show-filename="false" label="Foto Kartu Keluarga" filepond
                             max-size="3MB" class="mt-2" />
-                        <img class="w-full p-5" name="doc_kk"
-                            :src="form.$fileAsUrl('doc_kk')" class="mt-2" />
+                        <img class="w-full p-5" name="doc_kk" :src="form.$fileAsUrl('doc_kk')" class="mt-2" />
 
                         <x-splade-submit v-if="form.doc_kk">
                             Simpan Dokumen
