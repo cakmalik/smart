@@ -54,7 +54,15 @@ jobs:
             npm install
             npm run build
 
-s           sudo chmod -R gu+w storage/
+            mkdir storage/app/public/kts
+            mkdir storage/app/public/announcement
+            mkdir storage/app/public/proof
+            mkdir storage/app/public/temp_images
+            mkdir storage/app/public/student-photos
+            mkdir storage/app/public/qrcode
+            mkdir storage/app/public/parent-photos
+
+            sudo chmod -R gu+w storage/
             sudo chmod -R guo+w storage/
             sudo chmod -R gu+w bootstrap/cache/
             sudo chmod -R guo+w bootstrap/cache/
