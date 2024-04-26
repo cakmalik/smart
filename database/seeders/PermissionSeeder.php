@@ -51,6 +51,7 @@ class PermissionSeeder extends Seeder
             'approval mutasi',
             'approval dropout',
             'approval students',
+            'approval payment',
         ];
 
         $permissions = array_merge(
@@ -100,6 +101,7 @@ class PermissionSeeder extends Seeder
         $sekretaris->givePermissionTo($p_users);
         $sekretaris->givePermissionTo($p_students);
         $sekretaris->givePermissionTo('approval students');
+        $sekretaris->givePermissionTo('approval payment');
         $sekretaris->givePermissionTo($p_invoice);
         $sekretaris->givePermissionTo($p_admission);
         $sekretaris->givePermissionTo($p_campaign);

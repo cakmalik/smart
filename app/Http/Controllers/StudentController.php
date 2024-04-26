@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use Image;
+use App\Models\Invoice;
 use App\Models\Student;
 use App\Tables\Students;
+use App\Tables\Bakid\Alumni;
 use Illuminate\Http\Request;
 use App\Models\Bakid\Dormitory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\User\UserService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use App\Models\Student\RoomStudent;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\JobSendWhatsappMessage;
 use Illuminate\Support\Facades\File;
 use ProtoneMedia\Splade\SpladeTable;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -24,12 +28,9 @@ use App\Services\Student\StudentService;
 use App\Http\Requests\StoreStudentRequest;
 use App\Services\Location\LocationService;
 use App\Http\Requests\UpdateStudentRequest;
-use App\Jobs\JobSendWhatsappMessage;
 use App\Models\Student\FormalEducationStudent;
-use App\Models\Student\InformalEducationStudent;
-use App\Models\Student\RoomStudent;
-use App\Tables\Bakid\Alumni;
 use App\Tables\Bakid\Students as BakidStudents;
+use App\Models\Student\InformalEducationStudent;
 use App\Tables\Bakid\NewStudent as BakidNewStudents;
 
 class StudentController extends Controller
@@ -60,43 +61,28 @@ class StudentController extends Controller
         $this->user = $userService;
     }
 
-
     public function index(Request $request)
     {
-        return view(
-            'bakid.student.index',
-            ['students' => BakidStudents::class, 'title' => 'Students']
-        );
+        return view('bakid.student.index', ['students' => BakidStudents::class, 'title' => 'Students']);
     }
 
     function alumni(Request $request)
     {
-        return view(
-            'bakid.student.alumni',
-            ['students' => Alumni::class]
-        );
+        return view('bakid.student.alumni', ['students' => Alumni::class]);
     }
 
     public function newStudent(Request $request)
     {
-        return view(
-            'bakid.student.index',
-            [
-                'students' => BakidNewStudents::class,
-                'title' => 'New Students'
-            ]
-        );
+        return view('bakid.student.index', [
+            'students' => BakidNewStudents::class,
+            'title' => 'New Students',
+        ]);
     }
-
 
     public function create()
     {
         if ($this->user->isHasNotSetPaymentMethod()) {
-            Toast::title('Maaf!')
-                ->message('Mohon lengkapi metode pembayaran anda terlebih dahulu, sebelum menambah anggota keluarga baru.')
-                ->danger()
-                ->rightBottom()
-                ->backdrop();
+            Toast::title('Maaf!')->message('Mohon lengkapi metode pembayaran anda terlebih dahulu, sebelum menambah anggota keluarga baru.')->danger()->rightBottom()->backdrop();
             // ->autoDismiss(5);
             return redirect()->route('dashboard');
         }
@@ -127,7 +113,6 @@ class StudentController extends Controller
                 ->autoDismiss(5);
             return back();
         } else {
-
             Toast::title('Alhamdulillah!')
                 ->message($student['message'])
                 ->success()
@@ -164,8 +149,7 @@ class StudentController extends Controller
                 'r.name as room',
                 'students.verified_at',
                 'u.kk',
-                DB::raw("(SELECT COUNT(*) FROM students AS s2 WHERE s2.user_id = students.user_id) AS brothers_count")
-
+                DB::raw('(SELECT COUNT(*) FROM students AS s2 WHERE s2.user_id = students.user_id) AS brothers_count'),
             )
             ->where('students.id', $student->id)
             ->first();
@@ -226,20 +210,23 @@ class StudentController extends Controller
 
     public function completeEducation(Request $request)
     {
-        $request->validate([
-            'student_id' => 'required|exists:students,id',
-            'formal_id' => 'sometimes|required_without:informal_id',
-            'informal_id' => 'sometimes|required_without:formal_id',
-            // 'formal_class_id' => 'sometimes|required_without:informal_class_id',
-            // 'informal_class_id' => 'sometimes|required_without:formal_class_id',
-        ], [
-            'student_id.required' => 'Mohon pilih putra/i terlebih dahulu',
-            'student_id.exists' => 'Siswa tidak ditemukan',
-        ]);
+        $request->validate(
+            [
+                'student_id' => 'required|exists:students,id',
+                'formal_id' => 'sometimes|required_without:informal_id',
+                'informal_id' => 'sometimes|required_without:formal_id',
+                // 'formal_class_id' => 'sometimes|required_without:informal_class_id',
+                // 'informal_class_id' => 'sometimes|required_without:formal_class_id',
+            ],
+            [
+                'student_id.required' => 'Mohon pilih putra/i terlebih dahulu',
+                'student_id.exists' => 'Siswa tidak ditemukan',
+            ],
+        );
 
         try {
             DB::beginTransaction();
-            $student = Student::findOrFail((int)$request->student_id);
+            $student = Student::findOrFail((int) $request->student_id);
             $student->education_updated = now();
             $student->save();
 
@@ -249,7 +236,7 @@ class StudentController extends Controller
                     'formal_education_id' => $request->formal_id,
                     'formal_education_class_id' => $request->formal_class_id,
                     'status' => 'waiting',
-                    'year' => date('Y')
+                    'year' => date('Y'),
                 ]);
             }
             if ($request->informal_id && $request->informal_class_id) {
@@ -258,16 +245,11 @@ class StudentController extends Controller
                     'informal_education_id' => $request->informal_id,
                     'informal_education_class_id' => $request->informal_class_id,
                     'status' => 'waiting',
-                    'year' => date('Y')
+                    'year' => date('Y'),
                 ]);
             }
             DB::commit();
-            Toast::title('Berhasil!')
-                ->message('Pendidikan ananda sedang diajukan')
-                ->success()
-                ->rightBottom()
-                ->backdrop()
-                ->autoDismiss(5);
+            Toast::title('Berhasil!')->message('Pendidikan ananda sedang diajukan')->success()->rightBottom()->backdrop()->autoDismiss(5);
             return redirect()->back();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -278,15 +260,18 @@ class StudentController extends Controller
 
     public function completeRoom(Request $request)
     {
-        $request->validate([
-            'student_id' => 'required|exists:students,id',
-            // 'room_id' => 'required|exists:rooms,id',
-        ], [
-            'student_id.required' => 'Mohon pilih putra/i terlebih dahulu',
-            'student_id.exists' => 'Data tidak ditemukan',
-            // 'room_id.required' => 'Mohon pilih Asrama terlebih dahulu',
-            // 'room_id.exists' => 'Asrama tidak ditemukan',
-        ]);
+        $request->validate(
+            [
+                'student_id' => 'required|exists:students,id',
+                // 'room_id' => 'required|exists:rooms,id',
+            ],
+            [
+                'student_id.required' => 'Mohon pilih putra/i terlebih dahulu',
+                'student_id.exists' => 'Data tidak ditemukan',
+                // 'room_id.required' => 'Mohon pilih Asrama terlebih dahulu',
+                // 'room_id.exists' => 'Asrama tidak ditemukan',
+            ],
+        );
 
         try {
             DB::beginTransaction();
@@ -295,16 +280,11 @@ class StudentController extends Controller
                     'student_id' => $request->student_id,
                     'dormitory_id' => $request->dormitory_id,
                     'room_id' => $request->room_id,
-                    'status' => 'waiting'
+                    'status' => 'waiting',
                 ]);
             }
             DB::commit();
-            Toast::title('Berhasil!')
-                ->message('Ruangan ananda sedang diajukan')
-                ->success()
-                ->rightBottom()
-                ->backdrop()
-                ->autoDismiss(5);
+            Toast::title('Berhasil!')->message('Ruangan ananda sedang diajukan')->success()->rightBottom()->backdrop()->autoDismiss(5);
             return redirect()->back();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -315,9 +295,22 @@ class StudentController extends Controller
 
     public function verify(Student $student)
     {
+        // cek dlu apakah sudah bayar
+        $is_paid = Invoice::where('student_id', $student->id)
+            ->where('status', 'paid')
+            ->whereHas('invoiceCategory', function ($q) {
+                $q->where('name', 'Penerimaan Santri Baru');
+            })
+            ->exists();
 
+        if (!$is_paid) {
+            Toast::danger('Gagal, Mohon selesaikan pembayaran terlebih dahulu');
+            return back();
+        }
         DB::beginTransaction();
         try {
+          
+
             $student->verified_at = now();
             $student->status = 'accepted';
             $student->save();

@@ -235,7 +235,7 @@
                             </div>
                         @endcan
                     </div>
-                @elseif ($invoice->status == 'unpaid' && $invoice->method?->name == 'Cash')
+                @elseif (auth()->user()->can('approval payment') && $invoice->status == 'unpaid' && $invoice->method?->name == 'Cash')
                 <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
 
                     {{-- @hasanyrole('admin|sekretaris|bendahara') --}}
