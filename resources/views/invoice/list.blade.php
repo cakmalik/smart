@@ -83,7 +83,7 @@
                     </x-table>
                 </div>
 
-                <div class="mt-3 p-1" v-show="!isHistory">
+                <div class="mt-3 p-1 w-full" v-show="!isHistory">
                     @forelse ($invoices as $i)
                         <Link href="{{ route('invoice.show', $i->invoice_number) }}">
                         <div class="bg-white w-full border  rounded-xl space-y-1 text-center overflow-hidden">
@@ -111,13 +111,13 @@
                         </Link>
                 </div>
             @empty
-                <tr class="text-center h-40">
+                <tr class="text-center h-40 w-full">
                     <td colspan="4">
                         <div class="flex flex-col justify-center items-center p-4 gap-1">
                             <lottie-player src="https://lottie.host/e1929754-8ae8-40ae-af73-de3d132e5fb6/ZVkbeMfTvv.json"
                                 background="transparent" speed="1" style="width: 300px; height: 300px;" loop
                                 autoplay></lottie-player>
-                            <span class="text-lg">Belum tagihan terbaru</span>
+                            <span class="text-lg">Belum tagihan terbarddu</span>
                         </div>
                     </td>
                 </tr>

@@ -125,6 +125,7 @@
                         </div>
                     </div>
                 </div>
+                
                 @if ($invoice->status == 'waiting' && $invoice->file?->status == 'waiting')
                     <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
                         <div class="w-full mb-4">
@@ -178,41 +179,41 @@
                             </tr>
                         </table>
 
-                        @hasanyrole('admin|sekretaris|bendahara')
-                            <div class="w-full my-4">
-                                <span class="text-lg font-semibold border-b border-gray-300">{{ __('Tindakan') }}:</span>
-                            </div>
-                            {{-- @can('approval payment') --}}
-                            <x-splade-form :action="route('invoice.confirm')" methood="POST" :default="$invoice">
-                                <x-splade-data :default="['accepted' => true]">
-                                    <div class="w-full flex justify-start items-center">
-                                        <button @click.prevent="data.accepted=true"
-                                            class=" flex items-center justify-center gap-1 py-2 px-4 bg-green-50 text-green-800 hover:bg-green-200"
-                                            :class="{ 'bg-green-600 text-white hover:bg-green-700': data.accepted }">
-                                            <i class="ph-fill ph-check-circle"></i>
-                                            <span>{{ __('Approve') }}</span>
-                                        </button>
-                                        <button @click.prevent="data.accepted=false"
-                                            class=" flex items-center justify-center gap-1 py-2 px-4 bg-red-50 text-red-800 hover:bg-red-200 "
-                                            :class="{ 'bg-red-600 text-white hover:bg-red-700': !data.accepted }">
-                                            <i class="ph-fill ph-x-circle"></i>
-                                            <span>{{ __('Reject') }}</span>
-                                        </button>
-                                    </div>
-                                    <x-splade-input type="hidden" v-model="invoice_number" name="invoice_number" />
-                                    <div v-if="!data.accepted">
-                                        <x-splade-input :label="__('Reason')" name="desc" class="mb-3" />
-                                        <x-splade-submit label="Konfirmasi" class="rounded-lg" />
-                                    </div>
-                                    <div class="mt-3" v-else>
-                                        <x-button.base :link="route('invoice.approve', $invoice->invoice_number)" variant="md" color="success">
-                                            Konfirmasi
-                                        </x-button.base>
-                                    </div>
-                                </x-splade-data>
-                            </x-splade-form>
-                            {{-- @endcan --}}
-                        @endhasanyrole
+                        {{-- @hasanyrole('admin|sekretaris|bendahara') --}}
+                        <div class="w-full my-4">
+                            <span class="text-lg font-semibold border-b border-gray-300">{{ __('Tindakan') }}:</span>
+                        </div>
+                        {{-- @can('approval payment') --}}
+                        <x-splade-form :action="route('invoice.confirm')" methood="POST" :default="$invoice">
+                            <x-splade-data :default="['accepted' => true]">
+                                <div class="w-full flex justify-start items-center">
+                                    <button @click.prevent="data.accepted=true"
+                                        class=" flex items-center justify-center gap-1 py-2 px-4 bg-green-50 text-green-800 hover:bg-green-200"
+                                        :class="{ 'bg-green-600 text-white hover:bg-green-700': data.accepted }">
+                                        <i class="ph-fill ph-check-circle"></i>
+                                        <span>{{ __('Approve') }}</span>
+                                    </button>
+                                    <button @click.prevent="data.accepted=false"
+                                        class=" flex items-center justify-center gap-1 py-2 px-4 bg-red-50 text-red-800 hover:bg-red-200 "
+                                        :class="{ 'bg-red-600 text-white hover:bg-red-700': !data.accepted }">
+                                        <i class="ph-fill ph-x-circle"></i>
+                                        <span>{{ __('Reject') }}</span>
+                                    </button>
+                                </div>
+                                <x-splade-input type="hidden" v-model="invoice_number" name="invoice_number" />
+                                <div v-if="!data.accepted">
+                                    <x-splade-input :label="__('Reason')" name="desc" class="mb-3" />
+                                    <x-splade-submit label="Konfirmasi" class="rounded-lg" />
+                                </div>
+                                <div class="mt-3" v-else>
+                                    <x-button.base :link="route('invoice.approve', $invoice->invoice_number)" variant="md" color="success">
+                                        Konfirmasi
+                                    </x-button.base>
+                                </div>
+                            </x-splade-data>
+                        </x-splade-form>
+                        {{-- @endcan --}}
+                        {{-- @endhasanyrole --}}
                     </div>
                 @elseif($invoice->status == 'waiting' && $invoice->file?->status == 'reject')
                     <div class="w-full bg-red-50 p-3 rounded-lg">
@@ -233,14 +234,52 @@
                                 </button>
                             </div>
                         @endcan
-
                     </div>
+                @elseif ($invoice->status == 'unpaid' && $invoice->method?->name == 'Cash')
+                <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
+
+                    {{-- @hasanyrole('admin|sekretaris|bendahara') --}}
+                    <div class="w-full my-4">
+                        <span class="text-lg font-semibold border-b border-gray-300">{{ __('Tindakan') }}:</span>
+                    </div>
+                    {{-- @can('approval payment') --}}
+                    <x-splade-form :action="route('invoice.confirm')" methood="POST" :default="$invoice">
+                        <x-splade-data :default="['accepted' => true]">
+                            <div class="w-full flex justify-start items-center">
+                                <button @click.prevent="data.accepted=true"
+                                    class=" flex items-center justify-center gap-1 py-2 px-4 bg-green-50 text-green-800 hover:bg-green-200"
+                                    :class="{ 'bg-green-600 text-white hover:bg-green-700': data.accepted }">
+                                    <i class="ph-fill ph-check-circle"></i>
+                                    <span>{{ __('Lunas') }}</span>
+                                </button>
+                                <button @click.prevent="data.accepted=false"
+                                    class=" flex items-center justify-center gap-1 py-2 px-4 bg-red-50 text-red-800 hover:bg-red-200 "
+                                    :class="{ 'bg-red-600 text-white hover:bg-red-700': !data.accepted }">
+                                    <i class="ph-fill ph-x-circle"></i>
+                                    <span>{{ __('Reject') }}</span>
+                                </button>
+                            </div>
+                            <x-splade-input type="hidden" v-model="invoice_number" name="invoice_number" />
+                            <div v-if="!data.accepted">
+                                <x-splade-input :label="__('Reason')" name="desc" class="mb-3" />
+                                <x-splade-submit label="Konfirmasi" class="rounded-lg" />
+                            </div>
+                            <div class="mt-3" v-else>
+                                <x-button.base :link="route('invoice.approve', $invoice->invoice_number)" variant="md" color="success">
+                                    Konfirmasi
+                                </x-button.base>
+                            </div>
+                        </x-splade-data>
+                    </x-splade-form>
+                    {{-- @endcan --}}
+                    {{-- @endhasanyrole --}}
+                </div>
                 @else
                     <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
                         <div class="w-full mb-4">
                             <span
                                 class="text-lg font-semibold border-b border-gray-300">{{ __('Payment Instructions') }}
-                                ({{ $invoice->method->name }}):</span>
+                                ({{ $invoice->method?->name }}):</span>
                         </div>
                         <div class="p-3 sm:w-full">
                             <p>
@@ -266,7 +305,8 @@
                     <x-splade-form action="{{ route('invoice.upload-proof') }}" :default="$invoice">
                         <x-splade-input class="mt-2" name="invoice_number" type="text" label="Kode Tagihan" />
 
-                        <x-splade-input class="mt-2" name="from_bank" type="text" label="Bank/e-wallet pengirim" />
+                        <x-splade-input class="mt-2" name="from_bank" type="text"
+                            label="Bank/e-wallet pengirim" />
                         <x-splade-input class="mt-2" name="from_account" type="text" label="Nama pengirim" />
                         <x-splade-input class="mt-2" name="to_bank" type="text" label="Bank tujuan" />
                         <x-splade-input class="mt-2" name="amount" type="number" label="Nominal" />
@@ -295,8 +335,9 @@
                     </x-splade-form>
                 </div>
             </div>
+
             @hasrole('santri')
-                @if (!$invoice->file?->status == 'waiting')
+                @if ($invoice->status == 'unpaid' || $invoice->status == 'waiting')
                     <div class="flex justify-around sm:justify-end items-center sm:mt-4 sm:gap-4 sm:mx-3"
                         v-if="!isUpload">
                         <Link href="{{ route('payment.choose-method', $invoice->invoice_number) }}"
