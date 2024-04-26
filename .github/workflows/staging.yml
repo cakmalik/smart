@@ -61,5 +61,8 @@ jobs:
             npm install
             npm run build
 
+            php artisan log-viewer:publish
+            php artisan storage:link
+
             # Bring the application back online again
             php artisan up
