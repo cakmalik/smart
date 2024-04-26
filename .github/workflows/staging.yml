@@ -54,13 +54,28 @@ jobs:
             npm install
             npm run build
 
-            mkdir storage/app/public/kts
-            mkdir storage/app/public/announcement
-            mkdir storage/app/public/proof
-            mkdir storage/app/public/temp_images
-            mkdir storage/app/public/student-photos
-            mkdir storage/app/public/qrcode
-            mkdir storage/app/public/parent-photos
+
+            if [ ! -d "storage/app/public/kts" ]; then
+                mkdir storage/app/public/kts
+            fi
+            if [ ! -d "storage/app/public/announcement" ]; then
+                mkdir storage/app/public/announcement
+            fi
+            if [ ! -d "storage/app/public/proof" ]; then
+                mkdir storage/app/public/proof
+            fi
+            if [ ! -d "storage/app/public/temp_images" ]; then
+                mkdir storage/app/public/temp_images
+            fi
+            if [ ! -d "storage/app/public/student-photos" ]; then
+                mkdir storage/app/public/student-photos
+            fi
+            if [ ! -d "storage/app/public/qrcode" ]; then
+                mkdir storage/app/public/qrcode
+            fi
+            if [ ! -d "storage/app/public/parent-photos" ]; then
+                mkdir storage/app/public/parent-photos
+            fi
 
             sudo chmod -R gu+w storage/
             sudo chmod -R guo+w storage/
