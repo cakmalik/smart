@@ -50,15 +50,14 @@ jobs:
 
             composer install --ignore-platform-reqs
 
-            sudo chmod -R gu+w storage/
-            sudo chmod -R guo+w storage/
-            sudo chmod -R gu+w bootstrap/cache/
-            sudo chmod -R guo+w bootstrap/cache/
-
-
             # Install npm dependencies and build assets
             npm install
             npm run build
+
+s           sudo chmod -R gu+w storage/
+            sudo chmod -R guo+w storage/
+            sudo chmod -R gu+w bootstrap/cache/
+            sudo chmod -R guo+w bootstrap/cache/
 
             php artisan log-viewer:publish
             php artisan storage:link
