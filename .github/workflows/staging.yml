@@ -76,6 +76,9 @@ jobs:
             if [ ! -d "storage/app/public/parent-photos" ]; then
                 mkdir storage/app/public/parent-photos
             fi
+            if [ ! -d "storage/app/public/doc-kk" ]; then
+                mkdir storage/app/public/doc-kk
+            fi
 
             sudo chmod -R gu+w storage/
             sudo chmod -R guo+w storage/
