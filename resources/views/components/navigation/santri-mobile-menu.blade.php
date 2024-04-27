@@ -1,6 +1,6 @@
     <x-splade-toggle data="isShowMobileMenu">
         <div id="mobileMenuId" class="z-40"
-            class="fixed z-40 w-full h-16 max-w-lg transition-opacity duration-300 ease-in-out -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
+            class="fixed z-40 w-full h-16 max-w-lg transition-opacity duration-300 ease-in-out -translate-x-1/2 bg-white rounded-full bottom-4 left-1/2 dark:bg-gray-700 ">
             <div class="relative grid h-full max-w-lg grid-cols-5 mx-auto">
                 <x-nav-link :href="route('dashboard')" data-tooltip-target="tooltip-home" type="button"
                     class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
@@ -13,7 +13,7 @@
                     <span class="sr-only">Home</span>
                 </x-nav-link>
                 <div id="tooltip-home" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900  opacity-0 tooltip dark:bg-gray-700">
                     Home
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
@@ -30,8 +30,8 @@
                     <span class="sr-only">Wallet</span>
                 </x-nav-link>
                 <div id="tooltip-wallet" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Wallet
+                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900  opacity-0 tooltip dark:bg-gray-700">
+                    Tagihan
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
 
@@ -50,6 +50,7 @@
 
                 <x-splade-toggle data="isHistory, isProfile">
                     <button @click.prevent="toggle('isHistory'); setToggle('isProfile', false)"
+                        data-tooltip-target="tooltip-tagihan"
                         class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                             class="w-6 h-6 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 group-active:text-green-600 dark:group-hover:text-blue-500">
@@ -58,9 +59,14 @@
                                 clip-rule="evenodd" />
                         </svg>
                         <span class="sr-only">History</span>
+                        <div id="tooltip-tagihan" role="tooltip"
+                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900  opacity-0 tooltip dark:bg-gray-700">
+                            Riwayat
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
 
                         <div v-show="isHistory"
-                            class="absolute left-0 right-0 grid h-48 grid-cols-3 mx-3 text-center duration-300 bg-white rounded-lg -top-52">
+                            class="absolute left-0 right-0 grid h-48 grid-cols-3 mx-3 text-center duration-300 bg-white -top-52 rounded-xl overflow-hidden">
                             <x-menu.mobile link="/" label="Informasi">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
                                     viewBox="0 0 256 256">
@@ -112,8 +118,8 @@
                         </div>
                     </button>
 
-                    <button @click.prevent="toggle('isProfile'); setToggle('isHistory', false)"
-                        class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                    <button @click.prevent="toggle('isProfile'); setToggle('isHistory', false)" data-tooltip-target="tooltip-profile"
+                        class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group rounded-full">
                         <svg class="w-6 h-6  text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                             aria-hidden="true">
@@ -121,10 +127,15 @@
                                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z">
                             </path>
                         </svg>
-                        <span class="sr-only">Card</span>
+                        <span class="sr-only">Profile</span>
+                        <div id="tooltip-profile" role="tooltip"
+                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900  opacity-0 tooltip dark:bg-gray-700">
+                            Profile
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
 
                         <div v-show="isProfile"
-                            class="absolute left-0 right-0 grid h-24 grid-cols-3 mx-3 text-center duration-300 bg-white rounded-lg -top-28">
+                            class="absolute left-0 right-0 grid h-24 grid-cols-3 mx-3 text-center duration-300 bg-white -top-28 rounded-xl overflow-hidden">
                             <x-menu.mobile :link="route('family.kts')" label="KTS">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
                                     viewBox="0 0 256 256">
@@ -165,7 +176,7 @@
                     <span class="sr-only">Profile</span>
                 </x-nav-link>
                 <div id="tooltip-profile" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900  opacity-0 tooltip dark:bg-gray-700">
                     KTS/Kartu Mahrom
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div> --}}
