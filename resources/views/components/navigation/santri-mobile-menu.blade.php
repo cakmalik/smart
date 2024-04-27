@@ -27,7 +27,7 @@
                             d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z">
                         </path>
                     </svg>
-                    <span class="sr-only">Wallet</span>
+                    <span class="sr-only">Tagihan</span>
                 </x-nav-link>
                 <div id="tooltip-wallet" role="tooltip"
                     class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900  opacity-0 tooltip dark:bg-gray-700">

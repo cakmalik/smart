@@ -23,7 +23,7 @@
                         <Link href="{{ route('invoice.show', $invoices->invoice_number) }}"
                             class="rounded-full flex items-center justify-center gap-1 p-1 bg-slate-500 text-white hover:bg-green-500">
                         <i class="ph-fill ph-pencil-circle"></i>
-                        </Link>
+                        </Link> 
                         <Link modal href="{{ route('student.show', $invoices->student_id) }}"
                             class="rounded-full flex items-center justify-center gap-1 p-1 bg-slate-500 text-white hover:bg-green-500">
                         <i class="ph-fill ph-user-circle"></i>

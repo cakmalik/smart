@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Tables\Invoices;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StoreInvoiceRequest;
-use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\InvoiceCategory;
-use App\Models\InvoicePaymentFile;
-use App\Repositories\Invoice\InvoiceRepositoryImplement;
 use App\Tables\InvoiceCategories;
-use App\Tables\Invoices;
+use App\Models\InvoicePaymentFile;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
 use ProtoneMedia\Splade\Facades\Toast;
+use App\Http\Requests\StoreInvoiceRequest;
+use App\Http\Requests\UpdateInvoiceRequest;
+use App\Repositories\Invoice\InvoiceRepositoryImplement;
 
 class InvoiceController extends Controller
 {
@@ -27,7 +28,14 @@ class InvoiceController extends Controller
 
     function invoiceQuery(Request $request)
     {
-        $inv = Invoice::query()->Join('invoice_categories as ic', 'invoices.invoice_category_id', '=', 'ic.id')->select('invoices.*', 'ic.name as category_name');
+        $inv = Invoice::query()
+        ->Join('invoice_categories as ic', 'invoices.invoice_category_id', '=', 'ic.id')
+        ->select('invoices.*', 'ic.name as category_name');
+
+        if (auth()->user()->hasRole('santri')) {
+            $inv = $inv->where('user_id', auth()->user()->id);
+        } 
+        
         return $inv;
     }
 

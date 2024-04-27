@@ -10,7 +10,7 @@
                     @click.prevent="setToggle('isHistory',true)">Riwayat</button>
             </div>
             <div v-show="isHistory">
-                <x-table v-show="isHistory">
+                <x-table v-show="isHistory" class="shadow-none">
                     <x-slot name="header">
                         <tr>
                             <th scope="col" class="px-6 py-3">
@@ -109,20 +109,19 @@
                             </div>
                         </div>
                         </Link>
-                </div>
-            @empty
-                <tr class="text-center h-40 w-full">
-                    <td colspan="4">
+                    @empty 
+                        {{-- <tr class="text-center h-40 w-full bg-emerald-300">
+                    <td colspan="4"> --}}
                         <div class="flex flex-col justify-center items-center p-4 gap-1">
                             <lottie-player src="https://lottie.host/e1929754-8ae8-40ae-af73-de3d132e5fb6/ZVkbeMfTvv.json"
                                 background="transparent" speed="1" style="width: 300px; height: 300px;" loop
                                 autoplay></lottie-player>
-                            <span class="text-lg">Belum tagihan terbarddu</span>
+                            <span class="text-lg">Belum tagihan terbaru</span>
                         </div>
-                    </td>
-                </tr>
-                @endforelse
-        </div>
-        </x-splade-toggle>
+                        {{-- </td>
+                </tr> --}}
+                    @endforelse
+                </div>
+            </x-splade-toggle>
         </div>
     </x-splade-modal>
