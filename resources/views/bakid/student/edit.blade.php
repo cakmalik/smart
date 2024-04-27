@@ -274,7 +274,7 @@
                         <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===5">
 
                             <div class="col-span-2">
-                                Asrama saat ini : {{ $student->dormitory[0]?->name . $student->room[0]?->name }}
+                                Asrama saat ini : {{ $student->dormitory[0]?->name ?? '' }} {{ $student->room[0]?->name ?? '' }}
                             </div>
 
                             <x-splade-select class="mb-3"
