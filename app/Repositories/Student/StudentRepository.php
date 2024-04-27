@@ -13,4 +13,6 @@ interface StudentRepository extends Repository
     public function createParent($data);
 
     public function updateParent($data, $student);
+
+    public function updateAsrama($dormitory_id, $room_id, $student);
 }

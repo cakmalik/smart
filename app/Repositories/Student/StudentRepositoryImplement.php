@@ -4,6 +4,7 @@ namespace App\Repositories\Student;
 
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Student;
+use App\Models\Student\RoomStudent;
 use App\Models\StudentFamily;
 use Illuminate\Support\Collection;
 
@@ -36,5 +37,10 @@ class StudentRepositoryImplement extends Eloquent implements StudentRepository
     {
         return
             Student::where('nis', $nis)->first();
+    }
+
+    public function updateAsrama($dormitory_id, $room_id, $student)
+    {
+        RoomStudent::where('student_id', $student->id)->update(['dormitory_id' => $dormitory_id, 'room_id' => $room_id]);
     }
 }

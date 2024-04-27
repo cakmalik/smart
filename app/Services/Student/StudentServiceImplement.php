@@ -68,7 +68,12 @@ class StudentServiceImplement extends Service implements StudentService
     public function updateStudent($request, $student)
     {
         $parent_data = $request->parent;
-        $student_data = $request->except($this->parentData());
+
+        $except_parent = $this->parentData();
+        $except_data = array_merge($except_parent, ['dormitory_id', 'room_id']);
+        $student_data = $request->except($except_data);
+
+
         if (isset($student_data['parent'])) {
             unset($student_data['parent']);
         }
@@ -106,6 +111,8 @@ class StudentServiceImplement extends Service implements StudentService
 
             $parent = $this->mainRepository->updateParent($parent_data, $student);
             $this->mainRepository->update($student->id, $student_data);
+            $this->mainRepository->updateAsrama($request->dormitory_id, $request->room_id, $student);
+
 
             $status = true;
             $message = 'Data berhasil diperbarui';

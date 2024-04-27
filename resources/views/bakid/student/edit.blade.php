@@ -38,10 +38,19 @@
 
                         <button type="button"
                             class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
-                            @click="data.currentIndex=4; data.title = 'Foto'"
+                            @click="data.currentIndex=5; data.title = 'Asrama'"
+                            :class="{ 'bg-green-700 text-white': data.currentIndex == 5 }">
+                            Asrama
+                        </button>
+
+                        <button type="button"
+                            class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
+                            @click="data.currentIndex=4; data.title = 'Dokumen'"
                             :class="{ 'bg-green-700 text-white': data.currentIndex == 4 }">
                             Dokumen
                         </button>
+
+
 
                         {{-- <button type="button"
                         class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
@@ -127,7 +136,8 @@
                                     <x-splade-input class="mt-2" name="child_number" type="number"
                                         :label="__('bakid.child_number')" />
 
-                                    <x-splade-input class="mt-2" name="siblings" type="number" :label="__('bakid.siblings')" />
+                                    <x-splade-input class="mt-2" name="siblings" type="number"
+                                        :label="__('bakid.siblings')" />
                                 </div>
                             </div>
                         </div>
@@ -257,7 +267,26 @@
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===4">
-                            <img class="w-full p-5" src="{{ asset('storage/doc-kk/' . $student->user->doc_kk) }}" class="mt-2" />
+                            <img class="w-full p-5" src="{{ asset('storage/doc-kk/' . $student->user->doc_kk) }}"
+                                class="mt-2" />
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===5">
+
+                            <div class="col-span-2">
+                                Asrama saat ini : {{ $student->dormitory[0]?->name . $student->room[0]?->name }}
+                            </div>
+
+                            <x-splade-select class="mb-3"
+                                remote-url="`/api/dormitories/by-student-gender/{{ $student->id }}`"
+                                option-label="name" option-value="id" name="dormitory_id"
+                                placeholder="{{ __('Pilih Daerah') }}" />
+
+                            <x-splade-select class="mb-3"
+                                remote-url="`/api/rooms/by-dormitory/${form.dormitory_id}`" option-label="name"
+                                option-value="id" name="room_id" placeholder="{{ __('Pilih Asrama') }}" />
+
+
                         </div>
 
                         <x-loading />
