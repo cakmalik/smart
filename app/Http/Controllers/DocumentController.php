@@ -159,6 +159,8 @@ class DocumentController extends Controller
 
     public function generateKartuMahram($dataSantri, string $action = 'preview') //preview or download
     {
+        ini_set('memory_limit', '-1');
+
         try {
             // Buat kanvas gambar dengan lebar dan tinggi tertentu
             // $width = 85.60 * 300 / 25.4; // sekitar 1011 piksel
