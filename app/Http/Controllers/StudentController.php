@@ -99,27 +99,31 @@ class StudentController extends Controller
     {
         try {
             $student = $this->student->storeNewStudent($request);
+            if ($student['status'] === false) {
+                Log::error('storeNewStudent: ' . $student['message']);
+                Toast::title('Maaf!')->message('Terjadi kesalahan. silahkan kembali dan kirim ulang')->danger()->center()->backdrop()->autoDismiss(5);
+                return;
+            }
             $invoiceService = $this->invoice->createInvoiceAdmission($student['student_id']);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->with('error', $e->getMessage());
-        }
-        if ($student['status'] === false || $invoiceService['status'] === false) {
-            Toast::title('Maaf!')
-                ->message($student['message'])
-                ->danger()
-                ->rightBottom()
-                ->backdrop()
-                ->autoDismiss(5);
-            return back();
-        } else {
+
+            if ($invoiceService['status'] === false) {
+                Log::error('invoice: ' . $student['message']);
+                Toast::title('Maaf!')->message('Terjadi kesalahan. silahkan kembali dan kirim ulang')->danger()->center()->backdrop()->autoDismiss(5);
+                return;
+            }
+            
             Toast::title('Alhamdulillah!')
-                ->message($student['message'])
-                ->success()
+            ->message($student['message'])
+            ->success()
                 ->rightBottom()
                 ->backdrop()
                 ->autoDismiss(5);
             return redirect()->route('dashboard');
+            
+        } catch (\Exception $e) {
+            Log::error('storeNewStudent: ' . $student['message']);
+            Toast::title('Maaf!')->message('Terjadi kesalahan. silahkan kembali dan kirim ulang')->danger()->center()->backdrop()->autoDismiss(5);
+            return;
         }
     }
 
@@ -309,8 +313,6 @@ class StudentController extends Controller
         }
         DB::beginTransaction();
         try {
-          
-
             $student->verified_at = now();
             $student->status = 'accepted';
             $student->save();

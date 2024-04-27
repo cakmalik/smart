@@ -30,15 +30,18 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
 
     public function createInvoiceAdmission($student_id): array
     {
+        DB::beginTransaction();
         try {
             $findCategory = InvoiceCategory::where('code', 'psb')->first();
             $findUtilities = InvoiceUtility::where('invoice_category_id', $findCategory->id)->get();
             if (!$findCategory) {
-                return false;
+                return [
+                    'status' => false,
+                    'message' => 'Kategori Pendaftaran Tidak Ditemukan'
+                ];
             }
             $admission = Admission::where('is_active', true)->first();
 
-            DB::beginTransaction();
             $invoice = $this->model->create([
                 'user_id' => auth()->user()->id,
                 'student_id' => $student_id,
@@ -65,7 +68,7 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
             $grandTotal = 0;
             foreach ($findUtilities as $utility) {
 
-                $det = InvoiceDetail::create([
+                InvoiceDetail::create([
                     'invoice_id' => $invoice->id,
                     'name' => $utility->name,
                     'period' => $utility->period,
@@ -93,7 +96,7 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
         } catch (\Exception $e) {
             DB::rollBack();
 
-            Log::error($e->getMessage() . ' ' . $e->getLine());
+            Log::error('createInvoiceAdmission: ' . $e->getMessage() . ' ' . $e->getLine());
             return [
                 'status'=>false,
                 'message'=>$e->getMessage(),

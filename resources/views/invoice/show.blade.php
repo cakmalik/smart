@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 
-                @if ($invoice->status == 'waiting' && $invoice->file?->status == 'waiting')
+                {{-- @if ($invoice->status == 'waiting' && $invoice->file?->status == 'waiting')
                     <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
                         <div class="w-full mb-4">
                             <span
@@ -179,11 +179,9 @@
                             </tr>
                         </table>
 
-                        {{-- @hasanyrole('admin|sekretaris|bendahara') --}}
                         <div class="w-full my-4">
                             <span class="text-lg font-semibold border-b border-gray-300">{{ __('Tindakan') }}:</span>
                         </div>
-                        {{-- @can('approval payment') --}}
                         <x-splade-form :action="route('invoice.confirm')" methood="POST" :default="$invoice">
                             <x-splade-data :default="['accepted' => true]">
                                 <div class="w-full flex justify-start items-center">
@@ -212,8 +210,6 @@
                                 </div>
                             </x-splade-data>
                         </x-splade-form>
-                        {{-- @endcan --}}
-                        {{-- @endhasanyrole --}}
                     </div>
                 @elseif($invoice->status == 'waiting' && $invoice->file?->status == 'reject')
                     <div class="w-full bg-red-50 p-3 rounded-lg">
@@ -237,11 +233,9 @@
                     </div>
                 @elseif (auth()->user()->can('approval payment') && $invoice->status == 'unpaid' && $invoice->method?->name == 'Cash')
                 <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
-                    {{-- @hasanyrole('admin|sekretaris|bendahara') --}}
                     <div class="w-full my-4">
                         <span class="text-lg font-semibold border-b border-gray-300">{{ __('Tindakan') }}:</span>
                     </div>
-                    {{-- @can('approval payment') --}}
                     <x-splade-form :action="route('invoice.confirm')" methood="POST" :default="$invoice">
                         <x-splade-data :default="['accepted' => true]">
                             <div class="w-full flex justify-start items-center">
@@ -270,8 +264,6 @@
                             </div>
                         </x-splade-data>
                     </x-splade-form>
-                    {{-- @endcan --}}
-                    {{-- @endhasanyrole --}}
                 </div>
                 @else
                     <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
@@ -292,7 +284,7 @@
                             </p>
                         </div>
                     </div>
-                @endif
+                @endif --}}
 
 
             </div>
