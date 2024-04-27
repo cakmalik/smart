@@ -43,13 +43,13 @@
         </x-menu.web-mega>
     @endcan
 
-    @can('menu approval')
+    {{-- @can('menu approval')
         <x-menu.web-mega cols="1" label="Approval">
             <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                 <ul class="space-y-4" aria-labelledby="mega-menu-icons-dropdown-button">
                     @can('approval dropout')
-                        {{-- <x-menu.web link="{{ route('approval.index', 'dropout') }}" label="Dropout (on progress)"
-                            icon="ph-plus-circle" /> --}}
+                        <x-menu.web link="{{ route('approval.index', 'dropout') }}" label="Dropout (on progress)"
+                            icon="ph-plus-circle" />
                     @endcan
 
                     @can('approval asrama')
@@ -67,7 +67,7 @@
                 </ul>
             </div>
         </x-menu.web-mega>
-    @endcan
+    @endcan --}}
 
     @can('access invoice')
         <x-menu.web-mega cols="1" label="Invoice">
@@ -90,9 +90,9 @@
         <x-menu.web link="{{ route('violation.index') }}" label="Violation" />
     @endcan
 
-    @can('access users')
+    {{-- @can('access users')
         <x-menu.web link="{{ route('user.index') }}" label="Users" />
-    @endcan
+    @endcan --}}
 
     @can('access settings')
         <x-menu.web link="{{ route('setting.index') }}" label="Settings" />
