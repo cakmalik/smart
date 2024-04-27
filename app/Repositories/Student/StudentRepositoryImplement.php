@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
 
 class StudentRepositoryImplement extends Eloquent implements StudentRepository
 {
-
     /**
      * Model class to be used in this repository for the common methods inside Eloquent
      * Don't remove or change $this->model variable name
@@ -35,12 +34,11 @@ class StudentRepositoryImplement extends Eloquent implements StudentRepository
 
     function findNis($nis): Student
     {
-        return
-            Student::where('nis', $nis)->first();
+        return Student::where('nis', $nis)->first();
     }
 
     public function updateAsrama($dormitory_id, $room_id, $student)
     {
-        RoomStudent::where('student_id', $student->id)->update(['dormitory_id' => $dormitory_id, 'room_id' => $room_id]);
+        RoomStudent::updateOrCreate(['student_id' => $student->id], ['dormitory_id' => $dormitory_id, 'room_id' => $room_id, 'status' => 'approved']);
     }
 }
