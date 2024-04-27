@@ -31,16 +31,16 @@
 
                         <button type="button"
                             class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
-                            @click="data.currentIndex=3; data.title = 'Foto'"
+                            @click="data.currentIndex=3; data.title = 'Update Foto'"
                             :class="{ 'bg-green-700 text-white': data.currentIndex == 3 }">
-                            Foto
+                           Update Foto
                         </button>
 
                         <button type="button"
                             class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
                             @click="data.currentIndex=5; data.title = 'Asrama'"
                             :class="{ 'bg-green-700 text-white': data.currentIndex == 5 }">
-                            Asrama
+                           Update Asrama
                         </button>
 
                         <button type="button"
