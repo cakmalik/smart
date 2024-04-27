@@ -12,7 +12,7 @@ class DormitoryController extends Controller
 {
     public function getDormitoriesByStudentGender(Student $student)
     {
-        if ($student->gender === 'male') {
+        if ($student->gender === 'Laki-laki' || $student->gender == 'male') {
             $jk = 'L';
         } else {
             $jk = 'P';
