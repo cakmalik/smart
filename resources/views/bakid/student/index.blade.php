@@ -46,13 +46,11 @@
                                 <Link modal href="{{ route('student.show', $students->id) }}"
                                     class="rounded-full px-6 flex items-center justify-center gap-1 p-1 bg-wa-teal2 text-white hover:bg-green-500">
                                 <i class="ph-fill ph-magnifying-glass-plus"></i>
-                                {{-- Detail --}}
                                 </Link>
                                 @can('edit student')
                                     <Link edit href="{{ route('student.edit', $students->id) }}"
                                         class="rounded-full px-6 flex items-center justify-center gap-1 p-1 bg-wa-teal2 text-white hover:bg-green-500">
                                     <i class="ph-fill ph-pencil-circle"></i>
-                                    {{-- Edit --}}
                                     </Link>
                                 @endcan
 

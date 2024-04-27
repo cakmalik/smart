@@ -82,7 +82,7 @@ class NewStudent extends AbstractTable
                 sortable: true,
                 canBeHidden: true
             )
-            ->column('action')
+            // ->column('action')
             ->selectFilter(
                 key: 'dormitory.id',
                 options: $transformedArray,
@@ -96,6 +96,7 @@ class NewStudent extends AbstractTable
                 label: 'Tahun',
                 noFilterOption: true,
                 noFilterOptionLabel: 'Semua'
-            );
+            )
+            ->rowModal(fn (Student $s) => route('student.show', ['student' => $s->id]));
     }
 }

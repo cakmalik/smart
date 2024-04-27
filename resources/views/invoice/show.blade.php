@@ -8,7 +8,7 @@
     </x-slot>
     <x-splade-toggle data="isUpload">
         <div class="max-w-7xl py-12 mx-auto sm:px-6 lg:px-8">
-            <x-button.back />
+            <x-button.back route="invoice.index"/>
             {{-- <div class="flex mb-3 ">
                     <Link v-if="!isUpload" href="{{ route('dashboard') }}"
                         class="py-1 px-3 bg-white rounded-full mb-3 flex items-center justify-between">
@@ -237,7 +237,6 @@
                     </div>
                 @elseif (auth()->user()->can('approval payment') && $invoice->status == 'unpaid' && $invoice->method?->name == 'Cash')
                 <div class="w-screen sm:w-full bg-white sm:rounded-lg p-4 sm:p-6 overflow-auto">
-
                     {{-- @hasanyrole('admin|sekretaris|bendahara') --}}
                     <div class="w-full my-4">
                         <span class="text-lg font-semibold border-b border-gray-300">{{ __('Tindakan') }}:</span>
