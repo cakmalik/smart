@@ -97,30 +97,33 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
+        DB::beginTransaction();
         try {
             $student = $this->student->storeNewStudent($request);
+            if ($student['status'] === false) {
+                Toast::title('Maaf!')->message('Terjadi kesalahan menyimpan data, silahkan kembali dan coba lagi')->danger()->center()->backdrop()->autoDismiss(5);
+                return;
+            }
             $invoiceService = $this->invoice->createInvoiceAdmission($student['student_id']);
+            if ($invoiceService['status'] === false) {
+                Toast::title('Maaf!')->message('Terjadi kesalahan membuat tagihan, silahkan kembali dan coba lagi')->danger()->center()->backdrop()->autoDismiss(5);
+                return;
+            }
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', $e->getMessage());
+            Log::error($e->getMessage());
+            Toast::title('Maaf!')->message('Terjadi kesalahan, silahkan kembali dan coba lagi')->danger()->center()->backdrop()->autoDismiss(5);
+            return;
         }
-        if ($student['status'] === false || $invoiceService['status'] === false) {
-            Toast::title('Maaf!')
-                ->message($student['message'])
-                ->danger()
-                ->rightBottom()
-                ->backdrop()
-                ->autoDismiss(5);
-            return back();
-        } else {
-            Toast::title('Alhamdulillah!')
-                ->message($student['message'])
-                ->success()
-                ->rightBottom()
-                ->backdrop()
-                ->autoDismiss(5);
-            return redirect()->route('dashboard');
-        }
+
+        Toast::title('Alhamdulillah!')
+            ->message($student['message'])
+            ->success()
+            ->rightBottom()
+            ->backdrop()
+            ->autoDismiss(5);
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -309,8 +312,6 @@ class StudentController extends Controller
         }
         DB::beginTransaction();
         try {
-          
-
             $student->verified_at = now();
             $student->status = 'accepted';
             $student->save();

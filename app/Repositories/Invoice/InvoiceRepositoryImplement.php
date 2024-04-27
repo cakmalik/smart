@@ -15,7 +15,6 @@ use LaravelEasyRepository\Implementations\Eloquent;
 
 class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
 {
-
     /**
      * Model class to be used in this repository for the common methods inside Eloquent
      * Don't remove or change $this->model variable name
@@ -23,9 +22,9 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
      */
     protected $model;
 
-    public function __construct(Invoice $model)
+    public function __construct()
     {
-        $this->model = $model;
+        $this->model = new Invoice();
     }
 
     public function createInvoiceAdmission($student_id): array
@@ -34,45 +33,36 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
             $findCategory = InvoiceCategory::where('code', 'psb')->first();
             $findUtilities = InvoiceUtility::where('invoice_category_id', $findCategory->id)->get();
             if (!$findCategory) {
-                return false;
+                return [
+                    'status' => false,
+                    'message' => 'Kategori Pendaftaran Santri Baru Tidak Ditemukan',
+                ];
             }
             $admission = Admission::where('is_active', true)->first();
 
             DB::beginTransaction();
-            $invoice = $this->model->create([
-                'user_id' => auth()->user()->id,
-                'student_id' => $student_id,
-                'invoice_category_id' => $findCategory->id,
-                'period' => $admission->period,
-                //    'invoice_number'=> $this->generateInvoiceNumber($findCategory->code),
-                //    'invoice_date'=>
-                //    'due_date'=>
-                'description' => 'Pendaftaran Santri Baru',
-                'amount' => $admission->amount,
-                //    'status'=>
-                //    'payment_method_id'=>
-                'title' => 'Administrasi'
-                //    'reference'=>
-                //    'desc'=>
-            ]);
 
-            // // get student count
-            // $student = Student::find($student_id);
-            // $studentCount = Student::whereHas('user', function ($query) use ($student) {
-            //     $query->where('user_id', $student->user_id);
-            // })->count();
+            $invoice = new Invoice();
+            $invoice->user_id = auth()->user()->id;
+            $invoice->student_id = $student_id;
+            $invoice->invoice_category_id = $findCategory->id;
+            $invoice->period = $admission->period;
+            $invoice->description = 'Pendaftaran Santri Baru';
+            $invoice->amount = $admission->amount;
+            $invoice->title = 'Administrasi';
+            $invoice->save();
 
             $grandTotal = 0;
             foreach ($findUtilities as $utility) {
+                $invoiceDetail = new InvoiceDetail();
+                $invoiceDetail->invoice_id = $invoice->id;
+                $invoiceDetail->name = $utility->name;
+                $invoiceDetail->period = $utility->period;
+                $invoiceDetail->description = $utility->description;
+                $invoiceDetail->sub_total = $utility->sub_total;
+                $invoiceDetail->save();
 
-                $det = InvoiceDetail::create([
-                    'invoice_id' => $invoice->id,
-                    'name' => $utility->name,
-                    'period' => $utility->period,
-                    'description' => $utility->description,
-                    'sub_total' => $utility->sub_total,
-                ]);
-                $grandTotal += $utility->sub_total;
+                $grandTotal += $invoiceDetail->sub_total;
             }
 
             $invoice->amount = $grandTotal;
@@ -82,22 +72,22 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
             $invoice->save();
             DB::commit();
 
-            $whatsappService = new \App\Services\WhatsappService();
-            $whatsappService->sendInvoice($invoice->invoice_number);
-            
+            // $whatsappService = new \App\Services\WhatsappService();
+            // $whatsappService->sendInvoice($invoice->invoice_number);
+
             return [
-                'status'=>true,
-                'data'=>$invoice,
-                'message'=>'Invoice created successfully',
+                'status' => true,
+                'data' => $invoice,
+                'message' => 'Invoice created successfully',
             ];
         } catch (\Exception $e) {
             DB::rollBack();
 
             Log::error($e->getMessage() . ' ' . $e->getLine());
             return [
-                'status'=>false,
-                'message'=>$e->getMessage(),
-                'data'=>null
+                'status' => false,
+                'message' => $e->getMessage(),
+                'data' => null,
             ];
         }
         // return $invoice;
@@ -105,9 +95,11 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
 
     public function getInvoicesByUserAndCode($user_id, $code): Collection
     {
-        $invoices = $this->model->where('user_id', $user_id)->whereHas('invoiceCategory', function ($query) use ($code) {
-            $query->where('code', $code);
-        })
+        $invoices = $this->model
+            ->where('user_id', $user_id)
+            ->whereHas('invoiceCategory', function ($query) use ($code) {
+                $query->where('code', $code);
+            })
             ->whereIn('status', ['unpaid'])
             ->get();
         return $invoices;
@@ -118,7 +110,6 @@ class InvoiceRepositoryImplement extends Eloquent implements InvoiceRepository
         // ->where('invoice_categories.code', '=', 'psb')
         // ->where('invoices.user_id', '=', auth()->user()->id)
         // ->get();
-
     }
 
     public function getCategories(): Collection
