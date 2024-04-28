@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class StudentServiceImplement extends Service implements StudentService
 {
-
     /**
      * don't change $this->mainRepository variable name
      * because used in extends service class
@@ -33,11 +32,11 @@ class StudentServiceImplement extends Service implements StudentService
         $student_data['user_id'] = auth()->user()->id;
 
         if ($file = $request->file('student_image')) {
-            $filename =  compressAndStoreImage($file);
+            $filename = compressAndStoreImage($file);
             $student_data['student_image'] = $filename;
         }
         if ($file = $request->file('parent_image')) {
-            $filename =  compressAndStoreImage($file, 'parent-photos');
+            $filename = compressAndStoreImage($file, 'parent-photos');
             $parent_data['parent_image'] = $filename;
         }
 
@@ -61,7 +60,7 @@ class StudentServiceImplement extends Service implements StudentService
             'student_id' => $student->id ?? null,
             'status' => $status,
             'message' => $message,
-            'err' => $err ?? null
+            'err' => $err ?? null,
         ];
     }
 
@@ -72,7 +71,6 @@ class StudentServiceImplement extends Service implements StudentService
         $except_parent = $this->parentData();
         $except_data = array_merge($except_parent, ['dormitory_id', 'room_id']);
         $student_data = $request->except($except_data);
-
 
         if (isset($student_data['parent'])) {
             unset($student_data['parent']);
@@ -94,16 +92,15 @@ class StudentServiceImplement extends Service implements StudentService
             $student_data['village'] = $student->village;
         }
 
-
         if ($request->student_image == null || $request->student_image == '') {
             unset($student_data['student_image']);
         } else {
             $file = $request->file('student_image');
-            $filename =  compressAndStoreImage($file);
+            $filename = compressAndStoreImage($file);
             $student_data['student_image'] = $filename;
         }
         if ($file = $request->file('parent_image')) {
-            $filename =  compressAndStoreImage($file, 'parent-photos');
+            $filename = compressAndStoreImage($file, 'parent-photos');
             $parent_data['parent_image'] = $filename;
         }
         try {
@@ -111,8 +108,9 @@ class StudentServiceImplement extends Service implements StudentService
 
             $parent = $this->mainRepository->updateParent($parent_data, $student);
             $this->mainRepository->update($student->id, $student_data);
-            $this->mainRepository->updateAsrama($request->dormitory_id, $request->room_id, $student);
-
+            if ($request->room_id && $request->dormitory_id) {
+                $this->mainRepository->updateAsrama($request->dormitory_id, $request->room_id, $student);
+            }
 
             $status = true;
             $message = 'Data berhasil diperbarui';
@@ -127,26 +125,12 @@ class StudentServiceImplement extends Service implements StudentService
         return [
             'status' => $status,
             'message' => $message,
-            'err' => $err ?? null
+            'err' => $err ?? null,
         ];
     }
 
     public function parentData()
     {
-        return [
-            'father_name',
-            'father_nik',
-            'father_phone',
-            'father_education',
-            'father_job',
-            'father_income',
-            'mother_name',
-            'mother_nik',
-            'mother_phone',
-            'mother_education',
-            'mother_job',
-            'mother_income',
-            'parent_image',
-        ];
+        return ['father_name', 'father_nik', 'father_phone', 'father_education', 'father_job', 'father_income', 'mother_name', 'mother_nik', 'mother_phone', 'mother_education', 'mother_job', 'mother_income', 'parent_image'];
     }
 }
