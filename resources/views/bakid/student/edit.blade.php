@@ -33,14 +33,14 @@
                             class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
                             @click="data.currentIndex=3; data.title = 'Update Foto'"
                             :class="{ 'bg-green-700 text-white': data.currentIndex == 3 }">
-                           Update Foto
+                            Update Foto
                         </button>
 
                         <button type="button"
                             class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
                             @click="data.currentIndex=5; data.title = 'Asrama'"
                             :class="{ 'bg-green-700 text-white': data.currentIndex == 5 }">
-                           Update Asrama
+                            Update Asrama
                         </button>
 
                         <button type="button"
@@ -266,15 +266,47 @@
                             </div>
                         </div>
 
-                        <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===4">
-                            <img class="w-full p-5" src="{{ asset('storage/doc-kk/' . $student->user->doc_kk) }}"
-                                class="mt-2" />
+                        <div class="grid sm:grid-cols-1 gap-3" v-show="data.currentIndex===4">
+                            <x-splade-rehydrate on="kk-uploaded">
+                                @if ($student->user->doc_kk)
+                                    <img class="w-full p-5"
+                                        src="{{ asset('storage/doc-kk/' . $student->user->doc_kk) }}"
+                                        class="mt-2" />
+
+                                    <Link href="#modalUploadKK"
+                                        class="relative p-3 py-5 w-full bg-white/50 cursor-default rounded-xl">
+                                    Perbarui KK
+                                    </Link>
+                                @else
+                                    <Link href="#modalUploadKK"
+                                        class="relative p-3 py-5 w-full bg-white/50 cursor-default rounded-xl"> Upload
+                                    KK
+                                @endif
+                            </x-splade-rehydrate>
                         </div>
+
+                        <x-splade-modal name="modalUploadKK">
+                            <x-splade-form confirm="Perbarui KK"
+                            confirm-text="Yakin memperbarui KK?" method="post" :action="route('user.upload-kk', $student->user->id)" stay background reset-on-success
+                                @success="$splade.emit('kk-uploaded')">
+                                <div>
+                                    <x-splade-file v-model="form.doc_kk" :show-filename="false"
+                                        label="Foto Kartu Keluarga" filepond max-size="3MB" class="mt-2" />
+                                    <img class="w-full p-5" name="doc_kk" :src="form.$fileAsUrl('doc_kk')"
+                                        class="mt-2" />
+
+                                    <x-splade-submit v-if="form.doc_kk">
+                                        Simpan Dokumen
+                                    </x-splade-submit>
+                                </div>
+                            </x-splade-form>
+                        </x-splade-modal>
 
                         <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===5">
 
                             <div class="col-span-2">
-                                Asrama saat ini : {{ $student->dormitory[0]?->name ?? '' }} {{ $student->room[0]?->name ?? '' }}
+                                Asrama saat ini : {{ $student->dormitory[0]?->name ?? '' }}
+                                {{ $student->room[0]?->name ?? '' }}
                             </div>
 
                             <x-splade-select class="mb-3"
