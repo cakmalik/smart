@@ -9,18 +9,24 @@
     <div class="mt-10">
         <div class="max-w-7xl mx-auto p-2 sm:px-6 lg:px-8">
             <div class="mt-5 w-full">
-                <x-splade-form action="">
+                <x-splade-form action="{{ route('export.generate') }}" method="POST">
                     <div class="w-full flex items-center justify-center gap-3">
                         <div class="w-1/3 sm:w-2/5">
                             <x-splade-select name="year">
-                                <option value="nl">Tahun</option>
+                                <option value="">Pilih tahun</option>
+                                @forelse ($year_collection as $i)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                                @empty
+                                <option value="{{ date('Y') }}">{{ now()->year }}</option>
+                                @endforelse
                             </x-splade-select>
                         </div>
                         <div class="w-1/3 sm:w-2/5">
-                            <x-splade-select name="type">
-                                <option value="be">By Asrama</option>
-                                <option value="nl">By Pendidikan Formal</option>
-                                <option value="nl">By Madin</option>
+                            <x-splade-select name="category">
+                                <option value="">Pilih Kategori</option>
+                                <option value="asrama">By Asrama</option>
+                                <option value="formal">By Pendidikan Formal</option>
+                                <option value="informal">By Madin</option>
                             </x-splade-select>
                         </div>
                         <div class="w-1/3 sm:w-1/5">

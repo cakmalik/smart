@@ -25,14 +25,15 @@ class StudentByAsramaExport implements FromQuery
 
     public function query()
     {
-        $q = Student::query();
-        // ->whereYear('verified_at', $this->year)
-        // ->whereHas('dormitory', function($q) {
-        //     $q->where('id', $this->dormitory_id);
-        // })
-        // ->whereHas('room', function($q) {
-        //     $q->where('id', $this->room_id);
-        // });
+        $q = Student::query()
+        ->with('dormitory', 'room')
+        ->whereYear('verified_at', $this->year)
+        ->whereHas('dormitory', function($q) {
+            $q->where('id', $this->dormitory_id);
+        })
+        ->whereHas('room', function($q) {
+            $q->where('id', $this->room_id);
+        });
 
         return $q; 
     }

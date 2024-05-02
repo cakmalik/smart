@@ -219,6 +219,7 @@ Route::middleware(['splade'])->group(function () {
         
         Route::resource('violation', ViolationController::class);
         Route::get('/export', [ExportController::class, 'index'])->name('export.index');
+        Route::post('/export', [ExportController::class, 'generate'])->name('export.generate');
     });
 });
 
