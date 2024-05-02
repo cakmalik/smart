@@ -162,6 +162,11 @@ class UserController extends Controller
         
     }
 
+    public function formUploadKK(){
+        dd('ok');
+        return view('user.form_upload_kk');
+    }
+
     public function uploadKk(Request $request, User $user){
         $request->validate([
             'doc_kk' => 'required'

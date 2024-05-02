@@ -49,20 +49,6 @@
                             :class="{ 'bg-green-700 text-white': data.currentIndex == 4 }">
                             Dokumen
                         </button>
-
-
-
-                        {{-- <button type="button"
-                        class="w-full px-4 py-2 font-medium text-left  border-b border-gray-200 cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
-                        @click="data.currentIndex=4; data.title = 'Tambahan'"
-                        :class="{ 'bg-green-700 text-white': data.currentIndex == 4 }">
-                        Tambahan
-                    </button> --}}
-
-                        {{-- <button disabled type="button"
-                    class="w-full px-4 py-2 font-medium text-left bg-gray-100 rounded-b-lg cursor-not-allowed dark:bg-gray-600 dark:text-gray-400">
-                    Download
-                </button> --}}
                     </div>
                 </div>
                 <div class="col-span-2">
@@ -285,22 +271,6 @@
                             </x-splade-rehydrate>
                         </div>
 
-                        <x-splade-modal name="modalUploadKK">
-                            <x-splade-form confirm="Perbarui KK"
-                            confirm-text="Yakin memperbarui KK?" method="post" :action="route('user.upload-kk', $student->user->id)" stay background reset-on-success
-                                @success="$splade.emit('kk-uploaded')">
-                                <div>
-                                    <x-splade-file v-model="form.doc_kk" :show-filename="false"
-                                        label="Foto Kartu Keluarga" filepond max-size="3MB" class="mt-2" />
-                                    <img class="w-full p-5" name="doc_kk" :src="form.$fileAsUrl('doc_kk')"
-                                        class="mt-2" />
-
-                                    <x-splade-submit v-if="form.doc_kk">
-                                        Simpan Dokumen
-                                    </x-splade-submit>
-                                </div>
-                            </x-splade-form>
-                        </x-splade-modal>
 
                         <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===5">
 
@@ -329,6 +299,24 @@
                 </div>
             </div>
         </x-splade-form>
+
+
+        <x-splade-modal name="modalUploadKK">
+            <x-splade-form confirm="Perbarui KK"
+            confirm-text="Yakin memperbarui KK?" method="post" :action="route('user.upload-kk', $student->user->id)" stay background reset-on-success
+                @success="$splade.emit('kk-uploaded')">
+                <div>
+                    <x-splade-file v-model="form.doc_kk" :show-filename="false"
+                        label="Foto Kartu Keluarga" filepond max-size="3MB" class="mt-2" />
+                    <img class="w-full p-5" name="doc_kk" :src="form.$fileAsUrl('doc_kk')"
+                        class="mt-2" />
+
+                    <x-splade-submit v-if="form.doc_kk">
+                        Simpan Dokumen
+                    </x-splade-submit>
+                </div>
+            </x-splade-form>
+        </x-splade-modal>
     </x-splade-data>
 
 

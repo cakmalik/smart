@@ -109,6 +109,7 @@ Route::middleware(['splade'])->group(function () {
         config('jetstream.auth_session'),
         'verified',
         ])->group(function () {
+        Route::get('/user/upload-kk-form', [UserController::class, 'formUploadKK'])->name('user.upload-kk-form');
         Route::post('/user/upload-kk/{user}', [UserController::class, 'uploadKk'])->name('user.upload-kk');
         
         Route::get('tes/wa', [BakidSettingController::class, 'checkConnection'])->name('test.wa');

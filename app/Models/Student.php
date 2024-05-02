@@ -8,6 +8,7 @@ use App\Models\Bakid\Room;
 use App\Models\StudentFamily;
 use App\Models\Bakid\Dormitory;
 use App\Models\Scopes\GenderScope;
+use App\Models\Student\RoomStudent;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Student\FormalEducationStudent;
 use App\Models\Student\InformalEducationStudent;
