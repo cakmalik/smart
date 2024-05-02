@@ -15,9 +15,9 @@
                             <x-splade-select name="year">
                                 <option value="">Pilih tahun</option>
                                 @forelse ($year_collection as $i)
-                                <option value="{{ $i }}">{{ $i }}</option>
+                                    <option value="{{ $i }}">{{ $i }}</option>
                                 @empty
-                                <option value="{{ date('Y') }}">{{ now()->year }}</option>
+                                    <option value="{{ date('Y') }}">{{ now()->year }}</option>
                                 @endforelse
                             </x-splade-select>
                         </div>
@@ -35,6 +35,11 @@
                     </div>
                 </x-splade-form>
             </div>
+            <a href="https://drive.google.com/drive/folders/18UF1T-SEqlDHK_qFd6YpDxvmknQMfMZl?usp=sharing" target="_blank" class="w-full mt-6 flex items-center justify-center">
+                <div  class="px-4 py-2 rounded-lg border text-white bg-black/50 backdrop-blur-md">
+                    BUKA DRIVE
+                </div>
+            </a>
 
             <!-- component -->
             {{-- <x-splade-rehydrate on="academy-updated">
