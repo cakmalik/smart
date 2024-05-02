@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Jobs\StudentAsramaExportJob;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\StudentByAsramaExport;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class ExportController extends Controller
 {
@@ -23,6 +26,12 @@ class ExportController extends Controller
             'category' => 'required',
             'year' => 'required',
         ]);
-        StudentAsramaExportJob::dispatch($request->category, (int) $request->year, (int) $request->dormitory_id, (int) $request->room_id);
+
+        $file_name = 'export_' . $request->category . '_' . $request->year .'-'. date('YmdHis') . '.xlsx';
+        Excel::store(new StudentByAsramaExport($request->category, (int) $request->year), $file_name,'google', null, ['visibility' => 'public']);
+        Toast::title('Berhasil')->message('Hasil export disimpan ke google drive')
+        ->success()->center()->autoDismiss(3);
+        return back();
+            
     }
 }
