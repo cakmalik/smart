@@ -39,40 +39,44 @@ class StudentAsramaExportJob implements ShouldQueue
      */
     public function handle(): void
     {
-    try {
-        $exe = new StudentByAsramaExport($this->year);
-    
-        $filename = 'by-' . $this->category . '-' . $this->year . '(' . date('ymdHis') . ')';
-        $filePath = 'exports/' . $filename . '.xlsx'; // Path untuk menyimpan file di dalam direktori 'storage/app/exports'
-    
-        // Ekspor data siswa ke file Excel
-        $exe->download($filePath);
-    
-        // Pindahkan file Excel ke direktori 'storage/app/exports'
-        Storage::move($filePath, 'exports/' . $this->category . '.xlsx');
-    
-        // Simpan ke database
-        StudentExportHistory::create([
-            'file_name' => $filename,
-            'year' => $this->year,
-            'type' => $this->category,
-            'status' => 'success',
-        ]);
-    } catch (\Exception $e) {
-        // Tangani exception yang terjadi
-        // Contoh: Log pesan kesalahan atau tindakan pemulihan lainnya
-        Log::error('Error exporting and storing data: ' . $e->getMessage());
-    
-        // Ubah status ke 'failed' jika terjadi kesalahan
-        StudentExportHistory::create([
-            'file_name' => $filename ?? 'unknown',
-            'year' => $this->year ?? 'unknown',
-            'type' => $this->category ?? 'unknown',
-            'status' => 'failed',
-        ]);
-    
-        // Throw exception kembali untuk penanganan lebih lanjut jika perlu
-        throw $e;
+        try {
+            $exe = new StudentByAsramaExport($this->year);
+
+            // Buat nama file tanpa karakter '/' dan '\'
+            $safeCategory = str_replace(['/', '\\'], '_', $this->category); // Ganti '/' dan '\' dengan '_'
+            $filename = 'by-' . $safeCategory . '-' . $this->year . '-' . date('ymdHis');
+            $filePath ='storage/app/exports' . $filename . '.xlsx'; // Path untuk menyimpan file di dalam direktori 'storage/app/exports'
+
+            // Log::info('Exporting and storing data...');
+            // Log::info('filename: ' . $filename);
+            // Log::info('filePath: ' . $filePath);
+            // Ekspor data siswa ke file Excel
+            $exe->store('/exports' . $filePath);
+
+            // Pindahkan file Excel ke direktori 'storage/app/exports'
+            // Storage::move($filePath, $filename);
+            // Simpan ke database
+            StudentExportHistory::create([
+                'file_name' => $filename,
+                'year' => $this->year,
+                'type' => $this->category,
+                'status' => 'success',
+            ]);
+        } catch (\Exception $e) {
+            // Tangani exception yang terjadi
+            // Contoh: Log pesan kesalahan atau tindakan pemulihan lainnya
+            Log::error('Error exporting and storing data: ' . $e->getMessage());
+
+            // Ubah status ke 'failed' jika terjadi kesalahan
+            StudentExportHistory::create([
+                'file_name' => $filename ?? 'unknown',
+                'year' => $this->year ?? 'unknown',
+                'type' => $this->category ?? 'unknown',
+                'status' => 'failed',
+            ]);
+
+            // Throw exception kembali untuk penanganan lebih lanjut jika perlu
+            throw $e;
+        }
     }
-    
 }
