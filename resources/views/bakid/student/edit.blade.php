@@ -128,7 +128,7 @@
                             </div>
                         </div>
 
-                        {{-- <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===1">
+                        <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===1">
                             <div>
                                 <x-splade-input class="mt-2" name="parent.father_name" type="text"
                                     :label="__('bakid.father_name')" :placeholder="__('bakid.pl.father_name')" />
@@ -250,11 +250,11 @@
                                 <img class="w-full p-5" v-if="form.parent_image"
                                     :src="form.$fileAsUrl('parent_image')" class="mt-2" />
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="grid sm:grid-cols-1 gap-3" v-show="data.currentIndex===4">
                             <x-splade-rehydrate on="kk-uploaded">
-                                {{-- @if ($student->user->doc_kk)
+                                @if ($student->user->doc_kk)
                                     <img class="w-full p-5"
                                         src="{{ asset('storage/doc-kk/' . $student->user->doc_kk) }}"
                                         class="mt-2" />
@@ -267,7 +267,7 @@
                                     <Link href="#edit-modalUploadKK"
                                         class="relative p-3 py-5 w-full bg-white/50 cursor-default rounded-xl"> Upload
                                     KK
-                                @endif --}}
+                                @endif
                             </x-splade-rehydrate>
                         </div>
 
@@ -301,7 +301,7 @@
         </x-splade-form>
 
 
-        {{-- <x-splade-modal name="edit-modalUploadKK">
+        <x-splade-modal name="edit-modalUploadKK">
             <x-splade-form confirm="Perbarui KK"
             confirm-text="Yakin memperbarui KK?" method="post" :action="route('user.upload-kk', $student->user->id)" stay background reset-on-success
                 @success="$splade.emit('kk-uploaded')">
@@ -316,7 +316,7 @@
                     </x-splade-submit>
                 </div>
             </x-splade-form>
-        </x-splade-modal> --}}
+        </x-splade-modal>
     </x-splade-data>
 
 
