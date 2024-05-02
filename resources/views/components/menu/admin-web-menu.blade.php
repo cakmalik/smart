@@ -98,6 +98,10 @@
         <x-menu.web link="{{ route('setting.index') }}" label="Settings" />
     @endcan
 
+    @can('access export')
+        <x-menu.web link="{{ route('export.index') }}" label="Export" />
+    @endcan
+
     @include('components.menu.for.madin')
 
 </ul>

@@ -13,6 +13,7 @@ use Illuminate\Foundation\Application;
 use ProtoneMedia\Splade\Facades\Toast;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExportController;
 use App\Models\Informal\InformalEducation;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\StudentController;
@@ -214,8 +215,9 @@ Route::middleware(['splade'])->group(function () {
         Route::resource('permittion', InOutPermissionController::class);
         Route::get('/izin', [InOutPermissionController::class, 'showAccess'])->name('permittion.access');
         Route::post('/in-out-permittion/store', [StudentInOutPermissionController::class, 'store'])->name('permittion.access.post');
-
+        
         Route::resource('violation', ViolationController::class);
+        Route::get('/export', [ExportController::class, 'index'])->name('export.index');
     });
 });
 

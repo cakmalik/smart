@@ -26,7 +26,7 @@ class PermissionSeeder extends Seeder
         $p_mutation = ['access mutation', 'add mutation', 'edit mutation', 'delete mutation' ];
 
         $p_announcement = ['access announcement', 'edit announcement', 'delete announcement'];
-
+        
         $p_management = ['access management', 'edit management', 'delete management', 'add management'];
         $p_management_asrama = ['access asrama', 'edit asrama', 'delete asrama', 'add asrama'];
         $p_management_formal = ['access formal', 'edit formal', 'delete formal', 'add formal'];
@@ -40,6 +40,8 @@ class PermissionSeeder extends Seeder
         $p_settings = ['access settings'];
         $p_admission = ['access admission'];
         $payment = ['change payment method'];
+
+        $p_export = ['access export'];
 
         $approval_menu = [
             'menu approval',
@@ -75,7 +77,8 @@ class PermissionSeeder extends Seeder
             $p_admission,
             $payment,
             $p_announcement,
-            $approval_menu
+            $approval_menu,
+            $p_export
         );
         
         foreach ($permissions as $permission) {
@@ -107,6 +110,7 @@ class PermissionSeeder extends Seeder
         $sekretaris->givePermissionTo($p_campaign);
         $sekretaris->givePermissionTo($p_psb);
         $sekretaris->givePermissionTo($approval_menu);
+        $sekretaris->givePermissionTo($p_export);
         
         
         $bendahara = Role::where('name', 'bendahara')->first();
