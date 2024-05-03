@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Jobs\StudentAsramaExportJob;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\StudentByAsramaExport;
+use App\Exports\StudentByFormalExport;
 use ProtoneMedia\Splade\Facades\Toast;
 
 class ExportController extends Controller
@@ -31,7 +32,8 @@ class ExportController extends Controller
             $file_name = 'export_' . $request->category . '_' . $request->year . '-' . date('YmdHis') . '.xlsx';
             Excel::store(new StudentByAsramaExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
         }elseif($request->category == 'formal'){
-            
+            $file_name = 'export_' . $request->category . '_' . $request->year . '-' . date('YmdHis') . '.xlsx';
+            Excel::store(new StudentByFormalExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
         }else{
             
         }
