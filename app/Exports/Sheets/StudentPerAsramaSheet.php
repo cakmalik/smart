@@ -2,6 +2,7 @@
 
 namespace App\Exports\Sheets;
 
+use App\Models\Bakid\Dormitory;
 use App\Models\Student;
 use Carbon\Carbon;
 use App\Models\Teman\Invoice;
@@ -13,59 +14,50 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class InvoicesPerMonthSheet implements FromQuery, WithTitle, WithMapping, WithHeadings, ShouldAutoSize
+class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHeadings, ShouldAutoSize
 {
-    private $month;
     private $year;
+    private $dormitory;
 
-    public function __construct(int $year, int $month)
+    public function __construct(int $year, Dormitory $dormitory)
     {
-        $this->month = $month;
         $this->year = $year;
+        $this->dormitory = $dormitory;
     }
 
     public function query()
     {
-        $period = $this->year . '-' . $this->month;
         return Student
             ::query()
-            ->with('tenant')
-            ->whereNotIn('invoice_status', ['template', 'canceled'])
-            ->where('periode', $period);
+            ->with('dormitory')
+            ->whereHas('dormitory', function ($q) {
+                $q->where('dormitory_id', $this->dormitory->id);
+            })
+            ->whereNotNull('verified_at');
     }
 
-    public function map($invoice): array
+    public function map($student): array
     {
         return [
-            $invoice->invoice_number,
-            $invoice->tenant->code,
-            $invoice->tenant->name,
-            // $invoice->invoice_total,
-            // $invoice->invoice_total_tax,
-            (int)$invoice->grand_total,
-            $invoice->invoice_status
+            $student->name,
+            $student->parent->father_name
         ];
     }
 
     public function headings(): array
     {
         return [
-            'Invoice Number',
-            'Tenant Code',
-            'Tenant Name',
-            // 'Invoice Total',
-            // 'Total Tax',
-            'Invoice Total',
-            'Status'
+            'Name',
+            'Parent Name',
         ];
     }
 
-    public function columnFormats(): array
-    {
-        return [
-            'D' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
-        ];
-    }
+    // public function columnFormats(): array
+    // {
+    //     return [
+    //         'D' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+    //     ];
+    // }
 
     public function startCell(): string
     {
@@ -74,6 +66,6 @@ class InvoicesPerMonthSheet implements FromQuery, WithTitle, WithMapping, WithHe
 
     public function title(): string
     {
-        return Carbon::createFromFormat('m', $this->month)->format('F');
+        return $this->dormitory->name . ' (' . $this->dormitory->gender . ')';
     }
 }

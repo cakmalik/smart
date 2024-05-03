@@ -27,11 +27,16 @@ class ExportController extends Controller
             'year' => 'required',
         ]);
 
-        $file_name = 'export_' . $request->category . '_' . $request->year .'-'. date('YmdHis') . '.xlsx';
-        Excel::store(new StudentByAsramaExport($request->category, (int) $request->year), $file_name,'google', null, ['visibility' => 'public']);
-        Toast::title('Berhasil')->message('Hasil export disimpan ke google drive')
-        ->success()->center()->autoDismiss(3);
-        return back();
+        if ($request->category == 'asrama') {
+            $file_name = 'export_' . $request->category . '_' . $request->year . '-' . date('YmdHis') . '.xlsx';
+            Excel::store(new StudentByAsramaExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
+        }elseif($request->category == 'formal'){
             
+        }else{
+            
+        }
+        
+        Toast::title('Berhasil')->message('Hasil export disimpan ke google drive')->success()->center()->autoDismiss(3);
+        return back();
     }
 }
