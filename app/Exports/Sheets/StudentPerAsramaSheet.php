@@ -41,9 +41,9 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
         return [
             $student->name,
             $student->nickname,
-            $student->nik,
+           '`'. $student->nik,
             $student->place_of_birth,
-            Date::dateTimeToExcel(Carbon::parse($student->date_of_birth)),
+            $student->date_of_birth,
             $student->gender,
             $student->address,
             $student->rt_rw,
@@ -52,7 +52,7 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
             $student->city,
             $student->province,
             $student->postal_code,
-            Date::dateTimeToExcel(Carbon::parse($student->verified_at))
+           $student->verified_at,
         ];
     }
 
