@@ -40,15 +40,39 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
     {
         return [
             $student->name,
-            $student->parent->father_name
+            $student->nickname,
+            $student->nik,
+            $student->place_of_birth,
+            Date::dateTimeToExcel(Carbon::parse($student->date_of_birth)),
+            $student->gender,
+            $student->address,
+            $student->rt_rw,
+            $student->village,
+            $student->district,
+            $student->city,
+            $student->province,
+            $student->postal_code,
+            Date::dateTimeToExcel(Carbon::parse($student->verified_at))
         ];
     }
 
     public function headings(): array
     {
         return [
-            'Name',
-            'Parent Name',
+          'NAMA',
+          'PANGGILAN',
+          'NIK',
+          'TEMPAT LAHIR',
+          'TANGGAL LAHIR',
+          'JENIS KELAMIN',
+          'ALAMAT',
+          'RT/RW',
+          'DESA',
+          'KECAMATAN',
+          'KOTA/KAB',
+          'PROVINSI',
+          'KODE POS',
+          'TANGGAL MASUK'
         ];
     }
 
