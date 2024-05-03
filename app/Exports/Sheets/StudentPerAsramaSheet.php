@@ -45,14 +45,17 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
             $student->place_of_birth,
             $student->date_of_birth,
             $student->gender,
-            $student->address,
+            $student->address ?? '',
             $student->rt_rw,
             $student->village,
             $student->district,
             $student->city,
             $student->province,
             $student->postal_code,
-           $student->verified_at,
+            $student->verified_at,
+            $student->parent->father_phone .'/'. $student->parent->mother_phone,
+            $student->getFormalName(),
+            $student->getInformalName(),
         ];
     }
 
@@ -72,7 +75,10 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
           'KOTA/KAB',
           'PROVINSI',
           'KODE POS',
-          'TANGGAL MASUK'
+          'TANGGAL MASUK',
+          'NO HP WALI',
+          'FORMAL',
+          'MADIN'
         ];
     }
 
