@@ -39,6 +39,7 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
     public function map($student): array
     {
         return [
+            $student->room[0]->name,
             $student->name,
             $student->nickname,
            '`'. $student->nik,
@@ -62,6 +63,7 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
     public function headings(): array
     {
         return [
+            'ASRAMA',
           'NAMA',
           'PANGGILAN',
           'NIK',
@@ -78,7 +80,7 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
           'TANGGAL MASUK',
           'NO HP WALI',
           'FORMAL',
-          'MADIN'
+          'NON-FORMAL'
         ];
     }
 
