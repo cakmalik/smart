@@ -208,7 +208,26 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        try {
+            //soft delete
+            InformalEducationStudent::where('student_id', $student->id)->delete();
+            Invoice::where('student_id', $student->id)->delete();
+            RoomStudent::where('student_id', $student->id)->delete();
+
+            $student->delete();
+
+            Toast::title('Berhasil dihapus!')
+                ->message('Santri: ' . $student->name . ' di hapus')
+                ->success()
+                ->autoDismiss(3)
+                ->rightBottom();
+                
+            return redirect()->route('student.index');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            Toast::title('Maaf!')->message('Terjadi kesalahan, silahkan kembali dan coba lagi')->danger()->rightBottom()->autoDismiss(3);
+            return back();
+        }
     }
 
     public function completeEducation(Request $request)

@@ -6,7 +6,16 @@
             <div class="grid grid-cols-3 my-4 gap-4">
                 <div class="flex justify-end">
                     <div
-                        class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white relative">
+                        <Link href="{{ route('student.destroy', $student->nis) }}" method="DELETE" 
+                            confirm="Yakin Hapus Santri?"
+                            confirm-text=" Aksi ini tidak dapat dibatalkan. pastikan cek ulang sebelum dihapus!"
+                            confirm-button="Ya, Saya yakin!"
+                            cancel-button="Batal"
+                             class="absolute bottom-0 px-4 py-2 text-red-500 hover:text-red-700 cursor-pointer">
+                            Hapus Santri
+                        </Link>
+
                         <div class="flex items-center justify-center py-2 bg-slate-600 text-white mb-1 rounded-t-lg">
                             <span class="text-center">{{ $student->nis }}</span>
                         </div>

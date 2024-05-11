@@ -145,6 +145,7 @@ Route::middleware(['splade'])->group(function () {
         Route::get('/student/{student:nis}/verify', [StudentController::class, 'verify'])->name('student.verify');
         Route::get('/student/{student:nis}/k-mahrom', [StudentController::class, 'kMahrom'])->name('student.k-mahrom');
         Route::get('/student/{student:nis}/mutation', [MutationController::class, 'mutation'])->name('student.mutation');
+        Route::delete('/student/{student:nis}', [StudentController::class, 'destroy'])->name('student.destroy');
 
         Route::get('/approval/{category}', [ApprovalController::class, 'index'])->name('approval.index');
         Route::get('/approve/{id}/{category}', [ApprovalController::class, 'action'])->name('approval.action');
