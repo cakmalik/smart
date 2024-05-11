@@ -36,7 +36,11 @@ class Invoices extends AbstractTable
      */
     public function for()
     {
-        $data = Invoice::query()->selectRaw('*, concat("Rp ", format(amount, 0)) as amount')->with('student', 'method', 'invoiceCategory');
+        $data = Invoice::query()
+        ->selectRaw('*, concat("Rp ", format(amount, 0)) as amount')
+        ->with('student', 'method', 'invoiceCategory')
+        ->whereHas('student', function ($q) {
+        });
         return $data;
     }
 
