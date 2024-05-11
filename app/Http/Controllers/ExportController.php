@@ -6,6 +6,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Jobs\StudentAsramaExportJob;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\StudentByMadinExport;
 use App\Exports\StudentByAsramaExport;
 use App\Exports\StudentByFormalExport;
 use ProtoneMedia\Splade\Facades\Toast;
@@ -35,7 +36,8 @@ class ExportController extends Controller
             $file_name = 'export_' . $request->category . '_' . $request->year . '-' . date('YmdHis') . '.xlsx';
             Excel::store(new StudentByFormalExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
         }else{
-            
+            $file_name = 'export_madin_' . $request->year . '-' . date('YmdHis') . '.xlsx';
+            Excel::store(new StudentByMadinExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
         }
         
         Toast::title('Berhasil')->message('Hasil export disimpan ke google drive')->success()->center()->autoDismiss(3);
