@@ -16,9 +16,11 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Services\Location\LocationServiceImplement;
 use App\Models\Student\StudentEducationalBackground;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
+    use SoftDeletes;
     protected static function booted(): void
     {
         static::addGlobalScope(new GenderScope);
