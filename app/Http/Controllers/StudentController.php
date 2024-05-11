@@ -209,10 +209,10 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         try {
-            //soft delete
-            InformalEducationStudent::where('student_id', $student->id)->delete();
-            Invoice::where('student_id', $student->id)->delete();
-            RoomStudent::where('student_id', $student->id)->delete();
+            // ini yg berkaitan:
+            // InformalEducationStudent::where('student_id', $student->id)->delete();
+            // Invoice::where('student_id', $student->id)->delete();
+            // RoomStudent::where('student_id', $student->id)->delete();
 
             $student->delete();
 
