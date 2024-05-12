@@ -29,7 +29,7 @@ class ExportController extends Controller
             'year' => 'required',
         ]);
         $gender = auth()->user()->gender == 'male' ? 'laki' : 'perempuan';
-        $file_name = 'export_' . $request->category . '_' . $gender . '_' . $request->year . '-' . date('YmdHis') . '.xlsx';
+        $file_name = 'export_' . $request->category . '_' . $gender . '_' . $request->year . '-tgl_export_' . date('dmY-Hi') . '.xlsx';
         if ($request->category == 'asrama') {
             Excel::store(new StudentByAsramaExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
         } elseif ($request->category == 'formal') {
