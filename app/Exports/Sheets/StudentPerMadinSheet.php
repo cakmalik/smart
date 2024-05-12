@@ -26,7 +26,7 @@ class StudentPerMadinSheet implements FromQuery, WithTitle, WithMapping, WithHea
     {
         return Student
             ::query()
-            ->with('informal.kelas','parent')
+            ->with('informal.kelas','parent','dromitory','room')
             ->whereHas('informal.kelas', function ($q) {
                 $q->where('informal_education_class_id', $this->informal->id);
             })
@@ -36,7 +36,7 @@ class StudentPerMadinSheet implements FromQuery, WithTitle, WithMapping, WithHea
     public function map($student): array
     {
         return [
-            $student->dromitory[0]?->name??'' .' ' . $student->room[0]?->name??'',
+            $student->dormitory[0]?->name??'' .' ' . $student->room[0]?->name??'',
             $student->name,
             $student->nickname,
            '`'. $student->nik,

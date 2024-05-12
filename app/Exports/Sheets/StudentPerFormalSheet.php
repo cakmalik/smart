@@ -40,7 +40,7 @@ class StudentPerFormalSheet implements FromQuery, WithTitle, WithMapping, WithHe
     public function map($student): array
     {
         return [
-            $student->dromitory[0]?->name??'' .' ' . $student->room[0]?->name??'',
+            $student->dormitory[0]?->name??'' .' ' . $student->room[0]?->name??'',
             $student->name,
             $student->nickname,
            '`'. $student->nik,
