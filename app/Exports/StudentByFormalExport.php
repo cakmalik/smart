@@ -36,7 +36,13 @@ class StudentByFormalExport implements WithMultipleSheets, FromQuery, ShouldQueu
     {
         $sheets = [];
         
-        $formals = FormalEducation::get();
+        $formals = FormalEducation::get(['id','name']);
+
+        $newformal = new FormalEducation(); 
+        $newformal->name = 'Lainnya';
+
+        // Menambahkan objek baru ke koleksi $informals
+        $formals->push($newformal);
         foreach ($formals as $key => $formal) {
             $sheets[] = new StudentPerFormalSheet($this->year,$formal);
         }

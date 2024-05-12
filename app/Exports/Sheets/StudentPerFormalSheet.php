@@ -28,13 +28,20 @@ class StudentPerFormalSheet implements FromQuery, WithTitle, WithMapping, WithHe
 
     public function query()
     {
-        return Student
+        $query = Student
             ::query()
             ->with('formal','parent','dormitory','room')
-            ->whereHas('formal', function ($q) {
-                $q->where('formal_education_id', $this->formal->id);
-            })
             ->whereNotNull('verified_at');
+
+            if($this->formal->name == 'Lainnya'){
+                $query->whereDoesntHave('formal');              
+            }else{
+                $query->whereHas('formal', function ($q) {
+                    $q->where('formal_education_id', $this->formal->id);
+                });
+            }
+            
+            return $query;
     }
 
     public function map($student): array

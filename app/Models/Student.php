@@ -135,7 +135,17 @@ class Student extends Model
 
     public function getAsramaName()
     {
-        return $this->dormitory[0]->name . '-' . $this->room[0]->name;
+        if ($this->dormitory->count() > 0) {
+            // Mengambil nama dormitory dan room jika ada
+            $dormitoryName = $this->dormitory[0]?->name ?? 'Unknown Dormitory';
+            $roomName = $this->room[0]?->name ?? 'Unknown Room';
+    
+            // Mengembalikan nama asrama dalam format "nama_dormitory - nama_room"
+            return $dormitoryName . '-' . $roomName;
+        } else {
+            // Mengembalikan nilai default jika koleksi dormitory kosong
+            return '-';
+        }
     }
 
     public function getFormalName()
