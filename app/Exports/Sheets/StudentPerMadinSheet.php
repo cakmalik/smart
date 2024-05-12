@@ -36,7 +36,7 @@ class StudentPerMadinSheet implements FromQuery, WithTitle, WithMapping, WithHea
     public function map($student): array
     {
         return [
-            $student->dormitory[0]?->name??'' .' ' . $student->room[0]?->name??'',
+            $student->getAsramaName(),
             $student->name,
             $student->nickname,
            '`'. $student->nik,
