@@ -28,18 +28,16 @@ class ExportController extends Controller
             'category' => 'required',
             'year' => 'required',
         ]);
-
+        $gender = auth()->user()->gender == 'male' ? 'laki' : 'perempuan';
+        $file_name = 'export_' . $request->category . '_' . $gender . '_' . $request->year . '-' . date('YmdHis') . '.xlsx';
         if ($request->category == 'asrama') {
-            $file_name = 'export_' . $request->category . '_' . $request->year . '-' . date('YmdHis') . '.xlsx';
             Excel::store(new StudentByAsramaExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
-        }elseif($request->category == 'formal'){
-            $file_name = 'export_' . $request->category . '_' . $request->year . '-' . date('YmdHis') . '.xlsx';
+        } elseif ($request->category == 'formal') {
             Excel::store(new StudentByFormalExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
-        }else{
-            $file_name = 'export_madin_' . $request->year . '-' . date('YmdHis') . '.xlsx';
+        } else {
             Excel::store(new StudentByMadinExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
         }
-        
+
         Toast::title('Berhasil')->message('Hasil export disimpan ke google drive')->success()->center()->autoDismiss(3);
         return back();
     }
