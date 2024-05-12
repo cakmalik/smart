@@ -27,19 +27,26 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
 
     public function query()
     {
-        return Student
+        $query =  Student
             ::query()
             ->with('dormitory')
-            ->whereHas('dormitory', function ($q) {
-                $q->where('dormitory_id', $this->dormitory->id);
-            })
             ->whereNotNull('verified_at');
+
+            if($this->dormitory->name == 'Lainnya') {
+                $query->whereDoesntHave('dormitory');
+            }else{
+                $query->whereHas('dormitory', function ($q) {
+                    $q->where('dormitory_id', $this->dormitory->id);
+                });
+            }
+
+        return $query;
     }
 
     public function map($student): array
     {
         return [
-            $student->room[0]->name,
+            $student->room->count() >0 ? $student->room[0]->name: '-',
             $student->name,
             $student->nickname,
            '`'. $student->nik,
