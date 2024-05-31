@@ -25,13 +25,12 @@
     }
   }
 
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
 
-/*
-@layer utilities {
-      .animation-delay-2000{
-        animation-delay:2s;
-    }
-      .animation-delay-4000{
-        animation-delay:4s;
-    }
-} */
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
