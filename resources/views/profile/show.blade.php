@@ -24,7 +24,7 @@
 
             @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
                 <div class="mt-10 sm:mt-0" dusk="two-factor-authentication-form">
-                    @include('profile.two-factor-authentication-form')
+                    {{-- @include('profile.two-factor-authentication-form') --}}
                 </div>
 
                 <x-section-border />
@@ -38,7 +38,7 @@
                 <x-section-border />
 
                 <div class="mt-10 sm:mt-0" dusk="delete-user-form">
-                    @include('profile.delete-user-form')
+                    {{-- @include('profile.delete-user-form') --}}
                 </div>
             @endif
         </div>
