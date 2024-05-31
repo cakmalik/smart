@@ -7,7 +7,7 @@
                 <div class="flex justify-end">
                     <div
                         class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white relative">
-                        <Link href="{{ route('student.destroy', $student->nis) }}" method="DELETE" 
+                        <Link v-show="data.currentIndex === 0" href="{{ route('student.destroy', $student->nis) }}" method="DELETE" 
                             confirm="Yakin Hapus Santri?"
                             confirm-text=" Aksi ini tidak dapat dibatalkan. pastikan cek ulang sebelum dihapus!"
                             confirm-button="Ya, Saya yakin!"
