@@ -75,6 +75,8 @@ class Alumni extends AbstractTable
                 label: 'Tahun',
                 noFilterOption: true,
                 noFilterOptionLabel: 'Semua'
-            );
+            )
+            ->paginate(10);
+
     }
 }

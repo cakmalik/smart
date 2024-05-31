@@ -49,7 +49,9 @@ class Student extends AbstractTable
     {
         $table
             ->withGlobalSearch(columns: ['id'])
-            ->column('id', sortable: true);
+            ->column('id', sortable: true)
+            ->paginate(10);
+
 
             // ->searchInput()
             // ->selectFilter()

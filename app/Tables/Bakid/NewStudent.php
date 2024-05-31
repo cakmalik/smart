@@ -97,6 +97,8 @@ class NewStudent extends AbstractTable
                 noFilterOption: true,
                 noFilterOptionLabel: 'Semua'
             )
-            ->rowModal(fn (Student $s) => route('student.show', ['student' => $s->id]));
+            ->rowModal(fn (Student $s) => route('student.show', ['student' => $s->id]))
+            ->paginate(10);
+
     }
 }

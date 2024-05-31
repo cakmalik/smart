@@ -66,7 +66,9 @@ class Permittion extends AbstractTable
             ->column('duration')
             ->column('formattedOutTime', label: 'out time')
             ->column('formattedInTime', label: 'in time')
-            ->column('is_late');
+            ->column('is_late')
+            ->paginate(10);
+
 
         // ->selectFilter(
         //     key: 'dormitory.id',
