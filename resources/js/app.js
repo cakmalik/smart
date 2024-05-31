@@ -22,7 +22,12 @@ createApp({
         suppress_compile_errors: true,
         max_keep_alive: 5,
         transform_anchors: true, //mengubah anchor menjadi spa juga
-        progress_bar: true,
+        progress_bar: {
+            delay: 250,
+            color: "#0FFF50",
+            css: true,
+            spinner: true,
+        },
     })
     .component(
         "Counter",
