@@ -18,7 +18,7 @@
             @endforeach
 
             <x-splade-component is="table-wrapper">
-                <table class="min-w-full divide-y divide-gray-200 bg-white/60">
+                <table class="min-w-full divide-y divide-gray-200 bg-white">
                     @unless($headless)
                         @isset($head)
                             {{ $head }}
