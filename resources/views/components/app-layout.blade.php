@@ -3,15 +3,7 @@
 <div class="min-h-screen pb-20 relative overflow-scroll"
     style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
     {{-- <div class="min-h-screen bg-neutral-200"> --}}
-        <Menu>
-            <div class="w-full flex items-center justify-center max-w-xl h-screen mx-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                    <x-splade-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        adfas
-                    </x-splade-link>
-                </div>
-            </div>
-        </Menu>
+    @include('components.menu.new.main')
 
     @hasrole('santri')
         @if (Auth::user()->students->count() > 0)
@@ -20,7 +12,7 @@
     @else
         {{-- <x-splade-data store="mobileNavigation" default="{ open: false }" /> --}}
         {{-- MENU WEB --}}
-        <nav class="z-20 sm:absolute w-full h-[100px] hidden sm:block malik-bg   border-gray-200 dark:bg-gray-900">
+        <nav class="z-20 sm:absolute w-full h-[100px] hidden sm:block malik-bg  -gray-200 dark:bg-gray-900">
             <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto pt-4">
                 <a href="https://bakid.id" class="flex  items-center space-x-3 rtl:space-x-reverse">
                     <img src="{{ asset('bakid/logo-ppmu.png') }}" class="h-8" alt="Flowbite Logo" />
@@ -28,7 +20,8 @@
                         class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ config('app.name') }}</span>
                 </a>
             </div>
-            <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto p-4 overflow-x-scroll scrollbar-hide">
+            <div
+                class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto p-4 overflow-x-scroll scrollbar-hide">
                 <div id="mega-menu-icons" class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                     <ul class="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
                         <div id="mega-menu-icons"
@@ -72,7 +65,7 @@
                                     <x-slot:trigger>
                                         @if (\Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                             <button
-                                                class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                                                class="flex text-sm transition-2-transparent rounded-full focus:outline-none focus-gray-300">
                                                 <img class="object-cover w-8 h-8 bg-green-400 rounded-full"
                                                     src="{{ auth()->user()?->profile_photo_url }}"
                                                     alt="{{ auth()->user()?->name }}">
@@ -80,7 +73,7 @@
                                         @else
                                             <span class="inline-flex rounded-md">
                                                 <button type="button"
-                                                    class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
+                                                    class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white-transparent rounded-md hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
                                                     {{ auth()->user()->name }}
                                                     <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                         fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -108,7 +101,7 @@
                                                 </x-dropdown-link>
                                             @endif
                                         @endhasrole --}}
-                                        <div class="border-t border-gray-200" />
+                                        <div class=-t-gray-200" />
                                         <!-- Authentication -->
                                         <x-splade-form :action="route('logout')">
                                             <x-dropdown-link as="button">
