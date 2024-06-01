@@ -49,17 +49,17 @@
          </div>
      </x-splade-transition>
      <nav class="z-30 fixed bottom-0 w-full h-auto sm:hidden bottom-navigation">
-         <div class="flex justify-end  items-center w-full" v-if="!isShowMobileMenu">
+         {{-- <div class="flex justify-end  items-center w-full" v-if="!isShowMobileMenu">
              <div @click.prevent="setToggle('isShowMobileMenu',true)"
                  class="w-12 h-12 me-5 mb-5 cursor-pointer bg-wa-light shadow rounded-full flex items-center justify-center text-white">
                  <i class="ph-bold ph-list"></i>
              </div>
-         </div>
+         </div> --}}
 
          <div class="bg-white shadow-lg bottom-navigation">
              <div class="flex px-3 py-1">
                  <!-- 5 menu utama -->
-                 <div class="grid grid-cols-4 w-full text-xs">
+                 <div class="grid grid-cols-5 w-full text-xs">
                      <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Dashboard') }}" :link="route('dashboard')"
                          icon="ph-house-line" :active="request()->routeIs('dashboard')" />
                      <x-navigation.admin-menu-component :is_highlight="true" name="{{ __('Announcement') }}"
@@ -68,6 +68,8 @@
                          icon="ph-magnifying-glass" :active="request()->routeIs('student.search')" />
                      <x-navigation.admin-menu-component :is_highlight="true" name="Santri" :link="route('student.index')"
                          icon="ph-user-circle" :active="request()->routeIs('student.index')" />
+                     {{-- <x-navigation.admin-menu-component :is_highlight="true" name="Menu" :link="route('student.index')"
+                         icon="ph-list" :active="false" /> --}}
 
                  </div>
              </div>

@@ -1,5 +1,4 @@
 <Menu>
-
     <div class="grid grid-cols-3 gap-1 ">
         <x-menu.new.single-menu link="{{ route('dashboard') }}" label="Home" icon="ph-house" />
         @can('access announcement')

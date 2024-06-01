@@ -11,6 +11,10 @@
             </div>
         </div>
     </div>
+    <div class="fixed sm:hidden bottom-0 right-3 text-black z-[99999999999999999999999999999999999999]" v-else
+        @click="showMenu = true">
+        <div class="p-3"><i class="ph ph-list group-hover:scale-125"></i></div>
+    </div>
 </template>
 
 <script setup>
