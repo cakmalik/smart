@@ -126,15 +126,15 @@
                 </div>
             </div>
         </header>
-        @endif
+    @endisset
 
-        <!-- Page Content -->
+    <!-- Page Content -->
 
-        <main class="absolute w-full @hasrole('santri') top-20 pb-[400px] @else top-[30px]  @endhasrole">
-            {{ $slot }}
-        </main>
+    <main class="absolute w-full @hasrole('santri') top-20 pb-[400px] @else top-[30px]  @endhasrole">
+        {{ $slot }}
+    </main>
 
-        <x-splade-script>
-            initFlowbite();
-        </x-splade-script>
-    </div>
+    <x-splade-script>
+        initFlowbite();
+    </x-splade-script>
+</div>
