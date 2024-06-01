@@ -3,7 +3,9 @@ import "./bootstrap";
 import "../css/app.css";
 import "@protonemedia/laravel-splade/dist/style.css";
 import "../css/choices.scss";
-
+import Menu from "./Components/Menu.vue";
+import Counter from "./Components/Counter.vue";
+import Mouse from "./Components/Mouse.vue";
 import { initFlowbite } from "flowbite";
 
 import { createApp, defineAsyncComponent } from "vue/dist/vue.esm-bundler.js";
@@ -28,9 +30,11 @@ createApp({
             css: true,
             spinner: true,
         },
+        components: {
+            Counter,
+            Menu,
+            Mouse,
+        },
     })
-    .component(
-        "Counter",
-        defineAsyncComponent(() => import("./Components/Counter.vue"))
-    )
+
     .mount(el);

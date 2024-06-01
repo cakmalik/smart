@@ -3,6 +3,15 @@
 <div class="min-h-screen pb-20 relative overflow-scroll"
     style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
     {{-- <div class="min-h-screen bg-neutral-200"> --}}
+        <Menu>
+            <div class="w-full flex items-center justify-center max-w-xl h-screen mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                    <x-splade-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        adfas
+                    </x-splade-link>
+                </div>
+            </div>
+        </Menu>
 
     @hasrole('santri')
         @if (Auth::user()->students->count() > 0)
@@ -127,6 +136,7 @@
         @endif
 
         <!-- Page Content -->
+
         <main class="absolute w-full @hasrole('santri') top-20 pb-[400px] @else top-[30px] sm:top-[150px] @endhasrole">
             {{ $slot }}
         </main>
