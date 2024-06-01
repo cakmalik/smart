@@ -12,7 +12,7 @@
     @else
         {{-- <x-splade-data store="mobileNavigation" default="{ open: false }" /> --}}
         {{-- MENU WEB --}}
-        <nav class="z-20 sm:absolute w-full h-[100px] hidden sm:block malik-bg  -gray-200 dark:bg-gray-900">
+        {{-- <nav class="z-20 sm:absolute w-full h-[100px] hidden sm:block malik-bg  -gray-200 dark:bg-gray-900">
             <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto pt-4">
                 <a href="https://bakid.id" class="flex  items-center space-x-3 rtl:space-x-reverse">
                     <img src="{{ asset('bakid/logo-ppmu.png') }}" class="h-8" alt="Flowbite Logo" />
@@ -31,7 +31,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
         <x-splade-rehydrate on="refresh-navigation-menu, profile-information-updated">
             @include('components.navigation.mobile.layout')
@@ -44,7 +44,7 @@
     @isset($header)
         {{-- NOTE:Z_INDEX HEADER --}}
         <header
-            class="z-[19] absolute @hasrole('santri') top-0 @else sm:top-[100px] @endhasrole w-full text-center sm:text-start shadow bg-wa-teal2/60  backdrop-filter backdrop-blur-lg ">
+            class="z-[19] absolute @hasrole('santri') top-0 @else sm:top-[0px] @endhasrole w-full text-center sm:text-start shadow bg-wa-teal2/60  backdrop-filter backdrop-blur-lg ">
             <div class="max-w-7xl mx-auto py-3  px-4 sm:px-6 lg:px-8 text-white">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center gap-3 w-full">
@@ -130,7 +130,7 @@
 
         <!-- Page Content -->
 
-        <main class="absolute w-full @hasrole('santri') top-20 pb-[400px] @else top-[30px] sm:top-[150px] @endhasrole">
+        <main class="absolute w-full @hasrole('santri') top-20 pb-[400px] @else top-[30px]  @endhasrole">
             {{ $slot }}
         </main>
 

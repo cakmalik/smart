@@ -1,163 +1,67 @@
 <Menu>
-        <div class="grid grid-cols-3 gap-1 ">
-            {{-- <x-menu.new.menu-item /> --}}
-            <div class="flex flex-col gap-2 w-24 p-2 items-center rounded-lg text-center group cursor-pointer ">
-                <div
-                    class="w-12 h-12  rounded-full flex items-center justify-center bg-white group-hover:bg-green-500 transition duration-300 ease-in-out">
-                    <i
-                        class="ph-bold ph-house text-neutral-500 group-hover:text-white transition duration-300 ease-in-out"></i>
-                </div>
-                <span
-                    class="text-neutral-200 text-center text-sm group-hover:text-white  transition duration-300 ease-in-out">Home
-                    mede by</span>
-            </div>
 
-            <div class="">
-                <button id="dropdownHoverButton1" data-dropdown-toggle="dropdownHover1" data-dropdown-trigger="hover"
-                    type="button"
-                    class="flex flex-col gap-2 w-24 p-2 items-center rounded-lg text-center group cursor-pointer ">
-                    <div
-                        class="w-12 h-12  rounded-full flex items-center justify-center bg-white group-hover:bg-green-500 transition duration-300 ease-in-out">
-                        <i
-                            class="ph-bold ph-house text-neutral-500 group-hover:text-white transition duration-300 ease-in-out"></i>
-                    </div>
-                    <span
-                        class="text-neutral-200 text-center text-sm group-hover:text-white  transition duration-300 ease-in-out">Home</span>
-                </button>
-                <div id="dropdownHover1"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton1">
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                                out</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="">
-                <button id="dropdownHoverButton2" data-dropdown-toggle="dropdownHover2" data-dropdown-trigger="hover"
-                    type="button"
-                    class="flex flex-col gap-2 w-24 p-2 items-center rounded-lg text-center group cursor-pointer ">
-                    <div
-                        class="w-12 h-12  rounded-full flex items-center justify-center bg-white group-hover:bg-green-500 transition duration-300 ease-in-out">
-                        <i
-                            class="ph-bold ph-house text-neutral-500 group-hover:text-white transition duration-300 ease-in-out"></i>
-                    </div>
-                    <span
-                        class="text-neutral-200 text-center text-sm group-hover:text-white  transition duration-300 ease-in-out">Home
-                        mede by</span>
-                </button>
-                <div id="dropdownHover2"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton2">
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                                out</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="">
-                <button id="dropdownHoverButton3" data-dropdown-toggle="dropdownHover3" data-dropdown-trigger="hover"
-                    type="button"
-                    class="flex flex-col gap-2 w-24 p-2 items-center rounded-lg text-center group cursor-pointer ">
-                    <div
-                        class="w-12 h-12  rounded-full flex items-center justify-center bg-white group-hover:bg-green-500 transition duration-300 ease-in-out">
-                        <i
-                            class="ph-bold ph-house text-neutral-500 group-hover:text-white transition duration-300 ease-in-out"></i>
-                    </div>
-                    <span
-                        class="text-neutral-200 text-center text-sm group-hover:text-white  transition duration-300 ease-in-out">Home
-                        mede by</span>
-                </button>
-                <div id="dropdownHover3"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton3">
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                                out</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="">
-                <button id="dropdownHoverButton4" data-dropdown-toggle="dropdownHover4" data-dropdown-trigger="hover"
-                    type="button"
-                    class="flex flex-col gap-2 w-24 p-2 items-center rounded-lg text-center group cursor-pointer ">
-                    <div
-                        class="w-12 h-12  rounded-full flex items-center justify-center bg-white group-hover:bg-green-500 transition duration-300 ease-in-out">
-                        <i
-                            class="ph-bold ph-house text-neutral-500 group-hover:text-white transition duration-300 ease-in-out"></i>
-                    </div>
-                    <span
-                        class="text-neutral-200 text-center text-sm group-hover:text-white  transition duration-300 ease-in-out">Home
-                        mede by</span>
-                </button>
-                <div id="dropdownHover4"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton4">
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                                out</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <div class="grid grid-cols-3 gap-1 ">
+        <x-menu.new.single-menu link="{{ route('dashboard') }}" label="Home" icon="ph-house" />
+        @can('access announcement')
+            <x-menu.new.single-menu link="{{ route('announcement.index') }}" label="Announcement" icon="ph-megaphone-simple" />
+        @endcan
+
+        @can('access psb')
+            <x-menu.new.submenu label="PSB" icon="ph-user-plus">
+                <x-menu.new.li link="{{ route('student.new') }}" label="Santri Baru" />
+                <x-menu.new.li link="{{ route('invoice.index') }}" label="Rekap pembayaran" />
+                <x-menu.new.li link="{{ route('admission.settings') }}" label="Pengaturan PSB" />
+            </x-menu.new.submenu>
+        @endcan
 
 
-        </div>
+        @can('access students')
+            <x-menu.new.single-menu link="{{ route('student.index') }}" label="Students" icon="ph-users"/>
+        @endcan
+
+        @can('access alumni')
+            <x-menu.new.single-menu link="{{ route('student.alumni') }}" label="Alumni" icon="ph-graduation-cap"/>
+        @endcan
+
+        @can('access management')
+            <x-menu.new.submenu label="Management" icon="ph-diamonds-four">
+                <x-menu.new.li link="{{ route('dormitory.index') }}" label="Asrama" />
+                <x-menu.new.li link="{{ route('formal.index') }}" label="Pendidikan Formal" />
+                <x-menu.new.li link="{{ route('informal.index') }}" label="Pendidikan Non-Formal" />
+                <x-menu.new.li link="{{ route('mutation.index') }}" label="Kelola Mutasi" />
+                <x-menu.new.li link="{{ route('mutation.history') }}" label="Riwayat Mutasi" />
+            </x-menu.new.submenu>
+        @endcan
+
+        @can('access invoice')
+            <x-menu.new.submenu label="Invoice" icon="ph-currency-dollar">
+                <x-menu.new.li link="{{ route('invoice.index') }}" label="All Invoice"/>
+                @can('access invoice_categories')
+                    <x-menu.new.li link="{{ route('invoice.categories') }}" label="Category"/>
+                @endcan
+            </x-menu.new.submenu>
+        @endcan
+
+        @can('access permit')
+            <x-menu.new.single-menu link="{{ route('permittion.index') }}" label="Permittion" icon="ph-arrows-left-right"/>
+        @endcan
+
+        @can('access violation')
+            <x-menu.new.single-menu link="{{ route('violation.index') }}" label="Violation" icon="ph-scales"/>
+        @endcan
+
+        {{-- @can('access users')
+        <x-menu.new.single-menu link="{{ route('user.index') }}" label="Users" icon="ph-fsdf"/>
+    @endcan --}}
+
+        @can('access settings')
+            <x-menu.new.single-menu link="{{ route('setting.index') }}" label="Settings" icon="ph-gear-six"/>
+        @endcan
+
+        @can('access export')
+            <x-menu.new.single-menu link="{{ route('export.index') }}" label="Export" icon="ph-download-simple"/>
+        @endcan
+    </div>
 
     <x-splade-script>
         initFlowbite();
