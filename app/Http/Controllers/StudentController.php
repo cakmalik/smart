@@ -151,7 +151,8 @@ class StudentController extends Controller
                 'dr.name as dormitory_name',
                 'r.name as room',
                 'students.verified_at',
-                'u.kk',
+                'u.doc_kk as doc_kk',
+                'u.kk as kk',
                 DB::raw('(SELECT COUNT(*) FROM students AS s2 WHERE s2.user_id = students.user_id) AS brothers_count'),
             )
             ->where('students.id', $student->id)

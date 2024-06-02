@@ -83,6 +83,14 @@
                                             class="p-3 border border-slate-300 text-slate-600 hover:bg-green-200 rounded-xl">
                                             Biodata
                                         </a>
+                                        @if ($student->doc_kk)
+                                            <a href="{{ asset('storage/doc-kk/' . $student->doc_kk) }}"
+                                                download="{{ $student->kk }}"
+                                                class="p-3 border border-slate-300 text-slate-600 hover:bg-green-200 rounded-xl">
+                                                KK &nbsp; 
+                                                <i class="ph ph-download-simple"></i>
+                                            </a>
+                                        @endif
                                     </div>
                                 @endhasrole
                             </div>

@@ -7,13 +7,12 @@
                 <div class="flex justify-end">
                     <div
                         class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white relative">
-                        <Link v-show="data.currentIndex === 0" href="{{ route('student.destroy', $student->nis) }}" method="DELETE" 
-                            confirm="Yakin Hapus Santri?"
+                        <Link v-show="data.currentIndex === 0" href="{{ route('student.destroy', $student->nis) }}"
+                            method="DELETE" confirm="Yakin Hapus Santri?"
                             confirm-text=" Aksi ini tidak dapat dibatalkan. pastikan cek ulang sebelum dihapus!"
-                            confirm-button="Ya, Saya yakin!"
-                            cancel-button="Batal"
-                             class="absolute bottom-0 px-4 py-2 text-red-500 hover:text-red-700 cursor-pointer">
-                            Hapus Santri
+                            confirm-button="Ya, Saya yakin!" cancel-button="Batal"
+                            class="absolute bottom-0 px-4 py-2 text-red-500 hover:text-red-700 cursor-pointer">
+                        Hapus Santri
                         </Link>
 
                         <div class="flex items-center justify-center py-2 bg-slate-600 text-white mb-1 rounded-t-lg">
@@ -123,8 +122,8 @@
                                 <x-splade-input class="mt-2" name="religion" type="text" :label="__('bakid.religion')"
                                     :placeholder="__('bakid.pl.religion')" />
 
-                                <x-splade-select class="mt-2" name="nationality" :options="['WNI', 'WNA']" :label="__('bakid.nationality')"
-                                    :placeholder="__('bakid.pl.nationality')" choices="{searchEnabled:false}" />
+                                <x-splade-select class="mt-2" name="nationality" :options="['WNI', 'WNA']"
+                                    :label="__('bakid.nationality')" :placeholder="__('bakid.pl.nationality')" choices="{searchEnabled:false}" />
 
                                 <div class="flex justify-start gap-2">
 
@@ -268,10 +267,16 @@
                                         src="{{ asset('storage/doc-kk/' . $student->user->doc_kk) }}"
                                         class="mt-2" />
 
-                                    <Link href="#edit-modalUploadKK"
-                                        class="relative p-3 py-5 w-full bg-white/50 cursor-default rounded-xl">
-                                    Perbarui KK
-                                    </Link>
+                                    <div class="flex justify-between items-center gap-3 flex-wrap sm:flex-nowrap">
+                                        <Link href="#edit-modalUploadKK"
+                                            class="relative p-3 py-5 w-full bg-white/50 rounded-xl text-center font-semibold cursor-pointer">
+                                        Perbarui KK
+                                        </Link>
+                                        @if($student->user->doc_kk)
+                                        <a class="relative p-3 py-5 w-full bg-white/50 rounded-xl text-center font-semibold cursor-pointer" href="{{ asset('storage/doc-kk/' . $student->user->doc_kk) }}"
+                                            download="KK">Download KK</a>
+                                        @endif
+                                    </div>
                                 @else
                                     <Link href="#edit-modalUploadKK"
                                         class="relative p-3 py-5 w-full bg-white/50 cursor-default rounded-xl"> Upload
@@ -311,14 +316,12 @@
 
 
         <x-splade-modal name="edit-modalUploadKK">
-            <x-splade-form confirm="Perbarui KK"
-            confirm-text="Yakin memperbarui KK?" method="post" :action="route('user.upload-kk', $student->user->id)" stay background reset-on-success
-                @success="$splade.emit('kk-uploaded')">
+            <x-splade-form confirm="Perbarui KK" confirm-text="Yakin memperbarui KK?" method="post"
+                :action="route('user.upload-kk', $student->user->id)" stay background reset-on-success @success="$splade.emit('kk-uploaded')">
                 <div>
-                    <x-splade-file v-model="form.doc_kk" :show-filename="false"
-                        label="Foto Kartu Keluarga" filepond max-size="3MB" class="mt-2" />
-                    <img class="w-full p-5" name="doc_kk" :src="form.$fileAsUrl('doc_kk')"
-                        class="mt-2" />
+                    <x-splade-file v-model="form.doc_kk" :show-filename="false" label="Foto Kartu Keluarga" filepond
+                        max-size="3MB" class="mt-2" />
+                    <img class="w-full p-5" name="doc_kk" :src="form.$fileAsUrl('doc_kk')" class="mt-2" />
 
                     <x-splade-submit v-if="form.doc_kk">
                         Simpan Dokumen
