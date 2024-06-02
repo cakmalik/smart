@@ -274,7 +274,7 @@
                                         </Link>
                                         @if($student->user->doc_kk)
                                         <a class="relative p-3 py-5 w-full bg-white/50 rounded-xl text-center font-semibold cursor-pointer" href="{{ asset('storage/doc-kk/' . $student->user->doc_kk) }}"
-                                            download="KK">Download KK</a>
+                                            download="{{ $student->user->kk }}">Download KK</a>
                                         @endif
                                     </div>
                                 @else
