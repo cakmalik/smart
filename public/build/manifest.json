@@ -1,6 +1,6 @@
 {
   "resources/js/app.js": {
-    "file": "assets/app.490edd7f.js",
+    "file": "assets/app.68ce26e1.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
@@ -15,19 +15,10 @@
       "_choices.1d268fd4.js",
       "node_modules/autosize/dist/autosize.esm.js",
       "_nprogress.2ab7724f.js",
-      "node_modules/@protonemedia/laravel-splade/dist/CompilerErrorMessages-6b34f14b.js",
-      "resources/js/Components/Counter.vue"
+      "node_modules/@protonemedia/laravel-splade/dist/CompilerErrorMessages-6b34f14b.js"
     ],
     "css": [
-      "assets/app.095c1062.css"
-    ]
-  },
-  "resources/js/Components/Counter.vue": {
-    "file": "assets/Counter.a4847b5b.js",
-    "src": "resources/js/Components/Counter.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js"
+      "assets/app.83b65839.css"
     ]
   },
   "node_modules/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.esm.js": {
@@ -100,7 +91,7 @@
     "isDynamicEntry": true
   },
   "resources/js/app.css": {
-    "file": "assets/app.095c1062.css",
+    "file": "assets/app.83b65839.css",
     "src": "resources/js/app.css"
   }
 }

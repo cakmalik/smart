@@ -1,1 +1,0 @@
-import{r as o,o as n,c as r,t as a}from"./app.490edd7f.js";const p={__name:"Counter",setup(s){const t=o(1);return(u,e)=>(n(),r("button",{onClick:e[0]||(e[0]=c=>t.value++)},a(t.value),1))}};export{p as default};

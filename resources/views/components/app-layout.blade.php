@@ -1,6 +1,6 @@
 <x-banner />
 
-<div class="min-h-screen pb-20 relative overflow-scroll"
+<div class="min-h-screen pb-20 relative overflow-scroll scrollbar-hide"
     style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
     {{-- <div class="min-h-screen bg-neutral-200"> --}}
     @include('components.menu.new.main')
