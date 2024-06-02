@@ -3,13 +3,14 @@
 namespace App\Services\Student;
 
 use Image;
+use App\Models\User;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Service;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Student\StudentRepository;
-use Illuminate\Support\Facades\Log;
 
 class StudentServiceImplement extends Service implements StudentService
 {
@@ -69,7 +70,9 @@ class StudentServiceImplement extends Service implements StudentService
         $parent_data = $request->parent;
 
         $except_parent = $this->parentData();
-        $except_data = array_merge($except_parent, ['dormitory_id', 'room_id']);
+        
+        $except_data = array_merge($except_parent, ['dormitory_id', 'room_id','user']);
+        
         $student_data = $request->except($except_data);
 
         if (isset($student_data['parent'])) {
@@ -107,6 +110,11 @@ class StudentServiceImplement extends Service implements StudentService
             DB::beginTransaction();
 
             $parent = $this->mainRepository->updateParent($parent_data, $student);
+
+            User::where('id', $student->user_id)->update([
+                'kk' => $request->user['kk'] ?? null,
+            ]);
+
             $this->mainRepository->update($student->id, $student_data);
             if ($request->room_id && $request->dormitory_id) {
                 $this->mainRepository->updateAsrama($request->dormitory_id, $request->room_id, $student);

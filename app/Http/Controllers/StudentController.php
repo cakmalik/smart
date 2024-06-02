@@ -184,6 +184,7 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
+        // dd($request->user['kk']);
         $student = $this->student->updateStudent($request, $student);
         if ($student['status'] === false) {
             Toast::title('Maaf!')

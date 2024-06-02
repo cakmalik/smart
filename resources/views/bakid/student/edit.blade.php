@@ -138,6 +138,9 @@
 
                         <div class="grid sm:grid-cols-2 gap-3" v-show="data.currentIndex===1">
                             <div>
+                                <x-splade-input class="mt-2" name="user.kk" type="text"
+                                    :label="__('No Kartu Keluarga')" :placeholder="__('NO KK')" />
+
                                 <x-splade-input class="mt-2" name="parent.father_name" type="text"
                                     :label="__('bakid.father_name')" :placeholder="__('bakid.pl.father_name')" />
 
