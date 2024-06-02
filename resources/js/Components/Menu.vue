@@ -1,6 +1,6 @@
 <template>
-    <div v-if="showMenu"
-        class="min-h-screen w-full fixed top-0 left-0 bg-black/80 backdrop-blur-md z-[999999999999999999999999999999999999]">
+    <div v-if="showMenu" @contextmenu.prevent="onContextMenu" class=" min-h-screen w-full fixed top-0 left-0 bg-black/80 backdrop-blur-md
+        z-[999999999999999999999999999999999999]">
         <div ref="target" class="w-full flex items-center justify-center max-w-sm bg-red- h-screen mx-auto">
             <slot />
             <div class="absolute bottom-14 right-6 sm:bottom-3 sm:right-3">
@@ -25,11 +25,18 @@ const Splade = inject("$splade");
 import { useMouse, onKeyStroke, useMagicKeys, whenever, onClickOutside } from "@vueuse/core";
 import { watch, watchEffect, ref } from "vue";
 
-const { ctrl, shift, space, a, escape } = useMagicKeys()
+const { escape } = useMagicKeys()
 const showMenu = ref(false)
 
-whenever(ctrl, () => showMenu.value = !showMenu.value)
+// whenever(ctrl, () => showMenu.value = !showMenu.value)
 whenever(escape, () => showMenu.value = false)
+
+addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+    showMenu.value = !showMenu.value
+});
+
+// oncontextmenu = (event) => { };
 
 const target = ref(null)
 
