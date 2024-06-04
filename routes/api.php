@@ -56,5 +56,5 @@ Route::get('/rooms/by-dormitory/{dormitory}', [RoomController::class, 'getRoomsB
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('import-student', [StudentController::class, 'importStudent']);    
 });
+Route::post('import-student', [StudentController::class, 'importStudent']);    

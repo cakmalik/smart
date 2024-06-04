@@ -16,8 +16,8 @@ return new class extends Migration
             $table->date('father_date_of_birth')->after('father_name')->nullable();
             $table->string('mother_place_of_birth')->after('mother_name')->nullable();
             $table->date('mother_date_of_birth')->after('mother_name')->nullable();
-            $table->string('father_status')->default('kandung')->after('father_name');
-            $table->string('mother_status')->default('kandung')->after('mother_name');
+            $table->string('father_status')->after('father_name')->nullable();
+            $table->string('mother_status')->after('mother_name')->nullable();
         });
     }
 

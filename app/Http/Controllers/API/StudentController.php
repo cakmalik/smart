@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Jobs\ImportJob;
 use Illuminate\Http\Request;
 use App\Imports\StudentImport;
 use App\Http\Controllers\Controller;
@@ -27,9 +28,25 @@ class StudentController extends Controller
             ]);
         }
         
-        $file = $request->file('file');
+        // $file = $request->file('file');
         
-        Excel::import(new StudentImport, $file);
+        // Excel::import(new StudentImport, $file);
         
+        if ($request->hasFile('file')) {
+            //UPLOAD FILE
+            $file = $request->file('file');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs(
+                'public', $filename
+            );
+            
+            //MEMBUAT JOBS DENGAN MENGIRIMKAN PARAMETER FILENAME
+            ImportJob::dispatch($filename);
+            return response()->json([
+                'success' => true,
+                'message' => 'File imported successfully.',
+            ]);
+        }  
+
     }
 }
