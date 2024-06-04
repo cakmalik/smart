@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\Imports\StudentImport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
@@ -26,7 +28,8 @@ class StudentController extends Controller
         }
         
         $file = $request->file('file');
-        dd($file);
+        
+        Excel::import(new StudentImport, $file);
         
     }
 }
