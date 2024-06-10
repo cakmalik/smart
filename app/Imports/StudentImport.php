@@ -161,21 +161,21 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $student->nis = $this->__generateNisFromAngkatan($row['angkatan']);
             $student->hobby = $row['hobi']??'';
             $student->ambition = $row['cita_cita'];
-            $student->housing_status = $row['housing_status'];
-            $student->recidency_status = $row['recidency_status'];
-            $student->nism = $row['nism'];
-            $student->kis = $row['kis'];
-            $student->kip = $row['kip'];
-            $student->kks = $row['kks'];
-            $student->pkh = $row['pkh'];
-            $student->status = $row['status'];
-            $student->verified_at = $row['verified_at'];
-            $student->drop_out_at = $row['drop_out_at'];
-            $student->education_updated = $row['education_updated'];
+            $student->housing_status = $row['status_mukim'];
+            $student->recidency_status = null; 
+            $student->nism = $row['nism'] ?? null;
+            $student->kis = $row['kis'] ?? null;
+            $student->kip = $row['kip'] ?? null;
+            $student->kks = $row['kks'] ?? null;
+            $student->pkh = $row['pkh'] ?? null;
+            $student->status = $row['accepted'];
+            $student->verified_at = $this->__createVerifiedFromAngkatan($row['angkatan']);
+            $student->drop_out_at = null;
+            $student->education_updated = null;
 
             $student->save();
         } catch (\Exception $e) {
-            Log::error($e->getMessage() . ' at line ' . $e->getLine());
+            Log::error('a/n: ' . $row['name'] . 'Error creating student: ' . $e->getMessage() . ' at line ' . $e->getLine());
             return false;
         }
     }
@@ -313,6 +313,12 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             'reset_on_prefix_change' => true
         ];
         return IdGenerator::generate($config);
+    }
+
+    public function __createVerifiedFromAngkatan(string $angkatan)
+    {
+        $new = $angkatan . '-01-01';
+        return Carbon::createFromFormat('y/m/d', $angkatan)->format('Y-m-d H:i:s');
     }
 
     public function chunkSize(): int
