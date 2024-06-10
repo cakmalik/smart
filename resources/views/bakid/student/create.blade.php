@@ -292,43 +292,26 @@
                             <aside v-show="data.currentIndex === 2">
                                 <div class="grid sm:grid-cols-2 gap-3">
                                     <div>
-                                        <x-splade-select class="mt-2" name="hobby" :options="[
-                                            'Membaca',
-                                            'Menulis',
-                                            'Melukis',
-                                            'Fotografi',
-                                            'Berkebun',
-                                            'Memasak',
-                                            'Olahraga',
-                                            'Mendaki',
-                                            'Menjahit',
-                                            'Musik',
-                                            'Menonton film',
-                                            'Bermain game',
-                                            'Bermain musik',
-                                            'Menari',
-                                            'Memancing',
-                                            'Traveling',
-                                            'Memasak',
-                                            'Menggambar',
-                                            'Koleksi barang antik',
-                                            'Merakit model kit',
-                                        ]"
+                                        @php
+                                            $ambition = config('constant.ambition');
+                                            $hobi = config('constant.hobby');
+                                            $housing_status = config('constant.housing_status');
+                                            $recidency_status = config('constant.recidency_status');
+                                        @endphp
+
+                                        <x-splade-select class="mt-2" name="hobby" :options="$hobi"
                                             :label="__('bakid.hobby')" choices="{searchEnabled:true}" />
 
 
-                                        <x-splade-input class="mt-2" name="ambition" type="text"
-                                            :label="__('bakid.ambition')" :placeholder="__('bakid.pl.ambition')" />
+                                        <x-splade-select class="mt-2" name="ambition" :options="$ambition"
+                                            :label="__('bakid.ambition')" choices="{searchEnabled:true}" />
+
+                                        <x-splade-select class="mt-2" name="housing_status" :options="$housing_status"
+                                            :label="__('bakid.housing_status')" choices="{searchEnabled:true}" />
 
 
-                                        <x-splade-input class="mt-2" name="housing_status" type="text"
-                                            :label="__('bakid.housing_status')" :placeholder="__('bakid.pl.housing_status')" />
-
-
-                                        <x-splade-input class="mt-2" name="recidency_status" type="text"
-                                            :label="__('bakid.recidency_status')" :placeholder="__('bakid.pl.recidency_status')" />
-
-
+                                        <x-splade-select class="mt-2" name="recidency_status" :options="$recidency_status"
+                                            :label="__('bakid.recidency_status')" choices="{searchEnabled:true}" />
                                     </div>
                                     <div>
                                         <x-splade-input class="mt-2" name="nism" type="text"

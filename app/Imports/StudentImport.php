@@ -159,8 +159,8 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $student->child_number = $this->__translateToNumber($row['child_number']);
             $student->siblings = $this->__translateToNumber($row['siblings']);
             $student->nis = $this->__generateNisFromAngkatan($row['angkatan']);
-            $student->hobby = $row['hobby'];
-            $student->ambition = $row['ambition'];
+            $student->hobby = $row['hobi']??'';
+            $student->ambition = $row['cita_cita'];
             $student->housing_status = $row['housing_status'];
             $student->recidency_status = $row['recidency_status'];
             $student->nism = $row['nism'];

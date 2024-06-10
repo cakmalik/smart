@@ -41,8 +41,8 @@ return new class extends Migration
             $table->string('nis')->unique();
             $table->string('hobby')->nullable();
             $table->string('ambition')->nullable();
-            $table->string('housing_status')->nullable();
-            $table->string('recidency_status')->nullable();
+            $table->string('housing_status')->nullable(); //artinya : status rumah (sewa, milik sendiri, milik keluarga)
+            $table->string('recidency_status')->nullable(); //artinya : status mukim
             $table->string('nism')->nullable();
             $table->string('kis')->nullable();
             $table->string('kip')->nullable();

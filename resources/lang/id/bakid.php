@@ -22,8 +22,8 @@ return [
     'nis' => 'NIS',
     'hobby' => 'Hobi',
     'ambition' => 'Cita-cita',
-    'housing_status' => 'Status Hunian',
-    'recidency_status' => 'Status Kependudukan',
+    'housing_status' => 'Status Hunian', //status rumah : sewa, milik sendiri, milik keluarga
+    'recidency_status' => 'Status Kependudukan', // status mukim 
     'nism' => 'NISM',
     'kis' => 'KIS',
     'kip' => 'KIP',
