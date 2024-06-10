@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\Importable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -99,11 +100,11 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
     {
         $uniqUsername = generateUniqueUsername($row['name']);
         $user = new User();
-        $user->name = $row['name'] ?? null;
+        $user->name = $row['nama_a'] ?? null;
         $user->username = $uniqUsername ?? uniqid();
         $user->email = $uniqUsername . '@gmail.com';
         $user->password = Hash::make('password');
-        $user->phone = $this->__no_hp($row['no_hp']);
+        $user->phone = $this->__no_hp($row['phone']);
         $user->kk = $this->__no_kependudukan($row['no_kk']);
         $user->profile_photo_path = null;
         $user->gender = $row['gender'] == 'L' ? 'male' : 'female' ?? null;
@@ -121,35 +122,43 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
     private function _storeStudent($row, $f_id, $u_id)
     {
         try {
-            if ($row['nik']) {
-                $row['nik'] = str_replace('`', '', $row['nik']);
-            } else {
-                $row['nik'] = uniqid();
+           
+            $formatted = preg_replace('/\D/', '', $row['tanggal_lahir']);
+            if (!preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $formatted)) {
+                Log::error('a/n: ' . $row['name'] . 'Invalid date format for students_table. Please use the format DD/MM/YYYY.');
+                // throw new InvalidArgumentException('Invalid date format. Please use the format DD/MM/YYYY.');
             }
-
+            try {
+                $new_tgl_lahir = Carbon::createFromFormat('d/m/Y', $formatted);
+                $tgl_lahir = $new_tgl_lahir->format('Y-m-d');
+            } catch (\Exception $e) {
+                Log::error('a/n: ' . $row['name'] . 'Invalid date format. Please use the format DD/MM/YYYY.');
+                return false;
+            }
+            
             $student = new Student();
             $student->user_id = $u_id;
             $student->student_family_id = $f_id;
             $student->name = $row['name'];
             $student->nickname = $this->__generate_nickname($row);
-            $student->nik = $row['nik'];
-            $student->place_of_birth = $row['place_of_birth'];
-            $student->date_of_birth = $row['date_of_birth'];
-            $student->gender = $row['gender'];
-            $student->address = $row['address'];
-            $student->rt_rw = $row['rt_rw'];
-            $student->village = $row['village'];
-            $student->district = $row['district'];
-            $student->city = $row['city'];
-            $student->province = $row['province'];
-            $student->postal_code = $row['postal_code'];
-            $student->religion = $row['religion'];
-            $student->nationality = $row['nationality'];
-            $student->phone = $row['phone'];
-            $student->student_image = $row['student_image'];
-            $student->child_number = $row['child_number'];
-            $student->siblings = $row['siblings'];
-            $student->nis = $row['nis'];
+            $student->nik = $this->__no_kependudukan($row['nik']);
+            $student->place_of_birth = $row['tempat_lahir'];
+            $student->date_of_birth = $tgl_lahir;
+            $student->gender = $row['gender'] == 'L' ? 'male' : 'female';
+            $student->address = $row['alamat']??'';
+            $student->rt_rw = $row['rt_rw'] ?? '';
+            $student->village = $row['desa'] ?? '';
+            $student->district = $row['kecamatan']??'';
+            $student->city = $row['kabupaten']??'';
+            $student->province = $row['provinsi']??'';
+            $student->postal_code = $row['pos']??'';
+            $student->religion = 'Islam';
+            $student->nationality = 'WNI';
+            $student->phone = $this->__no_hp($row['phone']);
+            $student->student_image = null;
+            $student->child_number = $this->__translateToNumber($row['child_number']);
+            $student->siblings = $this->__translateToNumber($row['siblings']);
+            $student->nis = $this->__generateNisFromAngkatan($row['angkatan']);
             $student->hobby = $row['hobby'];
             $student->ambition = $row['ambition'];
             $student->housing_status = $row['housing_status'];
@@ -238,6 +247,72 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
 
          return $phone;
 
+    }
+
+    public function __formattedBirthDate($date): string
+    {
+        $formatted = preg_replace('/\D/', '', $date);
+        if (!preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $formatted)) {
+            throw new InvalidArgumentException('Invalid date format. Please use the format DD/MM/YYYY.');
+        }
+        try {
+            $tgl_lhr_i = Carbon::createFromFormat('d/m/Y', $formatted);
+            return $tgl_lhr_i->format('Y-m-d');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . ' at line ' . $e->getLine());
+            return false;
+        }
+    }
+
+    public function __translateToNumber(string $string): int
+    {
+        // Pastikan input diubah menjadi lowercase
+        $string = strtolower($string);
+        
+        // Tangani input berupa string angka
+        if (is_numeric($string)) {
+            return (int)$string;
+        }
+    
+        // Konversi kata menjadi angka
+        switch ($string) {
+            case 'satu':
+                return 1;
+            case 'dua':
+                return 2;
+            case 'tiga':
+                return 3;
+            case 'empat':
+                return 4;
+            case 'lima':
+                return 5;
+            case 'enam':
+                return 6;
+            case 'tujuh':
+                return 7;
+            case 'delapan':
+                return 8;
+            case 'sembilan':
+                return 9;
+            case 'sepuluh':
+                return 10;
+            case 'sebelas':
+                return 11;
+            default:
+                throw new InvalidArgumentException("Invalid input: $string");
+        }
+    }
+
+    public function __generateNisFromAngkatan(string $angkatan): int
+    {
+        $config = [
+            'table' => 'students',
+            'field' => 'nis',
+            'length' => 6,
+            'prefix' => $angkatan,
+            'reset_on_prefix_change' => true
+        ];
+        return IdGenerator::generate($config);
     }
 
     public function chunkSize(): int

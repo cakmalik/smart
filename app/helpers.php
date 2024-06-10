@@ -129,6 +129,7 @@ if (!function_exists('generateNIS')) {
             'field' => 'nis',
             'length' => 6,
             'prefix' => date('y'),
+            'reset_on_prefix_change' => true
         ];
         return IdGenerator::generate($config);
     }
