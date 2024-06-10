@@ -33,16 +33,16 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             // log all row key only
             // Log::info($row->toArray());
 
-            $f_id = $this->_storeFamily($row, $count);
+            $f_id = $this->_storeFamily($row);
             $u_id = $this->_storeUser($row);
-            $s_id = $this->_storeStudent($row, $f_id, $u_id);
+            // $s_id = $this->_storeStudent($row, $f_id, $u_id);
             // $this->_storeRoom($row);
 
             $count++;
         }
     }
 
-    private function _storeFamily($row, $count)
+    private function _storeFamily($row)
     {
         try {
             $sf = new StudentFamily();
@@ -55,13 +55,13 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $sf->father_income = $row['peng_a'] ?? '-';
             $sf->father_status = null;
             $sf->father_place_of_birth = null;
-            // $sf->father_place_of_birth = $row['tempat_lahir_a']??'-';
-            if ($row['tgl_lahir_a']) {
-                // str replace '
-                $row['tgl_lahir_a'] = str_replace("'", '', $row['tgl_lahir_a']);
-                $tgl_lhr_a = Carbon::createFromFormat('d/m/Y', $row['tgl_lahir_a']);
-                $sf->father_date_of_birth = $tgl_lhr_a->format('Y-m-d');
-            }
+            $sf->father_date_of_birth = $this->__formattedBirthDate($row['tgl_lahir_a']);
+            // if ($row['tgl_lahir_a']) {
+            //     // str replace '
+            //     $row['tgl_lahir_a'] = str_replace("'", '', $row['tgl_lahir_a']);
+            //     $tgl_lhr_a = Carbon::createFromFormat('d/m/Y', $row['tgl_lahir_a']);
+            //     $sf->father_date_of_birth = $tgl_lhr_a->format('Y-m-d');
+            // }
 
             $sf->mother_name = $row['nama_i'] ?? '-';
             $sf->mother_nik = $row['nik_i'] ?? '-';
@@ -72,12 +72,13 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $sf->mother_status = null;
             $sf->mother_place_of_birth = null;
 
-            if ($row['tgl_lahir_i']) {
-                $row['tgl_lahir_i'] = str_replace("'", '', $row['tgl_lahir_i']);
-                $tgl_lhr_i = Carbon::createFromFormat('d/m/Y', $row['tgl_lahir_i']);
-                $sf->mother_date_of_birth = $tgl_lhr_i->format('Y-m-d');
-            }
-
+            // if ($row['tgl_lahir_i']) {
+            //     $row['tgl_lahir_i'] = str_replace("'", '', $row['tgl_lahir_i']);
+            //     $tgl_lhr_i = Carbon::createFromFormat('d/m/Y', $row['tgl_lahir_i']);
+            //     $sf->mother_date_of_birth = $tgl_lhr_i->format('Y-m-d');
+            // }
+            
+            $sf->mother_date_of_birth = $this->__formattedBirthDate($row['tgl_lahir_i']);
             $sf->guard_name = null;
             $sf->guard_nik = null;
             $sf->guard_phone = null;
@@ -91,30 +92,50 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             return $sf->id;
         } catch (\Exception $e) {
             // Log::error($e->getMessage(). ' at line ' . $e->getLine());
-            Log::error('terjadi_kesalahan_baris_' . $count . 'a/n' . $row['name'] . ' ==' . $e->getMessage());
+            Log::error('terjadi_kesalahan_baris_' . $row['no'] . 'a/n' . $row['name'] . ' ==' . $e->getMessage());
             return false;
         }
     }
 
     private function _storeUser($row)
     {
-        $uniqUsername = generateUniqueUsername($row['name']);
-        $user = new User();
-        $user->name = $row['nama_a'] ?? null;
-        $user->username = $uniqUsername ?? uniqid();
-        $user->email = $uniqUsername . '@gmail.com';
-        $user->password = Hash::make('password');
-        $user->phone = $this->__no_hp($row['phone']);
-        $user->kk = $this->__no_kependudukan($row['no_kk']);
-        $user->profile_photo_path = null;
-        $user->gender = $row['gender'] == 'L' ? 'male' : 'female' ?? null;
-        $user->doc_kk = null;
+        $no_hp = formatPhoneNumber($row['phone']);
+        
+        if($no_hp == null){
+            do{
+                $no_hp = rand(1000000000000, 9999999999999);
+                $isExist = User::where('phone', $no_hp)->first();  
+            } while ($isExist);
+        
+        }
+        
+        $isExist = User::where('phone', $no_hp)->first();
+        if ($isExist) {
+            do{
+                $no_hp = rand(1000000000000, 9999999999999);
+                $isExist = User::where('phone', $no_hp)->first();  
+            } while ($isExist);
+        }
 
-        $user->save();
+
 
         try {
+
+            $uniqUsername = generateUniqueUsername($row['name']);
+            $user = new User();
+            $user->name = $row['nama_a'] ?? '-';
+            $user->username = $uniqUsername ?? uniqid();
+            $user->email = $uniqUsername . '@gmail.com';
+            $user->password = Hash::make('password');
+            $user->phone = $no_hp;
+            $user->kk = $this->__no_kependudukan($row['no_kk']);
+            $user->profile_photo_path = null;
+            $user->gender = $row['gender'] == 'L' ? 'male' : 'female' ?? null;
+            $user->doc_kk = null;
+
+            $user->save();
         } catch (\Exception $e) {
-            Log::error($e->getMessage() . ' at line ' . $e->getLine());
+            Log::error('error store user ' . 'terjadi_kesalahan_baris_' . $row['no'] . 'a/n' . $row['name'] . ' ==' . $e->getMessage() . ' at line ' . $e->getLine());
             return false;
         }
     }
@@ -154,7 +175,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $student->postal_code = $row['pos']??'';
             $student->religion = 'Islam';
             $student->nationality = 'WNI';
-            $student->phone = $this->__no_hp($row['phone']);
+            $student->phone = formatPhoneNumber($row['phone']);
             $student->student_image = null;
             $student->child_number = $this->__translateToNumber($row['child_number']);
             $student->siblings = $this->__translateToNumber($row['siblings']);
@@ -175,7 +196,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
 
             $student->save();
         } catch (\Exception $e) {
-            Log::error('a/n: ' . $row['name'] . 'Error creating student: ' . $e->getMessage() . ' at line ' . $e->getLine());
+            Log::error('a/n: '. $row['no']  .': ' . $row['name']. 'Error creating student: ' . $e->getMessage() . ' at line ' . $e->getLine());
             return false;
         }
     }
@@ -209,7 +230,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
         return $nickname;
     }
 
-    public function __no_kependudukan(string $original_number): string
+    public function __no_kependudukan(string $original_number=null): string
     {
         if ($original_number) {
             // Replace all non-numeric characters
@@ -222,12 +243,12 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
                     $user = User::where('kk', $result)->first();
                 } while ($user);
             }
-        } else {
-            do {
-                $result = uniqid();
-                $user = User::where('kk', $result)->first();
-            } while ($user);
         }
+
+        do {
+            $result = uniqid();
+            $user = User::where('kk', $result)->first();
+        } while ($user);
 
         return $result;
     }
@@ -236,14 +257,22 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
     {
          // cek phone  number first, if exist then skip
          $phone = formatPhoneNumber($original_number);
-         if ($phone == null) {
-             $phone = rand(1000000000000, 9999999999999);
-         } else {
-             do {
-                 $phone = rand(1000000000000, 9999999999999);
-                 $user = User::where('phone', $phone)->first();
-             } while ($user);
+         if($phone){
+             $user = User::where('phone', $phone)->first();
+
+             if ($user) {
+                 do {
+                     $phone = rand(1000000000000, 9999999999999);
+                     $user = User::where('phone', $phone)->first();
+                 } while ($user);
+             }
          }
+         
+        do {
+            $phone = rand(1000000000000, 9999999999999);
+            $user = User::where('phone', $phone)->first();
+        } while ($user);
+    
 
          return $phone;
 
@@ -251,9 +280,14 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
 
     public function __formattedBirthDate($date): string
     {
+        if($date==null){
+            return null;
+        }
+
         $formatted = preg_replace('/\D/', '', $date);
         if (!preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $formatted)) {
-            throw new InvalidArgumentException('Invalid date format. Please use the format DD/MM/YYYY.');
+            // throw new InvalidArgumentException('Invalid date format. Please use the format DD/MM/YYYY.');
+            return null;
         }
         try {
             $tgl_lhr_i = Carbon::createFromFormat('d/m/Y', $formatted);

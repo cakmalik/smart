@@ -65,6 +65,7 @@ if (!function_exists('formatPhoneNumber')) {
         if (substr($phoneNumber, 0, 3) === '+62') {
             $phoneNumber = '62' . substr($phoneNumber, 3);
         }
+
         return $phoneNumber;
     }
 }
