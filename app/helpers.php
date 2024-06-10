@@ -50,6 +50,9 @@ if (!function_exists('getRandomAyat')) {
 if (!function_exists('formatPhoneNumber')) {
     function formatPhoneNumber($phoneNumber)
     {
+        if($phoneNumber == null){
+            return null;
+        }
         // Menghapus karakter selain angka
         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
 
