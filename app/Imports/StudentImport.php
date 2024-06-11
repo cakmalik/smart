@@ -128,6 +128,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $user->profile_photo_path = null;
             $user->gender = $row['gender'] == 'L' ? 'male' : 'female' ?? null;
             $user->doc_kk = null;
+            $user->current_team_id = 2;
 
             $user->save();
             return $user->id;
@@ -165,24 +166,24 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
         $verfied_at = $this->__createVerifiedFromAngkatan($row['angkatan']);
         Log::info('res verfied_at::' . $verfied_at);
 
+        $no_hp = formatPhoneNumber($row['phone']);
+
+        if ($no_hp == null) {
+            do {
+                $no_hp = rand(1000000000000, 9999999999999);
+                $isExist = Student::where('phone', $no_hp)->first();
+            } while ($isExist);
+        }
+
+        $isExist = Student::where('phone', $no_hp)->first();
+        if ($isExist) {
+            do {
+                $no_hp = rand(1000000000000, 9999999999999);
+                $isExist = Student::where('phone', $no_hp)->first();
+            } while ($isExist);
+        }
+        
         try {
-            $no_hp = formatPhoneNumber($row['phone']);
-
-            if ($no_hp == null) {
-                do {
-                    $no_hp = rand(1000000000000, 9999999999999);
-                    $isExist = User::where('phone', $no_hp)->first();
-                } while ($isExist);
-            }
-
-            $isExist = User::where('phone', $no_hp)->first();
-            if ($isExist) {
-                do {
-                    $no_hp = rand(1000000000000, 9999999999999);
-                    $isExist = User::where('phone', $no_hp)->first();
-                } while ($isExist);
-            }
-
             $student = new Student();
             $student->user_id = $u_id;
             $student->student_family_id = $f_id;
@@ -201,7 +202,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $student->postal_code = $row['pos'] ?? '';
             $student->religion = 'Islam';
             $student->nationality = 'WNI';
-            $student->phone = '-';
+            $student->phone = $no_hp;
             $student->student_image = null;
             $student->child_number = $child_number;
             $student->siblings = $siblings;

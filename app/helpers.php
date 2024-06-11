@@ -52,7 +52,8 @@ if (!function_exists('formatPhoneNumber')) {
     {
         if($phoneNumber == null){
             return null;
-        }
+            }
+
         // Menghapus karakter selain angka
         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
 
@@ -64,6 +65,35 @@ if (!function_exists('formatPhoneNumber')) {
         // Jika nomor dimulai dengan +62, hapus tanda +
         if (substr($phoneNumber, 0, 3) === '+62') {
             $phoneNumber = '62' . substr($phoneNumber, 3);
+        }
+
+        // jika nomor dimulai dari 8, ubah menjadi 628
+        if (substr($phoneNumber, 0, 2) === '08') {
+            $phoneNumber = '62' . substr($phoneNumber, 2);
+        }
+
+        if (substr($phoneNumber, 0, 1) === '8') {
+            $phoneNumber = '62' . substr($phoneNumber, 2);
+        }
+
+        if (substr($phoneNumber, 0, 2) === '62') {
+            $phoneNumber;
+        }
+
+        if (substr($phoneNumber, 0, 2) === '85') {
+            $phoneNumber = '6285' . substr($phoneNumber, 2);
+        }
+        
+        if (substr($phoneNumber, 0, 2) === '82') {
+            $phoneNumber = '6282' . substr($phoneNumber, 2);
+        }
+
+        if (substr($phoneNumber, 0, 2) === '81') {
+            $phoneNumber = '6281' . substr($phoneNumber, 2);
+        }
+
+        if (substr($phoneNumber, 0, 2) === '89') {
+            $phoneNumber = '6289' . substr($phoneNumber, 2);
         }
 
         return $phoneNumber;
