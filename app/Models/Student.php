@@ -50,7 +50,7 @@ class Student extends Model
     {
         return Attribute::make(
             get: fn (string $value) => $value === 'female' ? 'Perempuan' : 'Laki-laki',
-            set: fn (string $value) => $value === 'Perempuan' ? 'female' : 'male'
+            set: fn (string $value) => $value === 'Perempuan' || $value === 'female' ? 'female' : 'male'
         );
     }
 

@@ -35,7 +35,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
 
             $f_id = $this->_storeFamily($row);
             $u_id = $this->_storeUser($row);
-            // $s_id = $this->_storeStudent($row, $f_id, $u_id);
+            $s_id = $this->_storeStudent($row, $f_id, $u_id);
             // $this->_storeRoom($row);
 
             $count++;
@@ -48,14 +48,14 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $sf = new StudentFamily();
 
             $sf->father_name = $row['nama_a'] ?? '-';
-            $sf->father_nik = $row['nik_a'] ?? '-';
+            $sf->father_nik = $this->__no_kependudukan($row['nik_a']);
             $sf->father_phone = null;
             $sf->father_education = $row['pend_a'] ?? '-';
             $sf->father_job = $row['pek_a'] ?? '-';
             $sf->father_income = $row['peng_a'] ?? '-';
             $sf->father_status = null;
-            $sf->father_place_of_birth = null;
-            $sf->father_date_of_birth = $this->__formattedBirthDate($row['tgl_lahir_a']);
+            $sf->father_place_of_birth = $row['tempat_lahir_a'] ?? '-';
+            $sf->father_date_of_birth = $row['tgl_lahir_a'] ? $this->__formattedBirthDate($row['tgl_lahir_a'], $row) : null;
             // if ($row['tgl_lahir_a']) {
             //     // str replace '
             //     $row['tgl_lahir_a'] = str_replace("'", '', $row['tgl_lahir_a']);
@@ -64,21 +64,21 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             // }
 
             $sf->mother_name = $row['nama_i'] ?? '-';
-            $sf->mother_nik = $row['nik_i'] ?? '-';
+            $sf->mother_nik = $this->__no_kependudukan($row['nik_i']);
             $sf->mother_phone = null;
             $sf->mother_education = $row['pend_i'] ?? '-';
             $sf->mother_job = $row['pek_i'] ?? '-';
             $sf->mother_income = $row['peng_i'] ?? '-';
             $sf->mother_status = null;
-            $sf->mother_place_of_birth = null;
+            $sf->mother_place_of_birth = $row['tempat_lahir_i'] ?? '-';
 
             // if ($row['tgl_lahir_i']) {
             //     $row['tgl_lahir_i'] = str_replace("'", '', $row['tgl_lahir_i']);
             //     $tgl_lhr_i = Carbon::createFromFormat('d/m/Y', $row['tgl_lahir_i']);
             //     $sf->mother_date_of_birth = $tgl_lhr_i->format('Y-m-d');
             // }
-            
-            $sf->mother_date_of_birth = $this->__formattedBirthDate($row['tgl_lahir_i']);
+
+            $sf->mother_date_of_birth = $row['tgl_lahir_a'] ? $this->__formattedBirthDate($row['tgl_lahir_i'], $row) : null;
             $sf->guard_name = null;
             $sf->guard_nik = null;
             $sf->guard_phone = null;
@@ -100,32 +100,28 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
     private function _storeUser($row)
     {
         $no_hp = formatPhoneNumber($row['phone']);
-        
-        if($no_hp == null){
-            do{
+
+        if ($no_hp == null) {
+            do {
                 $no_hp = rand(1000000000000, 9999999999999);
-                $isExist = User::where('phone', $no_hp)->first();  
+                $isExist = User::where('phone', $no_hp)->first();
             } while ($isExist);
-        
         }
-        
+
         $isExist = User::where('phone', $no_hp)->first();
         if ($isExist) {
-            do{
+            do {
                 $no_hp = rand(1000000000000, 9999999999999);
-                $isExist = User::where('phone', $no_hp)->first();  
+                $isExist = User::where('phone', $no_hp)->first();
             } while ($isExist);
         }
 
-
-
         try {
-
             $uniqUsername = generateUniqueUsername($row['name']);
             $user = new User();
             $user->name = $row['nama_a'] ?? '-';
             $user->username = $uniqUsername ?? uniqid();
-            $user->email = $uniqUsername . '@gmail.com';
+            $user->email = $uniqUsername . '@bakid.id';
             $user->password = Hash::make('password');
             $user->phone = $no_hp;
             $user->kk = $this->__no_kependudukan($row['no_kk']);
@@ -134,6 +130,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $user->doc_kk = null;
 
             $user->save();
+            return $user->id;
         } catch (\Exception $e) {
             Log::error('error store user ' . 'terjadi_kesalahan_baris_' . $row['no'] . 'a/n' . $row['name'] . ' ==' . $e->getMessage() . ' at line ' . $e->getLine());
             return false;
@@ -142,61 +139,92 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
 
     private function _storeStudent($row, $f_id, $u_id)
     {
+        $result_birth_date = $this->__formattedBirthDate($row['tgl_lahir_santri'], $row);
+        $result_birth_a = $this->__formattedBirthDate($row['tgl_lahir_a'], $row);
+        $result_birth_i = $this->__formattedBirthDate($row['tgl_lahir_i'], $row);
+
+        Log::info('res student::' . $result_birth_date);
+        Log::info('res a::' . $result_birth_a);
+        Log::info('res i::' . $result_birth_i);
+
+        // if (!$result_birth_date || !$result_birth_a || !$result_birth_i) {
+        //     Log::error('Date format error in student data: ' . json_encode($row));
+        //     return Carbon::now()->format('Y-m-d');
+        // }
+
+        $nickname = '-';
+        Log::info('res nickname::' . $nickname);
+        $nik = $row['nik'] ? $this->__no_kependudukan($row['nik']) : '-';
+        Log::info('res nik::' . $nik);
+        $child_number = $this->__translateToNumber($row['anak_ke']) ?? 1;
+        Log::info('res child_number::' . $child_number);
+        $siblings = $this->__translateToNumber($row['jml_saudara']) ?? 1;
+        Log::info('res siblings::' . $siblings);
+        $nis = $row['angkatan'] ? $this->__generateNisFromAngkatan($row['angkatan']) : $this->__generateNisFromAngkatan(20);
+        Log::info('res nis::' . $nis);
+        $verfied_at = $this->__createVerifiedFromAngkatan($row['angkatan']);
+        Log::info('res verfied_at::' . $verfied_at);
+
         try {
-           
-            $formatted = preg_replace('/\D/', '', $row['tanggal_lahir']);
-            if (!preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $formatted)) {
-                Log::error('a/n: ' . $row['name'] . 'Invalid date format for students_table. Please use the format DD/MM/YYYY.');
-                // throw new InvalidArgumentException('Invalid date format. Please use the format DD/MM/YYYY.');
+            $no_hp = formatPhoneNumber($row['phone']);
+
+            if ($no_hp == null) {
+                do {
+                    $no_hp = rand(1000000000000, 9999999999999);
+                    $isExist = User::where('phone', $no_hp)->first();
+                } while ($isExist);
             }
-            try {
-                $new_tgl_lahir = Carbon::createFromFormat('d/m/Y', $formatted);
-                $tgl_lahir = $new_tgl_lahir->format('Y-m-d');
-            } catch (\Exception $e) {
-                Log::error('a/n: ' . $row['name'] . 'Invalid date format. Please use the format DD/MM/YYYY.');
-                return false;
+
+            $isExist = User::where('phone', $no_hp)->first();
+            if ($isExist) {
+                do {
+                    $no_hp = rand(1000000000000, 9999999999999);
+                    $isExist = User::where('phone', $no_hp)->first();
+                } while ($isExist);
             }
-            
+
             $student = new Student();
             $student->user_id = $u_id;
             $student->student_family_id = $f_id;
             $student->name = $row['name'];
-            $student->nickname = $this->__generate_nickname($row);
-            $student->nik = $this->__no_kependudukan($row['nik']);
-            $student->place_of_birth = $row['tempat_lahir'];
-            $student->date_of_birth = $tgl_lahir;
+            $student->nickname = $nickname;
+            $student->nik = $nik;
+            $student->place_of_birth = $row['tempat_lahir'] ?? '';
+            $student->date_of_birth = $result_birth_date;
             $student->gender = $row['gender'] == 'L' ? 'male' : 'female';
-            $student->address = $row['alamat']??'';
-            $student->rt_rw = $row['rt_rw'] ?? '';
+            $student->address = $row['alamat'] ?? '';
+            $student->rt_rw = '00/00';
             $student->village = $row['desa'] ?? '';
-            $student->district = $row['kecamatan']??'';
-            $student->city = $row['kabupaten']??'';
-            $student->province = $row['provinsi']??'';
-            $student->postal_code = $row['pos']??'';
+            $student->district = $row['kecamatan'] ?? '';
+            $student->city = $row['kabupaten'] ?? '';
+            $student->province = $row['provinsi'] ?? '';
+            $student->postal_code = $row['pos'] ?? '';
             $student->religion = 'Islam';
             $student->nationality = 'WNI';
-            $student->phone = formatPhoneNumber($row['phone']);
+            $student->phone = '-';
             $student->student_image = null;
-            $student->child_number = $this->__translateToNumber($row['child_number']);
-            $student->siblings = $this->__translateToNumber($row['siblings']);
-            $student->nis = $this->__generateNisFromAngkatan($row['angkatan']);
-            $student->hobby = $row['hobi']??'';
+            $student->child_number = $child_number;
+            $student->siblings = $siblings;
+            $student->nis = $nis;
+            $student->hobby = $row['hobi'] ?? '';
             $student->ambition = $row['cita_cita'];
             $student->housing_status = $row['status_mukim'];
-            $student->recidency_status = null; 
-            $student->nism = $row['nism'] ?? null;
-            $student->kis = $row['kis'] ?? null;
-            $student->kip = $row['kip'] ?? null;
-            $student->kks = $row['kks'] ?? null;
-            $student->pkh = $row['pkh'] ?? null;
-            $student->status = $row['accepted'];
-            $student->verified_at = $this->__createVerifiedFromAngkatan($row['angkatan']);
+            $student->recidency_status = null;
+            $student->nism = null;
+            $student->kis = null;
+            $student->kip = null;
+            $student->kks = null;
+            $student->pkh = null;
+            $student->status = 'accepted';
+            $student->verified_at = $verfied_at;
             $student->drop_out_at = null;
-            $student->education_updated = null;
+            $student->education_updated = Carbon::now();
 
+            // Log object before save
+            Log::info('object::::' . $student);
             $student->save();
         } catch (\Exception $e) {
-            Log::error('a/n: '. $row['no']  .': ' . $row['name']. 'Error creating student: ' . $e->getMessage() . ' at line ' . $e->getLine());
+            Log::error('err create student ' . 'terjadi_kesalahan_baris_' . $row['no'] . 'a/n: ' . ': ' . $row['name'] . '::' . $e->getMessage() . ' at line ' . $e->getLine());
             return false;
         }
     }
@@ -210,104 +238,106 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
         }
     }
 
-    public function __generate_nickname(string $row): string
+    public function __generate_nickname(string $name = null): string
     {
-        // Create nickname from the first word of the name
-        if (isset($row['name']) && !empty($row['name'])) {
-            // Pisahkan nama menjadi array kata-kata
-            $nameParts = explode(' ', $row['name']);
-
-            // Ambil kata pertama
-            $firstName = $nameParts[0];
-
-            // Ambil dua huruf pertama dari kata pertama
-            $nickname = substr($firstName, 0, 2);
-        } else {
-            // Jika nama tidak tersedia, atur nickname menjadi string kosong atau nilai default
-            $nickname = '';
+        if (!isset($name) || empty($name)) {
+            return '-';
         }
+        // Pisahkan nama menjadi array kata-kata
+        $nameParts = explode(' ', $name);
+
+        // Ambil kata pertama
+        $firstName = $nameParts[0];
+
+        // Ambil dua huruf pertama dari kata pertama
+        $nickname = substr($firstName, 0, 2);
 
         return $nickname;
     }
 
-    public function __no_kependudukan(string $original_number=null): string
+    public function __no_kependudukan(string $original_number = null): string
     {
         if ($original_number) {
             // Replace all non-numeric characters
             $no_replaced = preg_replace('/\D/', '', $original_number);
-        
+
             $user = User::where('kk', $no_replaced)->first();
             if ($user) {
                 do {
                     $result = uniqid();
                     $user = User::where('kk', $result)->first();
                 } while ($user);
+            } else {
+                $result = $no_replaced;
             }
+        } else {
+            do {
+                $result = uniqid();
+                $user = User::where('kk', $result)->first();
+            } while ($user);
         }
-
-        do {
-            $result = uniqid();
-            $user = User::where('kk', $result)->first();
-        } while ($user);
 
         return $result;
     }
 
     public function __no_hp(string $original_number): int
     {
-         // cek phone  number first, if exist then skip
-         $phone = formatPhoneNumber($original_number);
-         if($phone){
-             $user = User::where('phone', $phone)->first();
+        // cek phone  number first, if exist then skip
+        $phone = formatPhoneNumber($original_number);
+        if ($phone) {
+            $user = User::where('phone', $phone)->first();
 
-             if ($user) {
-                 do {
-                     $phone = rand(1000000000000, 9999999999999);
-                     $user = User::where('phone', $phone)->first();
-                 } while ($user);
-             }
-         }
-         
+            if ($user) {
+                do {
+                    $phone = rand(1000000000000, 9999999999999);
+                    $user = User::where('phone', $phone)->first();
+                } while ($user);
+            }
+        }
+
         do {
             $phone = rand(1000000000000, 9999999999999);
             $user = User::where('phone', $phone)->first();
         } while ($user);
-    
 
-         return $phone;
-
+        return $phone;
     }
 
-    public function __formattedBirthDate($date): string
+    public function __formattedBirthDate($date, $row)
     {
-        if($date==null){
-            return null;
+        $formatted = preg_replace('/\D/', '', $date);
+        // if (!preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $formatted)) {
+        //     // throw new InvalidArgumentException('Invalid date format. Please use the format DD/MM/YYYY.');
+        //     return null;
+        // }
+
+        if ($formatted == '' || $formatted == null) {
+            return Carbon::now()->format('Y-m-d');
         }
 
-        $formatted = preg_replace('/\D/', '', $date);
-        if (!preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $formatted)) {
-            // throw new InvalidArgumentException('Invalid date format. Please use the format DD/MM/YYYY.');
-            return null;
-        }
         try {
-            $tgl_lhr_i = Carbon::createFromFormat('d/m/Y', $formatted);
+            $tgl_lhr_i = Carbon::createFromFormat('dmY', $formatted);
+            // Log::info('end:birth_date: ' . $tgl_lhr_i->format('Y-m-d') . ' row: ' . $row['name']);
             return $tgl_lhr_i->format('Y-m-d');
         } catch (\Exception $e) {
-            Log::error($e->getMessage() . ' at line ' . $e->getLine());
-            return false;
+            Log::error('Error creating student: ' . $formatted . '-=' . $e->getMessage() . ' at line ' . $e->getLine());
+            return Carbon::now()->format('Y-m-d');
         }
     }
 
-    public function __translateToNumber(string $string): int
+    public function __translateToNumber(string $string = null): int
     {
+        if (!$string) {
+            return 1;
+        }
         // Pastikan input diubah menjadi lowercase
         $string = strtolower($string);
-        
+
         // Tangani input berupa string angka
         if (is_numeric($string)) {
-            return (int)$string;
+            return (int) $string;
         }
-    
+
         // Konversi kata menjadi angka
         switch ($string) {
             case 'satu':
@@ -333,7 +363,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             case 'sebelas':
                 return 11;
             default:
-                throw new InvalidArgumentException("Invalid input: $string");
+                return 1;
         }
     }
 
@@ -344,20 +374,23 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             'field' => 'nis',
             'length' => 6,
             'prefix' => $angkatan,
-            'reset_on_prefix_change' => true
+            'reset_on_prefix_change' => true,
         ];
         return IdGenerator::generate($config);
     }
 
-    public function __createVerifiedFromAngkatan(string $angkatan)
+    public function __createVerifiedFromAngkatan(string $angkatan = null)
     {
-        $new = $angkatan . '-01-01';
-        return Carbon::createFromFormat('y/m/d', $angkatan)->format('Y-m-d H:i:s');
+        if (!$angkatan) {
+            $angkatan = 20;
+        }
+        $new = $angkatan . '/01/01';
+        return Carbon::createFromFormat('y/m/d', $new)->format('Y-m-d H:i:s');
     }
 
     public function chunkSize(): int
     {
-        return 500;
+        return 10;
     }
 
     public function rules(): array

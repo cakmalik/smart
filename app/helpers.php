@@ -122,6 +122,43 @@ if (!function_exists('generateUniqueUsername')) {
     }
 }
 
+if (!function_exists('generateNickname')) {
+   
+function generateNickname($name) {
+    $nicknames = [];
+  
+    // 1. Shortening the first name
+    $firstName = explode(' ', $name)[0];
+    $shortened = substr($firstName, 0, min(4, strlen($firstName)));
+    $nicknames[] = $shortened;
+  
+    // 2. Using initials
+    $initials = $name[0] . explode(' ', $name)[1][0];
+    $nicknames[] = strtoupper($initials);
+  
+    // 3. Abbreviating the last name
+    $lastName = explode(' ', $name)[1];
+    $abbreviated = $lastName[0] . ($lastName[-1] === 'a' || $lastName[-1] === 'e' || $lastName[-1] === 'i' || $lastName[-1] === 'o' || $lastName[-1] === 'u' ? 'y' : 'ie');
+    $nicknames[] = $abbreviated;
+  
+    // 4. Checking for known nicknames (optional)
+    // You can uncomment and populate this array with common name-nickname pairs
+    // $nicknameMap = ['William' => 'Will', 'Elizabeth' => 'Liz', ...];
+    // if (in_array($name, $nicknameMap)) {
+    //   $nicknames[] = $nicknameMap[$name];
+    // }
+  
+    // Return the first non-empty and non-single-initial nickname
+    foreach ($nicknames as $nickname) {
+      if ($nickname && $nickname !== $name[0]) {
+        return $nickname;
+      }
+    }
+  
+    return null; // If no suitable nickname is found
+  }
+}
+
 if (!function_exists('generateNIS')) {
     function generateNIS()
     {
