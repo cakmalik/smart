@@ -5,8 +5,11 @@ namespace App\Imports;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Bakid\Room;
 use App\Models\StudentFamily;
+use App\Models\Bakid\Dormitory;
 use Illuminate\Support\Collection;
+use App\Models\Student\RoomStudent;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -36,7 +39,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $f_id = $this->_storeFamily($row);
             $u_id = $this->_storeUser($row);
             $s_id = $this->_storeStudent($row, $f_id, $u_id);
-            // $this->_storeRoom($row);
+            $this->_storeRoom($row, $s_id);
 
             $count++;
         }
@@ -224,17 +227,56 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             // Log object before save
             Log::info('object::::' . $student);
             $student->save();
+            return $student->id;
         } catch (\Exception $e) {
             Log::error('err create student ' . 'terjadi_kesalahan_baris_' . $row['no'] . 'a/n: ' . ': ' . $row['name'] . '::' . $e->getMessage() . ' at line ' . $e->getLine());
             return false;
         }
     }
 
-    private function _storeRoom($row)
+    private function _storeRoom($row, $s_id)
     {
+        if($s_id == null){
+            return false;
+        }
+         // Menambahkan pengecekan hasil preg_match
+        // if (preg_match('/([a-zA-Z]+)\.(\d+)/', $row['asr'], $matches)) {
+        if (preg_match('/([a-zA-Z]+)(\d+)/', $row['asr'], $matches)) {
+            $huruf = $matches[1];
+            $angka = $matches[2];
+
+            Log::info('asrama::' . $huruf . 'angka::' . $angka);
+
+            // cari dormitory
+            $dormitory = Dormitory::where('name', $huruf)->first();
+            
+            if($dormitory){
+                $room = Room::where('name', (int)$angka)
+                ->where('dormitory_id', $dormitory->id)
+                ->first();
+            }
+
+            if (!$dormitory || !$room) {
+                return false;
+            }
+            
+        } else {
+            // Log atau tindakan lain jika pola tidak cocok
+            Log::error('Format ASR tidak valid: ' . $row['asr']);
+            return false;
+        }
+        
         try {
+            $student_room = new RoomStudent();
+            $student_room->room_id = $room->id; 
+            $student_room->dormitory_id = $dormitory->id;
+            $student_room->student_id = $s_id;
+            $student_room->status = 'approved';
+
+            $student_room->save();
+
         } catch (\Exception $e) {
-            Log::error($e->getMessage() . ' at line ' . $e->getLine());
+            Log::error('error asrama' . 'terjadi_kesalahan_baris_' . $row['no'] . 'a/n: ' . ': ' . $row['name'] . '::' . $e->getMessage() . ' at line ' . $e->getLine());
             return false;
         }
     }
