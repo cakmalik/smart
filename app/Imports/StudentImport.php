@@ -166,7 +166,12 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
         Log::info('res siblings::' . $siblings);
         $nis = $row['angkatan'] ? $this->__generateNisFromAngkatan($row['angkatan']) : $this->__generateNisFromAngkatan(20);
         Log::info('res nis::' . $nis);
-        $verfied_at = $this->__createVerifiedFromAngkatan($row['angkatan']);
+
+        if(isset($row['join_date']) && $row['join_date'] != null) {
+            $verfied_at = $this->__createVerifiedFromJoinDate($row['join_date']);
+        }else{
+            $verfied_at = $this->__createVerifiedFromAngkatan($row['angkatan']);
+        }
         Log::info('res verfied_at::' . $verfied_at);
 
         $no_hp = formatPhoneNumber($row['phone']);
@@ -421,6 +426,14 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
         ];
         return IdGenerator::generate($config);
     }
+
+    public function __createVerifiedFromJoinDate(string $join_date = null){
+        if (!$join_date) {
+            $join_date = Carbon::now()->format('Y-m-d');
+        }
+        return Carbon::createFromFormat('d/m/Y', $join_date)->format('Y-m-d H:i:s');
+    }
+
 
     public function __createVerifiedFromAngkatan(string $angkatan = null)
     {
