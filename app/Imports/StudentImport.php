@@ -216,8 +216,8 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             $student->siblings = $siblings;
             $student->nis = $nis;
             $student->hobby = $row['hobi'] ?? '';
-            $student->ambition = $row['cita_cita'];
-            $student->housing_status = $row['status_mukim'];
+            $student->ambition = $row['cita_cita'] ?? '';
+            $student->housing_status = $row['status_mukim']??'Mukim';
             $student->recidency_status = null;
             $student->nism = null;
             $student->kis = null;
@@ -353,11 +353,11 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
 
     public function __formattedBirthDate($date, $row)
     {
+        if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $date)) {
+            return Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+        }
+        
         $formatted = preg_replace('/\D/', '', $date);
-        // if (!preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $formatted)) {
-        //     // throw new InvalidArgumentException('Invalid date format. Please use the format DD/MM/YYYY.');
-        //     return null;
-        // }
 
         if ($formatted == '' || $formatted == null) {
             return Carbon::now()->format('Y-m-d');
@@ -368,7 +368,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
             // Log::info('end:birth_date: ' . $tgl_lhr_i->format('Y-m-d') . ' row: ' . $row['name']);
             return $tgl_lhr_i->format('Y-m-d');
         } catch (\Exception $e) {
-            Log::error('Error creating student: ' . $formatted . '-=' . $e->getMessage() . ' at line ' . $e->getLine());
+            Log::error('Error create birth_date: ' . $formatted . '-=' . $e->getMessage() . ' at line ' . $e->getLine());
             return Carbon::now()->format('Y-m-d');
         }
     }
@@ -427,23 +427,35 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
         return IdGenerator::generate($config);
     }
 
-    public function __createVerifiedFromJoinDate(string $join_date = null){
-        if (!$join_date) {
-            $join_date = Carbon::now()->format('Y-m-d');
+    public function __createVerifiedFromJoinDate(string $join_date = null)
+    {
+        try {
+            if (!$join_date) {
+                $join_date = Carbon::now()->format('Y-m-d H:i:s');
+            }
+            return Carbon::createFromFormat('d/m/Y', $join_date)->format('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            // Tangani kesalahan format di sini
+            // Misalnya, kembalikan tanggal saat ini
+            return Carbon::now()->format('Y-m-d H:i:s');
         }
-        return Carbon::createFromFormat('d/m/Y', $join_date)->format('Y-m-d H:i:s');
     }
-
-
+    
     public function __createVerifiedFromAngkatan(string $angkatan = null)
     {
-        if (!$angkatan) {
-            $angkatan = 20;
+        try {
+            if (!$angkatan) {
+                $angkatan = 20;
+            }
+            $new = $angkatan . '/01/01';
+            return Carbon::createFromFormat('y/m/d', $new)->format('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            // Tangani kesalahan format di sini
+            // Misalnya, kembalikan tanggal default atau null
+            return Carbon::now()->format('Y-m-d H:i:s');
         }
-        $new = $angkatan . '/01/01';
-        return Carbon::createFromFormat('y/m/d', $new)->format('Y-m-d H:i:s');
     }
-
+    
     public function chunkSize(): int
     {
         return 10;
