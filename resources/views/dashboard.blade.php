@@ -34,6 +34,10 @@
                         @include('dashboard.sekretaris')
                     @break
 
+                    @case('admin_daerah')
+                        @include('dashboard.admin_daerah')
+                    @break  
+
                     @default
                 @endswitch
                 {{-- </div> --}}
