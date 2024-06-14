@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_students', function (Blueprint $table) {
+        Schema::create('room_student_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id')->constrained();
-            $table->foreignId('dormitory_id')->constrained();
             $table->foreignId('student_id')->constrained();
-            $table->enum('status', ['waiting', 'approved', 'rejected'])->default('waiting'); //NOTE:next ini harusnya tidak digunakan 
+            $table->string('asrama_name');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('room_students');
+        Schema::dropIfExists('room_student_histories');
     }
 };

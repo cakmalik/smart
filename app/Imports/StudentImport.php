@@ -244,6 +244,12 @@ class StudentImport implements ToCollection, WithHeadingRow, WithChunkReading, S
         if($s_id == null){
             return false;
         }
+
+        $asrama = str_replace(' ', '', $row['asr']);
+        $asrama = strtoupper($asrama);
+        Log::info('asrama::' . $asrama);
+
+
          // Menambahkan pengecekan hasil preg_match
         // if (preg_match('/([a-zA-Z]+)\.(\d+)/', $row['asr'], $matches)) {
         if (preg_match('/([a-zA-Z]+)(\d+)/', $row['asr'], $matches)) {
