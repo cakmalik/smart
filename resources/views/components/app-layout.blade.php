@@ -135,7 +135,7 @@
 
     <!-- Page Content -->
 
-    <main class="absolute w-full @hasrole('santri') top-20 pb-[400px] @else top-[30px]  @endhasrole">
+    <main class="absolute w-full pb-32 @hasrole('santri') top-20 pb-[400px] @else top-[30px]  @endhasrole">
         {{ $slot }}
     </main>
 
