@@ -37,6 +37,11 @@ class Invoice extends Model
     {
         return $this->belongsTo(InvoiceCategory::class, 'invoice_category_id');
     }
+    
+    public function Category()
+    {
+        return $this->belongsTo(InvoiceCategory::class, 'invoice_category_id');
+    }
 
     public function invoiceDetails()
     {

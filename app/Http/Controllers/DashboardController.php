@@ -51,13 +51,33 @@ class DashboardController extends Controller
 
         $count_new_students = Student::where('status', 'waiting')->count();
         $count_students = Student::where('status', 'accepted')->count();
+
+        $invoice_psb = Invoice::whereHas('Category', function ($query) {
+            $query->where('code', 'psb');
+        })->whereYear('created_at', date('Y'));
         // dd($count_new_students, $count_students,);
 
+        $psb_paid_count = $invoice_psb->where('status', 'paid')->count();
+        $psb_paid_amount = $invoice_psb->where('status', 'paid')->sum('final_amount');
+        $psb_unpaid_count = $invoice_psb->where('status', 'unpaid')->count();
+        $psb_unpaid_amount = $invoice_psb->where('status', 'unpaid')->sum('final_amount');
+        $psb_student_count = Student::whereyear('verified_at', date('Y'))->count();
+        $psb_student_l_count = Student::whereyear('verified_at', date('Y'))->where('gender', 'male')->count();
+        $psb_student_p_count = Student::whereyear('verified_at', date('Y'))->where('gender', 'female')->count();
+
+        
         $summary = [
             'new_students' => $count_new_students,
             'students' => $count_students,
             'approval' => 0,
-            'mutation' => 0
+            'mutation' => 0,
+            'psb_paid_count' => $psb_paid_count,
+            'psb_paid_amount' => $psb_paid_amount,
+            'psb_unpaid_count' => $psb_unpaid_count,
+            'psb_unpaid_amount' => $psb_unpaid_amount,
+            'psb_student_count' => $psb_student_count,
+            'psb_student_l_count' => $psb_student_l_count,
+            'psb_student_p_count' => $psb_student_p_count
         ];
         return view('dashboard', compact('x', 'summary'));
     }

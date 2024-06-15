@@ -4,6 +4,7 @@
         <div ref="target" class="w-full flex items-center justify-center max-w-sm bg-red- h-screen mx-auto">
             <slot />
             <div class="absolute bottom-14 right-6 sm:bottom-3 sm:right-3">
+
                 <button @click="showMenu = false"
                     class="rounded-full flex items-center justify-center p-2 text-center text-white group transition duration-300">
                     <i class="ph ph-x group-hover:scale-125"></i>

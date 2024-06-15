@@ -60,6 +60,42 @@
         @can('access export')
             <x-menu.new.single-menu link="{{ route('export.index') }}" label="Export" icon="ph-download-simple"/>
         @endcan
+        
+        <div class="">
+            <button id="dropdownHoverButtonProfile" data-dropdown-toggle="dropdownHoverProfile"
+                data-dropdown-trigger="hover" type="button"
+                class="flex flex-col gap-2 w-24 p-2 items-center rounded-lg text-center group cursor-pointer ">
+                <img class="object-cover w-12 h-12 bg-green-400 rounded-full"
+                                 src="{{ auth()->user()?->profile_photo_url }}" alt="{{ auth()->user()?->name }}">
+            </button>
+            <div id="dropdownHoverProfile"
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="dropdownHoverButtonProfile">
+                    <li>
+                        <Link href="{{ route('profile.show') }}"
+                            class="block px-4 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <span class="sr-only">Profile</span>
+                            {{-- @if ($icon != null)
+                                <i class="text-sm me-2 ph {{ $icon }}"></i>
+                            @endif --}}
+                            Profile
+                        </Link>
+                    </li>
+                    <li>
+                        <Link  href="{{ route('logout') }}" method="post"
+                            class="block px-4 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <span class="sr-only">Keluar</span>
+                            {{-- @if ($icon != null)
+                                <i class="text-sm me-2 ph {{ $icon }}"></i>
+                            @endif --}}
+                            Keluar
+                        </Link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 
     <x-splade-script>
