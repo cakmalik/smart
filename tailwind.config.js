@@ -32,6 +32,8 @@ module.exports = {
                 "footer-texture": "url('/img/footer-texture.png')",
             },
             fontFamily: {
+                dancing: ["Dancing Script", "cursive"],
+                play: ["Playwrite ID", "serif"],
                 pjs: ["Plus Jakarta Sans", "sans-serif"],
                 culpa: ['"Mea Culpa"', "cursive"],
                 amiri: ["Amiri Quran", "serif"],
