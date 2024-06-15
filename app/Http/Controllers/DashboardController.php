@@ -49,8 +49,9 @@ class DashboardController extends Controller
             $x['students'] = [];
         }
 
-        $count_new_students = Student::where('status', 'waiting')->count();
-        $count_students = Student::where('status', 'accepted')->count();
+        $pendaftar = Student::where('status', 'waiting')->count();
+        $count_students_l = DB::table('students')->where('status', 'accepted')->where('gender', 'male')->count();
+        $count_students_p = DB::table('students')->where('status', 'accepted')->where('gender', 'female')->count();
 
         $invoice_psb = Invoice::whereHas('Category', function ($query) {
             $query->where('code', 'psb');
@@ -67,8 +68,9 @@ class DashboardController extends Controller
 
         
         $summary = [
-            'new_students' => $count_new_students,
-            'students' => $count_students,
+            'pendaftar' => $pendaftar,
+            'student_l_count' => $count_students_l,
+            'student_p_count' => $count_students_p,
             'approval' => 0,
             'mutation' => 0,
             'psb_paid_count' => $psb_paid_count,
