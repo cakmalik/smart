@@ -37,7 +37,7 @@
         <div class="flex justify-between items-center"><span>PSB {{ date('Y') }}</span> <span
                 class="bg-slate-800 text-white text-xs p-1 rounded font-semibold">SANTRI BARU</span></div>
         <div class="text-3xl font-bold flex justify-between items-center">
-            <span class="text-xl font-light">Laki-laki</span>
+            <span class="text-xl font-light">L: <span class="font-semibold">{{ $summary['psb_student_l_count'] }}</span> &nbsp; P: <span class="font-semibold">{{ $summary['psb_student_p_count'] }}</span></span>
             <div class="">{{ $summary['psb_student_count'] }}</div>
         </div>
     </div>
