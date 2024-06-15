@@ -42,16 +42,16 @@ class DashboardController extends Controller
 
         $user = Auth::user();
         if ($user->students->count() > 0) {
-            $x['students'] = DB::table('students')->where('user_id', auth()->user()->id)->whereNull('education_updated')->orderByDesc('id')->get();
+            $x['students'] = DB::table('students')->whereNull('deleted_at')->where('user_id', auth()->user()->id)->whereNull('education_updated')->orderByDesc('id')->get();
             $x['studentsWithoutRooms'] = $this->getStudentsWithoutRooms($user);
             $x['invoices_psb'] = $invoices_psb;
         } else {
             $x['students'] = [];
         }
 
-        $pendaftar = DB::table('students')->where('status', 'waiting')->count();
-        $count_students_l = DB::table('students')->where('status', 'accepted')->where('gender', 'male')->count();
-        $count_students_p = DB::table('students')->where('status', 'accepted')->where('gender', 'female')->count();
+        $pendaftar = DB::table('students')->whereNull('deleted_at')->where('status', 'waiting')->count();
+        $count_students_l = DB::table('students')->whereNull('deleted_at')->where('status', 'accepted')->where('gender', 'male')->count();
+        $count_students_p = DB::table('students')->whereNull('deleted_at')->where('status', 'accepted')->where('gender', 'female')->count();
 
         $invoice_psb = Invoice::whereHas('Category', function ($query) {
             $query->where('code', 'psb');
@@ -62,9 +62,9 @@ class DashboardController extends Controller
         $psb_paid_amount = $invoice_psb->where('status', 'paid')->sum('final_amount');
         $psb_unpaid_count = $invoice_psb->where('status', 'unpaid')->count();
         $psb_unpaid_amount = $invoice_psb->where('status', 'unpaid')->sum('final_amount');
-        $psb_student_count = DB::table('students')->whereyear('verified_at', date('Y'))->count();
-        $psb_student_l_count = DB::table('students')->whereyear('verified_at', date('Y'))->where('gender', 'male')->count();
-        $psb_student_p_count = DB::table('students')->whereyear('verified_at', date('Y'))->where('gender', 'female')->count();
+        $psb_student_count = DB::table('students')->whereNull('deleted_at')->whereyear('verified_at', date('Y'))->count();
+        $psb_student_l_count = DB::table('students')->whereNull('deleted_at')->whereyear('verified_at', date('Y'))->where('gender', 'male')->count();
+        $psb_student_p_count = DB::table('students')->whereNull('deleted_at')->whereyear('verified_at', date('Y'))->where('gender', 'female')->count();
 
         
         $summary = [
@@ -86,7 +86,7 @@ class DashboardController extends Controller
 
     public function getStudentsWithoutRooms($user)
     {
-        $studentsWithoutRooms = DB::table('students')
+        $studentsWithoutRooms = DB::table('students')->whereNull('deleted_at')
             ->leftJoin('room_students', 'students.id', '=', 'room_students.student_id')
             ->whereNull('room_students.student_id')
             ->whereIn('students.id', $user->students->pluck('id'))
