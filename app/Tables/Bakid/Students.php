@@ -5,10 +5,13 @@ namespace App\Tables\Bakid;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\Bakid\Dormitory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use ProtoneMedia\Splade\SpladeTable;
+use Spatie\QueryBuilder\QueryBuilder;
 use ProtoneMedia\Splade\AbstractTable;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class Students extends AbstractTable
 {
@@ -39,9 +42,20 @@ class Students extends AbstractTable
      */
     public function for()
     {
-        return Student::query()
-            ->with('user', 'room', 'dormitory')
-            ->whereNotNull('verified_at');
+
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                Collection::wrap($value)->each(function ($value) use ($query) {
+                    $query
+                        ->orWhere('name', 'LIKE', "%{$value}%");
+                });
+            });
+        });
+ 
+        return QueryBuilder::for(Student::class)
+            ->defaultSort('name')
+            ->allowedSorts(['name'])
+            ->allowedFilters(['name','verified_at', $globalSearch]);
     }
 
     /**
@@ -61,7 +75,19 @@ class Students extends AbstractTable
         // Ambil tahun unik dari kolom 'verified_at' dalam model 'Student'
         // REMEMBER: MYSQL dan POSTGRES berbeda
         // kalau mysql seperti ini :
-        $years = DB::table('students')->whereNotNull('verified_at')->distinct()->pluck(DB::raw('YEAR(verified_at) as year'))->toArray();
+        // $years = DB::table('students')->whereNotNull('verified_at')->distinct()->pluck(DB::raw('YEAR(verified_at) as year'))->toArray();
+
+        $years = DB::table('students')
+        ->whereNotNull('verified_at')
+        ->distinct()
+        ->pluck(DB::raw('YEAR(verified_at) as year'))
+        ->toArray();
+
+        // Transformasikan array tahun ke format yang diinginkan menggunakan mapWithKeys
+        $transformedYears = collect($years)->sortDesc()->mapWithKeys(function ($year) {
+            return [$year => $year];
+        })->toArray();
+
         // kalau postgres seperti ini :
         // $years = Student::selectRaw('distinct extract(year from verified_at) as year')->whereNotNull('verified_at')->pluck('year')->toArray();
 
@@ -95,15 +121,15 @@ class Students extends AbstractTable
                 noFilterOption: true,
                 noFilterOptionLabel: 'Semua'
             )
+            // use filter search with callback
             ->selectFilter(
                 key: 'verified_at',
-                options: $years, // Gunakan pilihan tahun yang telah dibuat
+                options: $transformedYears, // Gunakan pilihan tahun yang telah dibuat
                 label: 'Tahun',
                 noFilterOption: true,
-                noFilterOptionLabel: 'Semua'
+                noFilterOptionLabel: 'Semua',
             )
             ->rowModal(fn (Student $s) => route('student.show', ['student' => $s->id]))
             ->paginate(10);
-
     }
 }
