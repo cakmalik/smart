@@ -253,8 +253,3 @@ Route::get('/cc', function () {
 
     dd($snappy);
 });
-
-
-Route::get('/change-gender',function(){
-    Student::whereBetween('id',[527,3705])->update(['gender' => 'male']);
-});
