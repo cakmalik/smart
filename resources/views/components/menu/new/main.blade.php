@@ -69,9 +69,13 @@
         <div class="">
             <button id="dropdownHoverButtonProfile" data-dropdown-toggle="dropdownHoverProfile"
                 data-dropdown-trigger="hover" type="button"
-                class="flex flex-col gap-2 w-24 p-2 items-center rounded-lg text-center group cursor-pointer ">
-                <img class="object-cover w-[3.5rem] bg-green-400 rounded-full"
-                    src="{{ auth()->user()?->profile_photo_url }}" alt="{{ auth()->user()?->name }}">
+                class="flex flex-col gap-2 w-24 p-2 items-center rounded-lg text-center group cursor-pointer group">
+                <div class="link-animation ">
+                    <img class="object-cover w-[3.5rem] bg-green-400 rounded-full"
+                        src="{{ auth()->user()?->profile_photo_url }}" alt="{{ auth()->user()?->name }}">
+                </div>
+                <span class="link-text text-neutral-500 group-hover:text-[greenyellow] transition duration-500 ease-in-out">Profil</span>
+
             </button>
             <div id="dropdownHoverProfile"
                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
