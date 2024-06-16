@@ -70,7 +70,7 @@
             <button id="dropdownHoverButtonProfile" data-dropdown-toggle="dropdownHoverProfile"
                 data-dropdown-trigger="hover" type="button"
                 class="flex flex-col gap-2 w-24 p-2 items-center rounded-lg text-center group cursor-pointer ">
-                <img class="object-cover w-[3.6rem] bg-green-400 rounded-full"
+                <img class="object-cover w-[3.5rem] bg-green-400 rounded-full"
                     src="{{ auth()->user()?->profile_photo_url }}" alt="{{ auth()->user()?->name }}">
             </button>
             <div id="dropdownHoverProfile"
