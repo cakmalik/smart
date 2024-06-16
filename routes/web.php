@@ -23,6 +23,7 @@ use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\ViolationController;
+use App\Http\Controllers\SubmissionController;
 use App\Models\Student\StudentInOutPermission;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AnnouncementController;
@@ -221,6 +222,9 @@ Route::middleware(['splade'])->group(function () {
         Route::resource('violation', ViolationController::class);
         Route::get('/export', [ExportController::class, 'index'])->name('export.index');
         Route::post('/export', [ExportController::class, 'generate'])->name('export.generate');
+
+
+        Route::get('submission', [SubmissionController::class,'index'])->name('submission.index');
     });
 });
 
