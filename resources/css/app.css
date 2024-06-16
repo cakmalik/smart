@@ -34,3 +34,46 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+
+.link-animation {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.8rem;
+  aspect-ratio:1;
+  border-radius: 50%;
+  background-color: #373737;
+  color: #7a7a7a;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition:color 0.5s ease-in-out;
+}
+
+.link-animation::after{
+  position:absolute;
+  content:'';
+  z-index:-1;
+  inset: -3px;
+  border-radius: inherit;
+
+  background: conic-gradient(greenyellow var(--fill), transparent var(--fill));
+  transition: --fill 0.6s ease-in-out;
+}
+
+@property --fill{
+  syntax:'<percentage>';
+  inherits: true;
+  initial-value: 0%;
+}
+
+.link-animation:hover{
+  color:greenyellow;
+  --fill:100%;
+}
+
+.link-animation::after{
+  position:absolute;
+  z-index: -1;
+}
