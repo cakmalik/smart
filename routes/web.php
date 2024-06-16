@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Student;
 use App\Models\Announcement;
 use App\Models\BakidSetting;
 use App\Jobs\JobSendWhatsapp;
@@ -251,4 +252,9 @@ Route::get('/cc', function () {
     $snappy->generateFromHtml($html, public_path($nameImage));
 
     dd($snappy);
+});
+
+
+Route::get('/change-gender',function(){
+    Student::whereBetween('id',[527,3705])->update(['gender' => 'male']);
 });
