@@ -29,7 +29,7 @@
 @endphp
 
 <div {{ $attributes->class(['p-4 rounded-lg shadow', $bgColorClass]) }}>
-    <div class="flex flex-col sm:flex-row items-center justify-between text-center">
+    <div class="flex items-center justify-between text-center">
         <div class="text-lg font-medium text-neutral-600">
             {{ $title }}
         </div>
