@@ -37,10 +37,10 @@ class StudentByAsramaExport implements WithMultipleSheets, FromQuery, ShouldQueu
         
         $dormitories = Dormitory::get();
         
-        // $newDorm = new Dormitory();
-        // $newDorm->name = 'Lainnya';
-        // $newDorm->gender = auth()->user()->gender == 'male' ? 'L' : 'P';
-        // $dormitories->push($newDorm);
+        $newDorm = new Dormitory();
+        $newDorm->name = 'Lainnya';
+        $newDorm->gender = auth()->user()->gender == 'male' ? 'L' : 'P';
+        $dormitories->push($newDorm);
         
         foreach ($dormitories as $key => $dormitoy) {
             $sheets[] = new StudentPerAsramaSheet($this->year, $dormitoy);
