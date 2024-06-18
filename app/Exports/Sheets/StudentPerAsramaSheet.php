@@ -52,7 +52,7 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
            '`'. $student->nik,
             $student->place_of_birth,
             $student->date_of_birth,
-            $student->gender,
+            $student->gender??'-',
             $student->address ?? '',
             $student->rt_rw,
             $student->village,

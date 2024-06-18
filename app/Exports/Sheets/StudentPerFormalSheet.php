@@ -31,7 +31,7 @@ class StudentPerFormalSheet implements FromQuery, WithTitle, WithMapping, WithHe
         $query = Student
             ::query()
             ->with('formal','parent','dormitory','room')
-            ->whereNotNull('verified_at');
+            ->whereYear('verified_at', $this->year);
 
             if($this->formal->name == 'Lainnya'){
                 $query->whereDoesntHave('formal');              

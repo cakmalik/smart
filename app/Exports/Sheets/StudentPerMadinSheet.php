@@ -27,7 +27,7 @@ class StudentPerMadinSheet implements FromQuery, WithTitle, WithMapping, WithHea
         $query = Student
             ::query()
             ->with('informal.kelas','parent','dormitory','room')
-            ->whereNotNull('verified_at');
+            ->whereYear('verified_at', $this->year);
 
             if($this->informal->name != 'Lainnya'){
                 $query->whereHas('informal.kelas', function ($q) {
