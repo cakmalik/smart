@@ -25,6 +25,7 @@ class Student extends Model
     {
         static::addGlobalScope(new GenderScope);
     }
+    
 
     use HasFactory;
     protected $guarded = [];

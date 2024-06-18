@@ -3,11 +3,12 @@
 namespace App\Exports;
 
 use App\Models\Student;
+use App\Models\Bakid\Dormitory;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Exports\Sheets\StudentPerAsramaSheet;
-use App\Models\Bakid\Dormitory;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class StudentByAsramaExport implements WithMultipleSheets, FromQuery, ShouldQueue
@@ -17,7 +18,7 @@ class StudentByAsramaExport implements WithMultipleSheets, FromQuery, ShouldQueu
     public $year;
     public $category;
 
-    public function __construct(string $category, int $year)
+    public function __construct(string $category, $year=null)
     {
         $this->year = $year;
         $this->category = $category;
@@ -25,11 +26,17 @@ class StudentByAsramaExport implements WithMultipleSheets, FromQuery, ShouldQueu
 
     public function query()
     {
-        $q = Student::query()
-            ->with('dormitory', 'room')
-            ->whereYear('verified_at', $this->year);
+        // $q = Student::query()
+        //     ->withoutGlobalScopes()
+        //     ->with('dormitory', 'room');
 
-        return $q;
+        // if($this->year != null){
+        //     $q->whereYear('verified_at', $this->year);
+        // }else{
+        //     $q->whereNotNull('verified_at');
+        // }
+
+        // return $q;
     }
     public function sheets(): array
     {
@@ -37,14 +44,11 @@ class StudentByAsramaExport implements WithMultipleSheets, FromQuery, ShouldQueu
         
         $dormitories = Dormitory::get();
         
-        $newDorm = new Dormitory();
-        $newDorm->name = 'Lainnya';
-        $newDorm->gender = auth()->user()->gender == 'male' ? 'L' : 'P';
-        $dormitories->push($newDorm);
-        
-        foreach ($dormitories as $key => $dormitoy) {
-            $sheets[] = new StudentPerAsramaSheet($this->year, $dormitoy);
+        foreach ($dormitories as $key => $dormitory) {
+            $sheets[] = new StudentPerAsramaSheet($this->year, $dormitory);
         }
+
+        // Log::info($sheets);
 
         return $sheets;
     }

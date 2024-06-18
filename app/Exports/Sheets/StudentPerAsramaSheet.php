@@ -19,7 +19,7 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
     private $year;
     private $dormitory;
 
-    public function __construct(int $year, Dormitory $dormitory)
+    public function __construct($year=null, Dormitory $dormitory)
     {
         $this->year = $year;
         $this->dormitory = $dormitory;
@@ -29,15 +29,17 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
     {
         $query =  Student
             ::query()
-            ->with('dormitory')
-            ->whereYear('verified_at', $this->year);
-            
-            if($this->dormitory->name == 'Lainnya') {
-                $query->whereDoesntHave('dormitory');
+            ->withoutGlobalScopes()
+            ->where('gender', $this->dormitory->gender);
+
+            $query->whereHas('dormitory', function ($q) {
+                $q->where('dormitory_id', $this->dormitory->id);
+            });
+
+            if($this->year != null){
+                $query->whereYear('verified_at', $this->year);
             }else{
-                $query->whereHas('dormitory', function ($q) {
-                    $q->where('dormitory_id', $this->dormitory->id);
-                });
+                $query->whereNotNull('verified_at');
             }
 
         return $query;
