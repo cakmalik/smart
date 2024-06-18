@@ -30,8 +30,8 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
         $query =  Student
             ::query()
             ->with('dormitory')
-            ->whereNotNull('verified_at');
-
+            ->whereYear('verified_at', $this->year);
+            
             if($this->dormitory->name == 'Lainnya') {
                 $query->whereDoesntHave('dormitory');
             }else{
