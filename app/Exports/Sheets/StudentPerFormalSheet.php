@@ -20,7 +20,7 @@ class StudentPerFormalSheet implements FromQuery, WithTitle, WithMapping, WithHe
     private $year;
     private $formal;
 
-    public function __construct(int $year, FormalEducation $formal)
+    public function __construct($year=null, FormalEducation $formal)
     {
         $this->year = $year;
         $this->formal = $formal;
@@ -31,23 +31,27 @@ class StudentPerFormalSheet implements FromQuery, WithTitle, WithMapping, WithHe
         $query = Student
             ::query()
             ->with('formal','parent','dormitory','room')
-            ->whereYear('verified_at', $this->year);
+            ->whereNull('deleted_at');
 
-            if($this->formal->name == 'Lainnya'){
-                $query->whereDoesntHave('formal');              
+            if($this->year != null){
+                $query->whereYear('verified_at', $this->year);
             }else{
-                $query->whereHas('formal', function ($q) {
-                    $q->where('formal_education_id', $this->formal->id);
-                });
+                $query->whereNotNull('verified_at');
             }
+
+            $query->whereHas('formal', function ($q) {
+                $q->where('formal_education_id', $this->formal->id);
+            });
             
             return $query;
     }
 
     public function map($student): array
     {
+        $angkatan = Carbon::parse($student->verified_at)->year;
         return [
             $student->getAsramaName(),
+            $angkatan,
             $student->name,
             $student->nickname,
            '`'. $student->nik,
@@ -72,6 +76,7 @@ class StudentPerFormalSheet implements FromQuery, WithTitle, WithMapping, WithHe
     {
         return [
             'ASRAMA',
+          'ANGKATAN',
           'NAMA',
           'PANGGILAN',
           'NIK',

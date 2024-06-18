@@ -19,7 +19,7 @@ class StudentByFormalExport implements WithMultipleSheets, FromQuery, ShouldQueu
     public $year;
     public $category;
 
-    public function __construct(string $category, int $year)
+    public function __construct(string $category, $year=null)
     {
         $this->year = $year;
         $this->category = $category;
@@ -27,10 +27,10 @@ class StudentByFormalExport implements WithMultipleSheets, FromQuery, ShouldQueu
 
     public function query()
     {
-        $q = Student::query()
-            ->with('formal', 'informal')
-            ->whereYear('verified_at', $this->year);
-        return $q;
+        // $q = Student::query()
+        //     ->with('formal', 'informal')
+        //     ->whereYear('verified_at', $this->year);
+        // return $q;
     }
     public function sheets(): array
     {
@@ -38,11 +38,11 @@ class StudentByFormalExport implements WithMultipleSheets, FromQuery, ShouldQueu
         
         $formals = FormalEducation::get(['id','name']);
 
-        $newformal = new FormalEducation(); 
-        $newformal->name = 'Lainnya';
+        // $newformal = new FormalEducation(); 
+        // $newformal->name = 'Lainnya';
 
-        // Menambahkan objek baru ke koleksi $informals
-        $formals->push($newformal);
+        // // Menambahkan objek baru ke koleksi $informals
+        // $formals->push($newformal);
         foreach ($formals as $key => $formal) {
             $sheets[] = new StudentPerFormalSheet($this->year,$formal);
         }

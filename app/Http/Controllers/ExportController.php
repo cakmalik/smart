@@ -30,13 +30,13 @@ class ExportController extends Controller
         
         $angkatan = $request->year?? 'SEMUA';
         $gender = auth()->user()->gender == 'male' ? 'laki' : 'perempuan';
-        $file_name = 'export_' . $request->category . '_' . $gender . '_' . $angkatan . '-tgl_export_' . date('dmY-Hi') . '.xlsx';
+        $file_name = 'export_' . $request->category . '_' . $angkatan . '-tgl_export_' . date('dmY-Hi') . '.xlsx';
         if ($request->category == 'asrama') {
             Excel::store(new StudentByAsramaExport($request->category, $request->year), $file_name, 'google', null, ['visibility' => 'public']);
         } elseif ($request->category == 'formal') {
-            Excel::store(new StudentByFormalExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
+            Excel::store(new StudentByFormalExport($request->category, $request->year), $file_name, 'google', null, ['visibility' => 'public']);
         } else {
-            Excel::store(new StudentByMadinExport($request->category, (int) $request->year), $file_name, 'google', null, ['visibility' => 'public']);
+            Excel::store(new StudentByMadinExport($request->category, $request->year), $file_name, 'google', null, ['visibility' => 'public']);
         }
 
         Toast::title('Berhasil')->message('Hasil export disimpan ke google drive')->success()->center()->autoDismiss(3);

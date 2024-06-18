@@ -18,7 +18,7 @@ class StudentByMadinExport implements WithMultipleSheets, FromQuery, ShouldQueue
     public $year;
     public $category;
 
-    public function __construct(string $category, int $year)
+    public function __construct(string $category, $year=null)
     {
         $this->year = $year;
         $this->category = $category;
@@ -26,10 +26,10 @@ class StudentByMadinExport implements WithMultipleSheets, FromQuery, ShouldQueue
 
     public function query()
     {
-        $q = Student::query()
-            ->with('formal', 'informal')
-            ->whereYear('verified_at', $this->year);
-        return $q;
+        // $q = Student::query()
+        //     ->with('formal', 'informal')
+        //     ->whereYear('verified_at', $this->year);
+        // return $q;
     }
     public function sheets(): array
     {
@@ -40,15 +40,15 @@ class StudentByMadinExport implements WithMultipleSheets, FromQuery, ShouldQueue
         })->get();
         
         // Membuat objek InformalEducationClass baru
-        $newInformal = new InformalEducationClass(); 
-        $newInformal->class_name = 'Lainnya';
-        $newInformal->qty = 999999999;
-        $newInformal->current_qty = 999999999;
-        $newInformal->class_name_full = "Madin";
-        $newInformal->teacher_id = null;
+        // $newInformal = new InformalEducationClass(); 
+        // $newInformal->class_name = 'Lainnya';
+        // $newInformal->qty = 999999999;
+        // $newInformal->current_qty = 999999999;
+        // $newInformal->class_name_full = "Madin";
+        // $newInformal->teacher_id = null;
 
         // Menambahkan objek baru ke koleksi $informals
-        $informals->push($newInformal);
+        // $informals->push($newInformal);
         
         foreach ($informals as $key => $informal) {
             $sheets[] = new StudentPerMadinSheet($this->year,$informal);

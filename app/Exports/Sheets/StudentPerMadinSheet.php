@@ -2,21 +2,22 @@
 
 namespace App\Exports\Sheets;
 
+use Carbon\Carbon;
 use App\Models\Student;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use App\Models\Informal\InformalEducation;
-use App\Models\Informal\InformalEducationClass;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use App\Models\Informal\InformalEducationClass;
 
 class StudentPerMadinSheet implements FromQuery, WithTitle, WithMapping, WithHeadings, ShouldAutoSize
 {
     private $year;
     private $informal;
 
-    public function __construct(int $year, InformalEducationClass $informal)
+    public function __construct($year=null, InformalEducationClass $informal)
     {
         $this->year = $year;
         $this->informal = $informal;
@@ -27,15 +28,17 @@ class StudentPerMadinSheet implements FromQuery, WithTitle, WithMapping, WithHea
         $query = Student
             ::query()
             ->with('informal.kelas','parent','dormitory','room')
-            ->whereYear('verified_at', $this->year);
+            ->whereNull('deleted_at');
 
-            if($this->informal->name != 'Lainnya'){
-                $query->whereHas('informal.kelas', function ($q) {
-                    $q->where('informal_education_class_id', $this->informal->id);
-                });    
+            if($this->year != null){
+                $query->whereYear('verified_at', $this->year);
             }else{
-                $query->whereDoesntHave('informal.kelas');
+                $query->whereNotNull('verified_at');
             }
+
+            $query->whereHas('informal.kelas', function ($q) {
+                $q->where('informal_education_class_id', $this->informal->id);
+            });    
 
             return $query;
 
@@ -43,8 +46,10 @@ class StudentPerMadinSheet implements FromQuery, WithTitle, WithMapping, WithHea
 
     public function map($student): array
     {
+        $angkatan = Carbon::parse($student->verified_at)->year;
         return [
             $student->getAsramaName(),
+            $angkatan,
             $student->name,
             $student->nickname,
            '`'. $student->nik,
@@ -69,6 +74,7 @@ class StudentPerMadinSheet implements FromQuery, WithTitle, WithMapping, WithHea
     {
         return [
             'ASRAMA',
+          'ANGKATAN',
           'NAMA',
           'PANGGILAN',
           'NIK',
