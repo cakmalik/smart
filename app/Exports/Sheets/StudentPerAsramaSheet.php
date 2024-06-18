@@ -27,10 +27,12 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
 
     public function query()
     {
+        $gender = $this->dormitory->gender == 'L' ? 'male' : 'female';
         $query =  Student
             ::query()
             ->withoutGlobalScopes()
-            ->where('gender', $this->dormitory->gender);
+            ->whereNull('deleted_at')
+            ->where('gender', $gender);
 
             $query->whereHas('dormitory', function ($q) {
                 $q->where('dormitory_id', $this->dormitory->id);
@@ -47,8 +49,10 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
 
     public function map($student): array
     {
+        $angkatan = Carbon::parse($student->verified_at)->year;
         return [
             $student->room->count() >0 ? $student->room[0]->name: '-',
+            $angkatan??'-',
             $student->name,
             $student->nickname,
            '`'. $student->nik,
@@ -72,7 +76,8 @@ class StudentPerAsramaSheet implements FromQuery, WithTitle, WithMapping, WithHe
     public function headings(): array
     {
         return [
-            'ASRAMA',
+        'ASRAMA',
+        'ANGKATAN',
           'NAMA',
           'PANGGILAN',
           'NIK',
