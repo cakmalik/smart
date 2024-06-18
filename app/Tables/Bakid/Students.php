@@ -56,7 +56,7 @@ class Students extends AbstractTable
         return QueryBuilder::for(Student::class)
             ->defaultSort('name')
             ->allowedSorts(['name','nis','district','city','verified_at'])
-            ->allowedFilters(['name','verified_at', $globalSearch]);
+            ->allowedFilters(['name','verified_at','dormitory.id', $globalSearch]);
     }
 
     /**
