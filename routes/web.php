@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Student;
 use App\Models\Announcement;
 use App\Models\BakidSetting;
@@ -252,4 +253,11 @@ Route::get('/cc', function () {
     $snappy->generateFromHtml($html, public_path($nameImage));
 
     dd($snappy);
+});
+
+Route::get('add-role-to-x-user', function (){
+    $users = User::whereBetween('id', [1782, 5888])->get();
+    foreach ($users as $user) {
+        $user->assignRole('santri');
+    }
 });

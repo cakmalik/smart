@@ -118,7 +118,7 @@ if (!function_exists('formatMessage')) {
 if (!function_exists('roleName')) {
     function roleName(): string
     {
-        return auth()->user()->roles[0]->name;
+        return auth()->user()->roles?->first()?->name ?? 'Guest';
     }
 }
 if (!function_exists('generateUniqueUsername')) {
