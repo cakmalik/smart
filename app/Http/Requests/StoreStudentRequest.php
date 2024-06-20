@@ -33,8 +33,8 @@ class StoreStudentRequest extends FormRequest
             'village' => 'required',
             'child_number' => 'numeric',
             'siblings' => 'numeric',
-            'father_name' => 'required',
-            'mother_name' => 'required',
+            // 'father_name' => 'required',
+            // 'mother_name' => 'required',
         ];
     }
     

@@ -2,8 +2,11 @@
 
 {{-- <div class="min-h-screen pb-20 relative overflow-scroll scrollbar-hide"
     style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;"> --}}
-    <div class="relative overflow-scroll scrollbar-hide min-h-screen bg-gradient-to-br from-purple-500 to-pink-500">
-    @include('components.menu.new.main')
+<div class="relative overflow-scroll scrollbar-hide min-h-screen bg-gradient-to-br from-purple-500 to-pink-500">
+    @unlessrole('santri')
+        @include('components.menu.new.main')
+    @else
+    @endunlessrole
 
     @hasrole('santri')
         @if (Auth::user()->students->count() > 0)

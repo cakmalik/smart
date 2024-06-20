@@ -162,131 +162,137 @@
                             </aside>
 
                             <aside v-show="data.currentIndex === 1">
-                                <div class="grid sm:grid-cols-2 gap-3">
-                                    <div>
-                                        <x-splade-input class="mt-2" name="father_name" type="text"
-                                            :label="__('bakid.father_name')" :placeholder="__('bakid.pl.father_name')" />
-
-                                        <x-splade-input class="mt-2" name="father_nik" type="text"
-                                            :label="__('bakid.father_nik')" :placeholder="__('bakid.pl.father_nik')" />
-
-                                        <x-splade-input class="mt-2" name="father_phone" type="text"
-                                            :label="__('bakid.father_phone')" :placeholder="__('bakid.pl.father_phone')" />
-
-                                        <x-splade-select class="mt-2" name="father_education" :options="[
-                                            'SD/MI',
-                                            'SMP/MTs',
-                                            'SMA/SMK',
-                                            'D1',
-                                            'D2',
-                                            'D3',
-                                            'D4',
-                                            'S1',
-                                            'S2',
-                                            'S3',
-                                        ]"
-                                            :label="__('bakid.father_education')" :placeholder="__('bakid.pl.father_education')" choices="{searchEnabled:true}" />
-
-                                        <x-splade-select class="mt-2" name="father_job" :options="[
-                                            'Lainnya',
-                                            'Guru',
-                                            'Arsitek',
-                                            'Nelayan',
-                                            'Perawat',
-                                            'Dokter',
-                                            'Bidan',
-                                            'Pemadam Kebakaran',
-                                            'Kondektur',
-                                            'Pilot',
-                                            'Masinis',
-                                            'Wartawan',
-                                            'Penulis',
-                                            'Insinyur Mesin',
-                                            'Ahli Gizi',
-                                            'Pustakawan',
-                                            'Hakim',
-                                            'Notaris',
-                                            'Teller Bank',
-                                            'Koki',
-                                            'Artis',
-                                            'Penerjemah',
-                                            'Tentara',
-                                            'Tukang cukur',
-                                            'Petani',
-                                            'Akuntan',
-                                            'wiraswasta',
-                                        ]"
-                                            :label="__('bakid.father_job')" :placeholder="__('bakid.pl.father_job')" choices="{searchEnabled:true}" />
-
-                                        <x-splade-input class="mt-2" name="father_income" type="text"
-                                            :label="__('bakid.father_income')" :placeholder="__('bakid.pl.father_income')" />
-
-                                    </div>
-                                    <div>
-                                        <x-splade-input class="mt-2" name="mother_name" type="text"
-                                            :label="__('bakid.mother_name')" :placeholder="__('bakid.pl.mother_name')" />
-
-                                        <x-splade-input class="mt-2" name="mother_nik" type="text"
-                                            :label="__('bakid.mother_nik')" :placeholder="__('bakid.pl.mother_nik')" />
-
-                                        <x-splade-input class="mt-2" name="mother_phone" type="text"
-                                            :label="__('bakid.mother_phone')" :placeholder="__('bakid.pl.mother_phone')" />
-
-                                        <x-splade-select class="mt-2" name="mother_education" :options="[
-                                            'SD/MI',
-                                            'SMP/MTs',
-                                            'SMA/SMK',
-                                            'D1',
-                                            'D2',
-                                            'D3',
-                                            'D4',
-                                            'S1',
-                                            'S2',
-                                            'S3',
-                                        ]"
-                                            :label="__('bakid.mother_education')" :placeholder="__('bakid.pl.mother_education')" choices="{searchEnabled:true}" />
-
-                                        <x-splade-select class="mt-2" name="mother_job" :options="[
-                                            'Lainnya',
-                                            'Guru',
-                                            'Arsitek',
-                                            'Nelayan',
-                                            'Perawat',
-                                            'Dokter',
-                                            'Bidan',
-                                            'Pemadam Kebakaran',
-                                            'Kondektur',
-                                            'Pilot',
-                                            'Masinis',
-                                            'Wartawan',
-                                            'Penulis',
-                                            'Insinyur Mesin',
-                                            'Ahli Gizi',
-                                            'Pustakawan',
-                                            'Hakim',
-                                            'Notaris',
-                                            'Teller Bank',
-                                            'Koki',
-                                            'Artis',
-                                            'Penerjemah',
-                                            'Tentara',
-                                            'Tukang cukur',
-                                            'Petani',
-                                            'Akuntan',
-                                            'wiraswasta',
-                                        ]"
-                                            :label="__('bakid.mother_job')" :placeholder="__('bakid.pl.mother_job')" choices="{searchEnabled:true}" />
-
-
-                                        <x-splade-input class="mt-2" name="mother_income" type="text"
-                                            :label="__('bakid.mother_income')" :placeholder="__('bakid.pl.mother_income')" />
-
-                                    </div>
+                                @if (auth()->user()->students->count() > 0)
+                                <div class="w-full text-center">
+                                    Data Orang Tua sudah ada, Lanjutkan!
                                 </div>
-                                <div class="grid sm:grid-cols-2">
-                                    <div class="div">
+                                @else
+                                    <div class="grid sm:grid-cols-2 gap-3">
+                                        <div>
+                                            <x-splade-input class="mt-2" name="father_name" type="text"
+                                                :label="__('bakid.father_name')" :placeholder="__('bakid.pl.father_name')" />
+
+                                            <x-splade-input class="mt-2" name="father_nik" type="text"
+                                                :label="__('bakid.father_nik')" :placeholder="__('bakid.pl.father_nik')" />
+
+                                            <x-splade-input class="mt-2" name="father_phone" type="text"
+                                                :label="__('bakid.father_phone')" :placeholder="__('bakid.pl.father_phone')" />
+
+                                            <x-splade-select class="mt-2" name="father_education" :options="[
+                                                'SD/MI',
+                                                'SMP/MTs',
+                                                'SMA/SMK',
+                                                'D1',
+                                                'D2',
+                                                'D3',
+                                                'D4',
+                                                'S1',
+                                                'S2',
+                                                'S3',
+                                            ]"
+                                                :label="__('bakid.father_education')" :placeholder="__('bakid.pl.father_education')" choices="{searchEnabled:true}" />
+
+                                            <x-splade-select class="mt-2" name="father_job" :options="[
+                                                'Lainnya',
+                                                'Guru',
+                                                'Arsitek',
+                                                'Nelayan',
+                                                'Perawat',
+                                                'Dokter',
+                                                'Bidan',
+                                                'Pemadam Kebakaran',
+                                                'Kondektur',
+                                                'Pilot',
+                                                'Masinis',
+                                                'Wartawan',
+                                                'Penulis',
+                                                'Insinyur Mesin',
+                                                'Ahli Gizi',
+                                                'Pustakawan',
+                                                'Hakim',
+                                                'Notaris',
+                                                'Teller Bank',
+                                                'Koki',
+                                                'Artis',
+                                                'Penerjemah',
+                                                'Tentara',
+                                                'Tukang cukur',
+                                                'Petani',
+                                                'Akuntan',
+                                                'wiraswasta',
+                                            ]"
+                                                :label="__('bakid.father_job')" :placeholder="__('bakid.pl.father_job')" choices="{searchEnabled:true}" />
+
+                                            <x-splade-input class="mt-2" name="father_income" type="text"
+                                                :label="__('bakid.father_income')" :placeholder="__('bakid.pl.father_income')" />
+
+                                        </div>
+                                        <div>
+                                            <x-splade-input class="mt-2" name="mother_name" type="text"
+                                                :label="__('bakid.mother_name')" :placeholder="__('bakid.pl.mother_name')" />
+
+                                            <x-splade-input class="mt-2" name="mother_nik" type="text"
+                                                :label="__('bakid.mother_nik')" :placeholder="__('bakid.pl.mother_nik')" />
+
+                                            <x-splade-input class="mt-2" name="mother_phone" type="text"
+                                                :label="__('bakid.mother_phone')" :placeholder="__('bakid.pl.mother_phone')" />
+
+                                            <x-splade-select class="mt-2" name="mother_education" :options="[
+                                                'SD/MI',
+                                                'SMP/MTs',
+                                                'SMA/SMK',
+                                                'D1',
+                                                'D2',
+                                                'D3',
+                                                'D4',
+                                                'S1',
+                                                'S2',
+                                                'S3',
+                                            ]"
+                                                :label="__('bakid.mother_education')" :placeholder="__('bakid.pl.mother_education')" choices="{searchEnabled:true}" />
+
+                                            <x-splade-select class="mt-2" name="mother_job" :options="[
+                                                'Lainnya',
+                                                'Guru',
+                                                'Arsitek',
+                                                'Nelayan',
+                                                'Perawat',
+                                                'Dokter',
+                                                'Bidan',
+                                                'Pemadam Kebakaran',
+                                                'Kondektur',
+                                                'Pilot',
+                                                'Masinis',
+                                                'Wartawan',
+                                                'Penulis',
+                                                'Insinyur Mesin',
+                                                'Ahli Gizi',
+                                                'Pustakawan',
+                                                'Hakim',
+                                                'Notaris',
+                                                'Teller Bank',
+                                                'Koki',
+                                                'Artis',
+                                                'Penerjemah',
+                                                'Tentara',
+                                                'Tukang cukur',
+                                                'Petani',
+                                                'Akuntan',
+                                                'wiraswasta',
+                                            ]"
+                                                :label="__('bakid.mother_job')" :placeholder="__('bakid.pl.mother_job')" choices="{searchEnabled:true}" />
+
+
+                                            <x-splade-input class="mt-2" name="mother_income" type="text"
+                                                :label="__('bakid.mother_income')" :placeholder="__('bakid.pl.mother_income')" />
+
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="grid sm:grid-cols-2">
+                                        <div class="div">
+                                        </div>
+                                    </div>
+                                @endif
                             </aside>
 
                             <aside v-show="data.currentIndex === 2">

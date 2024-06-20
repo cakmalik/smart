@@ -48,7 +48,7 @@
                 <h3 class="text-xl">{{ __('Choose Rooms') }}</h3>
                 </Link>
 
-                {{-- @if (auth()->user()->doc_kk == null) --}}
+                @if (auth()->user()->doc_kk == null)
                 <Link @if (auth()->user()->doc_kk != null) href="#"  @else href="#modalUploadKK" @endif
                     class="relative p-3 py-5 w-full @if (auth()->user()->doc_kk != null) bg-white/50 cursor-default  @else bg-green-400 @endif rounded-xl">
                 <svg class="inline-flex justify-center" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
@@ -59,7 +59,7 @@
                 </svg>
                 <h3 class="text-xl">{{ __('Upload Kartu Keluarga') }}</h3>
                 </Link>
-                {{-- @endif --}}
+                @endif
 
                 {{-- TODO:kerjakan next --}}
                 @if ($data['invoices_psb']->isNotEmpty())

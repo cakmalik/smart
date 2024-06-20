@@ -11,7 +11,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- card with image --}}
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-3">
+                {{-- @dd($families) --}}
                 @foreach ($families as $i)
+                {{-- @dd($i); --}}
                     <x-card.image :dataa="$i" />
                 @endforeach
                 <Link href="{{ route('student.create') }}"

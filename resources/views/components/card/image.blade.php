@@ -9,7 +9,7 @@
         class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black group-hover:from-black/90 group-hover:via-black/60 group-hover:to-black/70">
         <div
             class="bg-black/50 absolute inset-0 flex flex-col items-center justify-center px-9 text-center  translate-y-[0%] sm:translate-y-[66%] group-hover:translate-y-0 transition-all duration-500 ">
-            <h3 class="text-xl sm:text-2xl font-bold text-white mb-3 capitalize">{{ $dataa->nickname }}</h3>
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-3 capitalize">{{ $dataa->nickname == '-' ? $dataa->name : $dataa->nickname}}</h3>
 
             <p class="text-sm md:text-lg italic text-white group-hover:opacity-100 transition-opacity duration-300 ">
                 {{-- {{ $lineOne }} --}}

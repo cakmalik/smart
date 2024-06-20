@@ -5,6 +5,7 @@ namespace App\Services\Student;
 use Image;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\StudentFamily;
 use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Service;
 use Illuminate\Support\Facades\Log;
@@ -43,7 +44,19 @@ class StudentServiceImplement extends Service implements StudentService
 
         try {
             DB::beginTransaction();
-            $parent = $this->mainRepository->createParent($request->only($parent_data));
+
+            //get existing parent from student
+            $student = auth()->user()->students?->first();
+            if($student){   
+                $parent = StudentFamily::where('id', $student->student_family_id)->first();
+            }else{
+                $parent = null;
+            }
+            
+            if(!$parent){   
+                $parent = $this->mainRepository->createParent($request->only($parent_data));
+            }
+            
             $student_data['student_family_id'] = $parent->id;
             $student = $this->mainRepository->create($student_data);
             $status = true;

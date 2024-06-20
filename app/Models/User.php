@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Student;
+use App\Models\StudentFamily;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\ReminderNotification;
@@ -109,4 +110,5 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(FormalEducation::class, 'user_has_formal_education_permission', 'user_id', 'education_id');
     }
+
 }

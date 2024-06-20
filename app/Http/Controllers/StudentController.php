@@ -97,6 +97,9 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
+        if(!$request->has('father_name')){
+            $request->merge(['father_name' => '-', 'mother_name' => '-']);
+        }
         DB::beginTransaction();
         try {
             $student = $this->student->storeNewStudent($request);
