@@ -173,7 +173,7 @@ class DocumentController extends Controller
 
             // Buat gambar latar belakang dengan ukuran yang sama seperti kanvas
             $background = Image::canvas($width, $height);
-            $backgroundImage = Image::make(public_path('bakid/kartu/k_mahram.jpg'));
+            $backgroundImage = Image::make(public_path('bakid/kartu/k_mahram_old.jpg'));
             $background->insert($backgroundImage, 'center');
             $image->insert($background);
 
