@@ -103,14 +103,15 @@
                         <img class="w-full" src="{{ asset('storage/temp_images/' . $student->nis . '.jpg') }}"
                             alt="">
                         <div class="flex justify-center items-center">
-                            <a class=" rounded-full p-5"
-                                href="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'download']) }}">Download
-                                File</a>
-                                
                             <x-splade-form background stay method="GET" @success="$splade.emit('kts-re-generated')"
                                 action="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'preview']) }}">
                                     <x-splade-submit label="Generate Ulang KTS" :spinner="true" />
                             </x-splade-form>
+                            <a class=" rounded-full p-5"
+                                href="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'download']) }}">Download
+                                File</a>
+                                
+                            
                         </div>
                     @else
                         <x-splade-form background stay method="GET" @success="$splade.emit('kts-generated')"
