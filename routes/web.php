@@ -261,3 +261,7 @@ Route::get('add-role-to-x-user', function (){
         $user->assignRole('santri');
     }
 });
+
+Route::get('info', function(){
+    phpinfo();
+});
