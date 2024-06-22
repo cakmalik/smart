@@ -106,6 +106,11 @@
                             <a class=" rounded-full p-5"
                                 href="{{ route('doc.generate.kts', ['nis' => $student->nis, 'action' => 'download']) }}">Download
                                 File</a>
+                                
+                            <x-splade-form background stay method="GET" @success="$splade.emit('kts-generated')"
+                                action="{{ route('doc.generate.k_mahram', ['nis' => $student->nis, 'action' => 'preview']) }}">
+                                    <x-splade-submit label="Generate Ulang KTS" :spinner="true" />
+                            </x-splade-form>
                         </div>
                     @else
                         <x-splade-form background stay method="GET" @success="$splade.emit('kts-generated')"

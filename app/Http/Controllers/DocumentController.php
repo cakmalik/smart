@@ -134,6 +134,12 @@ class DocumentController extends Controller
             if ($action == 'download') {
                 $file_name = $dataSantri->nis . '.jpg';
                 $path = 'storage/kts/' . $file_name;
+
+                if (file_exists(public_path($path))) {
+                    // Jika file sudah ada, hapus file tersebut
+                    unlink(public_path($path));
+                }
+                
                 $image->save(public_path($path));
                 return response()->download(public_path($path));
             } else {
@@ -295,6 +301,12 @@ class DocumentController extends Controller
             if ($action == 'download') {
                 $file_name = $dataSantri->user?->kk . '.jpg';
                 $path = 'storage/k_mahram/' . $file_name;
+
+                if (file_exists(public_path($path))) {
+                    // Jika file sudah ada, hapus file tersebut
+                    unlink(public_path($path));
+                }
+                
                 $image->save(public_path($path));
                 return response()->download(public_path($path));
             } else {
