@@ -1,5 +1,5 @@
 <div class="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0 "
-    style="">
+    style="background-image: url('{{ asset('bg/' . env('CURRENT_BACKGROUND') . '.jpg') }}'); background-size: cover; background-position: center;background-attachment: fixed;">
     <div>
         {{ $logo }}
     </div>
