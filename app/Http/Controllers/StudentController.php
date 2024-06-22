@@ -104,7 +104,8 @@ class StudentController extends Controller
         try {
             $student = $this->student->storeNewStudent($request);
             if ($student['status'] === false) {
-                Toast::title('Maaf!')->message('Terjadi kesalahan menyimpan data, silahkan kembali dan coba lagi')->danger()->center()->backdrop()->autoDismiss(5);
+                Log::error($student['message']);
+                Toast::title('Maaf!')->message($student['message'])->danger()->center()->backdrop()->autoDismiss(5);
                 return;
             }
             $invoiceService = $this->invoice->createInvoiceAdmission($student['student_id']);
@@ -114,9 +115,9 @@ class StudentController extends Controller
             }
             DB::commit();
         } catch (\Exception $e) {
+            Toast::title('Maaf!')->message('Terjadi kesalahan, silahkan kembali dan coba lagi')->danger()->center()->backdrop()->autoDismiss(5);
             DB::rollBack();
             Log::error($e->getMessage());
-            Toast::title('Maaf!')->message('Terjadi kesalahan, silahkan kembali dan coba lagi')->danger()->center()->backdrop()->autoDismiss(5);
             return;
         }
 

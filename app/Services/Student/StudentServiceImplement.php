@@ -64,11 +64,11 @@ class StudentServiceImplement extends Service implements StudentService
 
             DB::commit();
         } catch (\Exception $e) {
-            DB::rollback();
-            $status = false;
-            $message = 'Data gagal disimpan';
             $err = $e->getMessage();
             Log::error($err . ':' . $e->getLine());
+            $status = false;
+            $message = $e->getMessage();
+            DB::rollback();
         }
         return [
             'student_id' => $student->id ?? null,
