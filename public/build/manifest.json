@@ -18,7 +18,7 @@
       "node_modules/@protonemedia/laravel-splade/dist/CompilerErrorMessages-6b34f14b.js"
     ],
     "css": [
-      "assets/app.ef60093c.css"
+      "assets/app.7c23c368.css"
     ]
   },
   "node_modules/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.esm.js": {
@@ -91,7 +91,7 @@
     "isDynamicEntry": true
   },
   "resources/js/app.css": {
-    "file": "assets/app.ef60093c.css",
+    "file": "assets/app.7c23c368.css",
     "src": "resources/js/app.css"
   }
 }

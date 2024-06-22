@@ -1,20 +1,20 @@
     @seoTitle(__('Welcome'))
-    <div class="flex h-screen flex-col justify-center overflow-hidden bg-cover bg-hero-pattern sm:hidden">
+    <div class="flex h-screen flex-col justify-center overflow-hidden bg-cover sm:hidden">
         <div class="h-1/3 p-5 flex flex-col justify-center items-center">
             <div class="flex items-center justify-center mt-5 gap-2">
                 @if ($canLogin)
                 @auth
                 <Link href="{{ url('/dashboard') }}"
-                class="py-2 px-3 uppercase font-semibold rounded border-[0.5px] border-white text-white bg-white/30 backdrop-blur-sm">
+                class="py-2 px-3 uppercase font-semibold rounded border text-neutral-600 bg-white/30 backdrop-blur-sm">
                 {{ __('Dashboard') }}</Link>
                 @else
                         <Link href="{{ route('login') }}"
-                            class="py-2 px-3 uppercase font-semibold rounded border-[0.5px] border-white text-white bg-white/30 backdrop-blur-sm">
+                            class="py-2 px-3 uppercase font-semibold rounded border text-neutral-600 bg-white/30 backdrop-blur-sm">
                         {{ __('Login') }}</Link>
 
                         @if ($canRegister)
                             <Link href="{{ route('register') }}"
-                                class="ml-4 py-2 px-3 uppercase font-semibold rounded border-[0.5px] border-white text-white bg-white/30 backdrop-blur-sm">
+                                class="ml-4 py-2 px-3 uppercase font-semibold rounded border text-neutral-600 bg-white/30 backdrop-blur-sm">
                             {{ __('Register') }}</Link>
                         @endif
                     @endauth
