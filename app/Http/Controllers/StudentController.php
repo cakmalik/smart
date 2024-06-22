@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Image;
+use Carbon\Carbon;
 use App\Models\Invoice;
 use App\Models\Student;
 use App\Tables\Students;
@@ -381,14 +382,16 @@ class StudentController extends Controller
     {
         $student->load('parent');
         $pdf = Pdf::loadView('document.biodata', compact('student'));
-        return $pdf->download('invoice.pdf');
+        $filename = 'Biodata - '.Carbon::parse($student->verified_at)->format('Y') . ' - '. $student->name;
+        return $pdf->download($filename);
     }
 
     function mouPdf(Student $student)
     {
         $student->load('parent');
         $pdf = Pdf::loadView('document.mou', compact('student'));
-        return $pdf->download('invoice.pdf');
+        $filename = 'MoU - '.Carbon::parse($student->verified_at)->format('Y') . ' - '. $student->name;
+        return $pdf->download($filename);
     }
 
     function kts(Student $student)
