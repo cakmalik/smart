@@ -150,7 +150,7 @@
                             <p v-else> Upss, Kartu Mahram belum tersedia </p>
                             <br>
                             <div class="flex items-center gap-2">
-                                <x-splade-submit label="Generate KTS" :spinner="true" />
+                                <x-splade-submit label="Generate Kartu Mahram" :spinner="true" />
                                 <a class="rounded-full p-3 py-2 border"
                                     href="{{ route('doc.generate.k_mahram', ['nis' => $student->nis, 'action' => 'download']) }}">Download
                                     File</a>
