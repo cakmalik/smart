@@ -9,7 +9,7 @@
         var options = {
             series: @json($series),
             chart: {
-            width: 380,
+            width: 470,
             type: 'pie',
           },
           labels: @json($labels),
