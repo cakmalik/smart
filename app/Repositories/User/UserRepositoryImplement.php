@@ -49,6 +49,8 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
         $invoiceCategoryCode = 'psb';
 
         $isExist = DB::table('invoices')->join('invoice_categories as ic', 'invoices.invoice_category_id', '=', 'ic.id')
+            ->join('students as s', 'invoices.student_id', '=', 's.id')
+            ->where('s.deleted_at',null)
             ->where('ic.code', $invoiceCategoryCode)
             ->where('invoices.user_id', $user->id)
             ->whereNull('invoices.payment_method_id')
