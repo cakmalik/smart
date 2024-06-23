@@ -160,6 +160,8 @@
                 </x-splade-form>
             </x-splade-modal>
         @else
-            <x-add.ayat />
+
+        <x-bakid.dashboard.welcome-text/>
+        <x-add.ayat />
         @endif
     </div>
