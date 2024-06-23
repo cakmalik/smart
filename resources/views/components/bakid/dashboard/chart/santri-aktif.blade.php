@@ -6,12 +6,12 @@
     <x-splade-script>
 
         var options = {
-            series: [44, 55, 13, 43, 22],
+            series: @json($series),
             chart: {
             width: 380,
             type: 'pie',
           },
-          labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+          labels: @json($labels),
           responsive: [{
             breakpoint: 480,
             options: {
