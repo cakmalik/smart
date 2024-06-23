@@ -134,6 +134,12 @@ class DocumentController extends Controller
             if ($action == 'download') {
                 $file_name = $dataSantri->nis . '.jpg';
                 $path = 'storage/kts/' . $file_name;
+
+                if (file_exists(public_path($path))) {
+                    // Jika file sudah ada, hapus file tersebut
+                    unlink(public_path($path));
+                }
+                
                 $image->save(public_path($path));
                 return response()->download(public_path($path));
             } else {
@@ -173,7 +179,7 @@ class DocumentController extends Controller
 
             // Buat gambar latar belakang dengan ukuran yang sama seperti kanvas
             $background = Image::canvas($width, $height);
-            $backgroundImage = Image::make(public_path('bakid/kartu/k_mahram_old.jpg'));
+            $backgroundImage = Image::make(public_path('bakid/kartu/k_mahram.jpg'));
             $background->insert($backgroundImage, 'center');
             $image->insert($background);
 
@@ -295,6 +301,12 @@ class DocumentController extends Controller
             if ($action == 'download') {
                 $file_name = $dataSantri->user?->kk . '.jpg';
                 $path = 'storage/k_mahram/' . $file_name;
+
+                if (file_exists(public_path($path))) {
+                    // Jika file sudah ada, hapus file tersebut
+                    unlink(public_path($path));
+                }
+                
                 $image->save(public_path($path));
                 return response()->download(public_path($path));
             } else {
