@@ -16,6 +16,7 @@
     @spladeHead
     @vite('resources/js/app.js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 
 <body class="font-sans antialiased" style="margin-bottom: 0px">
@@ -23,7 +24,9 @@
 
     <x-splade-script>
         initFlowbite();
+       
     </x-splade-script>
+    
 </body>
 
 </html>

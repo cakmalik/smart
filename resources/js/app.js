@@ -11,12 +11,17 @@ import { initFlowbite } from "flowbite";
 import { createApp, defineAsyncComponent } from "vue/dist/vue.esm-bundler.js";
 import { renderSpladeApp, SpladePlugin } from "@protonemedia/laravel-splade";
 
+// import ApexCharts from "apexcharts";
+
 const el = document.getElementById("app");
 
 createApp({
     mounted() {
         // bisa panggil jquery disini loh
         initFlowbite();
+
+        // apexcharts
+        // window.ApexCharts = ApexCharts;
     },
     render: renderSpladeApp({ el }),
 })
