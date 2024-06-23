@@ -256,7 +256,10 @@ Route::get('/cc', function () {
 });
 
 Route::get('add-role-to-x-user', function (){
-    $users = User::whereBetween('id', [1782, 5888])->get();
+    // $users = User::where('id', [1782, 5888])->get();
+    $users = User::where('id', '>', 1782)
+    ->where('id', '<', 5888)
+    ->get();
     foreach ($users as $user) {
         $user->assignRole('santri');
     }
