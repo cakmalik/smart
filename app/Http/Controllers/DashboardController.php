@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Bakid\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Formal\FormalEducation;
 use App\Services\Invoice\InvoiceService;
@@ -43,6 +44,7 @@ class DashboardController extends Controller
 
         $user = Auth::user();
         if ($user->students->count() > 0) {
+            Log::info('user id u/ cek role: ' . $user->id);
             $x['students'] = Student::where('user_id', auth()->user()->id)->whereNull('education_updated')->orderByDesc('id')->get();
             $x['studentsWithoutRooms'] = $this->getStudentsWithoutRooms($user);
             $x['invoices_psb'] = $invoices_psb;
