@@ -1,6 +1,7 @@
 <div>
-    <x-card-simple class="p-1 h-42">
+    <x-card-simple class="p-1 h-42 flex flex-col">
         <div id="chart-annual-counter"></div>
+        <div class="text-sm text-center font-semibold">Statistik Jumlah Santri</div>
     </x-card-simple>
 
     <x-splade-script>
@@ -80,7 +81,7 @@
                 }
 
             },
-            title: {
+            {{-- title: {
                 text: 'Statistik Jumlah Santri',
                 floating: true,
                 offsetY: 330,
@@ -88,7 +89,7 @@
                 style: {
                     color: '#444'
                 }
-            }
+            } --}}
         };
 
         var chart = new ApexCharts(document.querySelector("#chart-annual-counter"), options);

@@ -1,6 +1,7 @@
 <div class="grow">
-    <x-card-simple class="h-full flex items-center justify-center">
+    <x-card-simple class="h-full flex flex-col items-center justify-center">
         <div id="chart-santri-aktif"></div>
+        <div class="text-sm mt-10 font-semibold">Santri Aktif</div>
     </x-card-simple>
 
     <x-splade-script>
@@ -22,8 +23,8 @@
                 position: 'bottom'
               }
             }
-          }]
-          };
+          }], 
+        };
   
           var chart = new ApexCharts(document.querySelector("#chart-santri-aktif"), options);
           chart.render();
