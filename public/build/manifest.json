@@ -1,6 +1,6 @@
 {
   "resources/js/app.js": {
-    "file": "assets/app.d50275f6.js",
+    "file": "assets/app.f7cb5b34.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
@@ -18,7 +18,7 @@
       "node_modules/@protonemedia/laravel-splade/dist/CompilerErrorMessages-6b34f14b.js"
     ],
     "css": [
-      "assets/app.7c23c368.css"
+      "assets/app.58cafaed.css"
     ]
   },
   "node_modules/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.esm.js": {
@@ -91,7 +91,7 @@
     "isDynamicEntry": true
   },
   "resources/js/app.css": {
-    "file": "assets/app.7c23c368.css",
+    "file": "assets/app.58cafaed.css",
     "src": "resources/js/app.css"
   }
 }
