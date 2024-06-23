@@ -55,7 +55,8 @@ class Summary extends Component
             $x['students'] = [];
         }
 
-        $pendaftar = DB::table('students')->whereNull('deleted_at')->where('status', 'waiting')->count();
+        $pendaftar_l = DB::table('students')->whereNull('deleted_at')->where('status', 'waiting')->where('gender', 'male')->count();
+        $pendaftar_p = DB::table('students')->whereNull('deleted_at')->where('status', 'waiting')->where('gender', 'female')->count();
         $count_students_l = DB::table('students')->whereNull('deleted_at')->where('status', 'accepted')->where('gender', 'male')->count();
         $count_students_p = DB::table('students')->whereNull('deleted_at')->where('status', 'accepted')->where('gender', 'female')->count();
 
@@ -74,7 +75,8 @@ class Summary extends Component
 
         
         $summary = [
-            'pendaftar' => $pendaftar,
+            'pendaftar_l' => $pendaftar_l,
+            'pendaftar_p' => $pendaftar_p,
             'student_l_count' => $count_students_l,
             'student_p_count' => $count_students_p,
             'approval' => 0,

@@ -1,6 +1,16 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mx-4 sm:mx-0">
         <Link href="{{ route('student.new') }}">
-        <x-card.summary title="Pendaftar" :value="$summary['pendaftar']" color="atlantis" />
+        <div class="p-4 rounded-lg shadow bg-atlantis-200">
+            <div class="flex items-center justify-between text-center">
+                <div class="text-lg font-medium text-neutral-600">
+                    Pendaftar Baru
+                </div>
+                <div class="text-lg font-medium text-atlantis-800">
+                    L:{{ $summary['pendaftar_l'] }} &nbsp;
+                    P:{{ $summary['pendaftar_p'] }}
+                </div>
+            </div>
+        </div>
         </Link>
         <Link href="{{ route('student.index') }}">
         <x-card.summary title="Santri Putra" :value="$summary['student_l_count']" color="chilean" />
