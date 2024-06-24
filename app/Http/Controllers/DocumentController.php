@@ -112,10 +112,12 @@ class DocumentController extends Controller
                 $asrama = $dataSantri->dormitory[0]?->name . '' . $dataSantri->room[0]?->name;
             }
 
-            $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->place_of_birth}, {$tgl_lhr} \n \n: {$dataSantri->village} \n: {$dataSantri->district} \n: {$dataSantri->city} \n: {$dataSantri->parent?->father_name} \n: {$dataSantri->phone}";
+            $city_formatted = str_replace('kota ', '', $dataSantri->city);
+            $city_formatted = str_replace('kabupaten ', '', $dataSantri->city);
+            $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->place_of_birth}, {$tgl_lhr} \n \n: {$dataSantri->village} \n: {$dataSantri->district} \n: {$city_formatted} \n: {$dataSantri->parent?->father_name} \n: {$dataSantri->phone}";
             $tableLines = explode("\n", $tableText);
-            $tableX = 1250; // Koordinat horizontal awal
-            $tableY = 1050; // Koordinat vertikal awal
+            $tableX = 1230; // Koordinat horizontal awal
+            $tableY = 1100; // Koordinat vertikal awal
             $tableLineHeight = 200; // Tinggi baris tabel
 
             foreach ($tableLines as $tableLine) {
