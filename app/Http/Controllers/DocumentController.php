@@ -64,7 +64,7 @@ class DocumentController extends Controller
 
             QrCode::format('png')->size(600)->generate($dataSantri->user?->kk, public_path('storage/qrcode/' . $dataSantri->nis . '.png'));
             $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/' . $dataSantri->nis . '.png')));
-            $image->insert($qrCodeImage, 'top-right', 330, 80);
+            $image->insert($qrCodeImage, 'top-right', 310, 80);
 
             // Tanggal terdaftar
             $fontPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
