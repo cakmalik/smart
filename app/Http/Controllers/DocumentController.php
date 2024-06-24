@@ -48,7 +48,7 @@ class DocumentController extends Controller
             $fontSemiboldPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
             $fontRegularPath = public_path('fonts/PlusJakartaSans-Regular.ttf');
 
-            $image = Image::canvas($width, $height, '#ffffff');
+            $image = Image::canvas($width, $height, '#000000');
 
             // Buat gambar latar belakang dengan ukuran yang sama seperti kanvas
             $background = Image::canvas($width, $height);
@@ -71,7 +71,7 @@ class DocumentController extends Controller
             $image->text(Carbon::now()->translatedFormat('d F Y'), 3300, 2100, function ($font) use ($fontPath) {
                 $font->file($fontPath);
                 $font->size(110);
-                $font->color('#ffffff');
+                $font->color('#000000');
                 $font->align('left');
                 $font->valign('top');
             });
@@ -89,7 +89,7 @@ class DocumentController extends Controller
                     $image->text('       ' . $tableLine, $tableX, $tableY, function ($font) use ($fontSemiboldPath) {
                         $font->file($fontSemiboldPath);
                         $font->size(120);
-                        $font->color('#ffffff');
+                        $font->color('#000000');
                         $font->align('left');
                         $font->valign('top');
                     });
@@ -97,7 +97,7 @@ class DocumentController extends Controller
                     $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontSemiboldPath) {
                         $font->file($fontSemiboldPath);
                         $font->size(120);
-                        $font->color('#ffffff');
+                        $font->color('#000000');
                         $font->align('left');
                         $font->valign('top');
                     });
@@ -131,7 +131,7 @@ class DocumentController extends Controller
                 $image->text($tableLine, $tableX, $tableY, function ($font) use ($fontSemiboldPath) {
                     $font->file($fontSemiboldPath);
                     $font->size(120);
-                    $font->color('#ffffff');
+                    $font->color('#000000');
                     $font->align('left');
                     $font->valign('top');
                 });
