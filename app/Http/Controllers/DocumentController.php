@@ -78,8 +78,8 @@ class DocumentController extends Controller
             // Tambahkan label (gunakan metode yang sesuai dengan kebutuhan Anda)
             $tableText = "NO INDUK \nNama \nAsrama \nTempat, Tgl Lahir \nAlamat \nDesa \nKecamatan \nKota/Kab \nAyah \nNo HP";
             $tableLines = explode("\n", $tableText);
-            $tableX = 200; // Koordinat horizontal awal
-            $tableY = 1050; // Koordinat vertikal awal
+            $tableX = 180; // Koordinat horizontal awal
+            $tableY = 1100; // Koordinat vertikal awal
             $tableLineHeight = 200; // Tinggi baris tabel
 
             foreach ($tableLines as $tableLine) {
