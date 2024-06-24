@@ -68,7 +68,7 @@ class DocumentController extends Controller
 
             // Tanggal terdaftar
             $fontPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
-            $image->text(Carbon::now()->translatedFormat('d F Y'), 3300, 2500, function ($font) use ($fontPath) {
+            $image->text(Carbon::now()->translatedFormat('d F Y'), 3350, 2400, function ($font) use ($fontPath) {
                 $font->file($fontPath);
                 $font->size(80);
                 $font->color('#000000');
