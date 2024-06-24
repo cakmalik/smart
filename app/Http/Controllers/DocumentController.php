@@ -51,7 +51,8 @@ class DocumentController extends Controller
 
             // Buat gambar latar belakang dengan ukuran yang sama seperti kanvas
             $background = Image::canvas($width, $height);
-            $backgroundImage = Image::make(public_path('bakid/kartu/kts.jpg'));
+            $img_src = 'bakid/kartu/' . env('KTS_FILENAME');
+            $backgroundImage = Image::make(public_path($img_src));
             $background->insert($backgroundImage, 'center');
             $image->insert($background);
 
@@ -179,7 +180,8 @@ class DocumentController extends Controller
 
             // Buat gambar latar belakang dengan ukuran yang sama seperti kanvas
             $background = Image::canvas($width, $height);
-            $backgroundImage = Image::make(public_path('bakid/kartu/k_mahram.jpg'));
+            $img_src = 'bakid/kartu/' . env('K_MAHROM_FILENAME');
+            $backgroundImage = Image::make(public_path($img_src));
             $background->insert($backgroundImage, 'center');
             $image->insert($background);
 
