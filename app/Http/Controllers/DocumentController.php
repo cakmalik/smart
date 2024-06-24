@@ -70,7 +70,7 @@ class DocumentController extends Controller
             $fontPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
             $image->text(Carbon::now()->translatedFormat('d F Y'), 3350, 2400, function ($font) use ($fontPath) {
                 $font->file($fontPath);
-                $font->size(80);
+                $font->size(100);
                 $font->color('#000000');
                 $font->align('left');
                 $font->valign('top');
