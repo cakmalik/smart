@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Student;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
@@ -114,7 +115,11 @@ class DocumentController extends Controller
 
             $city_formatted = str_replace('kota ', '', $dataSantri->city);
             $city_formatted = str_replace('kabupaten ', '', $dataSantri->city);
-            $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->place_of_birth}, {$tgl_lhr} \n \n: {$dataSantri->village} \n: {$dataSantri->district} \n: {$city_formatted} \n: {$dataSantri->parent?->father_name} \n: {$dataSantri->phone}";
+            $city_formatted = Str::title($city_formatted);
+            $village = Str::title($dataSantri->village);
+            $district = Str::title($dataSantri->district);
+
+            $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->place_of_birth}, {$tgl_lhr} \n \n: {$village} \n: {$district} \n: {$city_formatted} \n: {$dataSantri->parent?->father_name} \n: {$dataSantri->phone}";
             $tableLines = explode("\n", $tableText);
             $tableX = 1230; // Koordinat horizontal awal
             $tableY = 1100; // Koordinat vertikal awal
@@ -190,7 +195,7 @@ class DocumentController extends Controller
             //make qrcode
             $qrCode = QrCode::format('png')->size(550)->generate($dataSantri->user?->kk, public_path('storage/qrcode/kk' . $dataSantri->user?->kk . '.png'));
             $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/kk' . $dataSantri->user?->kk . '.png')));
-            $image->insert($qrCodeImage, 'bottom-left', 390, 300);
+            $image->insert($qrCodeImage, 'bottom-left', 0, 0);
 
             // ...
             // Insert the parent photo
