@@ -192,11 +192,13 @@ class DocumentController extends Controller
             $background->insert($backgroundImage, 'center');
             $image->insert($background);
 
+          
             //make qrcode
             $qrCode = QrCode::format('png')->size(550)->generate($dataSantri->user?->kk, public_path('storage/qrcode/kk' . $dataSantri->user?->kk . '.png'));
             $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/kk' . $dataSantri->user?->kk . '.png')));
-            $image->insert($qrCodeImage, 'bottom-left', 0, 0);
+            $image->insert($qrCodeImage, 'bottom-left', 390, 300);
 
+            
             // ...
             // Insert the parent photo
             try {
