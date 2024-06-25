@@ -2,12 +2,18 @@
 
 namespace App\Providers;
 
+use GuzzleHttp\Client;
+use Google\Service\Drive;
 use ProtoneMedia\Splade\SpladeTable;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Filesystem\Filesystem;
 use ProtoneMedia\Splade\Facades\Splade;
+use Masbug\Flysystem\GoogleDriveAdapter;
 use ProtoneMedia\Splade\Facades\Animation;
 use ProtoneMedia\Splade\Components\Form\Input;
 use ProtoneMedia\Splade\Components\Form\Select;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -60,5 +66,37 @@ class AppServiceProvider extends ServiceProvider
             leaveFrom: 'opacity-100 translate-x-0',
             leaveTo: 'opacity-0 translate-x-full',
         );
+
+        $this->loadGoogleStorageDriver();
+    }
+
+   private function loadGoogleStorageDriver(string $driverName = 'google')
+    {
+        try {
+            Storage::extend('google', function ($app, $config) {
+                $options = [];
+
+                if (!empty($config['teamDriveId'] ?? null)) {
+                    $options['teamDriveId'] = $config['teamDriveId'];
+                }
+
+                if (!empty($config['sharedFolderId'] ?? null)) {
+                    $options['sharedFolderId'] = $config['sharedFolderId'];
+                }
+
+                $client = new \Google\Client();
+                $client->setClientId($config['clientId']);
+                $client->setClientSecret($config['clientSecret']);
+                $client->refreshToken($config['refreshToken']);
+
+                $service = new \Google\Service\Drive($client);
+                $adapter = new \Masbug\Flysystem\GoogleDriveAdapter($service, $config['folder'] ?? '/', $options);
+                $driver = new \League\Flysystem\Filesystem($adapter);
+
+                return new \Illuminate\Filesystem\FilesystemAdapter($driver, $adapter);
+            });
+        } catch (\Exception $e) {
+            // your exception handling logic
+        }
     }
 }
