@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         //reminderadmission
-        // $schedule->command('app:reminder-admission')->dailyAt('05:00');
+        $schedule->command('app:reminder-admission')->dailyAt('05:00');
+        $schedule->command('backup:run', ['--only-db'])->dailyAt('01:00');
     }
 
     /**

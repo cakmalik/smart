@@ -4,16 +4,17 @@ namespace App\Providers;
 
 use GuzzleHttp\Client;
 use Google\Service\Drive;
+use Illuminate\Support\Facades\Log;
 use ProtoneMedia\Splade\SpladeTable;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\ServiceProvider;
 use ProtoneMedia\Splade\Facades\Splade;
 use Masbug\Flysystem\GoogleDriveAdapter;
+
 use ProtoneMedia\Splade\Facades\Animation;
 use ProtoneMedia\Splade\Components\Form\Input;
 use ProtoneMedia\Splade\Components\Form\Select;
-
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -96,6 +97,7 @@ class AppServiceProvider extends ServiceProvider
                 return new \Illuminate\Filesystem\FilesystemAdapter($driver, $adapter);
             });
         } catch (\Exception $e) {
+            Log::error('gagal mengaktifkan google storage driver', ['error' => $e->getMessage()]);
             // your exception handling logic
         }
     }
