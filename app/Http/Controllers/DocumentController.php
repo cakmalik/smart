@@ -62,15 +62,15 @@ class DocumentController extends Controller
             // $profileImage->resize(150, 150);
             // $image->insert($profileImage, 'top-left', 30, 30);
 
-            QrCode::format('png')->size(600)->generate($dataSantri->user?->kk, public_path('storage/qrcode/' . $dataSantri->nis . '.png'));
+            QrCode::format('png')->size(420)->generate($dataSantri->user?->kk, public_path('storage/qrcode/' . $dataSantri->nis . '.png'));
             $qrCodeImage = Image::make(imagecreatefrompng(public_path('storage/qrcode/' . $dataSantri->nis . '.png')));
-            $image->insert($qrCodeImage, 'top-right', 310, 80);
+            $image->insert($qrCodeImage, 'top-right', 516, 320);
 
             // Tanggal terdaftar
             $fontPath = public_path('fonts/PlusJakartaSans-SemiBold.ttf');
-            $image->text(Carbon::now()->translatedFormat('d F Y'), 3350, 2380, function ($font) use ($fontPath) {
+            $image->text(Carbon::now()->translatedFormat('d F Y'), 3330, 2380, function ($font) use ($fontPath) {
                 $font->file($fontPath);
-                $font->size(90);
+                $font->size(85);
                 $font->color('#000000');
                 $font->align('left');
                 $font->valign('top');
@@ -79,7 +79,7 @@ class DocumentController extends Controller
             // Tambahkan label (gunakan metode yang sesuai dengan kebutuhan Anda)
             $tableText = "NO INDUK \nNama \nAsrama \nTempat, Tgl Lahir \nAlamat \nDesa \nKecamatan \nKota/Kab \nAyah \nNo HP";
             $tableLines = explode("\n", $tableText);
-            $tableX = 180; // Koordinat horizontal awal
+            $tableX = 200; // Koordinat horizontal awal
             $tableY = 1100; // Koordinat vertikal awal
             $tableLineHeight = 200; // Tinggi baris tabel
 
@@ -121,7 +121,7 @@ class DocumentController extends Controller
 
             $tableText = ": {$dataSantri->nis} \n: {$dataSantri->name} \n: {$asrama} \n: {$dataSantri->place_of_birth}, {$tgl_lhr} \n \n: {$village} \n: {$district} \n: {$city_formatted} \n: {$dataSantri->parent?->father_name} \n: {$dataSantri->phone}";
             $tableLines = explode("\n", $tableText);
-            $tableX = 1230; // Koordinat horizontal awal
+            $tableX = 1250; // Koordinat horizontal awal
             $tableY = 1100; // Koordinat vertikal awal
             $tableLineHeight = 200; // Tinggi baris tabel
 
@@ -144,8 +144,8 @@ class DocumentController extends Controller
              // ...
             // Insert the parent photo
             try {
-                if ($dataSantri->parent?->parent_image != null) {
-                    $fotoOrtu = Image::make(public_path('storage/parent-photos/' . $dataSantri->parent?->parent_image));
+                if ($dataSantri->student_image != null) {
+                    $fotoOrtu = Image::make(public_path('storage/student-photos/' . $dataSantri->student_image));
                 } else {
                     $fotoOrtu = Image::make(public_path('bakid/default-profile.png'));
                 }
@@ -156,8 +156,8 @@ class DocumentController extends Controller
             }
 
             // Determine the dimensions of the larger canvas
-            $canvasWidth = 1200; // Ganti dengan lebar canvas yang Anda inginkan
-            $canvasHeight = 1500; // Ganti dengan tinggi canvas yang Anda inginkan
+            $canvasWidth = 800; // Ganti dengan lebar canvas yang Anda inginkan
+            $canvasHeight = 1100; // Ganti dengan tinggi canvas yang Anda inginkan
 
             // Create the canvas
             $canvas = Image::canvas($canvasWidth, $canvasHeight);
@@ -175,7 +175,7 @@ class DocumentController extends Controller
             $canvas->insert($fotoOrtu);
 
             // Insert the canvas to the main image
-            $image->insert($canvas, 'bottom-right', 210, 400);
+            $image->insert($canvas, 'bottom-right', 410, 800);
 
             // Set the border radius on the original image
             $radius = 50; // You can adjust this value based on your preference
@@ -201,6 +201,13 @@ class DocumentController extends Controller
                     $constraint->aspectRatio();
                 });
                 $temporaryImagePath = 'storage/temp_images/' . $dataSantri->nis . '.jpg';
+
+                // cek jika sdh ada. maka unlink terlebih dahulu
+                if (file_exists(public_path($temporaryImagePath))) {
+                    // Jika file sudah ada, hapus file tersebut
+                    unlink(public_path($temporaryImagePath));
+                }
+
                 $image->save(public_path($temporaryImagePath));
                 // return true;
                 // Toast::success('kartu tanda santri berhasil dibuat')->autoDismiss(2);
