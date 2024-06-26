@@ -139,6 +139,52 @@ class DocumentController extends Controller
                 $tableY += $tableLineHeight;
             }
 
+
+            // ======================
+             // ...
+            // Insert the parent photo
+            try {
+                if ($dataSantri->parent?->parent_image != null) {
+                    $fotoOrtu = Image::make(public_path('storage/parent-photos/' . $dataSantri->parent?->parent_image));
+                } else {
+                    $fotoOrtu = Image::make(public_path('bakid/default-profile.png'));
+                }
+            } catch (\Exception $e) {
+                // Jika terjadi kesalahan saat membuka gambar, tangani di sini
+                // Anda dapat memberikan fallback gambar atau melakukan tindakan lain
+                $fotoOrtu = Image::make(public_path('bakid/default-profile.png'));
+            }
+
+            // Determine the dimensions of the larger canvas
+            $canvasWidth = 1200; // Ganti dengan lebar canvas yang Anda inginkan
+            $canvasHeight = 1500; // Ganti dengan tinggi canvas yang Anda inginkan
+
+            // Create the canvas
+            $canvas = Image::canvas($canvasWidth, $canvasHeight);
+
+            // Fit the parent's photo to the canvas and position it in the center
+            $fotoOrtu->fit($canvasWidth, $canvasHeight, null, 'center');
+
+            // Add border radius
+            $radius = 50; // Ganti dengan nilai radius yang Anda inginkan
+            $fotoOrtu->rectangle(0, 0, $fotoOrtu->width(), $fotoOrtu->height(), function ($draw) use ($radius) {
+                $draw->border($radius, '#ffffff'); // Border radius dan warna dapat disesuaikan
+            });
+
+            // Insert the resized and bordered parent's photo to the canvas
+            $canvas->insert($fotoOrtu);
+
+            // Insert the canvas to the main image
+            $image->insert($canvas, 'bottom-right', 210, 400);
+
+            // Set the border radius on the original image
+            $radius = 50; // You can adjust this value based on your preference
+            $image->circle($radius * 2, $canvas->width() / 2, $canvas->height() / 2, function ($draw) {
+                $draw->border(5, '#ffffff'); // You can adjust the border width and color
+            });
+            // ======================================
+
+
             if ($action == 'download') {
                 $file_name = $dataSantri->nis . '.jpg';
                 $path = 'storage/kts/' . $file_name;
